@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { registerRootComponent } from 'expo'
+import { Provider as PaperProvider, Title } from 'react-native-paper'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,9 +15,11 @@ const styles = StyleSheet.create({
 
 export function App() {
   return (
-    <View style={styles.container}>
-      <Text>Hello, World!</Text>
-    </View>
+    <PaperProvider>
+      <View style={styles.container}>
+        <Title>Hello, World!</Title>
+      </View>
+    </PaperProvider>
   )
 }
 
