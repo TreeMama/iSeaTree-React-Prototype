@@ -2,9 +2,9 @@ import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
 import { Banner } from 'react-native-paper'
+import * as firebase from 'firebase'
 
 import { AuthForm } from '../components/AuthForm'
-import { registerUser } from '../lib/authentication'
 
 const styles = StyleSheet.create({
   container: {
@@ -28,7 +28,9 @@ export function RegisterScreen() {
     setIsLoading(true)
     setErrorMessage(null)
 
-    registerUser({ email, password })
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
       .then(() => {
         setIsLoading(false)
         console.log('Registered....')
