@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Keyboard } from 'react-native'
 import { Button, TextInput, Text, Headline, withTheme, Theme } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
-import { isValidEmail, isMinLength } from '../utils/formValidations'
+import { isValidEmail, isMinLength } from '../lib/formValidations'
 
 const styles = StyleSheet.create({
   container: {},
@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
 interface AuthFormProps {
   headlineText: string
   submitText: string
+  onSubmit: (values: { email: string; password: string }) => void
+  isLoading: boolean
 
   theme: Theme
 }
@@ -45,7 +47,8 @@ function AuthForm(props: AuthFormProps) {
     initialValues: { email: '', password: '', passwordConfirmation: '' },
     validate: validateForm,
     onSubmit: (values) => {
-      console.log('values', values)
+      props.onSubmit(values)
+      Keyboard.dismiss()
     },
   })
 
@@ -55,28 +58,32 @@ function AuthForm(props: AuthFormProps) {
         {props.headlineText}
       </Headline>
 
+      {!!formik.errors.email && !!formik.touched.email && (
+        <Text style={{ color: props.theme.colors.error }}>{formik.errors.email}</Text>
+      )}
       <TextInput
         label="Email"
         onChangeText={(value) => {
           formik.setFieldValue('email', value)
         }}
-        error={!!formik.errors.email}
+        error={!!formik.errors.email && !!formik.touched.email}
         style={{ marginBottom: 20 }}
       />
-      {!!formik.errors.email && <Text>{formik.errors.email}</Text>}
 
+      {!!formik.errors.password && !!formik.touched.password && (
+        <Text style={{ color: props.theme.colors.error }}>{formik.errors.password}</Text>
+      )}
       <TextInput
         label="Password"
         secureTextEntry
         onChangeText={(value) => {
           formik.setFieldValue('password', value)
         }}
-        error={!!formik.errors.password}
+        error={!!formik.errors.password && !!formik.touched.email}
         style={{ marginBottom: 20 }}
       />
-      {!!formik.errors.password && <Text>{formik.errors.password}</Text>}
 
-      <Button mode="contained" onPress={formik.handleSubmit}>
+      <Button mode="contained" onPress={formik.handleSubmit} loading={props.isLoading}>
         {props.submitText}
       </Button>
     </View>
