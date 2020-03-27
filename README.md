@@ -25,3 +25,7 @@ yarn start
 ```
 
 Now you can follow displayed instructioned. For example, you can open Android emulator pressing `a` in the current tab.
+
+## Linting
+
+This project has configured [Eslint](https://eslint.org/) with recommended typescript and react rules.
