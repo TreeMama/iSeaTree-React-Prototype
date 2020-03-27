@@ -1,24 +1,14 @@
 import React from 'react'
 
-import { StyleSheet, View } from 'react-native'
 import { registerRootComponent } from 'expo'
-import { Provider as PaperProvider, Title } from 'react-native-paper'
+import { Provider as PaperProvider } from 'react-native-paper'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
+import { RegisterScreen } from './screens/RegisterScreen'
 
 export function App() {
   return (
     <PaperProvider>
-      <View style={styles.container}>
-        <Title>Hello, World!</Title>
-      </View>
+      <RegisterScreen />
     </PaperProvider>
   )
 }
