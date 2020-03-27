@@ -4,6 +4,9 @@ import { registerRootComponent } from 'expo'
 import { Provider as PaperProvider } from 'react-native-paper'
 
 import { RegisterScreen } from './screens/RegisterScreen'
+import { initializeFirebase } from './config/initializeFirebase'
+
+initializeFirebase()
 
 export function App() {
   return (
