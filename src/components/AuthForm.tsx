@@ -68,6 +68,8 @@ function AuthForm(props: AuthFormProps) {
         }}
         error={!!formik.errors.email && !!formik.touched.email}
         style={{ marginBottom: 20 }}
+        autoCompleteType="email"
+        keyboardType="email-address"
       />
 
       {!!formik.errors.password && !!formik.touched.password && (

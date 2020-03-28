@@ -50,6 +50,8 @@ function ResetPasswordForm(props: ResetPasswordFormProps) {
         }}
         error={!!formik.errors.email && !!formik.touched.email}
         style={{ marginBottom: 20 }}
+        autoCompleteType="email"
+        keyboardType="email-address"
       />
 
       <Button mode="contained" onPress={formik.handleSubmit} loading={props.isLoading}>
