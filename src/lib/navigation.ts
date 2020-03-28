@@ -4,7 +4,7 @@ export enum ScreenNames {
   login = 'login',
   register = 'register',
   resetPassword = 'resetPassword',
-  home = 'home',
+  loggedTabNavigator = 'loggedTabNavigator',
 }
 
 export enum TabScreenNames {
@@ -25,8 +25,8 @@ export function useNavigationActions(): NavigationActions {
     register: () => {
       navigation.navigate(ScreenNames.register)
     },
-    home: () => {
-      navigation.navigate(ScreenNames.home)
+    loggedTabNavigator: () => {
+      navigation.navigate(ScreenNames.loggedTabNavigator)
     },
     resetPassword: () => {
       navigation.navigate(ScreenNames.resetPassword)

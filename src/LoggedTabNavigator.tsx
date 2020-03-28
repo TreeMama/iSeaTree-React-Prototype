@@ -4,13 +4,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { useTheme } from 'react-native-paper'
 
-import { TabScreenNames } from '../lib/navigation'
-import { DashboardScreen } from './DashboardScreen'
-import { AddTreeScreen } from './AddTreeScreen'
+import { TabScreenNames } from './lib/navigation'
+import { DashboardScreen } from './screens/DashboardScreen'
+import { AddTreeScreen } from './screens/AddTreeScreen'
 
 const Tab = createMaterialBottomTabNavigator()
 
-export function HomeScreen() {
+export function LoggedTabNavigator() {
   const theme = useTheme()
 
   return (

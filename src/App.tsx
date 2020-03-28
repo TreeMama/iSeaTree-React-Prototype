@@ -11,10 +11,10 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { RegisterScreen } from './screens/RegisterScreen'
 import { LoginScreen } from './screens/LoginScreen'
 import { initializeFirebase } from './config/initializeFirebase'
-import { HomeScreen } from './screens/HomeScreen'
 import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
 import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPasswordScreen'
+import { LoggedTabNavigator } from './LoggedTabNavigator'
 
 initializeFirebase()
 
@@ -59,8 +59,8 @@ export function App() {
         <Stack.Navigator>
           {isUserLogged ? (
             <Stack.Screen
-              name={ScreenNames.home}
-              component={HomeScreen}
+              name={ScreenNames.loggedTabNavigator}
+              component={LoggedTabNavigator}
               options={{ headerShown: false }}
             />
           ) : (
