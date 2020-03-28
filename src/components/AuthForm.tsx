@@ -70,6 +70,7 @@ function AuthForm(props: AuthFormProps) {
         style={{ marginBottom: 20 }}
         autoCompleteType="email"
         keyboardType="email-address"
+        dense
       />
 
       {!!formik.errors.password && !!formik.touched.password && (
@@ -83,6 +84,7 @@ function AuthForm(props: AuthFormProps) {
         }}
         error={!!formik.errors.password && !!formik.touched.email}
         style={{ marginBottom: 20 }}
+        dense
       />
 
       <Button mode="contained" onPress={formik.handleSubmit} loading={props.isLoading}>
