@@ -13,6 +13,7 @@ import { LoginScreen } from './screens/LoginScreen'
 import { initializeFirebase } from './config/initializeFirebase'
 import { DashboardScreen } from './screens/DashboardScreen'
 import { ScreenNames } from './lib/navigation'
+import { theme } from './styles/theme'
 
 initializeFirebase()
 
@@ -50,7 +51,7 @@ export function App() {
   const { isUserLogged } = useAuthStateChange()
 
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator>
           {isUserLogged ? (
