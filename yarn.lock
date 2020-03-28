@@ -3089,6 +3089,14 @@ expo-asset@~8.0.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-camera@~8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/expo-camera/-/expo-camera-8.0.0.tgz#a0caee7baf1f2013203fe6a4635125ade12ec164"
+  integrity sha512-mtP4NV2R4e+JTXUZBiA0ok4xSzTfRLxirvqJ5T7kjyozuCWUJeOhGk3hqNsBbWhwXDA+hirAge7169UB3vKfDQ==
+  dependencies:
+    lodash "^4.6.0"
+    prop-types "^15.6.0"
+
 expo-constants@~8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-8.0.0.tgz#e2c5a072dacb4263ccfc57dcb4835ca791960d48"

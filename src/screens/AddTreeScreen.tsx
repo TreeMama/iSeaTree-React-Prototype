@@ -1,7 +1,10 @@
 import React from 'react'
 
-import { StyleSheet, View } from 'react-native'
-import { Title, Paragraph } from 'react-native-paper'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { StyleSheet, View, Modal } from 'react-native'
+import { Button, Title, Paragraph } from 'react-native-paper'
+
+import { Camera } from '../components/Camera'
 
 const styles = StyleSheet.create({
   container: {
@@ -12,10 +15,28 @@ const styles = StyleSheet.create({
 })
 
 export function AddTreeScreen() {
+  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
+
   return (
     <View style={styles.container}>
       <Title>AddTreeScreen</Title>
       <Paragraph>do something here</Paragraph>
+
+      <Button
+        onPress={() => {
+          setIsCameraVisible(true)
+        }}
+      >
+        <MaterialCommunityIcons name="camera" size={30} />
+      </Button>
+
+      <Modal visible={isCameraVisible} animationType="slide">
+        <Camera
+          onClose={() => {
+            setIsCameraVisible(false)
+          }}
+        />
+      </Modal>
     </View>
   )
 }
