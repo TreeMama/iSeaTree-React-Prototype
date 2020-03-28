@@ -12,12 +12,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 50,
+    padding: 20,
   },
   content: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: 50,
-    padding: 20,
   },
 })
 
@@ -35,7 +34,7 @@ export function LoginScreen() {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         setIsLoading(false)
-        console.log('Registered....')
+        // TOOD(kacper): do I need to transition manually or not?
       })
       .catch((error) => {
         setIsLoading(false)
@@ -64,6 +63,10 @@ export function LoginScreen() {
           isLoading={isLoading}
         />
       </View>
+
+      <Button style={{ marginTop: 10 }} onPress={navigationActions.resetPassword}>
+        Forgot your password?
+      </Button>
 
       <Button style={{ marginTop: 10, marginBottom: 20 }} onPress={navigationActions.register}>
         create new account

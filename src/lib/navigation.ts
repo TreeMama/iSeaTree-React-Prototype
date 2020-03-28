@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native'
 export enum ScreenNames {
   login = 'login',
   register = 'register',
+  resetPassword = 'resetPassword',
   dashboard = 'dashboard',
 }
 
@@ -20,6 +21,9 @@ export function useNavigationActions(): NavigationActions {
     },
     dashboard: () => {
       navigation.navigate(ScreenNames.dashboard)
+    },
+    resetPassword: () => {
+      navigation.navigate(ScreenNames.resetPassword)
     },
   }
 }

@@ -12,12 +12,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     paddingTop: 50,
+    padding: 20,
   },
   content: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: 50,
-    padding: 20,
   },
 })
 

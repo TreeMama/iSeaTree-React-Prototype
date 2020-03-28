@@ -14,6 +14,7 @@ import { initializeFirebase } from './config/initializeFirebase'
 import { DashboardScreen } from './screens/DashboardScreen'
 import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
+import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPasswordScreen'
 
 initializeFirebase()
 
@@ -71,6 +72,11 @@ export function App() {
                 name={ScreenNames.register}
                 component={RegisterScreen}
                 options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={ScreenNames.resetPassword}
+                component={ResetPasswordScreen}
+                options={{ title: 'Password reset' }}
               />
             </>
           )}
