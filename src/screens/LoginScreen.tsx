@@ -21,18 +21,18 @@ const styles = StyleSheet.create({
   },
 })
 
-export function RegisterScreen() {
+export function LoginScreen() {
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const navigationActions = useNavigationActions()
 
-  function handleRegister({ email, password }: { email: string; password: string }) {
+  function handleLogin({ email, password }: { email: string; password: string }) {
     setIsLoading(true)
     setErrorMessage(null)
 
     firebase
       .auth()
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(() => {
         setIsLoading(false)
         console.log('Registered....')
@@ -58,15 +58,15 @@ export function RegisterScreen() {
 
       <View style={styles.content}>
         <AuthForm
-          headlineText="Create new account"
-          submitText="Register"
-          onSubmit={handleRegister}
+          headlineText="Log in to your account"
+          submitText="Log in"
+          onSubmit={handleLogin}
           isLoading={isLoading}
         />
       </View>
 
-      <Button style={{ marginTop: 10, marginBottom: 20 }} onPress={navigationActions.login}>
-        log in to your account
+      <Button style={{ marginTop: 10, marginBottom: 20 }} onPress={navigationActions.register}>
+        create new account
       </Button>
     </View>
   )

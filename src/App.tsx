@@ -9,8 +9,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { RegisterScreen } from './screens/RegisterScreen'
+import { LoginScreen } from './screens/LoginScreen'
 import { initializeFirebase } from './config/initializeFirebase'
 import { DashboardScreen } from './screens/DashboardScreen'
+import { ScreenNames } from './lib/navigation'
 
 initializeFirebase()
 
@@ -43,11 +45,6 @@ function usePreventSplashHideout() {
 
 const Stack = createStackNavigator()
 
-enum ScreenNames {
-  register = 'Register',
-  dashboard = 'Dashboard',
-}
-
 export function App() {
   usePreventSplashHideout()
   const { isUserLogged } = useAuthStateChange()
@@ -63,11 +60,18 @@ export function App() {
               options={{ headerShown: false }}
             />
           ) : (
-            <Stack.Screen
-              name={ScreenNames.register}
-              component={RegisterScreen}
-              options={{ headerShown: false }}
-            />
+            <>
+              <Stack.Screen
+                name={ScreenNames.login}
+                component={LoginScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name={ScreenNames.register}
+                component={RegisterScreen}
+                options={{ headerShown: false }}
+              />
+            </>
           )}
         </Stack.Navigator>
       </NavigationContainer>
