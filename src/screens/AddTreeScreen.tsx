@@ -4,6 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { StyleSheet, View, Modal, Image, Alert, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import Constants from 'expo-constants'
+import * as Location from 'expo-location'
 
 import { Camera } from '../components/Camera'
 import { colors } from '../styles/theme'
@@ -18,10 +19,13 @@ const styles = StyleSheet.create({
 
 export function AddTreeScreen() {
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
+
   const [selectedPictureUri, setSelectedPictureUri] = React.useState<string | null>(null)
+  const [coords, setCoords] = React.useState<null | { latitude: number; longitude: number }>(null)
 
   function clearAll() {
     setSelectedPictureUri(null)
+    setCoords(null)
   }
 
   function handleClear() {
@@ -34,6 +38,30 @@ export function AddTreeScreen() {
         },
       },
     ])
+  }
+
+  async function getPhotoLocation() {
+    // TODO
+    // if photo exif does not have location data get current location
+    // but only if image was taken just captured!
+
+    try {
+      const { status } = await Location.requestPermissionsAsync()
+      if (status !== Location.PermissionStatus.GRANTED) {
+        // TODO
+        // alert message -> no permission for location
+        return
+      }
+
+      const location = await Location.getCurrentPositionAsync()
+
+      setCoords({ longitude: location.coords.longitude, latitude: location.coords.latitude })
+    } catch (error) {
+      if (__DEV__) {
+        console.log(error)
+      }
+      // TODO: handle possible errors
+    }
   }
 
   const canClear: boolean = !!selectedPictureUri
@@ -82,9 +110,9 @@ export function AddTreeScreen() {
             setIsCameraVisible(false)
           }}
           onTakePicture={(capturedPicture) => {
-            console.log(capturedPicture)
             setSelectedPictureUri(capturedPicture.uri)
             setIsCameraVisible(false)
+            getPhotoLocation()
           }}
         />
       </Modal>
