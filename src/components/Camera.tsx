@@ -5,12 +5,22 @@ import { View, StatusBar } from 'react-native'
 import { Camera as ExpoCamera } from 'expo-camera'
 import { Text, Button } from 'react-native-paper'
 
+interface CapturedPicture {
+  width: number
+  height: number
+  uri: string
+  base64?: string
+  exif?: any
+}
+
 interface CameraProps {
   onClose: () => void
+  onTakePicture: (picture: CapturedPicture) => void
 }
 
 export function Camera(props: CameraProps) {
   const [hasPermission, setHasPermission] = React.useState(null)
+  const cameraRef = React.useRef<ExpoCamera>()
 
   React.useEffect(() => {
     ExpoCamera.requestPermissionsAsync().then(({ status }) => {
@@ -38,7 +48,11 @@ export function Camera(props: CameraProps) {
     )
   }
 
-  function handleTakePicture() {}
+  function handleTakePicture() {
+    cameraRef.current.takePictureAsync({ exif: true }).then((photo) => {
+      props.onTakePicture(photo)
+    })
+  }
 
   return (
     <>
@@ -47,7 +61,7 @@ export function Camera(props: CameraProps) {
         Cancel
       </Button>
 
-      <ExpoCamera style={{ flex: 1 }} type={ExpoCamera.Constants.Type.back}>
+      <ExpoCamera style={{ flex: 1 }} type={ExpoCamera.Constants.Type.back} ref={cameraRef}>
         <View
           style={{
             flex: 1,

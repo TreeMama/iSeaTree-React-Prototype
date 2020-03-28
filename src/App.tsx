@@ -2,6 +2,7 @@ import 'react-native-gesture-handler'
 
 import React from 'react'
 
+import { StatusBar } from 'react-native'
 import { registerRootComponent, SplashScreen } from 'expo'
 import { Provider as PaperProvider } from 'react-native-paper'
 import * as firebase from 'firebase'
@@ -55,6 +56,8 @@ export function App() {
 
   return (
     <PaperProvider theme={theme}>
+      <StatusBar barStyle="dark-content" />
+
       <NavigationContainer>
         <Stack.Navigator>
           {isUserLogged ? (
