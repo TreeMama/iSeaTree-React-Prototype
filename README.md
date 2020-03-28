@@ -39,3 +39,22 @@ Now you can follow displayed instructioned. For example, you can open Android em
 ## Linting
 
 This project has configured [Eslint](https://eslint.org/) with recommended typescript and react rules.
+
+## Firebase
+
+This project is using Firebase Realtime Database (not firestore!).
+
+Database needs certain rules to works correctly. Visit https://firebase.google.com/docs/database/security to learn more about security rules.
+
+```
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "auth != null && auth.uid == $uid"
+      }
+    }
+  }
+}
+```

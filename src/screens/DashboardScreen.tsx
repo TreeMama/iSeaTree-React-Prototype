@@ -1,7 +1,9 @@
 import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
-import { Title, Paragraph } from 'react-native-paper'
+import { Button, Title, Paragraph } from 'react-native-paper'
+
+import { signOutUser } from '../lib/firebaseServices'
 
 const styles = StyleSheet.create({
   container: {
@@ -16,6 +18,10 @@ export function DashboardScreen() {
     <View style={styles.container}>
       <Title>Dashboard</Title>
       <Paragraph>do something here</Paragraph>
+
+      <Button style={{ marginTop: 150 }} onPress={signOutUser}>
+        Sign out
+      </Button>
     </View>
   )
 }

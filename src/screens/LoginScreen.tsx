@@ -62,11 +62,10 @@ export function LoginScreen() {
           onSubmit={handleLogin}
           isLoading={isLoading}
         />
+        <Button style={{ marginTop: 10 }} onPress={navigationActions.resetPassword}>
+          Forgot your password?
+        </Button>
       </View>
-
-      <Button style={{ marginTop: 10 }} onPress={navigationActions.resetPassword}>
-        Forgot your password?
-      </Button>
 
       <Button style={{ marginTop: 10, marginBottom: 20 }} onPress={navigationActions.register}>
         create new account

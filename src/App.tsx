@@ -31,6 +31,8 @@ function useAuthStateChange(): { isUserLogged: boolean } {
 
           if (!!user) {
             setIsUserLogged(true)
+          } else {
+            setIsUserLogged(false)
           }
         })
       })

@@ -6,6 +6,7 @@ import * as firebase from 'firebase'
 
 import { AuthForm } from '../components/AuthForm'
 import { useNavigationActions } from '../lib/navigation'
+import { setUser } from '../lib/firebaseServices'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,9 +33,9 @@ export function RegisterScreen() {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => {
+      .then((result) => {
         setIsLoading(false)
-        console.log('Registered....')
+        setUser({ uid: result.user.uid, email })
       })
       .catch((error) => {
         setIsLoading(false)
