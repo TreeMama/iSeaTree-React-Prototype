@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '../../styles/theme'
 
 interface SpeciesSelectProps {
-  onSelect: (speciesData: { speciesType: string; speciesName: string }) => void
+  onSelect: (speciesData: null | { speciesType: string; speciesName: string }) => void
 }
 
 enum Species {
@@ -20,9 +20,25 @@ const labels: { [key in Species]: string } = {
   SCIENTIFIC: 'Scientific',
 }
 
+const speciesNames: { [key in Species]: string[] } = {
+  COMMON: ['name a', 'name b', 'name c', 'name d'],
+  SCIENTIFIC: ['other name a', 'other name b', 'other name c', 'other name d'],
+}
+
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const theme = useTheme()
+
+  const [currentSpeciesName, setCurrentSpeciesName] = React.useState<null | string>(null)
   const [currentSpeciesType, setCurrentSpeciesType] = React.useState<Species>(Species.COMMON)
+
+  function handleSpeciesTypeChange(speciesType: Species) {
+    if (currentSpeciesType === speciesType) {
+      return
+    }
+
+    setCurrentSpeciesName(null)
+    setCurrentSpeciesType(speciesType)
+  }
 
   return (
     <View>
@@ -47,7 +63,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           mode={currentSpeciesType === Species.COMMON ? 'outlined' : 'text'}
           style={{ marginRight: 10 }}
           onPress={() => {
-            setCurrentSpeciesType(Species.COMMON)
+            handleSpeciesTypeChange(Species.COMMON)
           }}
         >
           {labels.COMMON}
@@ -56,7 +72,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           uppercase={false}
           mode={currentSpeciesType === Species.SCIENTIFIC ? 'outlined' : 'text'}
           onPress={() => {
-            setCurrentSpeciesType(Species.SCIENTIFIC)
+            handleSpeciesTypeChange(Species.SCIENTIFIC)
           }}
         >
           {labels.SCIENTIFIC}
@@ -64,8 +80,14 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
       </View>
 
       <RNPickerSelect
+        value={currentSpeciesName}
         onValueChange={(value) => {
-          props.onSelect({ speciesName: value, speciesType: currentSpeciesType })
+          if (value === null) {
+            props.onSelect(null)
+          } else {
+            props.onSelect({ speciesName: value, speciesType: currentSpeciesType })
+            setCurrentSpeciesName(value)
+          }
         }}
         useNativeAndroidPickerStyle={false}
         style={{
@@ -90,11 +112,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           backgroundColor: colors.gray[100],
         }}
         Icon={() => <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />}
-        items={[
-          { label: 'Football', value: 'football' },
-          { label: 'Baseball', value: 'baseball' },
-          { label: 'Hockey', value: 'hockey' },
-        ]}
+        items={speciesNames[currentSpeciesType].map((name) => ({ label: name, value: name }))}
       />
     </View>
   )
