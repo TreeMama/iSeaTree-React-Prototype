@@ -40,80 +40,96 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
     setCurrentSpeciesType(speciesType)
   }
 
+  const currentSpeciesNamesItems = speciesNames[currentSpeciesType].map((name) => ({
+    label: name,
+    value: name,
+  }))
+
   return (
-    <View>
-      <Subheading style={{ marginLeft: 15, color: theme.colors.backdrop }}>
-        SELECT SPECIES
-      </Subheading>
+    <View style={{ paddingHorizontal: 15 }}>
+      <Subheading>SPECIES</Subheading>
+
       <View
         style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          paddingLeft: 15,
-          marginTop: 5,
-          borderTopWidth: 1,
-          borderColor: '#ddd',
-          backgroundColor: colors.gray[100],
+          borderWidth: 1,
+          borderRadius: theme.roundness,
+          backgroundColor: theme.colors.background,
+          borderColor: theme.colors.placeholder,
         }}
       >
-        <Button
-          uppercase={false}
-          mode={currentSpeciesType === Species.COMMON ? 'outlined' : 'text'}
-          style={{ marginRight: 10 }}
-          onPress={() => {
-            handleSpeciesTypeChange(Species.COMMON)
-          }}
-        >
-          {labels.COMMON}
-        </Button>
-        <Button
-          uppercase={false}
-          mode={currentSpeciesType === Species.SCIENTIFIC ? 'outlined' : 'text'}
-          onPress={() => {
-            handleSpeciesTypeChange(Species.SCIENTIFIC)
-          }}
-        >
-          {labels.SCIENTIFIC}
-        </Button>
-      </View>
-
-      <RNPickerSelect
-        value={currentSpeciesName}
-        onValueChange={(value) => {
-          if (value === null) {
-            props.onSelect(null)
-          } else {
-            props.onSelect({ speciesName: value, speciesType: currentSpeciesType })
-            setCurrentSpeciesName(value)
-          }
-        }}
-        useNativeAndroidPickerStyle={false}
-        style={{
-          modalViewMiddle: { justifyContent: 'flex-end' },
-          modalViewBottom: { backgroundColor: '#fff' },
-          chevronContainer: { display: 'none' },
-          done: { color: theme.colors.primary },
-          iconContainer: {
-            height: '100%',
-            justifyContent: 'center',
+        <View
+          style={{
+            flexDirection: 'row',
             alignItems: 'center',
-            paddingRight: 15,
-          },
-        }}
-        textInputProps={{
-          height: 50,
-          borderBottomWidth: 1,
-          borderTopWidth: 1,
-          borderColor: '#ddd',
-          paddingHorizontal: 15,
-          fontSize: 15,
-          backgroundColor: colors.gray[100],
-        }}
-        Icon={() => <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />}
-        items={speciesNames[currentSpeciesType].map((name) => ({ label: name, value: name }))}
-      />
+            justifyContent: 'center',
+            padding: 10,
+            paddingLeft: 15,
+            borderTopWidth: 1,
+            borderColor: '#ddd',
+          }}
+        >
+          <Button
+            uppercase={false}
+            mode={currentSpeciesType === Species.COMMON ? 'outlined' : 'text'}
+            style={{ marginRight: 10 }}
+            onPress={() => {
+              handleSpeciesTypeChange(Species.COMMON)
+            }}
+          >
+            {labels.COMMON}
+          </Button>
+          <Button
+            uppercase={false}
+            mode={currentSpeciesType === Species.SCIENTIFIC ? 'outlined' : 'text'}
+            onPress={() => {
+              handleSpeciesTypeChange(Species.SCIENTIFIC)
+            }}
+          >
+            {labels.SCIENTIFIC}
+          </Button>
+        </View>
+
+        <RNPickerSelect
+          value={currentSpeciesName}
+          onValueChange={(value) => {
+            if (value === null) {
+              props.onSelect(null)
+            } else {
+              props.onSelect({ speciesName: value, speciesType: currentSpeciesType })
+              setCurrentSpeciesName(value)
+            }
+          }}
+          placeholder={{
+            label: 'Select species name...',
+            value: null,
+          }}
+          useNativeAndroidPickerStyle={false}
+          style={{
+            modalViewMiddle: { justifyContent: 'flex-end' },
+            modalViewBottom: { backgroundColor: '#fff' },
+            chevronContainer: { display: 'none' },
+            done: { color: theme.colors.primary },
+            iconContainer: {
+              height: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              paddingRight: 15,
+            },
+          }}
+          textInputProps={{
+            height: 50,
+            borderTopWidth: 1,
+            borderColor: '#ddd',
+            paddingHorizontal: 15,
+            fontSize: 15,
+            borderRadius: theme.roundness,
+          }}
+          Icon={() => (
+            <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />
+          )}
+          items={currentSpeciesNamesItems}
+        />
+      </View>
     </View>
   )
 }
