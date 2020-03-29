@@ -83,7 +83,11 @@ export function AddTreeScreen() {
       </Button>
 
       <View style={{ marginTop: 20 }}>
-        <SpeciesSelect />
+        <SpeciesSelect
+          onSelect={(data) => {
+            console.log(data)
+          }}
+        />
       </View>
 
       <Modal visible={isCameraVisible} animationType="slide">
