@@ -88,7 +88,7 @@ export function AddTreeScreen() {
           }}
           icon="camera"
           mode="outlined"
-          style={{ marginTop: 10 }}
+          style={{ borderRadius: 0 }}
         >
           Add photo
         </Button>

@@ -64,8 +64,6 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             justifyContent: 'center',
             padding: 10,
             paddingLeft: 15,
-            borderTopWidth: 1,
-            borderColor: '#ddd',
           }}
         >
           <Button
