@@ -5,7 +5,7 @@ import { View, StatusBar } from 'react-native'
 import { Camera as ExpoCamera } from 'expo-camera'
 import { Text, Button } from 'react-native-paper'
 
-interface CapturedPicture {
+export interface CapturedPicture {
   width: number
   height: number
   uri: string
@@ -19,8 +19,8 @@ interface CameraProps {
 }
 
 export function Camera(props: CameraProps) {
-  const [hasPermission, setHasPermission] = React.useState(null)
-  const cameraRef = React.useRef<ExpoCamera>()
+  const [hasPermission, setHasPermission] = React.useState<null | boolean>(null)
+  const cameraRef = React.useRef<ExpoCamera>(null)
 
   React.useEffect(() => {
     ExpoCamera.requestPermissionsAsync().then(({ status }) => {
@@ -42,14 +42,21 @@ export function Camera(props: CameraProps) {
         </Button>
 
         <Text style={{ marginTop: 50, padding: 20 }}>
-          No access to the camera. You have to go to the settings and change app's permissions.
+          No access to the camera. Go to the settings and change permissions.
         </Text>
       </View>
     )
   }
 
   function handleTakePicture() {
-    cameraRef.current.takePictureAsync({ exif: true }).then((photo) => {
+    const cameraRefObj = cameraRef.current
+
+    if (!cameraRefObj) {
+      return
+    }
+
+    cameraRefObj.takePictureAsync({ exif: true }).then((photo) => {
+      cameraRefObj.pausePreview()
       props.onTakePicture(photo)
     })
   }
