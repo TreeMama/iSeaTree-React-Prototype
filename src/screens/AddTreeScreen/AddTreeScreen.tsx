@@ -7,6 +7,7 @@ import Constants from 'expo-constants'
 
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
+import { SpeciesSelect } from './SpeciesSelect'
 
 const styles = StyleSheet.create({
   container: {
@@ -80,6 +81,10 @@ export function AddTreeScreen() {
       >
         Add photo
       </Button>
+
+      <View style={{ marginTop: 20 }}>
+        <SpeciesSelect />
+      </View>
 
       <Modal visible={isCameraVisible} animationType="slide">
         <CameraWithLocation
