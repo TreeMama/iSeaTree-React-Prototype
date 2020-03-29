@@ -16,11 +16,12 @@ import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
 import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPasswordScreen'
 import { LoggedTabNavigator } from './LoggedTabNavigator'
+import { usePrevious } from './hooks/usePrevious'
 
 initializeFirebase()
 
-function useAuthStateChange(): { isUserLogged: boolean } {
-  const [isUserLogged, setIsUserLogged] = React.useState<boolean>(false)
+function useAuthStateChange(): { isUserLogged: boolean | null } {
+  const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
   React.useEffect(() => {
     firebase
@@ -28,8 +29,6 @@ function useAuthStateChange(): { isUserLogged: boolean } {
       .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(() => {
         firebase.auth().onAuthStateChanged((user) => {
-          SplashScreen.hide()
-
           if (!!user) {
             setIsUserLogged(true)
           } else {
@@ -42,17 +41,29 @@ function useAuthStateChange(): { isUserLogged: boolean } {
   return { isUserLogged }
 }
 
-function usePreventSplashHideout() {
+function useManageSplashScreen(isUserLogged: null | boolean) {
   React.useEffect(() => {
     SplashScreen.preventAutoHide()
   }, [])
+
+  const prevIsUserLogged = usePrevious(isUserLogged)
+
+  React.useEffect(() => {
+    if (prevIsUserLogged === null && isUserLogged !== null) {
+      SplashScreen.hide()
+    }
+  }, [isUserLogged])
 }
 
 const Stack = createStackNavigator()
 
 export function App() {
-  usePreventSplashHideout()
   const { isUserLogged } = useAuthStateChange()
+  useManageSplashScreen(isUserLogged)
+
+  if (isUserLogged === null) {
+    return null
+  }
 
   return (
     <PaperProvider theme={theme}>
