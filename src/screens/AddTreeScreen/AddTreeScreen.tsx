@@ -5,8 +5,8 @@ import { StyleSheet, View, Modal, Image, Alert, ScrollView } from 'react-native'
 import { Button } from 'react-native-paper'
 import Constants from 'expo-constants'
 
-import { CameraWithLocation } from '../components/CameraWithLocation'
-import { colors } from '../styles/theme'
+import { CameraWithLocation } from '../../components/CameraWithLocation'
+import { colors } from '../../styles/theme'
 
 const styles = StyleSheet.create({
   container: {

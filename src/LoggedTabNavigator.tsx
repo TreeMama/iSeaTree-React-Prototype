@@ -6,7 +6,7 @@ import { useTheme } from 'react-native-paper'
 
 import { TabScreenNames } from './lib/navigation'
 import { DashboardScreen } from './screens/DashboardScreen'
-import { AddTreeScreen } from './screens/AddTreeScreen'
+import { AddTreeScreen } from './screens/AddTreeScreen/AddTreeScreen'
 
 const Tab = createMaterialBottomTabNavigator()
 
