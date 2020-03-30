@@ -12,11 +12,13 @@ import {
 } from 'react-native'
 import { Button, TextInput, Subheading } from 'react-native-paper'
 import Constants from 'expo-constants'
+import { useFormik, FormikErrors } from 'formik'
 
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
+import { Species, TreeTypes } from '../../lib/treeData'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,15 +28,43 @@ const styles = StyleSheet.create({
   },
 })
 
+interface FormValues {
+  photo: null | {
+    width: number
+    height: number
+    uri: string
+  }
+  coords: null | { latitude: number; longitude: number }
+  species: null | { type: Species; name: string }
+  treeType: TreeTypes
+
+  dbh?: string
+  notes?: string
+}
+
+function validateForm(values: FormValues): FormikErrors<FormValues> {
+  const errors: FormikErrors<FormValues> = {}
+
+  if (!values.photo) {
+    errors.photo = 'You have to add photo'
+  }
+
+  if (!values.dbh) {
+    errors.dbh = "Can't be blank"
+  }
+
+  return errors
+}
+
 export function AddTreeScreen() {
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
 
-  const [selectedPictureUri, setSelectedPictureUri] = React.useState<string | null>(null)
-  const [coords, setCoords] = React.useState<null | { latitude: number; longitude: number }>(null)
+  // const [selectedPictureUri, setSelectedPictureUri] = React.useState<string | null>(null)
+  // const [coords, setCoords] = React.useState<null | { latitude: number; longitude: number }>(null)
 
   function clearAll() {
-    setSelectedPictureUri(null)
-    setCoords(null)
+    // setSelectedPictureUri(null)
+    // setCoords(null)
   }
 
   function handleClear() {
@@ -49,19 +79,36 @@ export function AddTreeScreen() {
     ])
   }
 
-  const canClear: boolean = !!selectedPictureUri
+  const formik = useFormik<FormValues>({
+    initialValues: {
+      photo: null,
+      coords: null,
+      species: null,
+      treeType: TreeTypes.CONIFER,
+    },
+    validate: validateForm,
+    onSubmit: (values) => {
+      setTimeout(() => {
+        console.log('values:', values)
+        formik.setSubmitting(false)
+      }, 2000)
+    },
+  })
+
+  // const canClear: boolean = !!formik.values.photo || !!formik.values.dbh
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
-        <Button
+        {/* TODO(handle clear) */}
+        {/* <Button
           style={{ alignSelf: 'flex-end', marginVertical: 5 }}
           icon="close"
           onPress={handleClear}
           disabled={!canClear}
         >
           Clear
-        </Button>
+        </Button> */}
 
         <View
           style={{
@@ -71,14 +118,14 @@ export function AddTreeScreen() {
             alignItems: 'center',
           }}
         >
-          {!!selectedPictureUri && (
+          {!!formik.values.photo && (
             <Image
               style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
-              source={{ uri: selectedPictureUri }}
+              source={{ uri: formik.values.photo.uri }}
             />
           )}
 
-          {!selectedPictureUri && (
+          {!formik.values.photo && (
             <MaterialCommunityIcons name="image" size={60} color={colors.gray[400]} />
           )}
         </View>
@@ -97,8 +144,11 @@ export function AddTreeScreen() {
         <View style={{ marginTop: 20 }}>
           <SpeciesSelect
             onSelect={(data) => {
-              // TODO(store)
-              console.log(data)
+              if (data) {
+                formik.setFieldValue('species', { name: data.speciesName, type: data.speciesType })
+              } else {
+                formik.setFieldValue('species', null)
+              }
             }}
           />
         </View>
@@ -109,6 +159,10 @@ export function AddTreeScreen() {
             placeholder="Diameter at breast height"
             mode="outlined"
             keyboardType="numeric"
+            value={formik.values.dbh}
+            onChangeText={(value) => {
+              formik.setFieldValue('dbh', value)
+            }}
           />
         </View>
 
@@ -121,6 +175,10 @@ export function AddTreeScreen() {
             numberOfLines={2}
             textAlignVertical="top"
             scrollEnabled={false}
+            value={formik.values.notes}
+            onChangeText={(value) => {
+              formik.setFieldValue('notes', value)
+            }}
           />
         </View>
 
@@ -129,7 +187,7 @@ export function AddTreeScreen() {
         </View>
 
         <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
-          <Button mode="contained" onPress={() => null}>
+          <Button mode="contained" onPress={formik.handleSubmit} loading={formik.isSubmitting}>
             Save
           </Button>
         </View>
@@ -139,8 +197,18 @@ export function AddTreeScreen() {
             onClose={() => {
               setIsCameraVisible(false)
             }}
-            onTakePictureFinish={({ capturedPicture }) => {
-              setSelectedPictureUri(capturedPicture.uri)
+            onTakePictureFinish={({ capturedPicture, location }) => {
+              formik.setFieldValue('photo', {
+                width: capturedPicture.width,
+                height: capturedPicture.height,
+                uri: capturedPicture.uri,
+              })
+
+              formik.setFieldValue('coords', {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+              })
+
               setIsCameraVisible(false)
             }}
           />

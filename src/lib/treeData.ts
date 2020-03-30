@@ -1,4 +1,9 @@
+export enum Species {
+  COMMON = 'COMMON',
+  SCIENTIFIC = 'SCIENTIFIC',
+}
+
 export enum TreeTypes {
-  conifer = 'conifer',
-  deciduous = 'deciduous',
+  CONIFER = 'conifer',
+  DECIDUOUS = 'deciduous',
 }

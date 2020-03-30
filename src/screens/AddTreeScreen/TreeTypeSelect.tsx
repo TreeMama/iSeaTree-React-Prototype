@@ -16,7 +16,7 @@ const iconStyle = {
 }
 
 export function TreeTypeSelect(props: TreeTypeSelectProps) {
-  const [currentType, setCurrentType] = React.useState<TreeTypes>(TreeTypes.conifer)
+  const [currentType, setCurrentType] = React.useState<TreeTypes>(TreeTypes.CONIFER)
 
   function handleTreeTypeSelect(treeType: TreeTypes) {
     setCurrentType(treeType)
@@ -34,22 +34,22 @@ export function TreeTypeSelect(props: TreeTypeSelectProps) {
         }}
       >
         <Button
-          mode={currentType === TreeTypes.conifer ? 'outlined' : 'text'}
+          mode={currentType === TreeTypes.CONIFER ? 'outlined' : 'text'}
           icon={() => <Image source={coniferImage} style={iconStyle} />}
           onPress={() => {
-            handleTreeTypeSelect(TreeTypes.conifer)
+            handleTreeTypeSelect(TreeTypes.CONIFER)
           }}
         >
-          {TreeTypes.conifer}
+          {TreeTypes.CONIFER}
         </Button>
         <Button
-          mode={currentType === TreeTypes.deciduous ? 'outlined' : 'text'}
+          mode={currentType === TreeTypes.DECIDUOUS ? 'outlined' : 'text'}
           icon={() => <Image source={deciduousImage} style={iconStyle} />}
           onPress={() => {
-            handleTreeTypeSelect(TreeTypes.deciduous)
+            handleTreeTypeSelect(TreeTypes.DECIDUOUS)
           }}
         >
-          {TreeTypes.deciduous}
+          {TreeTypes.DECIDUOUS}
         </Button>
       </View>
     </View>

@@ -4,15 +4,12 @@ import { View } from 'react-native'
 import { Subheading, useTheme, Button } from 'react-native-paper'
 import RNPickerSelect from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+
 import { colors } from '../../styles/theme'
+import { Species } from '../../lib/treeData'
 
 interface SpeciesSelectProps {
   onSelect: (speciesData: null | { speciesType: string; speciesName: string }) => void
-}
-
-enum Species {
-  COMMON = 'COMMON',
-  SCIENTIFIC = 'SCIENTIFIC',
 }
 
 const labels: { [key in Species]: string } = {
