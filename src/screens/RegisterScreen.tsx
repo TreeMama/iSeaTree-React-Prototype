@@ -35,7 +35,12 @@ export function RegisterScreen() {
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         setIsLoading(false)
-        setUser({ uid: result.user.uid, email })
+
+        if (!!result.user) {
+          setUser({ uid: result.user.uid, email })
+        } else {
+          setErrorMessage('There was an unexpected error. Please try again later.')
+        }
       })
       .catch((error) => {
         setIsLoading(false)
@@ -53,7 +58,7 @@ export function RegisterScreen() {
         visible={!!errorMessage}
         actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
       >
-        {errorMessage}
+        {errorMessage ? errorMessage : ''}
       </Banner>
 
       <View style={styles.content}>

@@ -34,7 +34,6 @@ export function LoginScreen() {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         setIsLoading(false)
-        // TOOD(kacper): do I need to transition manually or not?
       })
       .catch((error) => {
         setIsLoading(false)
@@ -52,7 +51,7 @@ export function LoginScreen() {
         visible={!!errorMessage}
         actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
       >
-        {errorMessage}
+        {errorMessage ? errorMessage : ''}
       </Banner>
 
       <View style={styles.content}>
