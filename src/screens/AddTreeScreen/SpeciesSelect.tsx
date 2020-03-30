@@ -9,7 +9,8 @@ import { colors } from '../../styles/theme'
 import { Species } from '../../lib/treeData'
 
 interface SpeciesSelectProps {
-  onSelect: (speciesData: null | { speciesType: string; speciesName: string }) => void
+  species: { name: string; type: Species }
+  onSelect: (speciesData: { speciesType: Species; speciesName: string }) => void
 }
 
 const labels: { [key in Species]: string } = {
@@ -25,16 +26,14 @@ const speciesNames: { [key in Species]: string[] } = {
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const theme = useTheme()
 
-  const [currentSpeciesName, setCurrentSpeciesName] = React.useState<null | string>(null)
-  const [currentSpeciesType, setCurrentSpeciesType] = React.useState<Species>(Species.COMMON)
+  const currentSpeciesType = props.species.type
 
   function handleSpeciesTypeChange(speciesType: Species) {
     if (currentSpeciesType === speciesType) {
       return
     }
 
-    setCurrentSpeciesName(null)
-    setCurrentSpeciesType(speciesType)
+    props.onSelect({ speciesName: '', speciesType: speciesType })
   }
 
   const currentSpeciesNamesItems = speciesNames[currentSpeciesType].map((name) => ({
@@ -85,13 +84,10 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         </View>
 
         <RNPickerSelect
-          value={currentSpeciesName}
+          value={props.species.name}
           onValueChange={(value) => {
-            if (value === null) {
-              props.onSelect(null)
-            } else {
+            if (!!value) {
               props.onSelect({ speciesName: value, speciesType: currentSpeciesType })
-              setCurrentSpeciesName(value)
             }
           }}
           placeholder={{

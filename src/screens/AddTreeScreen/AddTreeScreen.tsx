@@ -35,11 +35,11 @@ interface FormValues {
     uri: string
   }
   coords: null | { latitude: number; longitude: number }
-  species: null | { type: Species; name: string }
+  speciesType: Species
+  speciesName: string
   treeType: TreeTypes
-
-  dbh?: string
-  notes?: string
+  dbh: string
+  notes: string
 }
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
@@ -53,19 +53,15 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
     errors.dbh = "Can't be blank"
   }
 
+  if (!values.speciesName) {
+    errors.speciesName = "Can't be blank"
+  }
+
   return errors
 }
 
 export function AddTreeScreen() {
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
-
-  // const [selectedPictureUri, setSelectedPictureUri] = React.useState<string | null>(null)
-  // const [coords, setCoords] = React.useState<null | { latitude: number; longitude: number }>(null)
-
-  function clearAll() {
-    // setSelectedPictureUri(null)
-    // setCoords(null)
-  }
 
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
@@ -73,7 +69,7 @@ export function AddTreeScreen() {
       {
         text: 'Yes, clear all',
         onPress: () => {
-          clearAll()
+          formik.resetForm()
         },
       },
     ])
@@ -83,7 +79,10 @@ export function AddTreeScreen() {
     initialValues: {
       photo: null,
       coords: null,
-      species: null,
+      speciesType: Species.COMMON,
+      speciesName: '',
+      dbh: '',
+      notes: '',
       treeType: TreeTypes.CONIFER,
     },
     validate: validateForm,
@@ -95,20 +94,16 @@ export function AddTreeScreen() {
     },
   })
 
-  // const canClear: boolean = !!formik.values.photo || !!formik.values.dbh
-
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
-        {/* TODO(handle clear) */}
-        {/* <Button
+        <Button
           style={{ alignSelf: 'flex-end', marginVertical: 5 }}
           icon="close"
           onPress={handleClear}
-          disabled={!canClear}
         >
           Clear
-        </Button> */}
+        </Button>
 
         <View
           style={{
@@ -143,11 +138,14 @@ export function AddTreeScreen() {
 
         <View style={{ marginTop: 20 }}>
           <SpeciesSelect
+            species={{ name: formik.values.speciesName, type: formik.values.speciesType }}
             onSelect={(data) => {
               if (data) {
-                formik.setFieldValue('species', { name: data.speciesName, type: data.speciesType })
+                formik.setFieldValue('speciesName', data.speciesName)
+                formik.setFieldValue('speciesType', data.speciesType)
               } else {
-                formik.setFieldValue('species', null)
+                formik.setFieldValue('speciesName', null)
+                formik.setFieldValue('speciesType', null)
               }
             }}
           />
