@@ -16,6 +16,7 @@ import Constants from 'expo-constants'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { SpeciesSelect } from './SpeciesSelect'
+import { TreeTypeSelect } from './TreeTypeSelect'
 
 const styles = StyleSheet.create({
   container: {
@@ -124,6 +125,10 @@ export function AddTreeScreen() {
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+          <TreeTypeSelect />
+        </View>
+
+        <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
           <Button mode="contained" onPress={() => null}>
             Save
           </Button>

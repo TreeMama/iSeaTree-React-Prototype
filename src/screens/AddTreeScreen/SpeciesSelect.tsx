@@ -61,7 +61,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           style={{
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             padding: 10,
             paddingLeft: 15,
           }}
