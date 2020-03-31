@@ -10,7 +10,7 @@ import {
   Alert,
   ScrollView,
 } from 'react-native'
-import { Button, TextInput, Subheading } from 'react-native-paper'
+import { Button, TextInput, Text, Subheading, useTheme } from 'react-native-paper'
 import Constants from 'expo-constants'
 import { useFormik, FormikErrors } from 'formik'
 
@@ -62,6 +62,7 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 
 export function AddTreeScreen() {
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
+  const theme = useTheme()
 
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
@@ -105,50 +106,66 @@ export function AddTreeScreen() {
           Clear
         </Button>
 
-        <View
-          style={{
-            backgroundColor: colors.gray[200],
-            height: 220,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {!!formik.values.photo && (
-            <Image
-              style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
-              source={{ uri: formik.values.photo.uri }}
-            />
-          )}
+        <View>
+          <View
+            style={{
+              backgroundColor: colors.gray[200],
+              height: 220,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {!!formik.values.photo && (
+              <Image
+                style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
+                source={{ uri: formik.values.photo.uri }}
+              />
+            )}
 
-          {!formik.values.photo && (
-            <MaterialCommunityIcons name="image" size={60} color={colors.gray[400]} />
-          )}
+            {!formik.values.photo && (
+              <MaterialCommunityIcons name="image" size={60} color={colors.gray[400]} />
+            )}
+          </View>
+
+          <Button
+            onPress={() => {
+              setIsCameraVisible(true)
+            }}
+            icon="camera"
+            mode="outlined"
+            style={{ borderRadius: 0 }}
+          >
+            Add photo
+          </Button>
         </View>
 
-        <Button
-          onPress={() => {
-            setIsCameraVisible(true)
-          }}
-          icon="camera"
-          mode="outlined"
-          style={{ borderRadius: 0 }}
-        >
-          Add photo
-        </Button>
+        {!!formik.errors.photo && !!formik.touched.photo && (
+          <Text style={{ color: theme.colors.error, marginLeft: 15, marginTop: 5 }}>
+            {formik.errors.photo}
+          </Text>
+        )}
 
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
           <SpeciesSelect
             species={{ name: formik.values.speciesName, type: formik.values.speciesType }}
             onSelect={(data) => {
               if (data) {
-                formik.setFieldValue('speciesName', data.speciesName)
-                formik.setFieldValue('speciesType', data.speciesType)
+                formik.setValues({
+                  ...formik.values,
+                  speciesName: data.speciesName,
+                  speciesType: data.speciesType,
+                })
               } else {
-                formik.setFieldValue('speciesName', null)
-                formik.setFieldValue('speciesType', null)
+                formik.setValues({ ...formik.values, speciesName: '', speciesType: Species.COMMON })
               }
             }}
           />
+
+          {!!formik.errors.speciesName && !!formik.touched.speciesName && (
+            <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+              {formik.errors.speciesName}
+            </Text>
+          )}
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
@@ -162,6 +179,10 @@ export function AddTreeScreen() {
               formik.setFieldValue('dbh', value)
             }}
           />
+
+          {!!formik.errors.dbh && !!formik.touched.dbh && (
+            <Text style={{ color: theme.colors.error, marginTop: 5 }}>{formik.errors.dbh}</Text>
+          )}
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
@@ -185,6 +206,12 @@ export function AddTreeScreen() {
         </View>
 
         <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
+          {!formik.isValid && (
+            <Text style={{ color: theme.colors.error, marginBottom: 5 }}>
+              Please take a look at the above error messages
+            </Text>
+          )}
+
           <Button mode="contained" onPress={formik.handleSubmit} loading={formik.isSubmitting}>
             Save
           </Button>
@@ -196,17 +223,18 @@ export function AddTreeScreen() {
               setIsCameraVisible(false)
             }}
             onTakePictureFinish={({ capturedPicture, location }) => {
-              formik.setFieldValue('photo', {
+              const coords: FormValues['coords'] = {
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+              }
+
+              const photo: FormValues['photo'] = {
                 width: capturedPicture.width,
                 height: capturedPicture.height,
                 uri: capturedPicture.uri,
-              })
+              }
 
-              formik.setFieldValue('coords', {
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-              })
-
+              formik.setValues({ ...formik.values, coords, photo })
               setIsCameraVisible(false)
             }}
           />

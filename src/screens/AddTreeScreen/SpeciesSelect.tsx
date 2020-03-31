@@ -42,7 +42,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   }))
 
   return (
-    <View style={{ paddingHorizontal: 15 }}>
+    <View>
       <Subheading>SPECIES</Subheading>
 
       <View
