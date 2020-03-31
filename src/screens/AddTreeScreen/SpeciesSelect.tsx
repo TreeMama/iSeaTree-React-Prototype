@@ -7,10 +7,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { colors } from '../../styles/theme'
 import { Species } from '../../lib/treeData'
+import speciesData from '../../../data/species.json'
 
 interface SpeciesSelectProps {
-  species: { name: string; type: Species }
-  onSelect: (speciesData: { speciesType: Species; speciesName: string }) => void
+  speciesNameId: null | number
+  speciesType: Species
+  onSelect: (speciesData: { speciesType: Species; speciesNameId: number | null }) => void
 }
 
 const labels: { [key in Species]: string } = {
@@ -18,28 +20,34 @@ const labels: { [key in Species]: string } = {
   SCIENTIFIC: 'Scientific',
 }
 
-const speciesNames: { [key in Species]: string[] } = {
-  COMMON: ['name a', 'name b', 'name c', 'name d'],
-  SCIENTIFIC: ['other name a', 'other name b', 'other name c', 'other name d'],
+function getSpeciesItems(speciesType: Species): { label: string; value: number }[] {
+  return speciesData.map((speciesDatum) => ({
+    label: speciesDatum[speciesType],
+    value: speciesDatum.ID,
+  }))
 }
 
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const theme = useTheme()
 
-  const currentSpeciesType = props.species.type
+  const currentSpeciesType = props.speciesType
+  const currentSpeciesNamesItems = getSpeciesItems(currentSpeciesType)
 
   function handleSpeciesTypeChange(speciesType: Species) {
     if (currentSpeciesType === speciesType) {
       return
     }
 
-    props.onSelect({ speciesName: '', speciesType: speciesType })
+    props.onSelect({ speciesNameId: props.speciesNameId, speciesType: speciesType })
   }
 
-  const currentSpeciesNamesItems = speciesNames[currentSpeciesType].map((name) => ({
-    label: name,
-    value: name,
-  }))
+  function handleSpeciesNameChange(speciesNameId: null | number) {
+    if (!speciesNameId) {
+      return
+    }
+
+    props.onSelect({ speciesNameId, speciesType: currentSpeciesType })
+  }
 
   return (
     <View>
@@ -84,12 +92,8 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         </View>
 
         <RNPickerSelect
-          value={props.species.name}
-          onValueChange={(value) => {
-            if (!!value) {
-              props.onSelect({ speciesName: value, speciesType: currentSpeciesType })
-            }
-          }}
+          value={props.speciesNameId}
+          onValueChange={handleSpeciesNameChange}
           placeholder={{
             label: 'Select species name...',
             value: null,

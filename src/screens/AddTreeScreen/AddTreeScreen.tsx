@@ -36,7 +36,7 @@ interface FormValues {
   }
   coords: null | { latitude: number; longitude: number }
   speciesType: Species
-  speciesName: string
+  speciesNameId: null | number
   treeType: TreeTypes
   dbh: string
   notes: string
@@ -53,8 +53,8 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
     errors.dbh = "Can't be blank"
   }
 
-  if (!values.speciesName) {
-    errors.speciesName = "Can't be blank"
+  if (!values.speciesNameId) {
+    errors.speciesNameId = "Can't be blank"
   }
 
   return errors
@@ -81,7 +81,7 @@ export function AddTreeScreen() {
       photo: null,
       coords: null,
       speciesType: Species.COMMON,
-      speciesName: '',
+      speciesNameId: null,
       dbh: '',
       notes: '',
       treeType: TreeTypes.CONIFER,
@@ -147,29 +147,36 @@ export function AddTreeScreen() {
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
           <SpeciesSelect
-            species={{ name: formik.values.speciesName, type: formik.values.speciesType }}
+            speciesNameId={formik.values.speciesNameId}
+            speciesType={formik.values.speciesType}
             onSelect={(data) => {
+              console.log('species select: ', data)
+
               if (data) {
                 formik.setValues({
                   ...formik.values,
-                  speciesName: data.speciesName,
+                  speciesNameId: data.speciesNameId,
                   speciesType: data.speciesType,
                 })
               } else {
-                formik.setValues({ ...formik.values, speciesName: '', speciesType: Species.COMMON })
+                formik.setValues({
+                  ...formik.values,
+                  speciesNameId: null,
+                  speciesType: Species.COMMON,
+                })
               }
             }}
           />
 
-          {!!formik.errors.speciesName && !!formik.touched.speciesName && (
+          {!!formik.errors.speciesNameId && !!formik.touched.speciesNameId && (
             <Text style={{ color: theme.colors.error, marginTop: 5 }}>
-              {formik.errors.speciesName}
+              {formik.errors.speciesNameId}
             </Text>
           )}
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <Subheading>DBH (cm)</Subheading>
+          <Subheading>DBH (in)</Subheading>
           <TextInput
             placeholder="Diameter at breast height"
             mode="outlined"
