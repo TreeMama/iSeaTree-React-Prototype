@@ -6,7 +6,7 @@ import * as firebase from 'firebase'
 
 import { AuthForm } from '../components/AuthForm'
 import { useNavigationActions } from '../lib/navigation'
-import { setUser } from '../lib/firebaseServices'
+import { addUser } from '../lib/firebaseServices'
 
 const styles = StyleSheet.create({
   container: {
@@ -37,12 +37,14 @@ export function RegisterScreen() {
         setIsLoading(false)
 
         if (!!result.user) {
-          setUser({ uid: result.user.uid, email })
+          addUser({ uid: result.user.uid, email })
         } else {
           setErrorMessage('There was an unexpected error. Please try again later.')
         }
       })
       .catch((error) => {
+        console.log('error: ', error)
+
         setIsLoading(false)
         const errorMEssage = !!error.message
           ? error.message

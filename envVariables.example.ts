@@ -6,5 +6,6 @@ export const envVariables = {
     AUTH_DOMAIN: '',
     DATABASE_URL: '',
     STORAGE_BUCKET: '',
+    PROJECT_ID: '',
   },
 }

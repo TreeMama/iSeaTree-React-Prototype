@@ -1,4 +1,6 @@
 import * as firebase from 'firebase'
+import 'firebase/firestore'
+
 import { envVariables } from '../../envVariables'
 
 export function initializeFirebase() {
@@ -8,5 +10,6 @@ export function initializeFirebase() {
     authDomain: envVariables.FIREBASE.AUTH_DOMAIN,
     databaseURL: envVariables.FIREBASE.DATABASE_URL,
     storageBucket: envVariables.FIREBASE.STORAGE_BUCKET,
+    projectId: envVariables.FIREBASE.PROJECT_ID,
   })
 }
