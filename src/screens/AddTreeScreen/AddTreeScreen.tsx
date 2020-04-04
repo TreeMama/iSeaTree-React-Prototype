@@ -63,8 +63,9 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 }
 
 export function AddTreeScreen() {
-  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
   const theme = useTheme()
+
+  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
 
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
@@ -97,6 +98,8 @@ export function AddTreeScreen() {
       }, 2000)
     },
   })
+
+  const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -226,7 +229,7 @@ export function AddTreeScreen() {
         </View>
 
         <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
-          {!formik.isValid && (
+          {formHasErrors && (
             <Text style={{ color: theme.colors.error, marginBottom: 5 }}>
               Please take a look at the above error messages
             </Text>
