@@ -55,7 +55,7 @@ export function Camera(props: CameraProps) {
       return
     }
 
-    cameraRefObj.takePictureAsync({ exif: true }).then((photo) => {
+    cameraRefObj.takePictureAsync({ exif: true, quality: 0.6 }).then((photo) => {
       cameraRefObj.pausePreview()
       props.onTakePicture(photo)
     })

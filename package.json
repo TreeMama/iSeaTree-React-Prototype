@@ -27,12 +27,14 @@
     "react-native-reanimated": "~1.4.0",
     "react-native-safe-area-context": "0.6.0",
     "react-native-screens": "2.0.0-alpha.12",
-    "react-native-web": "~0.11.7"
+    "react-native-web": "~0.11.7",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
+    "@types/uuid": "^3.4.0",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "babel-preset-expo": "~8.0.0",
