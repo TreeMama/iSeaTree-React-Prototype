@@ -122,6 +122,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           Icon={() => (
             <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />
           )}
+          placeholderTextColor={theme.colors.backdrop}
           items={currentSpeciesNamesItems}
         />
       </View>

@@ -18,6 +18,7 @@ import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
+import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { Species, TreeTypes } from '../../lib/treeData'
 
 const styles = StyleSheet.create({
@@ -40,6 +41,7 @@ interface FormValues {
   treeType: TreeTypes
   dbh: string
   notes: string
+  landUseCategory: string | null
 }
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
@@ -85,6 +87,7 @@ export function AddTreeScreen() {
       dbh: '',
       notes: '',
       treeType: TreeTypes.CONIFER,
+      landUseCategory: null,
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -190,6 +193,16 @@ export function AddTreeScreen() {
           {!!formik.errors.dbh && !!formik.touched.dbh && (
             <Text style={{ color: theme.colors.error, marginTop: 5 }}>{formik.errors.dbh}</Text>
           )}
+        </View>
+
+        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+          <Subheading>Dominant Surrounding Land Use</Subheading>
+          <LandUseCategoriesSelect
+            landUseCategoryName={formik.values.landUseCategory}
+            onValueChange={(value) => {
+              formik.setFieldValue('landUseCategory', value)
+            }}
+          />
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
