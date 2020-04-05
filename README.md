@@ -42,18 +42,22 @@ This project has configured [Eslint](https://eslint.org/) with recommended types
 
 ## Firebase
 
-This project is using Firebase Realtime Database (not firestore!).
+This project is using Firebase Firestore database.
 
-Database needs certain rules to works correctly. Visit https://firebase.google.com/docs/database/security to learn more about security rules.
+Database needs certain rules to works correctly. Visit https://firebase.google.com/docs/firestore/security/get-started to learn more about security rules.
 
 ```
-{
-  "rules": {
-    "users": {
-      "$uid": {
-        ".write": "$uid === auth.uid",
-        ".read": "auth != null && auth.uid == $uid"
-      }
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+    	allow read, update, delete: if request.auth.uid == userId;
+      allow create: if request.auth.uid != null;
+    }
+
+    match /users/{userId} {
+    	allow read, update, delete: if request.auth.uid == resource.data.userId;
+      allow create: if request.auth.uid != null;
     }
   }
 }
