@@ -13,12 +13,11 @@ import {
 import { Button, TextInput, Text, Subheading, useTheme } from 'react-native-paper'
 import Constants from 'expo-constants'
 import { useFormik, FormikErrors } from 'formik'
-import * as firebase from 'firebase'
 
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { Species, TreeTypes } from '../../lib/treeData'
-import { SpeciesSelect, getSpeciesNames } from './SpeciesSelect'
+import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { submitTreeData } from './lib/submitTreeData'
