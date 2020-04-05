@@ -1,9 +1,5 @@
 import * as firebase from 'firebase'
 
-const collections = {
-  users: 'users',
-}
-
 export const firebaseImagePath = {
   trees: (fileName: string) => `trees/${fileName}`,
 }
@@ -12,8 +8,10 @@ export function signOutUser(): void {
   firebase.auth().signOut()
 }
 
-export function addUser(user: { uid: string; email: string }): void {
-  firebase.firestore().collection(collections.users).add({
+const USERS_COLLECTION = 'users'
+
+export function setUser(user: { uid: string; email: string }): void {
+  firebase.firestore().collection(USERS_COLLECTION).doc(user.uid).set({
     email: user.email,
     created_at: firebase.firestore.FieldValue.serverTimestamp(),
   })
