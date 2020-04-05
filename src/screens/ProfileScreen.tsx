@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
-import { Button, Menu, Title, useTheme } from 'react-native-paper'
+import { Divider, Button, Menu, Title, useTheme, Headline } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Constants from 'expo-constants'
 
@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   content: {
     padding: 20,
     paddingTop: 0,
-    alignItems: 'center',
   },
 })
 
@@ -58,8 +57,20 @@ export function ProfileScreen() {
       </View>
 
       <View style={styles.content}>
-        <MaterialCommunityIcons name="account-box" size={100} color={theme.colors.backdrop} />
-        <Title>{user.email}</Title>
+        <View style={{ marginBottom: 20, alignItems: 'center' }}>
+          <MaterialCommunityIcons name="account-box" size={100} color={theme.colors.backdrop} />
+          <Title>{user.email}</Title>
+        </View>
+
+        <Divider style={{ width: '100%' }} />
+
+        <Headline style={{ marginTop: 20 }}>Your badges</Headline>
+
+        <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
+          <MaterialCommunityIcons name="medal" size={50} color={theme.colors.backdrop} />
+          <MaterialCommunityIcons name="medal" size={50} color={theme.colors.backdrop} />
+          <MaterialCommunityIcons name="medal" size={50} color={theme.colors.backdrop} />
+        </View>
       </View>
     </View>
   )
