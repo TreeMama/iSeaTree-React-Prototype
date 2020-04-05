@@ -27,6 +27,12 @@ function getSpeciesItems(speciesType: Species): { label: string; value: number }
   }))
 }
 
+export function getSpeciesNames(
+  speciesNameId: number,
+): undefined | { COMMON: string; SCIENTIFIC: string; ID: number } {
+  return speciesData.find((speciesDatum) => speciesDatum.ID === speciesNameId)
+}
+
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const theme = useTheme()
 

@@ -13,13 +13,16 @@ import {
 import { Button, TextInput, Text, Subheading, useTheme } from 'react-native-paper'
 import Constants from 'expo-constants'
 import { useFormik, FormikErrors } from 'formik'
+import * as firebase from 'firebase'
 
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
-import { SpeciesSelect } from './SpeciesSelect'
+import { Species, TreeTypes } from '../../lib/treeData'
+import { SpeciesSelect, getSpeciesNames } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
-import { Species, TreeTypes } from '../../lib/treeData'
+import { submitTreeData } from './lib/submitTreeData'
+import { FormValues } from './addTreeForm'
 
 const styles = StyleSheet.create({
   container: {
@@ -28,21 +31,6 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
   },
 })
-
-interface FormValues {
-  photo: null | {
-    width: number
-    height: number
-    uri: string
-  }
-  coords: null | { latitude: number; longitude: number }
-  speciesType: Species
-  speciesNameId: null | number
-  treeType: TreeTypes
-  dbh: string
-  notes: string
-  landUseCategory: string | null
-}
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
   const errors: FormikErrors<FormValues> = {}
@@ -61,7 +49,6 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 
   return errors
 }
-
 export function AddTreeScreen() {
   const theme = useTheme()
 
@@ -79,6 +66,30 @@ export function AddTreeScreen() {
     ])
   }
 
+  function handleSubmitSuccess() {
+    formik.resetForm()
+    formik.setSubmitting(false)
+
+    Alert.alert('Success', 'You have added new tree successfully', [
+      {
+        text: 'Great',
+        onPress: () => {
+          formik.resetForm()
+        },
+      },
+    ])
+  }
+
+  function handleSubmitError() {
+    formik.setSubmitting(false)
+
+    Alert.alert('Error', 'There was an unexpected error. Please try again later.', [
+      {
+        text: 'Ok',
+      },
+    ])
+  }
+
   const formik = useFormik<FormValues>({
     initialValues: {
       photo: null,
@@ -92,10 +103,7 @@ export function AddTreeScreen() {
     },
     validate: validateForm,
     onSubmit: (values) => {
-      setTimeout(() => {
-        console.log('values:', values)
-        formik.setSubmitting(false)
-      }, 2000)
+      submitTreeData(values).then(handleSubmitSuccess).catch(handleSubmitError)
     },
   })
 
@@ -156,8 +164,6 @@ export function AddTreeScreen() {
             speciesNameId={formik.values.speciesNameId}
             speciesType={formik.values.speciesType}
             onSelect={(data) => {
-              console.log('species select: ', data)
-
               if (data) {
                 formik.setValues({
                   ...formik.values,
@@ -191,6 +197,7 @@ export function AddTreeScreen() {
             onChangeText={(value) => {
               formik.setFieldValue('dbh', value)
             }}
+            returnKeyType="next"
           />
 
           {!!formik.errors.dbh && !!formik.touched.dbh && (
