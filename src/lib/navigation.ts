@@ -8,7 +8,7 @@ export enum ScreenNames {
 }
 
 export enum TabScreenNames {
-  dashboard = 'dashboard',
+  profile = 'profile',
   addTree = 'addTree',
 }
 
@@ -38,8 +38,8 @@ export function useTabNavigationActions(): TabNavigationActions {
   const navigation = useNavigation()
 
   return {
-    dashboard: () => {
-      navigation.navigate(TabScreenNames.dashboard)
+    profile: () => {
+      navigation.navigate(TabScreenNames.profile)
     },
     addTree: () => {
       navigation.navigate(TabScreenNames.addTree)

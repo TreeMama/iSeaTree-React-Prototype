@@ -4,9 +4,10 @@ import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getSpeciesNames } from '../SpeciesSelect'
+import { getCurrentUser } from '../../../lib/firebaseServices'
 
 export async function submitTreeData(formValues: FormValues): Promise<void> {
-  const user = firebase.auth().currentUser
+  const user = getCurrentUser()
 
   if (!user) {
     throw Error('User is not authenticated')

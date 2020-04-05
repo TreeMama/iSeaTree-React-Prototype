@@ -37,3 +37,7 @@ export function uploadImage(
       })
   })
 }
+
+export function getCurrentUser() {
+  return firebase.auth().currentUser
+}

@@ -5,7 +5,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { useTheme } from 'react-native-paper'
 
 import { TabScreenNames } from './lib/navigation'
-import { DashboardScreen } from './screens/DashboardScreen'
+import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen/AddTreeScreen'
 
 const Tab = createMaterialBottomTabNavigator()
@@ -19,11 +19,13 @@ export function LoggedTabNavigator() {
       barStyle={{ paddingBottom: 5, backgroundColor: 'white' }}
     >
       <Tab.Screen
-        name={TabScreenNames.dashboard}
-        component={DashboardScreen}
+        name={TabScreenNames.profile}
+        component={ProfileScreen}
         options={{
-          tabBarLabel: 'Dashboard',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" color={color} size={26} />,
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account" color={color} size={26} />
+          ),
         }}
       />
       <Tab.Screen
