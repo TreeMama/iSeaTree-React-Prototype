@@ -20,6 +20,7 @@ import { Species, TreeTypes } from '../../lib/treeData'
 import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
+import { DbhHelp } from './DbhHelp'
 import { submitTreeData } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 
@@ -186,8 +187,12 @@ export function AddTreeScreen() {
           )}
         </View>
 
-        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <Subheading>DBH (in)</Subheading>
+        <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+            <Subheading>DBH (in)</Subheading>
+            <DbhHelp />
+          </View>
+
           <TextInput
             placeholder="Diameter at breast height"
             mode="outlined"

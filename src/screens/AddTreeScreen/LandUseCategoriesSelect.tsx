@@ -58,6 +58,7 @@ export function LandUseCategoriesSelect(props: LandUseCategoriesSelectProps) {
         paddingHorizontal: 15,
         fontSize: 15,
         borderRadius: theme.roundness,
+        marginTop: 5,
       }}
       placeholderTextColor={theme.colors.backdrop}
       Icon={() => <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />}

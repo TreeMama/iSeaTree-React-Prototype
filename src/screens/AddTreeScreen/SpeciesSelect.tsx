@@ -65,6 +65,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           borderRadius: theme.roundness,
           backgroundColor: theme.colors.background,
           borderColor: theme.colors.placeholder,
+          marginTop: 5,
         }}
       >
         <View
