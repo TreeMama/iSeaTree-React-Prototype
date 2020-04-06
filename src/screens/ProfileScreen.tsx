@@ -31,7 +31,7 @@ export function ProfileScreen() {
   }
 
   if (!user) {
-    return
+    return null
   }
 
   return (

@@ -6,7 +6,8 @@ import { useTheme } from 'react-native-paper'
 
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
-import { AddTreeScreen } from './screens/AddTreeScreen/AddTreeScreen'
+import { AddTreeScreen } from './screens/AddTreeScreen'
+import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -26,6 +27,14 @@ export function LoggedTabNavigator() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="account" color={color} size={26} />
           ),
+        }}
+      />
+      <Tab.Screen
+        name={TabScreenNames.suggestedTrees}
+        component={SuggestedTreesScreen}
+        options={{
+          tabBarLabel: 'Suggested',
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="star" color={color} size={26} />,
         }}
       />
       <Tab.Screen
