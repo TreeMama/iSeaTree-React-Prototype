@@ -43,8 +43,8 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
     errors.dbh = "Can't be blank"
   }
 
-  if (!values.speciesNameId) {
-    errors.speciesNameId = "Can't be blank"
+  if (!values.speciesData) {
+    errors.speciesData = "Can't be blank"
   }
 
   return errors
@@ -94,8 +94,7 @@ export function AddTreeScreen() {
     initialValues: {
       photo: null,
       coords: null,
-      speciesType: Species.COMMON,
-      speciesNameId: null,
+      speciesData: null,
       dbh: '',
       notes: '',
       treeType: TreeTypes.CONIFER,
@@ -161,28 +160,15 @@ export function AddTreeScreen() {
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
           <SpeciesSelect
-            speciesNameId={formik.values.speciesNameId}
-            speciesType={formik.values.speciesType}
-            onSelect={(data) => {
-              if (data) {
-                formik.setValues({
-                  ...formik.values,
-                  speciesNameId: data.speciesNameId,
-                  speciesType: data.speciesType,
-                })
-              } else {
-                formik.setValues({
-                  ...formik.values,
-                  speciesNameId: null,
-                  speciesType: Species.COMMON,
-                })
-              }
+            speciesData={formik.values.speciesData}
+            onSelect={(speciesData) => {
+              formik.setFieldValue('speciesData', speciesData)
             }}
           />
 
-          {!!formik.errors.speciesNameId && !!formik.touched.speciesNameId && (
+          {!!formik.errors.speciesData && !!formik.touched.speciesData && (
             <Text style={{ color: theme.colors.error, marginTop: 5 }}>
-              {formik.errors.speciesNameId}
+              {formik.errors.speciesData}
             </Text>
           )}
         </View>
@@ -210,7 +196,7 @@ export function AddTreeScreen() {
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <Subheading>Dominant Surrounding Land Use</Subheading>
+          <Subheading style={{ marginBottom: 5 }}>Dominant Surrounding Land Use</Subheading>
           <LandUseCategoriesSelect
             landUseCategoryName={formik.values.landUseCategory}
             onValueChange={(value) => {

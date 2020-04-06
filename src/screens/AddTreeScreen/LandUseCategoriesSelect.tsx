@@ -51,15 +51,15 @@ export function LandUseCategoriesSelect(props: LandUseCategoriesSelectProps) {
         },
       }}
       textInputProps={{
-        height: 50,
+        height: 58,
         borderWidth: 1,
         borderColor: theme.colors.backdrop,
         backgroundColor: theme.colors.background,
         paddingHorizontal: 15,
         fontSize: 15,
         borderRadius: theme.roundness,
-        marginTop: 5,
       }}
+      touchableWrapperProps={{ activeOpacity: 0.3 }}
       placeholderTextColor={theme.colors.backdrop}
       Icon={() => <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />}
     />
