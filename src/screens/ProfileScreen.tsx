@@ -1,11 +1,12 @@
 import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
-import { Divider, Button, Menu, Title, useTheme, Headline } from 'react-native-paper'
+import { Divider, Button, Menu, Headline, Subheading } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Constants from 'expo-constants'
 
 import { signOutUser, getCurrentUser } from '../lib/firebaseServices'
+import { colors } from '../styles/theme'
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +23,6 @@ const styles = StyleSheet.create({
 export function ProfileScreen() {
   const [isMenuVisible, setIsMenuVisible] = React.useState<boolean>(false)
 
-  const theme = useTheme()
   const user = getCurrentUser()
 
   function handleSignout() {
@@ -74,9 +74,9 @@ export function ProfileScreen() {
               alignItems: 'center',
             }}
           >
-            <MaterialCommunityIcons name="account-box" size={100} color={theme.colors.backdrop} />
+            <MaterialCommunityIcons name="account-box" size={100} color={colors.gray[400]} />
           </View>
-          <Title>{user.email}</Title>
+          <Subheading>{user.email}</Subheading>
         </View>
 
         <Divider style={{ width: '100%' }} />
@@ -84,9 +84,9 @@ export function ProfileScreen() {
         <Headline style={{ marginTop: 20 }}>Your badges</Headline>
 
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20 }}>
-          <MaterialCommunityIcons name="medal" size={50} color={theme.colors.backdrop} />
-          <MaterialCommunityIcons name="medal" size={50} color={theme.colors.backdrop} />
-          <MaterialCommunityIcons name="medal" size={50} color={theme.colors.backdrop} />
+          <MaterialCommunityIcons name="medal" size={50} color={colors.gray[400]} />
+          <MaterialCommunityIcons name="medal" size={50} color={colors.gray[400]} />
+          <MaterialCommunityIcons name="medal" size={50} color={colors.gray[400]} />
         </View>
       </View>
     </View>
