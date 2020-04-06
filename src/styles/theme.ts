@@ -3,7 +3,9 @@ import { DefaultTheme, Theme } from 'react-native-paper'
 // https://tailwindcss.com/docs/customizing-colors#default-color-palette
 export const colors = {
   green: {
+    100: '#F0FFF4',
     700: '#2F855A',
+    900: '#22543D',
   },
   purple: {
     '700': '#6B46C1',

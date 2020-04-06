@@ -5,7 +5,6 @@ import { Subheading, useTheme, Button, TextInput, List } from 'react-native-pape
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { colors } from '../../styles/theme'
-import { Species } from '../../lib/treeData'
 import speciesDataList from '../../../data/species.json'
 
 interface SpeciesData {
@@ -19,9 +18,13 @@ interface SpeciesSelectProps {
   onSelect: (speciesData: null | SpeciesData) => void
 }
 
+const MIN_SEARCH_TERM_LENGTH = 3
+
 function getSpeciesFlatListData(
   query?: string,
 ): { ID: string; COMMON: string; SCIENTIFIC: string }[] {
+  console.log('query: ', query)
+
   if (!query) {
     return speciesDataList
   }
@@ -29,7 +32,7 @@ function getSpeciesFlatListData(
   const inputValue = query.trim().toLowerCase()
   const inputLength = inputValue.length
 
-  if (inputLength < 3) {
+  if (inputLength < MIN_SEARCH_TERM_LENGTH) {
     return speciesDataList
   }
 
@@ -49,20 +52,14 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const theme = useTheme()
 
-  const currentSpeciesNamesItems = React.useMemo(() => getSpeciesFlatListData(query), [query])
+  const currentSpeciesNamesItems = React.useMemo(() => {
+    return getSpeciesFlatListData(query)
+  }, [query])
 
   function handleSpeciesSelect(speciesData: SpeciesData) {
     setTimeout(() => {
       props.onSelect(speciesData)
-    }, 100)
-  }
-
-  function getItemTitleStyle(speciesDataItem: SpeciesData) {
-    if (!!props.speciesData && props.speciesData.ID === speciesDataItem.ID) {
-      return { fontWeight: 'bold', color: theme.colors.primary } as const
-    }
-
-    return undefined
+    }, 150)
   }
 
   return (
@@ -133,8 +130,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                   key={item.ID}
                   title={item.COMMON}
                   description={item.SCIENTIFIC}
-                  style={{ borderBottomWidth: 1, borderColor: '#ddd' }}
-                  titleStyle={getItemTitleStyle(item)}
+                  style={{
+                    borderBottomWidth: 1,
+                    borderColor: '#ddd',
+                    backgroundColor: item.ID === props.speciesData?.ID ? colors.green[100] : '#fff',
+                  }}
                   onPress={() => {
                     handleSpeciesSelect(item)
                   }}
