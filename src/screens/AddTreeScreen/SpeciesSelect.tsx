@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { Modal, View, FlatList, TouchableOpacity } from 'react-native'
+import { Modal, View, FlatList, TouchableOpacity, Platform } from 'react-native'
 import { Subheading, useTheme, Button, TextInput, List } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import Constants from 'expo-constants'
 
 import { colors } from '../../styles/theme'
 import speciesDataList from '../../../data/species.json'
@@ -46,6 +47,8 @@ function getSpeciesFlatListData(
 export function getSpeciesNames(speciesNameId: string): undefined | SpeciesData {
   return speciesDataList.find((speciesDatum) => speciesDatum.ID === speciesNameId)
 }
+
+const paddingTop = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const [query, setQuery] = React.useState<undefined | string>(undefined)
@@ -101,7 +104,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         </TouchableOpacity>
 
         <Modal visible={isModalVisible} transparent animationType="slide">
-          <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 50 }}>
+          <View style={{ flex: 1, backgroundColor: '#fff', paddingTop }}>
             <Button
               mode="contained"
               style={{ borderRadius: 0 }}

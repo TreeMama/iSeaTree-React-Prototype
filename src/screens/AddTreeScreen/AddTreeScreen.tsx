@@ -16,7 +16,7 @@ import { useFormik, FormikErrors } from 'formik'
 
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
-import { Species, TreeTypes } from '../../lib/treeData'
+import { TreeTypes } from '../../lib/treeData'
 import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
