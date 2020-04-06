@@ -36,7 +36,15 @@ export function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'flex-end' }}>
+      <View
+        style={{
+          width: '100%',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          height: 55,
+        }}
+      >
         <Menu
           visible={isMenuVisible}
           onDismiss={() => {
@@ -58,7 +66,16 @@ export function ProfileScreen() {
 
       <View style={styles.content}>
         <View style={{ marginBottom: 20, alignItems: 'center' }}>
-          <MaterialCommunityIcons name="account-box" size={100} color={theme.colors.backdrop} />
+          <View
+            style={{
+              width: 100,
+              height: 100,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <MaterialCommunityIcons name="account-box" size={100} color={theme.colors.backdrop} />
+          </View>
           <Title>{user.email}</Title>
         </View>
 
