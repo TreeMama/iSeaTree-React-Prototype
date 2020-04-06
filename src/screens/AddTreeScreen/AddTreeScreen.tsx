@@ -256,12 +256,7 @@ export function AddTreeScreen() {
             onClose={() => {
               setIsCameraVisible(false)
             }}
-            onTakePictureFinish={({ capturedPicture, location }) => {
-              const coords: FormValues['coords'] = {
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-              }
-
+            onTakePictureFinish={({ capturedPicture, coords }) => {
               const photo: FormValues['photo'] = {
                 width: capturedPicture.width,
                 height: capturedPicture.height,

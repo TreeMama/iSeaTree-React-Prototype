@@ -7,14 +7,19 @@ import * as Location from 'expo-location'
 import { colors } from '../styles/theme'
 import { Camera, CapturedPicture } from './Camera'
 
+interface Coords {
+  latitude: number
+  longitude: number
+}
+
 interface CameraWithLocationProps {
   onClose: () => void
   onTakePictureFinish: ({
     capturedPicture,
-    location,
+    coords,
   }: {
     capturedPicture: CapturedPicture
-    location: Location.LocationData
+    coords: Coords
   }) => void
 }
 
@@ -23,7 +28,7 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
   const [isLoadingLocation, setIsLoadingLocation] = React.useState<boolean>(true)
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
 
-  async function getCurrentLocation(): Promise<null | { location: Location.LocationData }> {
+  async function getCurrentLocation(): Promise<null | Coords> {
     try {
       const { status } = await Location.requestPermissionsAsync()
       if (status !== Location.PermissionStatus.GRANTED) {
@@ -35,7 +40,7 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
           accuracy: Location.Accuracy.BestForNavigation,
         })
 
-        return { location }
+        return { latitude: location.coords.latitude, longitude: location.coords.longitude }
       }
     } catch (error) {
       if (__DEV__) {
@@ -48,11 +53,34 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
     }
   }
 
+  function getLocationFromExif(capturedPicture: CapturedPicture): Coords | null {
+    if (!capturedPicture.exif) {
+      return null
+    }
+
+    const latitude: number | undefined = capturedPicture.exif.GPSLatitude
+    const longitude: number | undefined = capturedPicture.exif.GPSLongitude
+
+    if (!latitude || !longitude) {
+      return null
+    }
+
+    return { latitude, longitude }
+  }
+
   function handleTakePicture(capturedPicture: CapturedPicture) {
     setIsLocatDialogVisible(true)
-    getCurrentLocation().then((result) => {
-      if (!!result) {
-        props.onTakePictureFinish({ capturedPicture, location: result.location })
+
+    const coordsFromExif = getLocationFromExif(capturedPicture)
+
+    if (!!coordsFromExif) {
+      props.onTakePictureFinish({ capturedPicture, coords: coordsFromExif })
+      return
+    }
+
+    getCurrentLocation().then((coords) => {
+      if (!!coords) {
+        props.onTakePictureFinish({ capturedPicture, coords })
       }
     })
   }
