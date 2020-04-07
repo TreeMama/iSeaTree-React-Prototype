@@ -61,6 +61,7 @@ export function LandUseCategoriesSelect(props: LandUseCategoriesSelectProps) {
       }}
       touchableWrapperProps={{ activeOpacity: 0.3 }}
       placeholderTextColor={theme.colors.backdrop}
+      useNativeAndroidPickerStyle={false}
       Icon={() => <MaterialCommunityIcons name="menu-down" size={30} color={colors.gray[500]} />}
     />
   )
