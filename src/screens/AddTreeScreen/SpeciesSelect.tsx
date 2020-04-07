@@ -1,7 +1,16 @@
 import React from 'react'
 
-import { Modal, View, FlatList, TouchableOpacity, Platform } from 'react-native'
-import { Subheading, useTheme, Button, TextInput, List } from 'react-native-paper'
+import {
+  Modal,
+  View,
+  FlatList,
+  TouchableOpacity,
+  Platform,
+  TouchableHighlight,
+  Text as RNText,
+  StyleSheet,
+} from 'react-native'
+import { Subheading, useTheme, Button, TextInput, DefaultTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import Constants from 'expo-constants'
 
@@ -24,8 +33,6 @@ const MIN_SEARCH_TERM_LENGTH = 3
 function getSpeciesFlatListData(
   query?: string,
 ): { ID: string; COMMON: string; SCIENTIFIC: string }[] {
-  console.log('query: ', query)
-
   if (!query) {
     return speciesDataList
   }
@@ -50,6 +57,22 @@ export function getSpeciesNames(speciesNameId: string): undefined | SpeciesData 
 
 const paddingTop = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
+const styles = StyleSheet.create({
+  listItem: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderColor: '#ddd',
+  },
+  listItemTitle: {
+    fontSize: 16,
+    color: DefaultTheme.colors.text,
+  },
+  listItemDescription: {
+    fontSize: 16,
+    color: DefaultTheme.colors.backdrop,
+  },
+})
+
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const [query, setQuery] = React.useState<undefined | string>(undefined)
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
@@ -62,7 +85,33 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   function handleSpeciesSelect(speciesData: SpeciesData) {
     setTimeout(() => {
       props.onSelect(speciesData)
-    }, 150)
+      setIsModalVisible(false)
+    }, 50)
+  }
+
+  function renderFlatListItem({ item }: { item: SpeciesData }) {
+    return (
+      <TouchableHighlight
+        key={item.ID}
+        onPress={() => {
+          handleSpeciesSelect(item)
+        }}
+        underlayColor={colors.gray[500]}
+        activeOpacity={0.8}
+      >
+        <View
+          style={[
+            styles.listItem,
+            {
+              backgroundColor: item.ID === props.speciesData?.ID ? colors.green[100] : '#fff',
+            },
+          ]}
+        >
+          <RNText style={styles.listItemTitle}>{item.COMMON}</RNText>
+          <RNText style={styles.listItemDescription}>{item.SCIENTIFIC}</RNText>
+        </View>
+      </TouchableHighlight>
+    )
   }
 
   return (
@@ -128,21 +177,8 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             <FlatList
               data={currentSpeciesNamesItems}
               keyExtractor={(item) => item.ID}
-              renderItem={({ item }) => (
-                <List.Item
-                  key={item.ID}
-                  title={item.COMMON}
-                  description={item.SCIENTIFIC}
-                  style={{
-                    borderBottomWidth: 1,
-                    borderColor: '#ddd',
-                    backgroundColor: item.ID === props.speciesData?.ID ? colors.green[100] : '#fff',
-                  }}
-                  onPress={() => {
-                    handleSpeciesSelect(item)
-                  }}
-                />
-              )}
+              renderItem={renderFlatListItem}
+              initialNumToRender={20}
             />
           </View>
         </Modal>
