@@ -20,6 +20,7 @@ import { TreeTypes } from '../../lib/treeData'
 import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
+import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
 import { submitTreeData } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
@@ -255,6 +256,8 @@ export function AddTreeScreen() {
           />
         </Modal>
       </ScrollView>
+
+      <TreeBenefits speciesData={formik.values.speciesData} />
     </KeyboardAvoidingView>
   )
 }
