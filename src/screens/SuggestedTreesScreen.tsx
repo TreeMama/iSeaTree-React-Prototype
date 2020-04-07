@@ -119,10 +119,19 @@ export function SuggestedTreesScreen() {
     initialSuggestedTreeData,
   )
   const [sliderWidth, setSliderWidth] = React.useState<number>(initialSliderWidth)
+  const sliderRef = React.useRef<ScrollView>(null)
 
   function handleOrientationChange() {
     setSliderWidth(Dimensions.get('screen').width)
   }
+
+  React.useEffect(() => {
+    if (!sliderRef.current) {
+      return
+    }
+
+    sliderRef.current.scrollTo({ x: 0, animated: true })
+  }, [currentSuggestedTreeData.name])
 
   React.useEffect(() => {
     Dimensions.addEventListener('change', handleOrientationChange)
@@ -172,7 +181,12 @@ export function SuggestedTreesScreen() {
 
       <ScrollView>
         <View>
-          <ScrollView style={{ backgroundColor: theme.colors.background }} horizontal pagingEnabled>
+          <ScrollView
+            ref={sliderRef}
+            style={{ backgroundColor: theme.colors.background }}
+            horizontal
+            pagingEnabled
+          >
             {currentSuggestedTreeData.imageUris.map((imageUri) => (
               <View
                 key={`${currentSuggestedTreeData.name}-${imageUri}`}
