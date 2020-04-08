@@ -262,7 +262,8 @@
   {
     "COMMON": "Blue Atlas Cedar",
     "SCIENTIFIC": "Cedrus atlantica",
-    "ID": "53"
+    "ID": "53",
+    "LEVEL": "medium"
   },
   {
     "COMMON": "Deodar Cedar",
@@ -802,7 +803,8 @@
   {
     "COMMON": "Oregon Oak (aka White Oak or Garry Oak)",
     "SCIENTIFIC": "Quercus garryana",
-    "ID": "161"
+    "ID": "161",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "Holly Oak (aka Holm Oak)",
@@ -842,7 +844,8 @@
   {
     "COMMON": "Northern Red Oak",
     "SCIENTIFIC": "Quercus rubra",
-    "ID": "169"
+    "ID": "169",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "Black Oak",
@@ -947,7 +950,8 @@
   {
     "COMMON": "Western Red Cedar (aka Giant Arborvitae or Shinglewood)",
     "SCIENTIFIC": "Thuja plicata",
-    "ID": "190"
+    "ID": "190",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "Redmond Linden",

@@ -14,7 +14,7 @@ const badgeImages: { [key in BadgeVariant]: ImageSourcePropType } = {
   old_growth_expert: require('../../assets/badges/old_growth_expert.png'),
 }
 
-const BADGE_HEIGHT = 150
+const BADGE_HEIGHT = 120
 
 export function Badge(props: BadgeProps) {
   const badgeImage = badgeImages[props.variant]

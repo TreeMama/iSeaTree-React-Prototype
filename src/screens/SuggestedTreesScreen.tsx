@@ -25,29 +25,6 @@ interface SuggestedTreeData {
 const suggestedTrees: SuggestedTreeData[] = [
   {
     images: [
-      require('../../assets/suggested-trees/atlas-cedar-1.png'),
-      require('../../assets/suggested-trees/atlas-cedar-2.jpg'),
-    ],
-    name: 'Atlas Cedar',
-    level: 'Medium',
-    levelText: 'Difficulty Level: Medium, Rare in Seattle region. Non-native.',
-    identifiable_attributes: [
-      'Grows in a large, pyramidal shape.',
-      'Has silvery blue to bluish-green needles up to 1½" long that are somewhat stiff but not very sharp.',
-      "Develops very large 'purple-tipped' female cones on the upper branches.",
-      'Cones tend to easily break when they fall (depending on the time of year, you might be able to find broken cone shells dispersed over the ground).',
-      'Grows to an average height of 40–60 ft. ',
-    ],
-    known_public_locations: [
-      'East side of Green Lake has a mature specimen. Try looking near the play area, on the southeast streetside of 67th street.',
-      'West Seattle has mature specimens located near the SW Charleston St Standpipe and Scenic Heights Pump Station (3919 SW Charlestown St, Seattle, WA 98116). ',
-    ],
-    fun_facts: [
-      'The Atlas cedar produces an aromatic oil that is a natural deterrent for insects. Wood from this cedar is commonly used in chests and furniture drawers.',
-    ],
-  },
-  {
-    images: [
       require('../../assets/suggested-trees/garry-oak-1.jpg'),
       require('../../assets/suggested-trees/garry-oak-2.png'),
       require('../../assets/suggested-trees/garry-oak-3.jpg'),
@@ -69,6 +46,29 @@ const suggestedTrees: SuggestedTreeData[] = [
       'Oak Manor, 730 Belmont Avenue E is home to a specimen that is likely over 170 years old. This Capitol Hill neighborhood oak is on private property, however, it is so large and visible that it can easily be seen from the street.',
     ],
     fun_facts: ["Whidbey Island's Oak Harbor was named after this tree."],
+  },
+  {
+    images: [
+      require('../../assets/suggested-trees/atlas-cedar-1.png'),
+      require('../../assets/suggested-trees/atlas-cedar-2.jpg'),
+    ],
+    name: 'Atlas Cedar',
+    level: 'Medium',
+    levelText: 'Difficulty Level: Medium, Rare in Seattle region. Non-native.',
+    identifiable_attributes: [
+      'Grows in a large, pyramidal shape.',
+      'Has silvery blue to bluish-green needles up to 1½" long that are somewhat stiff but not very sharp.',
+      "Develops very large 'purple-tipped' female cones on the upper branches.",
+      'Cones tend to easily break when they fall (depending on the time of year, you might be able to find broken cone shells dispersed over the ground).',
+      'Grows to an average height of 40–60 ft. ',
+    ],
+    known_public_locations: [
+      'East side of Green Lake has a mature specimen. Try looking near the play area, on the southeast streetside of 67th street.',
+      'West Seattle has mature specimens located near the SW Charleston St Standpipe and Scenic Heights Pump Station (3919 SW Charlestown St, Seattle, WA 98116). ',
+    ],
+    fun_facts: [
+      'The Atlas cedar produces an aromatic oil that is a natural deterrent for insects. Wood from this cedar is commonly used in chests and furniture drawers.',
+    ],
   },
   {
     images: [

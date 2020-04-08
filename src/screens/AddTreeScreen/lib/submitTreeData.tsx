@@ -15,17 +15,11 @@ export async function submitTreeData(formValues: FormValues): Promise<void> {
 
   if (
     !formValues.photo ||
-    !formValues.speciesNameId ||
+    !formValues.speciesData ||
     !formValues.landUseCategory ||
     !formValues.coords
   ) {
     throw Error('Invalid form values')
-  }
-
-  const speciesNames = getSpeciesNames(formValues.speciesNameId)
-
-  if (!speciesNames) {
-    throw Error('Could not find species name')
   }
 
   const imageDownloadUrl = await uploadTreeImage(formValues.photo.uri)
@@ -36,8 +30,8 @@ export async function submitTreeData(formValues: FormValues): Promise<void> {
 
   const treeData: TreeData = {
     userId: user.uid,
-    speciesNameCommon: speciesNames.COMMON,
-    speciesNameScientific: speciesNames.SCIENTIFIC,
+    speciesNameCommon: formValues.speciesData.COMMON,
+    speciesNameScientific: formValues.speciesData.SCIENTIFIC,
     dbh: Number(formValues.dbh),
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,

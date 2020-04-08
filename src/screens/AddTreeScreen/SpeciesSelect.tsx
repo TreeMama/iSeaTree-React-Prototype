@@ -9,7 +9,7 @@ import {
   Text as RNText,
   StyleSheet,
 } from 'react-native'
-import { Subheading, useTheme, Button, TextInput, DefaultTheme } from 'react-native-paper'
+import { Text, Subheading, useTheme, Button, TextInput, DefaultTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { StatusBar } from '../../components/StatusBar'
@@ -20,6 +20,7 @@ interface SpeciesData {
   ID: string
   COMMON: string
   SCIENTIFIC: string
+  LEVEL?: string
 }
 
 interface SpeciesSelectProps {
@@ -120,6 +121,12 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           marginTop: 5,
         }}
       >
+        {!!props.speciesData?.LEVEL && (
+          <Text
+            style={{ marginBottom: 5, color: theme.colors.primary, fontWeight: 'bold' }}
+          >{`You've found ${props.speciesData.LEVEL} tree!`}</Text>
+        )}
+
         <TouchableOpacity
           onPress={() => {
             setIsModalVisible(true)
@@ -131,7 +138,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
               editable={false}
               mode="outlined"
               placeholder="Select species..."
-              value={props.speciesData?.COMMON}
+              value={props.speciesData?.COMMON || ''}
             />
             <View
               style={{
