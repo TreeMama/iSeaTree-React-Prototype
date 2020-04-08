@@ -142,7 +142,7 @@ export function SuggestedTreesScreen() {
   }, [])
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: Constants.statusBarHeight + 10 }}>
+    <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: Constants.statusBarHeight }}>
       <RNPickerSelect
         items={pickerItems}
         value={currentSuggestedTreeData.name}

@@ -233,6 +233,10 @@ export function AddTreeScreen() {
             </Text>
           )}
 
+          <View style={{ marginBottom: 25 }}>
+            <TreeBenefits speciesData={formik.values.speciesData} />
+          </View>
+
           <Button mode="contained" onPress={formik.handleSubmit} loading={formik.isSubmitting}>
             Save
           </Button>
@@ -256,8 +260,6 @@ export function AddTreeScreen() {
           />
         </Modal>
       </ScrollView>
-
-      <TreeBenefits speciesData={formik.values.speciesData} />
     </KeyboardAvoidingView>
   )
 }

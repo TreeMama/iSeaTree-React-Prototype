@@ -32,16 +32,6 @@ export function DbhHelp() {
             backgroundColor: '#fff',
           }}
         >
-          <Button
-            mode="contained"
-            style={{ borderRadius: 0 }}
-            onPress={() => {
-              setIsModalVisible(false)
-            }}
-          >
-            Close
-          </Button>
-
           <ScrollView>
             <View style={{ flex: 1, padding: 15, paddingBottom: 50 }}>
               <Headline>How to measure DBH</Headline>
@@ -102,6 +92,16 @@ export function DbhHelp() {
               </View>
             </View>
           </ScrollView>
+
+          <Button
+            mode="contained"
+            style={{ borderRadius: 0 }}
+            onPress={() => {
+              setIsModalVisible(false)
+            }}
+          >
+            Close
+          </Button>
         </View>
       </Modal>
     </View>
