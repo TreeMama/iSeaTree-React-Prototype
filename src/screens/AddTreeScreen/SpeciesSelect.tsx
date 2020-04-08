@@ -5,15 +5,14 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Platform,
   TouchableHighlight,
   Text as RNText,
   StyleSheet,
 } from 'react-native'
 import { Subheading, useTheme, Button, TextInput, DefaultTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import Constants from 'expo-constants'
 
+import { StatusBar } from '../../components/StatusBar'
 import { colors } from '../../styles/theme'
 import speciesDataList from '../../../data/species.json'
 
@@ -54,8 +53,6 @@ function getSpeciesFlatListData(
 export function getSpeciesNames(speciesNameId: string): undefined | SpeciesData {
   return speciesDataList.find((speciesDatum) => speciesDatum.ID === speciesNameId)
 }
-
-const paddingTop = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
 const styles = StyleSheet.create({
   listItem: {
@@ -152,8 +149,10 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           </View>
         </TouchableOpacity>
 
-        <Modal visible={isModalVisible} transparent animationType="slide">
-          <View style={{ flex: 1, backgroundColor: '#fff', paddingTop }}>
+        <Modal visible={isModalVisible} animationType="slide">
+          <StatusBar />
+
+          <View style={{ flex: 1, backgroundColor: '#fff' }}>
             <Button
               mode="contained"
               style={{ borderRadius: 0 }}

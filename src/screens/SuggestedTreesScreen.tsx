@@ -173,10 +173,8 @@ export function SuggestedTreesScreen() {
           height: 58,
           borderBottomWidth: 1,
           borderColor: '#ddd',
-          backgroundColor: theme.colors.background,
           paddingHorizontal: 15,
           fontSize: 15,
-          // borderRadius: theme.roundness,
         }}
         useNativeAndroidPickerStyle={false}
       />

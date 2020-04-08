@@ -26,14 +26,15 @@ export function DbhHelp() {
         <MaterialCommunityIcons name="help-circle-outline" size={20} color={theme.colors.primary} />
       </Button>
 
-      <Modal visible={isModalVisible} transparent animationType="slide">
+      <Modal visible={isModalVisible} animationType="slide">
+        <StatusBar />
+
         <View
           style={{
             flex: 1,
             backgroundColor: '#fff',
           }}
         >
-          <StatusBar />
           <ScrollView>
             <View style={{ flex: 1, padding: 15, paddingBottom: 50 }}>
               <Headline>How to measure DBH</Headline>

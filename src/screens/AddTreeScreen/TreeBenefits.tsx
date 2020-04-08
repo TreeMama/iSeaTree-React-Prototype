@@ -1,14 +1,13 @@
 import React from 'react'
 
-import { Modal, View, ScrollView, Platform, StyleSheet } from 'react-native'
+import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import { Banner, Text, Headline, Button } from 'react-native-paper'
-import Constants from 'expo-constants'
+
+import { StatusBar } from '../../components/StatusBar'
 
 interface TreeBenefitsProps {
   speciesData: null | { ID: string; COMMON: string; SCIENTIFIC: string }
 }
-
-const paddingTop = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
 const styles = StyleSheet.create({
   tableRow: {
@@ -58,17 +57,17 @@ export function TreeBenefits(props: TreeBenefitsProps) {
       {!!props.speciesData && (
         <Modal
           visible={isModalVisible}
-          transparent
           animationType="slide"
           onDismiss={() => {
             setIsModalVisible(false)
           }}
         >
+          <StatusBar />
+
           <View
             style={{
               flex: 1,
               backgroundColor: '#fff',
-              paddingTop,
             }}
           >
             <ScrollView style={{ marginTop: 10 }}>

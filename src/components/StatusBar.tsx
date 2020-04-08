@@ -10,18 +10,19 @@ interface StatusBarProps {
 
 StatusBar.defaultProps = {
   isHidden: false,
-  backgroundColor: 'red',
-  // backgroundColor: '#fff',
+  backgroundColor: '#fff',
 }
 
-const STATUSBAR_HEIGHT = Constants.statusBarHeight
-
-export const STATUSBAR_PADDING = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
 export function StatusBar(props: StatusBarProps) {
   return (
     <View style={{ height: STATUSBAR_HEIGHT, backgroundColor: props.backgroundColor }}>
-      <RNStatusBar hidden={props.isHidden} translucent={false} backgroundColor={'green'} />
+      <RNStatusBar
+        hidden={props.isHidden}
+        translucent={false}
+        backgroundColor={props.backgroundColor}
+      />
     </View>
   )
 }

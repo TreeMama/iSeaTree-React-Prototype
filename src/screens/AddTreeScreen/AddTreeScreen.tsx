@@ -243,7 +243,7 @@ export function AddTreeScreen() {
           </Button>
         </View>
 
-        <Modal visible={isCameraVisible} animationType="slide" transparent>
+        <Modal visible={isCameraVisible} animationType="slide">
           <CameraWithLocation
             onClose={() => {
               setIsCameraVisible(false)
