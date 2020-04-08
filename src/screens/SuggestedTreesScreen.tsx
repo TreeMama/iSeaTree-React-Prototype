@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { View, ScrollView, Dimensions, Image, ImageSourcePropType } from 'react-native'
-import { Text, Badge, Title, Paragraph, useTheme, Subheading } from 'react-native-paper'
+import { Text, Badge, Title, Paragraph, useTheme } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -195,6 +195,7 @@ export function SuggestedTreesScreen() {
           fontSize: 15,
         }}
         useNativeAndroidPickerStyle={false}
+        placeholder={{}}
       />
 
       <ScrollView>
@@ -255,7 +256,7 @@ export function SuggestedTreesScreen() {
             </Text>
           )}
 
-          <Paragraph style={{ marginBottom: 50 }}>{currentSuggestedTreeData.description}</Paragraph>
+          <Paragraph style={{ marginBottom: 30 }}>{currentSuggestedTreeData.description}</Paragraph>
 
           {!!currentSuggestedTreeData.identifiable_attributes && (
             <View style={{ marginBottom: 15 }}>
