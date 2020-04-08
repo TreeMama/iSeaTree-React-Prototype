@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { Modal, View, StatusBar, ScrollView, Image } from 'react-native'
+import { Modal, View, ScrollView, Image } from 'react-native'
 import { Text, Title, Headline, Button, useTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+
+import { StatusBar } from '../../components/StatusBar'
 
 const imageStep1 = require('../../../assets/dbh-help/step_1.png')
 const imageStep2 = require('../../../assets/dbh-help/step_2.png')
@@ -25,13 +27,13 @@ export function DbhHelp() {
       </Button>
 
       <Modal visible={isModalVisible} transparent animationType="slide">
-        <StatusBar hidden />
         <View
           style={{
             flex: 1,
             backgroundColor: '#fff',
           }}
         >
+          <StatusBar />
           <ScrollView>
             <View style={{ flex: 1, padding: 15, paddingBottom: 50 }}>
               <Headline>How to measure DBH</Headline>

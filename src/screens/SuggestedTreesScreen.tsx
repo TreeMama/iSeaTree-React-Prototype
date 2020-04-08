@@ -2,11 +2,11 @@ import React from 'react'
 
 import { View, ScrollView, Dimensions, Image } from 'react-native'
 import { Badge, Title, Paragraph, useTheme } from 'react-native-paper'
-import Constants from 'expo-constants'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { colors } from '../styles/theme'
+import { StatusBar } from '../components/StatusBar'
 
 const slideHeight = 300
 
@@ -142,7 +142,9 @@ export function SuggestedTreesScreen() {
   }, [])
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: Constants.statusBarHeight }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>
+      <StatusBar />
+
       <RNPickerSelect
         items={pickerItems}
         value={currentSuggestedTreeData.name}

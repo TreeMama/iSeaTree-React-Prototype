@@ -11,9 +11,9 @@ import {
   ScrollView,
 } from 'react-native'
 import { Button, TextInput, Text, Subheading, useTheme } from 'react-native-paper'
-import Constants from 'expo-constants'
 import { useFormik, FormikErrors } from 'formik'
 
+import { StatusBar } from '../../components/StatusBar'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { TreeTypes } from '../../lib/treeData'
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: Constants.statusBarHeight,
   },
 })
 
@@ -111,6 +110,8 @@ export function AddTreeScreen() {
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
+      <StatusBar />
+
       <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
         <Button
           style={{ alignSelf: 'flex-end', marginVertical: 5 }}
@@ -242,7 +243,7 @@ export function AddTreeScreen() {
           </Button>
         </View>
 
-        <Modal visible={isCameraVisible} animationType="slide">
+        <Modal visible={isCameraVisible} animationType="slide" transparent>
           <CameraWithLocation
             onClose={() => {
               setIsCameraVisible(false)

@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { View, Platform, Image, Alert } from 'react-native'
+import { View, Image, Alert } from 'react-native'
 import { Camera as ExpoCamera } from 'expo-camera'
 import { Text, Button } from 'react-native-paper'
-import Constants from 'expo-constants'
-
 import * as ImagePicker from 'expo-image-picker'
+
+import { StatusBar } from './StatusBar'
 
 export interface CapturedPicture {
   width: number
@@ -20,8 +20,6 @@ interface CameraProps {
   onClose: () => void
   onTakePicture: (picture: CapturedPicture) => void
 }
-
-const paddingTop = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
 export function Camera(props: CameraProps) {
   const [hasCameraPermission, setHasCameraPermission] = React.useState<null | boolean>(null)
@@ -70,8 +68,14 @@ export function Camera(props: CameraProps) {
   }
 
   return (
-    <View style={{ flex: 1, paddingTop }}>
-      <Button onPress={props.onClose} style={{ backgroundColor: 'white' }}>
+    <View style={{ flex: 1 }}>
+      <StatusBar />
+
+      <Button
+        mode="outlined"
+        onPress={props.onClose}
+        style={{ backgroundColor: 'white', borderRadius: 0 }}
+      >
         Cancel
       </Button>
 
