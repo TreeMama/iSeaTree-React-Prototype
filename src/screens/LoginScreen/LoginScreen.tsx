@@ -4,8 +4,8 @@ import { StyleSheet, View } from 'react-native'
 import { Banner, Button } from 'react-native-paper'
 import * as firebase from 'firebase'
 
-import { AuthForm } from '../components/AuthForm'
-import { useNavigationActions } from '../lib/navigation'
+import { LoginForm } from './LoginForm'
+import { useNavigationActions } from '../../lib/navigation'
 
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +55,7 @@ export function LoginScreen() {
       </Banner>
 
       <View style={styles.content}>
-        <AuthForm
+        <LoginForm
           headlineText="Log in to your account"
           submitText="Log in"
           onSubmit={handleLogin}

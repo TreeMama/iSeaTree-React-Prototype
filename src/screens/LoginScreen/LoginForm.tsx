@@ -3,13 +3,13 @@ import React from 'react'
 import { StyleSheet, View, Keyboard } from 'react-native'
 import { Button, TextInput, Text, Headline, withTheme, Theme } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
-import { isValidEmail, isMinLength } from '../lib/formValidations'
+import { isValidEmail, isMinLength } from '../../lib/formValidations'
 
 const styles = StyleSheet.create({
   container: {},
 })
 
-interface AuthFormProps {
+interface LoginFormProps {
   headlineText: string
   submitText: string
   onSubmit: (values: { email: string; password: string }) => void
@@ -42,7 +42,7 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   return errors
 }
 
-function AuthForm(props: AuthFormProps) {
+function LoginForm(props: LoginFormProps) {
   const formik = useFormik<FormValues>({
     initialValues: { email: '', password: '', passwordConfirmation: '' },
     validate: validateForm,
@@ -94,5 +94,5 @@ function AuthForm(props: AuthFormProps) {
   )
 }
 
-const WithTheme = withTheme(AuthForm)
-export { WithTheme as AuthForm }
+const WithTheme = withTheme(LoginForm)
+export { WithTheme as LoginForm }
