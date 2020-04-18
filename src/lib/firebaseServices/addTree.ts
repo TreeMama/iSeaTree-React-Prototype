@@ -14,10 +14,11 @@ export interface TreeData {
   coords: firestore.GeoPoint
   speciesNameScientific: string
   speciesNameCommon: string
-  dbh: number
+  dbh: string
   treeType: TreeTypes
   landUseCategory: string
   notes: string | null
+  isValidated: boolean
 }
 
 const TREES_COLLECTION = 'trees'

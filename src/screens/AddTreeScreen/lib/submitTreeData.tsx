@@ -3,7 +3,6 @@ import * as firebase from 'firebase'
 import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
-import { getSpeciesNames } from '../SpeciesSelect'
 import { getCurrentUser } from '../../../lib/firebaseServices'
 
 export async function submitTreeData(formValues: FormValues): Promise<void> {
@@ -32,7 +31,7 @@ export async function submitTreeData(formValues: FormValues): Promise<void> {
     userId: user.uid,
     speciesNameCommon: formValues.speciesData.COMMON,
     speciesNameScientific: formValues.speciesData.SCIENTIFIC,
-    dbh: Number(formValues.dbh),
+    dbh: formValues.dbh,
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,
     notes: formValues.notes || null,
@@ -42,6 +41,7 @@ export async function submitTreeData(formValues: FormValues): Promise<void> {
       height: formValues.photo.height,
     },
     coords: treeCoords,
+    isValidated: false,
   }
 
   return addTree(treeData)
