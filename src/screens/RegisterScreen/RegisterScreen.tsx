@@ -4,19 +4,18 @@ import { StyleSheet, View, ScrollView } from 'react-native'
 import { Banner, Button, Paragraph, Text } from 'react-native-paper'
 import * as firebase from 'firebase'
 
-import { AuthForm } from '../components/AuthForm'
-import { useNavigationActions } from '../lib/navigation'
-import { setUser } from '../lib/firebaseServices'
+import { StatusBar } from '../../components/StatusBar'
+import { useNavigationActions } from '../../lib/navigation'
+import { setUser } from '../../lib/firebaseServices'
+import { RegisterForm } from './RegisterForm'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 50,
-    padding: 20,
   },
   content: {
     flex: 1,
+    padding: 20,
     paddingTop: 50,
   },
 })
@@ -26,7 +25,15 @@ export function RegisterScreen() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const navigationActions = useNavigationActions()
 
-  function handleRegister({ email, password }: { email: string; password: string }) {
+  function handleRegister({
+    username,
+    email,
+    password,
+  }: {
+    username: string
+    email: string
+    password: string
+  }) {
     setIsLoading(true)
     setErrorMessage(null)
 
@@ -37,7 +44,7 @@ export function RegisterScreen() {
         setIsLoading(false)
 
         if (!!result.user) {
-          setUser({ uid: result.user.uid, email })
+          setUser({ uid: result.user.uid, email, username })
         } else {
           setErrorMessage('There was an unexpected error. Please try again later.')
         }
@@ -55,16 +62,18 @@ export function RegisterScreen() {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <Banner
-        visible={!!errorMessage}
-        actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
-      >
-        {errorMessage ? errorMessage : ''}
-      </Banner>
+    <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <StatusBar />
 
       <View style={styles.content}>
-        <AuthForm
+        <Banner
+          visible={!!errorMessage}
+          actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
+        >
+          {errorMessage ? errorMessage : ''}
+        </Banner>
+
+        <RegisterForm
           headlineText="Create new account"
           submitText="Register"
           onSubmit={handleRegister}

@@ -1,5 +1,10 @@
 import * as firebase from 'firebase'
 
+export interface UserData {
+  email: string
+  username: string
+}
+
 export const firebaseImagePath = {
   trees: (fileName: string) => `trees/${fileName}`,
 }
@@ -10,8 +15,27 @@ export function signOutUser(): void {
 
 const USERS_COLLECTION = 'users'
 
-export function setUser(user: { uid: string; email: string }): void {
+export function getUser(uid: string): Promise<UserData | undefined> {
+  return firebase
+    .firestore()
+    .collection(USERS_COLLECTION)
+    .doc(uid)
+    .get()
+    .then((user) => {
+      if (user.exists) {
+        return user.data() as UserData
+      }
+
+      return undefined
+    })
+    .catch(() => {
+      return undefined
+    })
+}
+
+export function setUser(user: { username: string; uid: string; email: string }): void {
   firebase.firestore().collection(USERS_COLLECTION).doc(user.uid).set({
+    username: user.username,
     email: user.email,
     created_at: firebase.firestore.FieldValue.serverTimestamp(),
   })
@@ -38,6 +62,6 @@ export function uploadImage(
   })
 }
 
-export function getCurrentUser() {
+export function getCurrentAuthUser() {
   return firebase.auth().currentUser
 }

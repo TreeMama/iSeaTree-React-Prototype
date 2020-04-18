@@ -4,7 +4,7 @@ import React from 'react'
 
 import { StatusBar } from 'react-native'
 import { registerRootComponent, SplashScreen } from 'expo'
-import { Provider as PaperProvider, useTheme } from 'react-native-paper'
+import { Provider as PaperProvider } from 'react-native-paper'
 import * as firebase from 'firebase'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'

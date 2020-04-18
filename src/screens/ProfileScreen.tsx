@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
-import { signOutUser, getCurrentUser } from '../lib/firebaseServices'
+import { UserData, getUser, signOutUser, getCurrentAuthUser } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 
 const styles = StyleSheet.create({
@@ -22,15 +22,30 @@ const styles = StyleSheet.create({
 
 export function ProfileScreen() {
   const [isMenuVisible, setIsMenuVisible] = React.useState<boolean>(false)
+  const [userData, setUserData] = React.useState<null | UserData>(null)
 
-  const user = getCurrentUser()
+  const authUser = getCurrentAuthUser()
+
+  React.useEffect(() => {
+    if (!authUser) {
+      return
+    }
+
+    getUser(authUser.uid).then((user) => {
+      if (!user) {
+        return
+      }
+
+      setUserData(user)
+    })
+  })
 
   function handleSignout() {
     signOutUser()
     setIsMenuVisible(false)
   }
 
-  if (!user) {
+  if (!authUser) {
     return null
   }
 
@@ -79,7 +94,8 @@ export function ProfileScreen() {
               >
                 <MaterialCommunityIcons name="account-box" size={100} color={colors.gray[400]} />
               </View>
-              <Subheading>{user.email}</Subheading>
+              <Subheading>{userData?.username}</Subheading>
+              <Subheading>{userData?.email}</Subheading>
             </View>
 
             <Divider style={{ width: '100%' }} />
