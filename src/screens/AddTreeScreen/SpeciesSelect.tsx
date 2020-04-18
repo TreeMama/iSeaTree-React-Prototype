@@ -9,7 +9,15 @@ import {
   Text as RNText,
   StyleSheet,
 } from 'react-native'
-import { Text, Subheading, useTheme, Button, TextInput, DefaultTheme } from 'react-native-paper'
+import {
+  Text,
+  Subheading,
+  useTheme,
+  Button,
+  TextInput,
+  DefaultTheme,
+  Badge,
+} from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { StatusBar } from '../../components/StatusBar'
@@ -71,6 +79,22 @@ const styles = StyleSheet.create({
   },
 })
 
+function getTreeBadgeColor(level: string) {
+  switch (level.toLowerCase()) {
+    case 'easy':
+      return '#C6F6D5'
+
+    case 'medium':
+      return '#FEEBC8'
+
+    case 'expert':
+      return '#FEB2B2'
+
+    default:
+      return '#ddd'
+  }
+}
+
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const [query, setQuery] = React.useState<undefined | string>(undefined)
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
@@ -122,9 +146,15 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         }}
       >
         {!!props.speciesData?.LEVEL && (
-          <Text
-            style={{ marginBottom: 5, color: theme.colors.primary, fontWeight: 'bold' }}
-          >{`You've found ${props.speciesData.LEVEL} tree!`}</Text>
+          <Badge
+            visible
+            style={{
+              marginBottom: 5,
+              backgroundColor: getTreeBadgeColor(props.speciesData?.LEVEL),
+            }}
+          >
+            {`You've found ${props.speciesData.LEVEL} tree!`}
+          </Badge>
         )}
 
         <TouchableOpacity

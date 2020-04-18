@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { StyleSheet, View } from 'react-native'
-import { Banner, Button } from 'react-native-paper'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import { Banner, Button, Paragraph, Text } from 'react-native-paper'
 import * as firebase from 'firebase'
 
 import { AuthForm } from '../components/AuthForm'
@@ -55,7 +55,7 @@ export function RegisterScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Banner
         visible={!!errorMessage}
         actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
@@ -70,11 +70,22 @@ export function RegisterScreen() {
           onSubmit={handleRegister}
           isLoading={isLoading}
         />
-      </View>
 
-      <Button style={{ marginTop: 10, marginBottom: 20 }} onPress={navigationActions.login}>
-        log in to your account
-      </Button>
-    </View>
+        <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={navigationActions.login}>
+          log in to your account
+        </Button>
+
+        <Paragraph style={{ fontSize: 12 }}>
+          <Text style={{ fontWeight: 'bold' }}>iSeaTree</Text> v.1 is a prototype application
+          designed by{' '}
+          <Text style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}>treemama.org</Text>{' '}
+          and Copyrighted ©2020 by project contributors. Please ALWAYS exercise caution and
+          awareness of your surroundings when surveying and measuring trees. The iSeaTree project
+          takes no personal responsibility for improper harm made when surveying a tree, and
+          expressly requests that any surveying taking place ONLY be done on public property or at
+          sites where the private landowner has given express permission to the surveyor.
+        </Paragraph>
+      </View>
+    </ScrollView>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { View, ScrollView, Dimensions, Image, ImageSourcePropType } from 'react-native'
-import { Text, Badge, Title, Paragraph, useTheme } from 'react-native-paper'
+import { Text, Badge, Title, useTheme } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
