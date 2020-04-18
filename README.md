@@ -62,3 +62,7 @@ service cloud.firestore {
   }
 }
 ```
+
+## Releasing app to the Play Store (Android)
+
+- google map config - https://docs.expo.io/versions/latest/sdk/map-view/#deploying-to-a-standalone-app-on-android

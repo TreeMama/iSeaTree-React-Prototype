@@ -105,12 +105,7 @@ export function SuggestedTreesScreen() {
 
       <ScrollView>
         <View>
-          <ScrollView
-            ref={sliderRef}
-            style={{ backgroundColor: theme.colors.background }}
-            horizontal
-            pagingEnabled
-          >
+          <ScrollView ref={sliderRef} style={{ backgroundColor: '#fff' }} horizontal pagingEnabled>
             {currentSuggestedTreeData.imageUris &&
               currentSuggestedTreeData.imageUris.map((imageUri) => (
                 <View
