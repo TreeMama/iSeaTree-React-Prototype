@@ -54,7 +54,6 @@ export function Camera(props: CameraProps) {
     const permissionResult = await ImagePicker.requestCameraRollPermissionsAsync()
 
     if (permissionResult.granted === false) {
-      console.log('no permissions to access library')
       Alert.alert('Please allow access to your photos', 'Go to the settings and change permissions')
       return
     }

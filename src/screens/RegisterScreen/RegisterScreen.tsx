@@ -50,8 +50,6 @@ export function RegisterScreen() {
         }
       })
       .catch((error) => {
-        console.log('error: ', error)
-
         setIsLoading(false)
         const errorMEssage = !!error.message
           ? error.message
