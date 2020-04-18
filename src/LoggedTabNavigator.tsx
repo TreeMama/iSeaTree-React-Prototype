@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { useTheme } from 'react-native-paper'
+import { Image } from 'react-native'
 
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
@@ -11,6 +12,9 @@ import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
 
 const Tab = createMaterialBottomTabNavigator()
+
+const treeCameraIcon = require('../assets/tree_camera_inactive.png')
+const treeCameraActiveIcon = require('../assets/tree_camera_active.png')
 
 export function LoggedTabNavigator() {
   const theme = useTheme()
@@ -27,7 +31,7 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons name="account-circle" color={color} size={26} />
           ),
         }}
       />
@@ -36,7 +40,7 @@ export function LoggedTabNavigator() {
         component={MapScreen}
         options={{
           tabBarLabel: 'Map',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="map" color={color} size={26} />,
+          tabBarIcon: ({ color }) => <SimpleLineIcons name="globe" color={color} size={24} />,
         }}
       />
       <Tab.Screen
@@ -52,7 +56,13 @@ export function LoggedTabNavigator() {
         component={AddTreeScreen}
         options={{
           tabBarLabel: 'Add new',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="plus" color={color} size={26} />,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? treeCameraActiveIcon : treeCameraIcon}
+              fadeDuration={0}
+              style={{ width: 30, height: 30 }}
+            />
+          ),
         }}
       />
     </Tab.Navigator>

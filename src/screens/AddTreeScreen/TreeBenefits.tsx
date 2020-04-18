@@ -50,6 +50,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           setIsModalVisible(true)
         }}
         disabled={!canCalculateBenefits}
+        icon="calculator"
       >
         Calculate Tree Benefits
       </Button>

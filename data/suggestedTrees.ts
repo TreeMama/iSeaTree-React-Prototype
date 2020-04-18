@@ -125,7 +125,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       'https://picsum.photos/600/1200',
       'https://picsum.photos/1000/1000',
     ],
-    name: 'Western Red Cedar ',
+    name: 'Western Red Cedar',
     level: 'Easy',
     levelText: '',
     identifiable_attributes: [],
