@@ -20,6 +20,7 @@ import { TreeTypes } from '../../lib/treeData'
 import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
+import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
 import { submitTreeData } from './lib/submitTreeData'
@@ -45,6 +46,14 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 
   if (!values.speciesData) {
     errors.speciesData = "Can't be blank"
+  }
+
+  if (!values.landUseCategory) {
+    errors.landUseCategory = "Can't be blank"
+  }
+
+  if (!values.locationType) {
+    errors.locationType = "Can't be blank"
   }
 
   return errors
@@ -99,6 +108,7 @@ export function AddTreeScreen() {
       notes: '',
       treeType: TreeTypes.CONIFER,
       landUseCategory: null,
+      locationType: null,
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -205,6 +215,28 @@ export function AddTreeScreen() {
               formik.setFieldValue('landUseCategory', value)
             }}
           />
+
+          {!!formik.errors.landUseCategory && !!formik.touched.landUseCategory && (
+            <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+              {formik.errors.landUseCategory}
+            </Text>
+          )}
+        </View>
+
+        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+          <Subheading style={{ marginBottom: 5 }}>Location type</Subheading>
+          <LocationTypeSelect
+            locationType={formik.values.locationType}
+            onValueChange={(value) => {
+              formik.setFieldValue('locationType', value)
+            }}
+          />
+
+          {!!formik.errors.locationType && !!formik.touched.locationType && (
+            <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+              {formik.errors.locationType}
+            </Text>
+          )}
         </View>
 
         <View style={{ marginTop: 20, paddingHorizontal: 15 }}>

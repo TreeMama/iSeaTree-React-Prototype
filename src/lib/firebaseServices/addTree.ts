@@ -17,6 +17,7 @@ export interface TreeData {
   dbh: string
   treeType: TreeTypes
   landUseCategory: string
+  locationType: string
   notes: string | null
   isValidated: boolean
 }

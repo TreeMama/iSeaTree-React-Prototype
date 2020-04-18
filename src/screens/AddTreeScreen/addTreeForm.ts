@@ -12,4 +12,5 @@ export interface FormValues {
   dbh: string
   notes: string
   landUseCategory: string | null
+  locationType: string | null
 }
