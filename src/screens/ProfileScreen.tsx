@@ -38,7 +38,7 @@ export function ProfileScreen() {
 
       setUserData(user)
     })
-  })
+  }, [authUser?.email])
 
   function handleSignout() {
     signOutUser()

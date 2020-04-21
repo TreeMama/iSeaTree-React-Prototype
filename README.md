@@ -40,11 +40,13 @@ Now you can follow displayed instructioned. For example, you can open Android em
 
 This project has configured [Eslint](https://eslint.org/) with recommended typescript and react rules.
 
-## Firebase
+## Firebase - Setup
 
-This project is using Firebase Firestore database.
-
-Database needs certain rules to works correctly. Visit https://firebase.google.com/docs/firestore/security/get-started to learn more about security rules.
+1. Go to the https://console.firebase.google.com and create new project
+2. Click `Database` in the left side panel and create `Firestore`(!) Database
+3. Edit Firestore Database security rules
+   1. Database needs certain rules to works correctly. Visit https://firebase.google.com/docs/firestore/security/get-started to learn more about security rules.
+   2. Copy and paste below rules
 
 ```
 rules_version = '2';
@@ -62,7 +64,17 @@ service cloud.firestore {
   }
 }
 ```
+4. Click `Storage` in the left side panel and create storage
+5. Click `Authentication` in the left side panel and click `Set up sign-in method`
+   1. Enable `Email/Password` method (first from top)
+6. Go to the project settings (Cog icon)
+   1. Find `Your apps` section and register new app. You have to select web platform (</> icon)
+   2. Copy keys from `firebaseConfig` object and use them to populate envVariables.ts inside this project
+
 
 ## Releasing app to the Play Store (Android)
 
+First you have to obtain google map key:
 - google map config - https://docs.expo.io/versions/latest/sdk/map-view/#deploying-to-a-standalone-app-on-android
+
+Then you can follow this instructions: https://docs.expo.io/versions/latest/distribution/app-stores/.
