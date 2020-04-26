@@ -57,7 +57,7 @@ service cloud.firestore {
       allow create: if request.auth.uid != null;
     }
 
-    match /users/{userId} {
+    match /trees/{userId} {
     	allow read, update, delete: if request.auth.uid == resource.data.userId;
       allow create: if request.auth.uid != null;
     }

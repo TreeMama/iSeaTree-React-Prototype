@@ -20,7 +20,13 @@
       "supportsTablet": true
     },
     "android": {
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"]
+      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"],
+      "package": "com.treemama.iseatree",
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
+        }
+      }
     },
     "entryPoint": "./src/App.tsx",
     "description": ""
