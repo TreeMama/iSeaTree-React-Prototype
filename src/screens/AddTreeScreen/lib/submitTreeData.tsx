@@ -4,8 +4,9 @@ import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser } from '../../../lib/firebaseServices'
+import { SpeciesData } from '../SpeciesSelect'
 
-export async function submitTreeData(formValues: FormValues): Promise<void> {
+export async function submitTreeData(formValues: FormValues): Promise<FormValues> {
   const user = getCurrentAuthUser()
 
   if (!user) {
@@ -46,5 +47,7 @@ export async function submitTreeData(formValues: FormValues): Promise<void> {
     isValidated: false,
   }
 
-  return addTree(treeData)
+  addTree(treeData)
+
+  return formValues
 }

@@ -24,7 +24,7 @@ import { StatusBar } from '../../components/StatusBar'
 import { colors } from '../../styles/theme'
 import speciesDataList from '../../../data/species.json'
 
-interface SpeciesData {
+export interface SpeciesData {
   ID: string
   COMMON: string
   SCIENTIFIC: string

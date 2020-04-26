@@ -17,7 +17,7 @@ import { StatusBar } from '../../components/StatusBar'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { TreeTypes } from '../../lib/treeData'
-import { SpeciesSelect } from './SpeciesSelect'
+import { SpeciesSelect, SpeciesData } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
@@ -25,6 +25,8 @@ import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
 import { submitTreeData } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
+import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
+import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
 
 const styles = StyleSheet.create({
   container: {
@@ -75,7 +77,32 @@ export function AddTreeScreen() {
     ])
   }
 
-  function handleSubmitSuccess() {
+  function handleAddTreeSuccess(formValues: FormValues) {
+    const authUser = getCurrentAuthUser()
+    if (!authUser) {
+      handleUpdateUserError()
+      return
+    }
+    getUser(authUser.uid).then((user) => {
+      if (!user) {
+        return
+      }
+      updateBadgesAfterAddingTree(formValues, user, authUser.uid).then(handleUpdateUserSuccess)
+                                          .catch(handleUpdateUserError)
+    })
+  }
+
+  function handleAddTreeError() {
+    formik.setSubmitting(false)
+
+    Alert.alert('Error', 'There was an unexpected error. Please try again later.', [
+      {
+        text: 'Ok',
+      },
+    ])
+  }
+
+  function handleUpdateUserSuccess() {
     formik.resetForm()
     formik.setSubmitting(false)
 
@@ -89,10 +116,10 @@ export function AddTreeScreen() {
     ])
   }
 
-  function handleSubmitError() {
+  function handleUpdateUserError() {
     formik.setSubmitting(false)
 
-    Alert.alert('Error', 'There was an unexpected error. Please try again later.', [
+    Alert.alert('Error', 'Tree was added but there was an error awarding you badges. Sorry :(', [
       {
         text: 'Ok',
       },
@@ -112,7 +139,7 @@ export function AddTreeScreen() {
     },
     validate: validateForm,
     onSubmit: (values) => {
-      submitTreeData(values).then(handleSubmitSuccess).catch(handleSubmitError)
+      submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
     },
   })
 

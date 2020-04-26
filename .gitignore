@@ -13,3 +13,7 @@ web-report/
 # macOS
 .DS_Store
 envVariables.ts
+.vscode/.react/debuggerWorker.js
+.vscode/.react/App.tsx.map
+.vscode/launch.json
+.vscode/.react/src%5CApp.tsx.bundle

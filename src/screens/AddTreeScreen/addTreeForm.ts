@@ -1,3 +1,4 @@
+import { SpeciesData } from './SpeciesSelect';
 import { TreeTypes } from '../../lib/treeData'
 
 export interface FormValues {
@@ -7,7 +8,7 @@ export interface FormValues {
     uri: string
   }
   coords: null | { latitude: number; longitude: number }
-  speciesData: null | { ID: string; COMMON: string; SCIENTIFIC: string }
+  speciesData: null | SpeciesData
   treeType: TreeTypes
   dbh: string
   notes: string

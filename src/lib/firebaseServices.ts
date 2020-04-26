@@ -3,6 +3,8 @@ import * as firebase from 'firebase'
 export interface UserData {
   email: string
   username: string
+  badges: Array<string>
+  treesCount: number
 }
 
 export const firebaseImagePath = {
@@ -38,6 +40,13 @@ export function setUser(user: { username: string; uid: string; email: string }):
     username: user.username,
     email: user.email,
     created_at: firebase.firestore.FieldValue.serverTimestamp(),
+  })
+}
+
+export function updateBadges(uid: string, badges: Array<string>, treesCount: number): Promise<void> {
+  return firebase.firestore().collection(USERS_COLLECTION).doc(uid).update({
+    'badges': badges,
+    'treesCount': treesCount
   })
 }
 
