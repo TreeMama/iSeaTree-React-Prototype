@@ -15,7 +15,7 @@ export interface TreeData {
   coords: firestore.GeoPoint
   speciesNameScientific: string
   speciesNameCommon: string
-  dbh: string
+  dbh?: string
   treeType: TreeTypes
   landUseCategory: string
   locationType: string

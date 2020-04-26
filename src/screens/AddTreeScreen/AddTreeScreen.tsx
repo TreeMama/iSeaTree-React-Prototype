@@ -17,7 +17,7 @@ import { StatusBar } from '../../components/StatusBar'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { TreeTypes } from '../../lib/treeData'
-import { SpeciesSelect, SpeciesData } from './SpeciesSelect'
+import { SpeciesSelect } from './SpeciesSelect'
 import { TreeTypeSelect } from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
@@ -40,10 +40,6 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 
   if (!values.photo) {
     errors.photo = 'You have to add photo'
-  }
-
-  if (!values.dbh) {
-    errors.dbh = "Can't be blank"
   }
 
   if (!values.speciesData) {
@@ -87,8 +83,9 @@ export function AddTreeScreen() {
       if (!user) {
         return
       }
-      updateBadgesAfterAddingTree(formValues, user, authUser.uid).then(handleUpdateUserSuccess)
-                                          .catch(handleUpdateUserError)
+      updateBadgesAfterAddingTree(formValues, user, authUser.uid)
+        .then(handleUpdateUserSuccess)
+        .catch(handleUpdateUserError)
     })
   }
 
