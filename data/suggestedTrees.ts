@@ -1,8 +1,7 @@
 import { ImageSourcePropType } from 'react-native'
 
 export interface SuggestedTreeData {
-  imageUris?: string[]
-  images?: ImageSourcePropType[] // TODO
+  images?: ImageSourcePropType[]
   name: string
   level: string
 
@@ -42,7 +41,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       require('../assets/suggested-trees/atlas-cedar-1.png'),
       require('../assets/suggested-trees/atlas-cedar-2.jpg'),
     ],
-    name: 'Atlas Cedar',
+    name: 'Blue Atlas Cedar',
     level: 'Medium',
     levelText: 'Difficulty Level: Medium, Rare in Seattle region. Non-native.',
     identifiable_attributes: [
@@ -64,6 +63,9 @@ export const suggestedTrees: SuggestedTreeData[] = [
     images: [
       require('../assets/suggested-trees/northern-red-oak-1.jpg'),
       require('../assets/suggested-trees/northern-red-oak-2.png'),
+      require('../assets/suggested-trees/northern-red-oak-3.jpg'),
+      require('../assets/suggested-trees/northern-red-oak-4.jpg'),
+      require('../assets/suggested-trees/northern-red-oak-5.png'),
     ],
     name: 'Northern Red Oak',
     level: 'Easy',
@@ -84,23 +86,39 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
   },
   {
-    imageUris: [
-      'https://picsum.photos/1200/600',
-      'https://picsum.photos/600/1200',
-      'https://picsum.photos/1000/1000',
+    images: [
+      require('../assets/suggested-trees/shagbark-hickory-1.jpg'),
+      require('../assets/suggested-trees/shagbark-hickory-2.jpg'),
+      require('../assets/suggested-trees/shagbark-hickory-3.jpg'),
+      require('../assets/suggested-trees/shagbark-hickory-4.jpg'),
+      require('../assets/suggested-trees/shagbark-hickory-5.jpg'),
+      require('../assets/suggested-trees/shagbark-hickory-6.jpeg'),
     ],
-    name: 'Shaggybark Hickory',
-    level: 'Medium',
-    levelText: '',
-    identifiable_attributes: [],
-    known_public_locations: [],
-    fun_facts: [],
+    name: 'Shagbark Hickory',
+    level: 'Expert',
+    levelText: 'Expert, very rare in Seattle region. Non-Native.',
+    identifiable_attributes: [
+      'The compound leaves generally have 5 leaflets (and occassionally 3 or 7 leaflets) that are about 8-14" long (see picture).',
+      'The leaf color is yellow-green, that turns a vivid golden yellow in the fall.',
+      'In its mature size it has a broad, round crown with drooping and twisted branches.',
+      'Husked nuts are very large and round. Squirrels are very fond of them, and will leave shreds of the emptied husk to be easily found.',
+      `Bark is a deep gray color, that has a loose 'shredding' characteristic to it (hence the name).`,
+      'Grows to an average height of 65–90 ft. ',
+    ],
+    known_public_locations: [
+      `Carkeek Park, near Piper's Orchard.`,
+      'Washington Park Arboretum (UW).',
+    ],
+    fun_facts: [
+      `This hickory is prized for both its strong durable wood and ripened nuts. The wood has been used in everything from baseball bats to firewood. The large nuts have three parts to them: the husk, the outer shell, and the inner nut meat. The nuts are greatly favored by humans and wildlife - so be prepared to see the ground covered with nuts if you find this tree in the fall or the winter. `,
+    ],
   },
   {
     images: [
       require('../assets/suggested-trees/northern-white-cedar-1.jpg'),
       require('../assets/suggested-trees/northern-white-cedar-2.jpg'),
       require('../assets/suggested-trees/northern-white-cedar-3.jpg'),
+      require('../assets/suggested-trees/northern-white-cedar-4.jpg'),
     ],
     name: 'Northern White Cedar',
     level: 'Expert',
@@ -120,16 +138,27 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
   },
   {
-    imageUris: [
-      'https://picsum.photos/1200/600',
-      'https://picsum.photos/600/1200',
-      'https://picsum.photos/1000/1000',
+    images: [
+      require('../assets/suggested-trees/western-red-cedar-1.jpg'),
+      require('../assets/suggested-trees/western-red-cedar-2.jpg'),
+      require('../assets/suggested-trees/western-red-cedar-3.jpg'),
+      require('../assets/suggested-trees/western-red-cedar-4.jpg'),
     ],
     name: 'Western Red Cedar',
-    level: 'Easy',
-    levelText: '',
-    identifiable_attributes: [],
-    known_public_locations: [],
-    fun_facts: [],
+    level: 'Medium',
+    levelText: 'Medium, very common in Seattle region. Native.',
+    identifiable_attributes: [
+      `The evergreen leaves are flat foliage sprays. The sprays are tiny, pointed and scalelike. Occassionally you can see white marks on the underside of the sprays.`,
+      'The leaf color is green to yellow-green.',
+      'The tree is large and pyramid shapped, with dropping branches that sometimes create distinctive arches.',
+      'Bark is a cinammon-red color with fibrous longitudinal fissures on the trunk.',
+      `Foliage is fruity-smelling when crushed. Smells sort of like pineapple, and smells distinctively sweeter then its cousin, the Northern White Cedar.`,
+      'Seed cones are very small (<.5 inches), and egg shaped.',
+      `At its tallest height - this tree has been known to grow 213 - 230 ft tall, with 9.8 - 23 ft in trunk diameter. Within Seattle, most of the trees are under 200 feet though.`,
+    ],
+    known_public_locations: [`Denny and Seward park both have large specimens of ~175 ft tall.`],
+    fun_facts: [
+      `The name plicata comes from a Greek word meaning "folded in plaits," in reference to the arrangement of the leaves. This tree is notably long lived, some individuals can live well over a thousand years, and its highly valuable wood is so rot resistant that you can easily find ancient stumps that still have not began to decay.`,
+    ],
   },
 ]
