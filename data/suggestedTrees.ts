@@ -121,7 +121,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       require('../assets/suggested-trees/northern-white-cedar-4.jpg'),
     ],
     name: 'Northern White Cedar',
-    level: 'Expert',
+    level: 'Medium',
     levelText:
       'Expert, common in Seattle region - however can be easily mistaken for its native cousin - the Western Red Cedar. Non-Native.',
     identifiable_attributes: [

@@ -1027,5 +1027,17 @@
     "COMMON": "Village Green Zelkova",
     "SCIENTIFIC": "Zelkova serrata ‘Village Green’",
     "ID": "205"
+  },
+  {
+    "COMMON": "Northern White Cedar",
+    "SCIENTIFIC": "Thuja occidentalis",
+    "ID": "206",
+    "LEVEL": "medium"
+  },
+  {
+    "COMMON": "Shagbark Hickory",
+    "SCIENTIFIC": "Carya ovata",
+    "ID": "207",
+    "LEVEL": "expert"
   }
 ]
