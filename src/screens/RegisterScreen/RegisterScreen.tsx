@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView, Linking } from 'react-native'
 import { Banner, Button, Paragraph, Text } from 'react-native-paper'
 import * as firebase from 'firebase'
 
@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
 })
+
+const treemamaUrl = 'https://treemama.org'
 
 export function RegisterScreen() {
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
@@ -59,6 +61,16 @@ export function RegisterScreen() {
       })
   }
 
+  async function openTreemamaWebsite() {
+    const canOpen: boolean = await Linking.canOpenURL(treemamaUrl)
+
+    if (!canOpen) {
+      return
+    }
+
+    Linking.openURL(treemamaUrl)
+  }
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar />
@@ -82,10 +94,15 @@ export function RegisterScreen() {
           log in to your account
         </Button>
 
-        <Paragraph style={{ fontSize: 12 }}>
+        <Paragraph>
           <Text style={{ fontWeight: 'bold' }}>iSeaTree</Text> v.1 is a prototype application
           designed by{' '}
-          <Text style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}>treemama.org</Text>{' '}
+          <Text
+            style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}
+            onPress={openTreemamaWebsite}
+          >
+            treemama.org
+          </Text>{' '}
           and Copyrighted ©2020 by project contributors. Please ALWAYS exercise caution and
           awareness of your surroundings when surveying and measuring trees. The iSeaTree project
           takes no personal responsibility for improper harm made when surveying a tree, and
