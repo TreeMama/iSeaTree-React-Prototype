@@ -43,10 +43,14 @@ export function setUser(user: { username: string; uid: string; email: string }):
   })
 }
 
-export function updateBadges(uid: string, badges: Array<string>, treesCount: number): Promise<void> {
+export function updateBadges(
+  uid: string,
+  badges: Array<string>,
+  treesCount: number,
+): Promise<void> {
   return firebase.firestore().collection(USERS_COLLECTION).doc(uid).update({
-    'badges': badges,
-    'treesCount': treesCount
+    badges: badges,
+    treesCount: treesCount,
   })
 }
 

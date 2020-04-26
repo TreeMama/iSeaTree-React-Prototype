@@ -3,22 +3,24 @@ import * as firebase from 'firebase'
 import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
-import { getCurrentAuthUser } from '../../../lib/firebaseServices'
-import { SpeciesData } from '../SpeciesSelect'
+import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
 
 export async function submitTreeData(formValues: FormValues): Promise<FormValues> {
-  const user = getCurrentAuthUser()
+  const authUser = getCurrentAuthUser()
 
-  if (!user) {
+  if (!authUser) {
     throw Error('User is not authenticated')
   }
+
+  const userData = await getUser(authUser.uid)
 
   if (
     !formValues.photo ||
     !formValues.speciesData ||
     !formValues.landUseCategory ||
     !formValues.locationType ||
-    !formValues.coords
+    !formValues.coords ||
+    !userData
   ) {
     throw Error('Invalid form values')
   }
@@ -30,7 +32,8 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
   )
 
   const treeData: TreeData = {
-    userId: user.uid,
+    userId: authUser.uid,
+    username: userData.username,
     speciesNameCommon: formValues.speciesData.COMMON,
     speciesNameScientific: formValues.speciesData.SCIENTIFIC,
     dbh: formValues.dbh,

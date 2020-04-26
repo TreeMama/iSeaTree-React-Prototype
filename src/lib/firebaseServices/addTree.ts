@@ -10,6 +10,7 @@ interface TreePhoto {
 
 export interface TreeData {
   userId: string
+  username: string
   photo: TreePhoto
   coords: firestore.GeoPoint
   speciesNameScientific: string
