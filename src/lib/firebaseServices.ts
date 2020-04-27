@@ -17,6 +17,19 @@ export function signOutUser(): void {
 
 const USERS_COLLECTION = 'users'
 
+export function userDataListener(
+  uid: string,
+  onUserDataChange: (user: UserData | undefined) => void,
+): () => void {
+  return firebase
+    .firestore()
+    .collection(USERS_COLLECTION)
+    .doc(uid)
+    .onSnapshot((doc) => {
+      onUserDataChange(doc.data() as UserData | undefined)
+    })
+}
+
 export function getUser(uid: string): Promise<UserData | undefined> {
   return firebase
     .firestore()

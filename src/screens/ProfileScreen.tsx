@@ -6,7 +6,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
-import { UserData, getUser, signOutUser, getCurrentAuthUser } from '../lib/firebaseServices'
+import {
+  UserData,
+  getUser,
+  userDataListener,
+  signOutUser,
+  getCurrentAuthUser,
+} from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 
 const styles = StyleSheet.create({
@@ -31,13 +37,17 @@ export function ProfileScreen() {
       return
     }
 
-    getUser(authUser.uid).then((user) => {
-      if (!user) {
+    const unsubscribe = userDataListener(authUser.uid, (userData) => {
+      if (!userData) {
         return
       }
 
-      setUserData(user)
+      setUserData(userData)
     })
+
+    return () => {
+      unsubscribe()
+    }
   }, [authUser?.email])
 
   function handleSignout() {
@@ -51,40 +61,26 @@ export function ProfileScreen() {
 
   function addBadges() {
     var badges = []
-    if (userData?.badges?.includes("SEEDLING")) {
-      badges.push(
-        <Badge key="seedling" variant="seedling" />
-      )
+    if (userData?.badges?.includes('SEEDLING')) {
+      badges.push(<Badge key="seedling" variant="seedling" />)
     }
-    if (userData?.badges?.includes("SAPLING")) {
-      badges.push(
-        <Badge key="sapling" variant="sapling" />
-      )
+    if (userData?.badges?.includes('SAPLING')) {
+      badges.push(<Badge key="sapling" variant="sapling" />)
     }
-    if (userData?.badges?.includes("OLD_GROWTH_EXPERT")) {
-      badges.push(
-        <Badge key="old_growth_expert" variant="old_growth_expert" />
-      )
+    if (userData?.badges?.includes('OLD_GROWTH_EXPERT')) {
+      badges.push(<Badge key="old_growth_expert" variant="old_growth_expert" />)
     }
-    if (userData?.badges?.includes("FIRST_TREE")) {
-      badges.push(
-        <Badge key="first_tree" variant="first_tree" />
-      )
+    if (userData?.badges?.includes('FIRST_TREE')) {
+      badges.push(<Badge key="first_tree" variant="first_tree" />)
     }
-    if (userData?.badges?.includes("FIFTH_TREE")) {
-      badges.push(
-        <Badge key="fifth_tree" variant="fifth_tree" />
-      )
+    if (userData?.badges?.includes('FIFTH_TREE')) {
+      badges.push(<Badge key="fifth_tree" variant="fifth_tree" />)
     }
-    if (userData?.badges?.includes("TENTH_TREE")) {
-      badges.push(
-        <Badge key="tenth_tree" variant="tenth_tree" />
-      )
+    if (userData?.badges?.includes('TENTH_TREE')) {
+      badges.push(<Badge key="tenth_tree" variant="tenth_tree" />)
     }
-    if (userData?.badges?.includes("DBH")) {
-      badges.push(
-        <Badge key="dbh" variant="dbh" />
-      )
+    if (userData?.badges?.includes('DBH')) {
+      badges.push(<Badge key="dbh" variant="dbh" />)
     }
     return badges
   }
