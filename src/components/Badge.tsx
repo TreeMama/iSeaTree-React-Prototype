@@ -28,7 +28,11 @@ export function Badge(props: BadgeProps) {
     <View>
       <Image
         source={badgeImage}
-        style={{ height: BADGE_HEIGHT, width: BADGE_HEIGHT, opacity: 0.8 }}
+        style={{ height: BADGE_HEIGHT,
+                 width: BADGE_HEIGHT,
+                 opacity: 0.8,
+                 resizeMode: 'stretch',
+                 margin: 10 }}
       />
     </View>
   )
