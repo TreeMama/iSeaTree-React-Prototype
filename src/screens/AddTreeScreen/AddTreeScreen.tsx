@@ -83,9 +83,8 @@ export function AddTreeScreen() {
       if (!user) {
         return
       }
-      updateBadgesAfterAddingTree(formValues, user, authUser.uid)
-        .then(handleUpdateUserSuccess)
-        .catch(handleUpdateUserError)
+      const {badgesAwarded, promise} = updateBadgesAfterAddingTree(formValues, user, authUser.uid)
+      promise.then(() => handleUpdateUserSuccess(badgesAwarded)).catch(handleUpdateUserError)
     })
   }
 
@@ -99,18 +98,29 @@ export function AddTreeScreen() {
     ])
   }
 
-  function handleUpdateUserSuccess() {
+  function handleUpdateUserSuccess(badgesAwarded: string[]) {
     formik.resetForm()
     formik.setSubmitting(false)
 
-    Alert.alert('Success', 'You have added new tree successfully', [
-      {
-        text: 'Great',
-        onPress: () => {
-          formik.resetForm()
+    if (typeof badgesAwarded !== 'undefined' && badgesAwarded.length > 0) {
+      Alert.alert('Success', 'You have added new tree successfully. Also, you have been awarded badges! Check them out in your profile!', [
+        {
+          text: 'Great',
+          onPress: () => {
+            formik.resetForm()
+          },
         },
-      },
-    ])
+      ])
+    } else {
+      Alert.alert('Success', 'You have added new tree successfully', [
+        {
+          text: 'Great',
+          onPress: () => {
+            formik.resetForm()
+          },
+        },
+      ])
+    }
   }
 
   function handleUpdateUserError() {
