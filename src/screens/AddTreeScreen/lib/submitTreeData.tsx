@@ -4,6 +4,7 @@ import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
+import { TreeValidationTypes } from '../../../lib/treeData'
 
 export async function submitTreeData(formValues: FormValues): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
@@ -48,6 +49,8 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     },
     coords: treeCoords,
     isValidated: false,
+    validation_state: TreeValidationTypes.SPAM,
+    level: (typeof formValues.speciesData?.LEVEL === 'undefined') ? 'none' : formValues.speciesData?.LEVEL
   }
 
   addTree(treeData)

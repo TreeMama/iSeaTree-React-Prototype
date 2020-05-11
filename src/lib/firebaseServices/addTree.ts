@@ -1,3 +1,4 @@
+import { TreeValidationTypes } from './../treeData';
 import { firestore } from 'firebase'
 
 import { TreeTypes } from '../treeData'
@@ -21,6 +22,8 @@ export interface TreeData {
   locationType: string
   notes: string | null
   isValidated: boolean
+  validation_state: TreeValidationTypes
+  level: string
 }
 
 const TREES_COLLECTION = 'trees'
