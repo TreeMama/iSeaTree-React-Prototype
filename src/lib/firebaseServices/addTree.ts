@@ -21,8 +21,7 @@ export interface TreeData {
   landUseCategory: string
   locationType: string
   notes: string | null
-  isValidated: boolean
-  validation_state: TreeValidationTypes
+  isValidated: TreeValidationTypes
   level: string
 }
 

@@ -48,8 +48,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
       height: formValues.photo.height,
     },
     coords: treeCoords,
-    isValidated: false,
-    validation_state: TreeValidationTypes.SPAM,
+    isValidated: TreeValidationTypes.SPAM,
     level: (typeof formValues.speciesData?.LEVEL === 'undefined') ? 'none' : formValues.speciesData?.LEVEL
   }
 
