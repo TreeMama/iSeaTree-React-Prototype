@@ -12,7 +12,7 @@ Project was initialized using [Expo](https://expo.io). Here is a guide how to [g
 - [yarn v1.19.1](https://yarnpkg.com)
 - [expo-cli v3.16](https://www.npmjs.com/package/expo-cli)
 
-### Instalation
+### Installation
 
 From the project's root directory run:
 
@@ -77,4 +77,14 @@ service cloud.firestore {
 First you have to obtain google map key:
 - google map config - https://docs.expo.io/versions/latest/sdk/map-view/#deploying-to-a-standalone-app-on-android
 
-Then you can follow this instructions: https://docs.expo.io/versions/latest/distribution/app-stores/.
+Then you can follow these instructions: https://docs.expo.io/distribution/app-stores/
+
+## Releasing app to the App Store (iOS)
+
+Create app-specific password in developer account.
+
+See standalone build instructions: https://docs.expo.io/distribution/building-standalone-apps/
+
+Xcode command line builds:
+https://docs.expo.io/distribution/app-stores/?redirected
+https://stackoverflow.com/a/58449544/719690
