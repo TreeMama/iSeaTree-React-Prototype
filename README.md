@@ -114,7 +114,7 @@ $ xcrun altool --upload-app --type ios --file <IPA_FILE_THAT_YOU_HAVE_UPLOAD_FRO
 
 `xcrun altool` provides no feedback while running.
 
-You must increment `buildNumber` in the `"ios"` between uploads to the App Store.
+You must increment `buildNumber` in the `"ios"`dictionary for each new upload to the App Store.
 
 ### Rough notes
 
