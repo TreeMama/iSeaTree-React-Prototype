@@ -28,6 +28,15 @@
         }
       }
     },
+    "ios": {
+	"bundleIdentifier": "com.treemama.iseatree",
+	"buildNumber": "1",
+	"infoPlist": {
+	    "NSCameraUsageDescription": "Take a photo and submit it with your iSeaTree reports.",
+	    "NSLocationWhenInUseUsageDescription": "Record the location of your iSeaTree reports, and show your location on a map",
+	    "NSPhotoLibraryUsageDescription": "Submit an existing photo with your iSeaTree report.",
+	},
+    },
     "entryPoint": "./src/App.tsx",
     "description": ""
   }
