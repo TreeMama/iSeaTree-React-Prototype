@@ -9,7 +9,7 @@ export enum TreeTypes {
 }
 
 export enum TreeValidationTypes {
-  SPAM = 'spam',
-  NEEDS_VALIDATION = 'needs_validation',
-  VALIDATED = 'validated',
+  SPAM = 'SPAM',
+  NEEDS_VALIDATION = 'NEEDS_VALIDATION',
+  VALIDATED = 'VALIDATED',
 }
