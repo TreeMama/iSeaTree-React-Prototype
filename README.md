@@ -81,11 +81,21 @@ Then you can follow these instructions: https://docs.expo.io/distribution/app-st
 
 ## Releasing app to the App Store (iOS)
 
-Builds happen on the Expo server, using Fastlane. Your Info.plist is created by Expo, based on the values in `app.json`.
+Expo documentation continually refers to building for Testflight. That's incorrect. You build for the App Store 
+(specifically appstoreconnect.apple.com). Maybe you release a build on Testflight, maybe you don't. Maybe you release
+it straight to the App Store. Maybe you don't release it anywhere because Apple review finds problems, or because you
+want to include a new feature. But every time, you're building for upload to App Store Connect.
+
+There are threeo parts to putting an app into the App Store: generating a signing profile, generating an App Store
+entry, and putting a particular build into the store. Expo will automate all of these phases. Their toolset and
+documentation handles the first two as one step. Expo will also attempt to pull down defining information
+from App Store Connect (specifically, the distribution certificate and the signing profile) on each build,
+to make sure that Expo is using current information.
+
+Builds happen on the Expo server, using Fastlane. Your Info.plist is created by Expo, based on the values in 
+`app.json`.
 
 ### One-time setup on your Apple developer account
-
-
 
 Create app-specific password in developer account, if you want. Hal tried but the Expo build tools weren't able to authenticate using the app-specific password.
 
@@ -94,7 +104,8 @@ run `expo build:ios` you'll see a series of questions of
 questions about App Store Connect credentials. Expo can handle creation of provisioning profile. This worked smoothly 
 and was easier than populating fields by hand.
 
-In App Store Connect, reate an entry for iSeaTree. Upload the icon (`icon.png` in the `assets` folder).
+In App Store Connect, you will see a newly-created entry for iSeaTree. Upload the icon (`icon.png` in 
+the `assets` folder). Populate the remaining fields.
 
 ### Builds
 Start the build using `expo build:ios`. 
@@ -114,12 +125,59 @@ $ xcrun altool --upload-app --type ios --file <IPA_FILE_THAT_YOU_HAVE_UPLOAD_FRO
 
 `xcrun altool` provides no feedback while running.
 
-You must increment `buildNumber` in the `"ios"`dictionary for each new upload to the App Store.
+According to [Expo documentation on App Store uploads](https://docs.expo.io/distribution/uploading-apps/#22-if-you-choose-to-upload-your), 
+Expo can handle the upload automatically. This would be a nice option for minor updates from a machine that can't 
+run Xcode.
 
-### Rough notes
+### Posting a build to App Store Connect
 
-See standalone build instructions: https://docs.expo.io/distribution/building-standalone-apps/
+You must increment `buildNumber` in the `"ios"`dictionary for each new upload to the App Store. If `"version"` 
+is "1.0.0"` and `"buildNumber"` is `"3"`, App Store Connect will display "1.0.0 (3)" for version information.
+If you've already uploaded "1.0.0 (3)", you can't upload it again. Increment the build number, and upload "1.0.0 (4)".
 
-Xcode command line builds:
-https://docs.expo.io/distribution/app-stores/?redirected
-https://stackoverflow.com/a/58449544/719690
+A build must pass App Store review before being released to the App Store or to public Testflight. Team members
+(who are listed in the organization's developer page, 
+see [https://developer.apple.com/support/roles/](https://developer.apple.com/support/roles/)) have immediate
+Testflight access to all builds.
+
+To submit an uploaded build for Testflight review, use the Testflight menu,
+and choose a build instance. New testflight builds are not
+automatically released to public testers; you'll have to do this
+manually after approval. Provide a support email address (someone who
+will receive emails specifically sent from a Testflight tester), and a
+privacy policy URL.
+
+To submit an uploaded build for App Store review, verify the app
+description, keywords, categories, support URL, marketing URL, and screenshots. 
+Optionally, supply app preview videos (you can capture these
+on device). You can't change
+any of these after release. Updating them requires a new
+version. The "promotional text" field can be modified without a new
+release. Click "Submit for review" and follow the prompts. When asked
+if the app uses the IDFA advertising identifier, the answer is Yes,
+because Expo uses the Segment Analytics, which uses it.
+
+### Interacting with the iOS Simulator
+
+When Expo commands touch the Simulator, they will work with the most
+recently launched instance, even if that's not the instance you last
+used yourself.
+
+`expo-cli client:install:ios` installs the Expo client to the
+Simulator. If another app is running, that app won't be disturbed, but
+you'll see the Expo icon on your home screen if you look for it. Log
+in to your Expo account and you'll see any Expo projects you've built,
+hopefully including iSeaTree. iPad
+simulators show the app in full-screen mode. This is misleading,
+because the native build comes up in 1x letterboxed mode.
+
+To get a native build for the Simulator, use `expo build:ios`. At the
+prompt, select "simulator". This will launch a build in the Expo
+build queue, and eventually return the URL of a downloadtable .tar
+file. Expand the .tar file and you'll see the iSeaTree app, marked as
+unlaunchable. Drag that app onto your simulator's screen. Building the
+native app takes a while, but launching iSeaTree in multiple
+simulators (which is necessary for making screenshots) is faster this
+way.
+
+

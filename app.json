@@ -30,11 +30,16 @@
     },
     "ios": {
 	"bundleIdentifier": "com.treemama.iseatree",
-	"buildNumber": "1",
+	"buildNumber": "2",
 	"infoPlist": {
+	    "NSCalendarUsageDescription": null,
 	    "NSCameraUsageDescription": "Take a photo and submit it with your iSeaTree reports.",
+	    "NSContactsUsageDescription": null,
 	    "NSLocationWhenInUseUsageDescription": "Record the location of your iSeaTree reports, and show your location on a map",
+	    "NSMicrophoneUsageDescription": null,
+	    "NSMotionUsageDescription": null,
 	    "NSPhotoLibraryUsageDescription": "Submit an existing photo with your iSeaTree report.",
+	    "NSRemindersUsageDescription": null,
 	},
     },
     "entryPoint": "./src/App.tsx",
