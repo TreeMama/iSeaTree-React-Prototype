@@ -108,14 +108,18 @@ In App Store Connect, you will see a newly-created entry for iSeaTree. Upload th
 the `assets` folder). Populate the remaining fields.
 
 ### Builds
-Start the build using `expo build:ios`. 
+Start the build using `expo build:ios`. Choose "archive" (for App
+Store builds) or "simulator" (for Simulator testing).
 
 After you start a build , you'll see a URL starting with `https://expo.io/dashboard/` that 
 you can use to monitor the build.
 
 At end of the build, you'll see a URL starting with `https://expo.io/artifacts`
-that is the location of your IPA (the archive containing your iPhone application).
-Download the IPA and upload it to the
+that is the location of your build product. For "archive" builds it's
+an  IPA (the archive containing your iPhone application). For
+"simulator" builds it's a .tar file.
+
+If you built for App Store submission, download the IPA and upload it to the
 Apple App Store using either the [Transporter](https://apps.apple.com/us/app/transporter/id1450874784?mt=12) GUI tool,
 or using `xcrun altool` from the command line:
 
@@ -138,7 +142,9 @@ If you've already uploaded "1.0.0 (3)", you can't upload it again. Increment the
 A build must pass App Store review before being released to the App Store or to public Testflight. Team members
 (who are listed in the organization's developer page, 
 see [https://developer.apple.com/support/roles/](https://developer.apple.com/support/roles/)) have immediate
-Testflight access to all builds.
+Testflight access to all builds. Public Testflight reviewers are added
+manually by email invitation, or automatically (and anonymously) if a
+public link is enabled.
 
 To submit an uploaded build for Testflight review, use the Testflight menu,
 and choose a build instance. New testflight builds are not
@@ -156,6 +162,12 @@ version. The "promotional text" field can be modified without a new
 release. Click "Submit for review" and follow the prompts. When asked
 if the app uses the IDFA advertising identifier, the answer is Yes,
 because Expo uses the Segment Analytics, which uses it.
+
+Screenshot devices required, as of May 2020, are iPhone
+6.5" display (11 Pro Max, 11, Xs Max), iPhone 5.5" display (6s Plus, 7
+Plus, 8 Plus), and iPad Pro 12.9" (3rd Gen). Don't use
+the iPhone XR because the screenshots are half the pixel density of
+the other 6.5" devices, and won't pass review.
 
 ### Interacting with the iOS Simulator
 
@@ -175,7 +187,9 @@ To get a native build for the Simulator, use `expo build:ios`. At the
 prompt, select "simulator". This will launch a build in the Expo
 build queue, and eventually return the URL of a downloadtable .tar
 file. Expand the .tar file and you'll see the iSeaTree app, marked as
-unlaunchable. Drag that app onto your simulator's screen. Building the
+unlaunchable. Drag that app onto your simulator's screen (it will
+appear on the second page of the Home screen, which you'll have to
+page to see). Building the
 native app takes a while, but launching iSeaTree in multiple
 simulators (which is necessary for making screenshots) is faster this
 way.
