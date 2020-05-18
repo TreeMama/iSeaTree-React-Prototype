@@ -86,7 +86,7 @@ Expo documentation continually refers to building for Testflight. That's incorre
 it straight to the App Store. Maybe you don't release it anywhere because Apple review finds problems, or because you
 want to include a new feature. But every time, you're building for upload to App Store Connect.
 
-There are threeo parts to putting an app into the App Store: generating a signing profile, generating an App Store
+There are three parts to putting an app into the App Store: generating a signing profile, generating an App Store
 entry, and putting a particular build into the store. Expo will automate all of these phases. Their toolset and
 documentation handles the first two as one step. Expo will also attempt to pull down defining information
 from App Store Connect (specifically, the distribution certificate and the signing profile) on each build,
@@ -97,9 +97,10 @@ Builds happen on the Expo server, using Fastlane. Your Info.plist is created by 
 
 ### One-time setup on your Apple developer account
 
-Create app-specific password in developer account, if you want. Hal tried but the Expo build tools weren't able to authenticate using the app-specific password.
+Create an app-specific password in developer account, if you want. Hal tried but the Expo build tools weren't 
+able to authenticate using the app-specific password.
 
-If you have generated the deployable iOS version of your app with Expo before, then the first time your 
+If you have not generated the deployable iOS version of your app with Expo before, then the first time your 
 run `expo build:ios` you'll see a series of questions of 
 questions about App Store Connect credentials. Expo can handle creation of provisioning profile. This worked smoothly 
 and was easier than populating fields by hand.
@@ -114,8 +115,8 @@ Store builds) or "simulator" (for Simulator testing).
 After you start a build , you'll see a URL starting with `https://expo.io/dashboard/` that 
 you can use to monitor the build.
 
-At end of the build, you'll see a URL starting with `https://expo.io/artifacts`
-that is the location of your build product. For "archive" builds it's
+At the end of the build, you'll see a URL starting with `https://expo.io/artifacts`
+which is the location of your build product. For "archive" builds it's
 an  IPA (the archive containing your iPhone application). For
 "simulator" builds it's a .tar file.
 
@@ -150,14 +151,15 @@ To submit an uploaded build for Testflight review, use the Testflight menu,
 and choose a build instance. New testflight builds are not
 automatically released to public testers; you'll have to do this
 manually after approval. Provide a support email address (someone who
-will receive emails specifically sent from a Testflight tester), and a
+will receive emails specifically sent from the Testflight testers), and a
 privacy policy URL.
 
 To submit an uploaded build for App Store review, verify the app
 description, keywords, categories, support URL, marketing URL, and screenshots. 
 Optionally, supply app preview videos (you can capture these
 on device). You can't change
-any of these after release. Updating them requires a new
+any of these after public release (but you _can_ update them during the TestFlight beta cycle). 
+Updating them after public release requires a new
 version. The "promotional text" field can be modified without a new
 release. Click "Submit for review" and follow the prompts. When asked
 if the app uses the IDFA advertising identifier, the answer is Yes,
