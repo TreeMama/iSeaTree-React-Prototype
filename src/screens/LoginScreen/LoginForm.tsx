@@ -68,6 +68,7 @@ function LoginForm(props: LoginFormProps) {
         }}
         error={!!formik.errors.email && !!formik.touched.email}
         style={{ marginBottom: 20 }}
+	autoCapitalize = 'none'
         autoCompleteType="email"
         keyboardType="email-address"
         dense
