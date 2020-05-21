@@ -73,6 +73,7 @@ export function RegisterForm(props: RegisterFormProps) {
         }}
         error={!!formik.errors.email && !!formik.touched.email}
         style={{ marginBottom: 20 }}
+	autoCapitalize = 'none'
         autoCompleteType="username"
         dense
       />
@@ -87,6 +88,7 @@ export function RegisterForm(props: RegisterFormProps) {
         }}
         error={!!formik.errors.email && !!formik.touched.email}
         style={{ marginBottom: 20 }}
+	autoCapitalize = 'none'
         autoCompleteType="email"
         keyboardType="email-address"
         dense
