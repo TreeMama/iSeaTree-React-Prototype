@@ -22,9 +22,10 @@
     "android": {
       "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA"],
       "package": "com.treemama.iseatree",
+      "versionCode": 6,
       "config": {
         "googleMaps": {
-          "apiKey": ""
+          "apiKey": "AIzaSyDXUgQFAUNeCgc8o7rmbChz8TKSnjnwUmI"
         }
       }
     },
