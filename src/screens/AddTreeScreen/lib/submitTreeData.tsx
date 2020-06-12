@@ -1,5 +1,6 @@
 import * as firebase from 'firebase'
-
+import * as Device from 'expo-device'
+import * as Application from 'expo-application'
 import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
@@ -32,6 +33,14 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     formValues.coords.longitude,
   )
 
+  const now = new Date()
+  const debugNotes = formValues.notes || ""
+    + now.toString()
+    + "\n" + Device.brand + " " + Device.modelName + " " + Device.osName + " " + Device.osVersion
+    + (Device.isDevice ? " device " : " simulator ")
+    + "\n" + Application.applicationName + " " + Application.nativeApplicationVersion + " " + Application.nativeBuildVersion
+    + "\nLat: " + treeCoords.latitude.toString()
+    + "\nLon: " + treeCoords.longitude.toString()
   const treeData: TreeData = {
     userId: authUser.uid,
     username: userData.username,
@@ -41,7 +50,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,
     locationType: formValues.locationType,
-    notes: formValues.notes || null,
+    notes: debugNotes,
     photo: {
       url: imageDownloadUrl,
       width: formValues.photo.width,
@@ -51,7 +60,6 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     isValidated: TreeValidationTypes.SPAM,
     level: (typeof formValues.speciesData?.LEVEL === 'undefined') ? 'none' : formValues.speciesData?.LEVEL
   }
-
   addTree(treeData)
 
   return formValues
