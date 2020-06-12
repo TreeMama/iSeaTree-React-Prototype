@@ -3,6 +3,7 @@ import React from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import {
   KeyboardAvoidingView,
+  SafeAreaView,
   StyleSheet,
   View,
   Modal,
@@ -168,179 +169,183 @@ export function AddTreeScreen() {
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
-      <StatusBar />
+      <SafeAreaView style={styles.container}>
+        <StatusBar />
 
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
-        <Button
-          style={{ alignSelf: 'flex-end', marginVertical: 5 }}
-          icon="close"
-          onPress={handleClear}
-        >
-          Clear
+        <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
+          <Button
+            style={{ alignSelf: 'flex-end', marginVertical: 5 }}
+            icon="close"
+            onPress={handleClear}
+          >
+            Clear
         </Button>
 
-        <View>
-          <View
-            style={{
-              backgroundColor: colors.gray[200],
-              height: 220,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {!!formik.values.photo && (
-              <Image
-                style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
-                source={{ uri: formik.values.photo.uri }}
+          <View>
+            <View
+              style={{
+                backgroundColor: colors.gray[200],
+                height: 220,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              {!!formik.values.photo && (
+                <Image
+                  style={{ height: '100%', width: '100%', resizeMode: 'contain' }}
+                  source={{ uri: formik.values.photo.uri }}
+                />
+              )}
+
+              {!formik.values.photo && (
+                <MaterialCommunityIcons name="image" size={60} color={colors.gray[400]} />
+              )}
+            </View>
+
+            <Button
+              onPress={() => {
+                setIsCameraVisible(true)
+              }}
+              icon="camera"
+              mode="outlined"
+              style={{ borderRadius: 0 }}
+            >
+              Add photo
+          </Button>
+          </View>
+
+          {!!formik.errors.photo && !!formik.touched.photo && (
+            <Text style={{ color: theme.colors.error, marginLeft: 15, marginTop: 5 }}>
+              {formik.errors.photo}
+            </Text>
+          )}
+
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <TreeTypeSelect />
+          </View>
+
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <SpeciesSelect
+              speciesData={formik.values.speciesData}
+              onSelect={(speciesData) => {
+                formik.setFieldValue('speciesData', speciesData)
+              }}
+            />
+
+            {!!formik.errors.speciesData && !!formik.touched.speciesData && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+                {formik.errors.speciesData}
+              </Text>
+            )}
+          </View>
+
+          <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+              <Subheading>DBH (in)</Subheading>
+              <DbhHelp />
+            </View>
+
+            <TextInput
+              placeholder="Diameter at breast height"
+              mode="outlined"
+              keyboardType="numeric"
+              value={formik.values.dbh}
+              onChangeText={(value) => {
+                formik.setFieldValue('dbh', value)
+              }}
+              returnKeyType="next"
+            />
+
+            {!!formik.errors.dbh && !!formik.touched.dbh && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>{formik.errors.dbh}</Text>
+            )}
+          </View>
+
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <Subheading style={{ marginBottom: 5 }}>Dominant Surrounding Land Use</Subheading>
+            <LandUseCategoriesSelect
+              landUseCategoryName={formik.values.landUseCategory}
+              onValueChange={(value) => {
+                formik.setFieldValue('landUseCategory', value)
+              }}
+            />
+
+            {!!formik.errors.landUseCategory && !!formik.touched.landUseCategory && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+                {formik.errors.landUseCategory}
+              </Text>
+            )}
+          </View>
+
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <Subheading style={{ marginBottom: 5 }}>Location type</Subheading>
+            <LocationTypeSelect
+              locationType={formik.values.locationType}
+              onValueChange={(value) => {
+                formik.setFieldValue('locationType', value)
+              }}
+            />
+
+            {!!formik.errors.locationType && !!formik.touched.locationType && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+                {formik.errors.locationType}
+              </Text>
+            )}
+          </View>
+
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <Subheading>Notes</Subheading>
+            <TextInput
+              placeholder="Your notes..."
+              mode="outlined"
+              multiline
+              numberOfLines={2}
+              textAlignVertical="top"
+              scrollEnabled={false}
+              value={formik.values.notes}
+              onChangeText={(value) => {
+                formik.setFieldValue('notes', value)
+              }}
+            />
+          </View>
+
+          <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
+            {formHasErrors && (
+              <Text style={{ color: theme.colors.error, marginBottom: 5 }}>
+                Please take a look at the above error messages
+              </Text>
+            )}
+
+            <View style={{ marginBottom: 25 }}>
+              <TreeBenefits speciesData={formik.values.speciesData} />
+            </View>
+
+            <Button mode="contained" onPress={formik.handleSubmit} loading={formik.isSubmitting}>
+              Save
+          </Button>
+          </View>
+
+          <Modal visible={isCameraVisible} animationType="slide">
+            <SafeAreaView style={{ flex: 1, backgroundColor: "transparent" }}>
+              <CameraWithLocation
+                onClose={() => {
+                  setIsCameraVisible(false)
+                }}
+                onTakePictureFinish={({ capturedPicture, coords }) => {
+                  const photo: FormValues['photo'] = {
+                    width: capturedPicture.width,
+                    height: capturedPicture.height,
+                    uri: capturedPicture.uri,
+                  }
+
+                  formik.setValues({ ...formik.values, coords, photo })
+                  setIsCameraVisible(false)
+                }}
               />
-            )}
-
-            {!formik.values.photo && (
-              <MaterialCommunityIcons name="image" size={60} color={colors.gray[400]} />
-            )}
-          </View>
-
-          <Button
-            onPress={() => {
-              setIsCameraVisible(true)
-            }}
-            icon="camera"
-            mode="outlined"
-            style={{ borderRadius: 0 }}
-          >
-            Add photo
-          </Button>
-        </View>
-
-        {!!formik.errors.photo && !!formik.touched.photo && (
-          <Text style={{ color: theme.colors.error, marginLeft: 15, marginTop: 5 }}>
-            {formik.errors.photo}
-          </Text>
-        )}
-
-        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <SpeciesSelect
-            speciesData={formik.values.speciesData}
-            onSelect={(speciesData) => {
-              formik.setFieldValue('speciesData', speciesData)
-            }}
-          />
-
-          {!!formik.errors.speciesData && !!formik.touched.speciesData && (
-            <Text style={{ color: theme.colors.error, marginTop: 5 }}>
-              {formik.errors.speciesData}
-            </Text>
-          )}
-        </View>
-
-        <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
-          <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
-            <Subheading>DBH (in)</Subheading>
-            <DbhHelp />
-          </View>
-
-          <TextInput
-            placeholder="Diameter at breast height"
-            mode="outlined"
-            keyboardType="numeric"
-            value={formik.values.dbh}
-            onChangeText={(value) => {
-              formik.setFieldValue('dbh', value)
-            }}
-            returnKeyType="next"
-          />
-
-          {!!formik.errors.dbh && !!formik.touched.dbh && (
-            <Text style={{ color: theme.colors.error, marginTop: 5 }}>{formik.errors.dbh}</Text>
-          )}
-        </View>
-
-        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <Subheading style={{ marginBottom: 5 }}>Dominant Surrounding Land Use</Subheading>
-          <LandUseCategoriesSelect
-            landUseCategoryName={formik.values.landUseCategory}
-            onValueChange={(value) => {
-              formik.setFieldValue('landUseCategory', value)
-            }}
-          />
-
-          {!!formik.errors.landUseCategory && !!formik.touched.landUseCategory && (
-            <Text style={{ color: theme.colors.error, marginTop: 5 }}>
-              {formik.errors.landUseCategory}
-            </Text>
-          )}
-        </View>
-
-        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <Subheading style={{ marginBottom: 5 }}>Location type</Subheading>
-          <LocationTypeSelect
-            locationType={formik.values.locationType}
-            onValueChange={(value) => {
-              formik.setFieldValue('locationType', value)
-            }}
-          />
-
-          {!!formik.errors.locationType && !!formik.touched.locationType && (
-            <Text style={{ color: theme.colors.error, marginTop: 5 }}>
-              {formik.errors.locationType}
-            </Text>
-          )}
-        </View>
-
-        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <Subheading>Notes</Subheading>
-          <TextInput
-            placeholder="Your notes..."
-            mode="outlined"
-            multiline
-            numberOfLines={2}
-            textAlignVertical="top"
-            scrollEnabled={false}
-            value={formik.values.notes}
-            onChangeText={(value) => {
-              formik.setFieldValue('notes', value)
-            }}
-          />
-        </View>
-
-        <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-          <TreeTypeSelect />
-        </View>
-
-        <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
-          {formHasErrors && (
-            <Text style={{ color: theme.colors.error, marginBottom: 5 }}>
-              Please take a look at the above error messages
-            </Text>
-          )}
-
-          <View style={{ marginBottom: 25 }}>
-            <TreeBenefits speciesData={formik.values.speciesData} />
-          </View>
-
-          <Button mode="contained" onPress={formik.handleSubmit} loading={formik.isSubmitting}>
-            Save
-          </Button>
-        </View>
-
-        <Modal visible={isCameraVisible} animationType="slide">
-          <CameraWithLocation
-            onClose={() => {
-              setIsCameraVisible(false)
-            }}
-            onTakePictureFinish={({ capturedPicture, coords }) => {
-              const photo: FormValues['photo'] = {
-                width: capturedPicture.width,
-                height: capturedPicture.height,
-                uri: capturedPicture.uri,
-              }
-
-              formik.setValues({ ...formik.values, coords, photo })
-              setIsCameraVisible(false)
-            }}
-          />
-        </Modal>
-      </ScrollView>
-    </KeyboardAvoidingView>
+            </SafeAreaView>
+          </Modal>
+        </ScrollView>
+      </SafeAreaView>
+    </KeyboardAvoidingView >
   )
 }

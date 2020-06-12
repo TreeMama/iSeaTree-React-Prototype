@@ -1,6 +1,12 @@
 import React from 'react'
 
-import { StyleSheet, ScrollView, View } from 'react-native'
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+  KeyboardAvoidingView,
+  SafeAreaView,
+} from 'react-native'
 import { Divider, Button, Menu, Headline, Subheading } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -87,70 +93,74 @@ export function ProfileScreen() {
 
   return (
     <>
-      <StatusBar />
-      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <View style={styles.container}>
-          <View
-            style={{
-              width: '100%',
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              height: 55,
-            }}
-          >
-            <Menu
-              visible={isMenuVisible}
-              onDismiss={() => {
-                setIsMenuVisible(false)
-              }}
-              anchor={
-                <Button
-                  onPress={() => {
-                    setIsMenuVisible(!isMenuVisible)
-                  }}
-                >
-                  <MaterialCommunityIcons name="dots-vertical" size={30} />
-                </Button>
-              }
-            >
-              <Menu.Item icon="logout" onPress={handleSignout} title="Sign out" />
-            </Menu>
-          </View>
-
-          <View style={styles.content}>
-            <View style={{ marginBottom: 20, alignItems: 'center' }}>
+      <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
+        <SafeAreaView style={styles.container}>
+          <StatusBar />
+          <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+            <View style={styles.container}>
               <View
                 style={{
-                  width: 100,
-                  height: 100,
-                  justifyContent: 'center',
+                  width: '100%',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
                   alignItems: 'center',
+                  height: 55,
                 }}
               >
-                <MaterialCommunityIcons name="account-box" size={100} color={colors.gray[400]} />
+                <Menu
+                  visible={isMenuVisible}
+                  onDismiss={() => {
+                    setIsMenuVisible(false)
+                  }}
+                  anchor={
+                    <Button
+                      onPress={() => {
+                        setIsMenuVisible(!isMenuVisible)
+                      }}
+                    >
+                      <MaterialCommunityIcons name="dots-vertical" size={30} />
+                    </Button>
+                  }
+                >
+                  <Menu.Item icon="logout" onPress={handleSignout} title="Sign out" />
+                </Menu>
               </View>
-              <Subheading>{userData?.username}</Subheading>
-              <Subheading>{userData?.email}</Subheading>
+
+              <View style={styles.content}>
+                <View style={{ marginBottom: 20, alignItems: 'center' }}>
+                  <View
+                    style={{
+                      width: 100,
+                      height: 100,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <MaterialCommunityIcons name="account-box" size={100} color={colors.gray[400]} />
+                  </View>
+                  <Subheading>{userData?.username}</Subheading>
+                  <Subheading>{userData?.email}</Subheading>
+                </View>
+
+                <Divider style={{ width: '100%' }} />
+
+                <Headline style={{ marginTop: 20 }}>Your badges</Headline>
+
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    flexDirection: 'row',
+                    marginTop: 20,
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  {addBadges()}
+                </View>
+              </View>
             </View>
-
-            <Divider style={{ width: '100%' }} />
-
-            <Headline style={{ marginTop: 20 }}>Your badges</Headline>
-
-            <View
-              style={{
-                justifyContent: 'center',
-                flexDirection: 'row',
-                marginTop: 20,
-                flexWrap: 'wrap',
-              }}
-            >
-              {addBadges()}
-            </View>
-          </View>
-        </View>
-      </ScrollView>
+          </ScrollView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </>
   )
 }
