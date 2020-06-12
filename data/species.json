@@ -1,1046 +1,1254 @@
 [
   {
     "COMMON": "Unknown",
+    "TREETYPE": "Unknown",
     "SCIENTIFIC": "Unknown",
     "ID": "0"
   },
   {
     "COMMON": "Pacific Silver Fir",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Abies amabilis",
     "ID": "1"
   },
   {
     "COMMON": "Grand Fir",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Abies grandis",
     "ID": "2"
   },
   {
     "COMMON": "Noble Fir (aka Red Fir and Christmas tree)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Abies procera",
     "ID": "3"
   },
   {
     "COMMON": "Trident Maple (aka Three-Toothed Maple)",
+    "TREETYPE": "deciduous",
     "SCIENTIFIC": "Acer buegerianum",
     "ID": "4"
   },
   {
     "COMMON": "Hedge Maple (aka Field Maple)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer campestre",
     "ID": "5"
   },
   {
     "COMMON": "Queen Elizabeth Hedge Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer campestre ‘Evelyn’",
     "ID": "6"
   },
   {
     "COMMON": "Vine Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer circinatum",
     "ID": "7"
   },
   {
     "COMMON": "Autumn Blaze Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer freemanii ‘Autumn Blaze’",
     "ID": "8"
   },
   {
     "COMMON": "Flame Amur Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer ginnala ‘Flame’",
     "ID": "9"
   },
   {
     "COMMON": "Rocky Mt. Glow Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer grandidentatum ‘Schmidt’",
     "ID": "10"
   },
   {
     "COMMON": "Paperbark Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer griseum",
     "ID": "11"
   },
   {
     "COMMON": "Big Leaf Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer macrophyllum",
     "ID": "12"
   },
   {
     "COMMON": "State Street Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer miyabei ‘Morton’",
     "ID": "13"
   },
   {
     "COMMON": "Green Column Black Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer nigrum",
     "ID": "14"
   },
   {
     "COMMON": "Japanese Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer palmatum",
     "ID": "15"
   },
   {
     "COMMON": "Norway Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer platanoides",
     "ID": "16"
   },
   {
     "COMMON": "Columnar Norway Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer platanoides ‘Columnar’",
     "ID": "17"
   },
   {
     "COMMON": "Emerald Queen Norway Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer platanoides ‘Emerald Queen’",
     "ID": "18"
   },
   {
     "COMMON": "Globe Norway Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer platanoides ‘Globosum’",
     "ID": "19"
   },
   {
     "COMMON": "Parkway Norway Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer platanoides ‘Norway’",
     "ID": "20"
   },
   {
     "COMMON": "Spaethii Maple (aka Purple Leaf Sycamore or Wineleaf Sycamore Maple)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer pseudoplatanus ‘Atropupureum’",
     "ID": "21"
   },
   {
     "COMMON": "Red Maple (aka Swamp Maple)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer rubrum",
     "ID": "22"
   },
   {
     "COMMON": "Bowhall Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer rubrum ‘Bowhall’",
     "ID": "23"
   },
   {
     "COMMON": "Karpick Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer rubrum ‘Karpick’",
     "ID": "24"
   },
   {
     "COMMON": "Scarlet Sentinel Maple (aka Freeman Maple)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer rubrum ‘Scarsen’",
     "ID": "25"
   },
   {
     "COMMON": "Bonfire Sugar Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer saccharum ‘Bonfire’",
     "ID": "26"
   },
   {
     "COMMON": "Commemoration Sugar Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer saccharum ‘Commemoration’",
     "ID": "27"
   },
   {
     "COMMON": "Mountain Sugar Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer saccharum ‘Green Mountain’",
     "ID": "28"
   },
   {
     "COMMON": "Legacy Sugar Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer saccharum ‘Legacy’",
     "ID": "29"
   },
   {
     "COMMON": "Three-Flowered Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer triflorum",
     "ID": "30"
   },
   {
     "COMMON": "‘Warrenred’ Pacific Sunset Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer truncatum x A. platanoides",
     "ID": "31"
   },
   {
     "COMMON": "Norwegian Sunset Maple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Acer truncatum x A. platanoides ‘Keithsform’",
     "ID": "32"
   },
   {
     "COMMON": "Red Horse Chestnuts",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Aesculus x carnea ‘Briottii’",
     "ID": "33"
   },
   {
     "COMMON": "Yellow Buckeye",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Aesculus flava",
     "ID": "34"
   },
   {
     "COMMON": "Horse Chestnut",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Aesculus hippocastanum",
     "ID": "35"
   },
   {
     "COMMON": "Red Alder",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Alnus rubra",
     "ID": "36"
   },
   {
     "COMMON": "Sitka Alder (aka Mountain Alder)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Alnus sinuata (aka Alnus viridis)",
     "ID": "37"
   },
   {
     "COMMON": "Saskatoon Serviceberry (aka Western Serviceberry, Alder-Leave Shadbush, Western Juneberry, Pigeon Berry, or Chuckley Pear)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Amelanchier alnifolia",
     "ID": "38"
   },
   {
     "COMMON": "Autumn Brilliance Serviceberry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Amelanchier x grandiflora ‘Autumn Brilliance’ (Amelanchier canadensis x Amelanchier laevis)",
     "ID": "39"
   },
   {
     "COMMON": "Princess Diana Serviceberry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Amelanchier x grandiflora ‘Princess Diana’ (Amelanchier arborea x Amelanchier laevis)",
     "ID": "40"
   },
   {
     "COMMON": "Allegheny Serviceberry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Amelanchier laevis ‘Cumulus’",
     "ID": "41"
   },
   {
     "COMMON": "Pacific Madrone",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Arbutus menziesii",
     "ID": "42"
   },
   {
     "COMMON": "Strawberry Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Arbutus unedo ‘Marina’",
     "ID": "43"
   },
   {
     "COMMON": "Pawpaw",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Asimina triloba",
     "ID": "44"
   },
   {
     "COMMON": "Chinese Red Birch",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Betula albosinenesis var septentrionalis",
     "ID": "45"
   },
   {
     "COMMON": "Jacquemontii Birch",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Betula jacquemontii",
     "ID": "46"
   },
   {
     "COMMON": "Paper Birch",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Betula papyrifera",
     "ID": "47"
   },
   {
     "COMMON": "Silver Birch",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Betula pendula",
     "ID": "48"
   },
   {
     "COMMON": "Incense Cedar",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Calocedrus decurrens",
     "ID": "49"
   },
   {
     "COMMON": "Fastigiate Hornbeam (aka Pyramidal European Hornbeam)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Carpinus betulus",
     "ID": "50"
   },
   {
     "COMMON": "American Hornbeam (aka Blue Beech)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Carpinus caroliniana",
     "ID": "51"
   },
   {
     "COMMON": "Japanese Hornbeam",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Carpinus japonica",
     "ID": "52"
   },
   {
     "COMMON": "Blue Atlas Cedar",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Cedrus atlantica",
     "ID": "53",
     "LEVEL": "medium"
   },
   {
     "COMMON": "Deodar Cedar",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Cedrus deodara",
     "ID": "54"
   },
   {
     "COMMON": "Katsura Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cercidiphyllum japonicum",
     "ID": "55"
   },
   {
     "COMMON": "Redbud Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cercis canadensis",
     "ID": "56"
   },
   {
     "COMMON": "Judas Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cercis siliquastrum",
     "ID": "57"
   },
   {
-    "COMMON": "Port Orford-Cedar (aka Lawson’s Cypress)",
+    "COMMON": "Port Orford Cedar (aka Lawson’s Cypress)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Chamaecyparis lawsoniana",
     "ID": "58"
   },
   {
     "COMMON": "Yellow Cedar (aka Yellow Cypress or Alaskan Yellow Cedar)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Chamaecyparis nootkatensis",
     "ID": "59"
   },
   {
     "COMMON": "Sawara Cypress",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Chamaecyparis pisifera",
     "ID": "60"
   },
   {
     "COMMON": "Yellowwood (aka American Yellowwood)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cladrastis kentukea",
     "ID": "61"
   },
   {
     "COMMON": "Pagoda Dogwood",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus alternifolia",
     "ID": "62"
   },
   {
     "COMMON": "Giant Dogwood",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus controversa ‘June Snow’",
     "ID": "63"
   },
   {
     "COMMON": "Eddie’s White Wonder Dogwood",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus ‘Eddie’s White Wonder’",
     "ID": "64"
   },
   {
     "COMMON": "Kousa Dogwood (aka Chinese Dogwood)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus kousa ‘chinensis’",
     "ID": "65"
   },
   {
     "COMMON": "Cornelian Cherry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus mas",
     "ID": "66"
   },
   {
     "COMMON": "Pacific Dogwood (aka Canadian Dogwood or Mountain Dogwood)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus nutallii",
     "ID": "67"
   },
   {
     "COMMON": "Red Osier Dogwood",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cornus sericea",
     "ID": "68"
   },
   {
     "COMMON": "Turkish Filbert (aka Turkish Hazel)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Corylus colurna",
     "ID": "69"
   },
   {
     "COMMON": "Beaked Hazelnut (aka Beaked Filbert)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Corylus cornuta",
     "ID": "70"
   },
   {
     "COMMON": "American Smoke Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Cotinus obovatus",
     "ID": "71"
   },
   {
     "COMMON": "Black Hawthorn",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Crataegus douglasii",
     "ID": "72"
   },
   {
     "COMMON": "Thornless Cockspur Hawthorn",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Crataegus crus-galli ‘Inermis’",
     "ID": "73"
   },
   {
     "COMMON": "Lavalle Hawthorn",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Crataegus x lavalii",
     "ID": "74"
   },
   {
     "COMMON": "Washington Hawthorn",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Crataegus phaenopyrum",
     "ID": "75"
   },
   {
     "COMMON": "Suksdorf’s Hawthorn",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Crataegus suksdorfii",
     "ID": "76"
   },
   {
     "COMMON": "Dove Tree (aka Ghost Tree or Pocket Handkerchief Tree)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Davidia involucrata",
     "ID": "77"
   },
   {
     "COMMON": "Hardy Rubber Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Eucommia ulmoides",
     "ID": "78"
   },
   {
     "COMMON": "European Beech (aka Green Beech)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fagus sylvatica",
     "ID": "79"
   },
   {
     "COMMON": "Dawyck Purple Beech",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fagus sylvatica ‘Dawyck Purple’",
     "ID": "80"
   },
   {
     "COMMON": "Purple Oak Leaf Beech",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fagus sylvatica ‘Rohanii’",
     "ID": "81"
   },
   {
     "COMMON": "Empire Ash (aka White Ash)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fraxinus americana",
     "ID": "82"
   },
   {
     "COMMON": "Autumn Applause Ash",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fraxinus Americana ‘Autumn Applause’",
     "ID": "83"
   },
   {
     "COMMON": "Oregon Ash",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fraxinus latifolia",
     "ID": "84"
   },
   {
     "COMMON": "Cimmaron Ash",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fraxinus pennsylvanica ‘Cimmzam’",
     "ID": "85"
   },
   {
     "COMMON": "Patmore Ash",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fraxinus pennsylvanica ‘Patmore’",
     "ID": "86"
   },
   {
     "COMMON": "Urbanite Ash",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Fraxinus pennsylvanica ‘Urbanite’",
     "ID": "87"
   },
   {
     "COMMON": "Princeton Sentry Gingko",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Gingko biloba",
     "ID": "88"
   },
   {
     "COMMON": "Autumn Gold Gingko",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Gingko biloba ‘Autumn Gold’",
     "ID": "89"
   },
   {
     "COMMON": "Magyar Gingko",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Gingko bibloba ‘Magyar’",
     "ID": "90"
   },
   {
     "COMMON": "Espresso Kentucky Coffee",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Gymnocladus diocicus ‘Espresso’",
     "ID": "91"
   },
   {
     "COMMON": "Mountain Silverbell",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Halesia monticola",
     "ID": "92"
   },
   {
     "COMMON": "Carolina Silverbell (aka COMMON Silverbell)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Halesia tetraptera or Halesia carolina",
     "ID": "93"
   },
   {
     "COMMON": "Chinese Witch Hazel (aka Orange Flowering Witch Hazel)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Hamamelis mollis",
     "ID": "94"
   },
   {
     "COMMON": "Goldenrain Tree (aka Varnish Tree)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Koelreuteria paniculate",
     "ID": "95"
   },
   {
     "COMMON": "Tuscarora Hybrid Crape Myrle",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Lagerstroemia indica ‘tuscarora’",
     "ID": "96"
   },
   {
     "COMMON": "Dunkeld Larch",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Larix x marschlinsii",
     "ID": "97"
   },
   {
     "COMMON": "Western Larch",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Larix occidentalis",
     "ID": "98"
   },
   {
     "COMMON": "Alpine Larch (aka Subalpine Larch)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Larix lyallii",
     "ID": "99"
   },
   {
     "COMMON": "Sweet Gum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Liquidambar styraciflua",
     "ID": "100"
   },
   {
     "COMMON": "Rotundiloba Sweetgum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Liquidambar styraciflua ‘Rotundiloba’",
     "ID": "101"
   },
   {
     "COMMON": "Moraine Sweetgum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Liquidambar styraciflua ‘Moraine’",
     "ID": "102"
   },
   {
     "COMMON": "Tulip Tree (aka American Tulip Tree or Tulipwood)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Liriodendron tulipfera",
     "ID": "103"
   },
   {
     "COMMON": "Columnar Tulip Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Liriodendron tulipifera ‘Fastigiatum’",
     "ID": "104"
   },
   {
     "COMMON": "Amur Maackia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Maackia amurensis",
     "ID": "105"
   },
   {
     "COMMON": "Elizabeth Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia x brooklynensis ‘Elizabeth’",
     "ID": "106"
   },
   {
     "COMMON": "Yulan Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia denudata",
     "ID": "107"
   },
   {
     "COMMON": "Galaxy Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia ‘Galaxy’ (M. liliiflora ‘Nigra’ x M. sprengeri ‘Diva’)",
     "ID": "108"
   },
   {
     "COMMON": "Evergreen Magnolia (aka Southern Magnolia)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia grandiflora",
     "ID": "109"
   },
   {
     "COMMON": "Little Gem Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia grandiflora ‘Little Gem’",
     "ID": "110"
   },
   {
     "COMMON": "Wada’s Memory Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia Kobus ‘Wada’s Memory’",
     "ID": "111"
   },
   {
     "COMMON": "Loebner Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia x loebneri",
     "ID": "112"
   },
   {
     "COMMON": "Oyama Magnolia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Magnolia sieboldii",
     "ID": "113"
   },
   {
     "COMMON": "Adirondack Crabapple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus ‘Adirondack’",
     "ID": "114"
   },
   {
     "COMMON": "Donald Wyman Crabapple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus ‘Donald Wyman’",
     "ID": "115"
   },
   {
     "COMMON": "Pacific Crabapple (aka Oregon Crabapple)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus fusca",
     "ID": "116"
   },
   {
     "COMMON": "Lancelot Crabapple (aka Roseybloom)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus ‘Lancelot’ (aka ‘Lanzam’)",
     "ID": "117"
   },
   {
     "COMMON": "Apple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus pumila",
     "ID": "118"
   },
   {
     "COMMON": "Red Barron Crabapple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus ‘Red Barron’",
     "ID": "119"
   },
   {
     "COMMON": "Golden Raindrops Crabapple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus transitoria ‘Schmidtcutleaf’",
     "ID": "120"
   },
   {
     "COMMON": "Tschonoskii Crabapple",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Malus ‘Tschonoskii’",
     "ID": "121"
   },
   {
     "COMMON": "Dawn Redwood",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Metasequoia glyptostroboides",
     "ID": "122"
   },
   {
     "COMMON": "Antarctic Beech",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Nothofagus antartica",
     "ID": "123"
   },
   {
     "COMMON": "Black Tupelo (aka Blackgum)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Nyssa sylvatica",
     "ID": "124"
   },
   {
     "COMMON": "Ironwood (aka American Hop Hornbeam)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Ostrya virginiana",
     "ID": "125"
   },
   {
     "COMMON": "Sourwood",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Oxydendrum arboreum",
     "ID": "126"
   },
   {
     "COMMON": "Persian Parrotia (aka Persian Ironwood)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Parrotia persica",
     "ID": "127"
   },
   {
     "COMMON": "Macho Cork Tree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Phellodendron amurense ‘Macho’",
     "ID": "128"
   },
   {
     "COMMON": "Sitka Spruce",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Picea sitchensis",
     "ID": "129"
   },
   {
     "COMMON": "Umbrella Pine",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pinus densiflora ‘Umbraculifera’",
     "ID": "130"
   },
   {
     "COMMON": "Western White Pine (aka Silver Pine)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pinus monticola",
     "ID": "131"
   },
   {
     "COMMON": "Austrian Pine",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pinus nigra",
     "ID": "132"
   },
   {
     "COMMON": "Italian Stone Pine",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pinus pinea",
     "ID": "133"
   },
   {
     "COMMON": "Ponderosa Pine (aka Bull Pine, Blackjack Pine, or Western Yellow-Pine)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pinus ponderosa",
     "ID": "134"
   },
   {
     "COMMON": "Scotch Pine",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pinus sylvestris",
     "ID": "135"
   },
   {
     "COMMON": "London Planetree (aka Hybrid Plane)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Platanus x acerifolia",
     "ID": "136"
   },
   {
     "COMMON": "Bloodgood London Planetree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Platanus x acerifolia ‘Bloodgood’",
     "ID": "137"
   },
   {
     "COMMON": "Yarwood London Planetree",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Platanus x acerifolia ‘Yarwood’",
     "ID": "138"
   },
   {
     "COMMON": "Balsam Poplar",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Populus balsamifera",
     "ID": "139"
   },
   {
     "COMMON": "Lombardy Poplar",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Populus nigra",
     "ID": "140"
   },
   {
     "COMMON": "Quaking Aspen (aka Quakies, Trembling Aspen, Trembling Poplar, Popple, or American Aspen)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Populus tremuloides",
     "ID": "141"
   },
   {
     "COMMON": "Mt. St. Helens Plum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus cerasifera ‘Frankthrees’",
     "ID": "142"
   },
   {
     "COMMON": "Vesuvius Flowering Plum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus cerasifera ‘Krauter Vesuvius’",
     "ID": "143"
   },
   {
     "COMMON": "Newport Plum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus cerasifera ‘Newportii'",
     "ID": "144"
   },
   {
     "COMMON": "Thundercloud Plum",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus cerasifera ‘Thundercloud’",
     "ID": "145"
   },
   {
     "COMMON": "Spire Cherry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus x hillieri ‘Spire’",
     "ID": "146"
   },
   {
     "COMMON": "Columnar Sargent Cherry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus sargentii ‘Columnaris’",
     "ID": "147"
   },
   {
     "COMMON": "Amanogawa Flowering Cherry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus serrulata ‘Amanogawa’",
     "ID": "148"
   },
   {
     "COMMON": "Snow Goose Cherry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus serrulata ‘Snowgoose’",
     "ID": "149"
   },
   {
     "COMMON": "Akebono Flowering Cherry",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Prunus x yedoensis",
     "ID": "150"
   },
   {
     "COMMON": "Golden Larch",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pseudolarix amabilis",
     "ID": "151"
   },
   {
     "COMMON": "Douglas Fir (aka Oregon Pine and Columbian Pine)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Pseudotsuga menziesii",
     "ID": "152"
   },
   {
     "COMMON": "Fragrant Epaulette Tree (aka Wisteria Tree)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Pterostyrax hispida",
     "ID": "153"
   },
   {
     "COMMON": "Aristocrat Pear",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Pyrus calleryana ‘Aristocrat’",
     "ID": "154"
   },
   {
     "COMMON": "Cambridge Pear",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Pyrus calleryana ‘Cambridge’",
     "ID": "155"
   },
   {
     "COMMON": "Chanticleer (aka Cleveland Select Pear)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Pyrus calleryana ‘Glen’s Form’",
     "ID": "156"
   },
   {
     "COMMON": "Redspire Pear",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Pyrus calleryana ‘Redspire’",
     "ID": "157"
   },
   {
     "COMMON": "Swamp White Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus bicolor",
     "ID": "158"
   },
   {
     "COMMON": "Scarlet Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus coccinea",
     "ID": "159"
   },
   {
     "COMMON": "Italian Oak (aka Hungarian Oak)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus frainetto",
     "ID": "160"
   },
   {
     "COMMON": "Oregon Oak (aka White Oak or Garry Oak)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus garryana",
     "ID": "161",
     "LEVEL": "easy"
   },
   {
     "COMMON": "Holly Oak (aka Holm Oak)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus ilex",
     "ID": "162"
   },
   {
     "COMMON": "Shingle Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus imbricaria",
     "ID": "163"
   },
   {
     "COMMON": "Chinkapin Oak (aka Chestnut Oak)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus muehlenbergii",
     "ID": "164"
   },
   {
     "COMMON": "Pin Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus palustris",
     "ID": "165"
   },
   {
     "COMMON": "English Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus robur",
     "ID": "166"
   },
   {
     "COMMON": "Crimson Spire Oak (aka Chrimschmidt)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus robur x alba",
     "ID": "167"
   },
   {
     "COMMON": "Skyrocket Oak (aka Columnar English Oak)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus robur fastigiata",
     "ID": "168"
   },
   {
     "COMMON": "Northern Red Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus rubra",
     "ID": "169",
     "LEVEL": "easy"
   },
   {
     "COMMON": "Black Oak",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Quercus velutina",
     "ID": "170"
   },
   {
     "COMMON": "Cascara (aka Cascara Buckthorn)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Rhamnus purshiana",
     "ID": "171"
   },
   {
     "COMMON": "Pink Idaho Locus (aka Purple Robe)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Robinia x ambigua",
     "ID": "172"
   },
   {
     "COMMON": "Pacific Willow (Whiplash Willow)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Salix lasiandra",
     "ID": "173"
   },
   {
     "COMMON": "Scouler’s Willow",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Salix scouleriana",
     "ID": "174"
   },
   {
     "COMMON": "Japanese Umbrella Pine",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Sciadopitys verticillata",
     "ID": "175"
   },
   {
     "COMMON": "Giant Sequoia",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Sequoiadendron giganteum",
     "ID": "176"
   },
   {
     "COMMON": "Coast Redwood",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Sequoia sempervirens",
     "ID": "177"
   },
   {
     "COMMON": "Japanese Pagoda Tree (aka Chinese Scholar Tree)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Sophora japonica",
     "ID": "178"
   },
   {
     "COMMON": "Korean Mountain Ash",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Sorbus alnifolia",
     "ID": "179"
   },
   {
     "COMMON": "Red Cascade Mountain Ash",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Sorbus americana ‘Dwarfcrown’",
     "ID": "180"
   },
   {
     "COMMON": "European Mountain Ash",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Sorbus aucuparia",
     "ID": "181"
   },
   {
     "COMMON": "Cardinal Royal Mountain Ash",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Sorbus aucuparia ‘Mitchred’",
     "ID": "182"
   },
   {
     "COMMON": "Oakleaf Royal Mountain Ash",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Sorbus x hybridia",
     "ID": "183"
   },
   {
     "COMMON": "Orange Bark Stewartia (aka Tall Stewartia)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Stewartia monadelpha",
     "ID": "184"
   },
   {
     "COMMON": "Japanese Stewartia",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Stewartia pseudocamellia",
     "ID": "185"
   },
   {
     "COMMON": "Fragrant Styrax (aka Fragrant Snowbell)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Styrax obassia",
     "ID": "186"
   },
   {
     "COMMON": "Japanese Snowbell",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Styrax japonicus",
     "ID": "187"
   },
   {
     "COMMON": "Brave Bald Cypress",
-    "SCIENTIFIC": "Taxodium distichuym ‘Mickeslon’ Shawnee",
+    "TREETYPE": "Deciduous",
+    "SCIENTIFIC": "Taxodium distichum ‘Mickeslon’ Shawnee",
     "ID": "188"
   },
   {
     "COMMON": "Pacific Yew (aka Western Yew)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Taxus brevifolia",
     "ID": "189"
   },
   {
     "COMMON": "Western Red Cedar (aka Giant Arborvitae or Shinglewood)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Thuja plicata",
     "ID": "190",
     "LEVEL": "easy"
   },
   {
     "COMMON": "Redmond Linden",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Tilia americana ‘Redmond’",
     "ID": "191"
   },
   {
     "COMMON": "Greenspire Linden",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Tilia americana ‘Greenspire’",
     "ID": "192"
   },
   {
     "COMMON": "Chancelor Linden (aka Little-leaf Linden)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Tilia cordata ‘Chancole’",
     "ID": "193"
   },
   {
     "COMMON": "De Groot Littleleaf Linden",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Tilia cordata ‘De Groot’",
     "ID": "194"
   },
   {
     "COMMON": "Windmill Palm",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Trachycarpus fortunei",
     "ID": "195"
   },
   {
     "COMMON": "Canadian Hemlock (aka Eastern Hemlock-Spruce or Eastern Hemlock)",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Tsuga canadensis",
     "ID": "196"
   },
   {
     "COMMON": "Western Hemlock",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Tsuga heterophylla",
     "ID": "197"
   },
   {
     "COMMON": "Mountain Hemlock",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Tsuga mertensiana",
     "ID": "198"
   },
   {
     "COMMON": "Frontier Elm",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Ulmus ‘Frontier’",
     "ID": "199"
   },
   {
     "COMMON": "Homestead Elm",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Ulmus ‘Homestead’",
     "ID": "200"
   },
   {
     "COMMON": "Athena Classic Elm",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Ulmus parvifolia ‘Emer I’",
     "ID": "201"
   },
   {
     "COMMON": "Allee Elm (aka Chinese Elm or Lacebark Elm)",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Ulmus parviflolia ‘Elmer II’",
     "ID": "202"
   },
   {
     "COMMON": "Japanese Zelkova",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Zelkova serrata",
     "ID": "203"
   },
   {
     "COMMON": "Green Vase Zelkova",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Zelkova serrata ‘Green vase’",
     "ID": "204"
   },
   {
     "COMMON": "Village Green Zelkova",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Zelkova serrata ‘Village Green’",
     "ID": "205"
   },
   {
     "COMMON": "Northern White Cedar",
+    "TREETYPE": "Coniferous",
     "SCIENTIFIC": "Thuja occidentalis",
     "ID": "206",
     "LEVEL": "medium"
   },
   {
     "COMMON": "Shagbark Hickory",
+    "TREETYPE": "Deciduous",
     "SCIENTIFIC": "Carya ovata",
     "ID": "207",
     "LEVEL": "expert"

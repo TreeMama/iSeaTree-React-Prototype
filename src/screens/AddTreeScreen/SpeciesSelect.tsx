@@ -26,6 +26,7 @@ import speciesDataList from '../../../data/species.json'
 
 export interface SpeciesData {
   ID: string
+  TREETYPE: string
   COMMON: string
   SCIENTIFIC: string
   LEVEL?: string
@@ -40,7 +41,7 @@ const MIN_SEARCH_TERM_LENGTH = 3
 
 function getSpeciesFlatListData(
   query?: string,
-): { ID: string; COMMON: string; SCIENTIFIC: string }[] {
+): { ID: string; COMMON: string; TREETYPE: string, SCIENTIFIC: string }[] {
   if (!query) {
     return speciesDataList
   }
