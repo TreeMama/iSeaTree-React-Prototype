@@ -28,9 +28,12 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
   }
 
   const imageDownloadUrl = await uploadTreeImage(formValues.photo.uri)
+  const decimals = 1000000
+  const roundedLatitude = Math.round(formValues.coords.latitude * decimals) / decimals
+  const roundedLongitude = Math.round(formValues.coords.longitude * decimals) / decimals
   const treeCoords = new firebase.firestore.GeoPoint(
-    formValues.coords.latitude,
-    formValues.coords.longitude,
+    roundedLatitude,
+    roundedLongitude
   )
 
   const now = new Date()
@@ -41,6 +44,8 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     + "\n" + Application.applicationName + " " + Application.nativeApplicationVersion + " " + Application.nativeBuildVersion
     + "\nLat: " + treeCoords.latitude.toString()
     + "\nLon: " + treeCoords.longitude.toString()
+  console.log(debugNotes)
+
   const treeData: TreeData = {
     userId: authUser.uid,
     username: userData.username,
