@@ -61,6 +61,7 @@ export function Camera(props: CameraProps) {
     const pickerResult = await ImagePicker.launchImageLibraryAsync({ exif: true })
 
     if (!pickerResult.cancelled) {
+      console.log(pickerResult.exif)
       setSelectedPhotoUri(pickerResult.uri)
       props.onTakePicture(pickerResult)
     }
