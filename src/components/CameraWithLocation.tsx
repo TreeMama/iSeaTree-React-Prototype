@@ -78,7 +78,7 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
     console.log("exif lon", longitude)
     console.log("exif lat", latitude)
     const timestring = capturedPicture.exif.DateTimeOriginal
-    const offset = capturePicture.exif.OffsetTimeOriginal
+    const offset = capturedPicture.exif.OffsetTimeOriginal
     console.log("captured", timestring, offset)
     return { latitude, longitude }
   }
