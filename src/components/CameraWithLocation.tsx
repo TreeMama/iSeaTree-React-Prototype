@@ -40,7 +40,12 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
           accuracy: Location.Accuracy.BestForNavigation,
         })
 
-        return { latitude: location.coords.latitude, longitude: location.coords.longitude }
+        const decimals = 1000000
+        const roundedLatitude = Math.round(location.coords.latitude * decimals) / decimals
+        const roundedLongitude = Math.round(location.coords.longitude * decimals) / decimals
+        console.log("location from device", location, location.coords)
+        console.log("rounded", roundedLatitude, roundedLongitude)
+        return { latitude: roundedLatitude, longitude: roundedLongitude }
       }
     } catch (error) {
       if (__DEV__) {
@@ -58,13 +63,23 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
       return null
     }
 
-    const latitude: number | undefined = capturedPicture.exif.GPSLatitude
-    const longitude: number | undefined = capturedPicture.exif.GPSLongitude
+    var latitude: number | undefined = capturedPicture.exif.GPSLatitude
+    if (capturedPicture.exif.GPSLatudeRef == "S") {
+      latitude = latitude * -1
+    }
+    var longitude: number | undefined = capturedPicture.exif.GPSLongitude
+    if (capturedPicture.exif.GPSLongitudeRef == "W") {
+      longitude = longitude * -1
+    }
 
     if (!latitude || !longitude) {
       return null
     }
-
+    console.log("exif lon", longitude)
+    console.log("exif lat", latitude)
+    const timestring = capturedPicture.exif.DateTimeOriginal
+    const offset = capturedPicture.exif.OffsetTimeOriginal
+    console.log("captured", timestring, offset)
     return { latitude, longitude }
   }
 
@@ -72,6 +87,7 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
     setIsLocatDialogVisible(true)
 
     const coordsFromExif = getLocationFromExif(capturedPicture)
+    console.log("coordsFromExif", coordsFromExif)
 
     if (!!coordsFromExif) {
       props.onTakePictureFinish({ capturedPicture, coords: coordsFromExif })

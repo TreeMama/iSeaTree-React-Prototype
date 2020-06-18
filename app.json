@@ -37,7 +37,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.treemama.iseatree",
-      "buildNumber": "6",
+      "buildNumber": "8",
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "We use the camera to allow you to take a photo and submit it with your iSeaTree reports.",

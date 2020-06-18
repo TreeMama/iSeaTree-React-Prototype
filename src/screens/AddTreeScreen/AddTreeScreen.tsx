@@ -42,7 +42,6 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   if (!values.photo) {
     errors.photo = 'You have to add photo'
   }
-
   if (!values.speciesData) {
     errors.speciesData = "Can't be blank"
   }
