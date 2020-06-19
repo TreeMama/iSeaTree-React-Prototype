@@ -51,7 +51,7 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
       if (__DEV__) {
         console.log(error)
       }
-      setErrorMessage('There was an unexpected error. Please try again later.')
+      setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
       setIsLoadingLocation(false)
 
       return null

@@ -48,14 +48,14 @@ export function RegisterScreen() {
         if (!!result.user) {
           setUser({ uid: result.user.uid, email, username })
         } else {
-          setErrorMessage('There was an unexpected error. Please try again later.')
+          setErrorMessage('There was an unexpected error (RegisterScreen::setUser). Please try again later.')
         }
       })
       .catch((error) => {
         setIsLoading(false)
         const errorMEssage = !!error.message
           ? error.message
-          : 'There was an unexpected error. Please try again later.'
+          : 'There was an unexpected error (RegisterScreen::setIsLoading). Please try again later.'
 
         setErrorMessage(errorMEssage)
       })
