@@ -39,7 +39,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         console.log(error)
       }
 
-      setErrorMessage('There was an unexpected error. Please try again later.')
+      setErrorMessage('There was an unexpected error (MapScreen::getCurrentLocation). Please try again later.')
     }
   }
 
@@ -69,11 +69,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const currentRegion: undefined | Region = !currentCoords
     ? undefined
     : {
-        latitude: currentCoords.latitude,
-        longitude: currentCoords.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }
+      latitude: currentCoords.latitude,
+      longitude: currentCoords.longitude,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    }
 
   return (
     <View style={styles.container}>

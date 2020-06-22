@@ -105,7 +105,7 @@ export function AddTreeScreen() {
   function handleAddTreeError() {
     formik.setSubmitting(false)
 
-    Alert.alert('Error', 'There was an unexpected error. Please try again later.', [
+    Alert.alert('Error', 'There was an unexpected error (AddTreeScreen::handleAddTree). Please try again later.', [
       {
         text: 'Ok',
       },

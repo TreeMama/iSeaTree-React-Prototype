@@ -45,7 +45,7 @@ export function ResetPasswordScreen(props) {
         setIsLoading(false)
         const errorMEssage = !!error.message
           ? error.message
-          : 'There was an unexpected error. Please try again later.'
+          : 'There was an unexpected error (ResetPasswordScreen::setIsLoading). Please try again later.'
 
         setErrorMessage(errorMEssage)
       })
