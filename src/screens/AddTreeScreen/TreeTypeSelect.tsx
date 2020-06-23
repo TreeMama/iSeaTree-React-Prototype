@@ -8,7 +8,9 @@ import { TreeTypes } from '../../lib/treeData'
 const coniferImage = require('../../../assets/conifer.png')
 const deciduousImage = require('../../../assets/deciduous.png')
 
-interface TreeTypeSelectProps {}
+interface TreeTypeSelectProps {
+  onSelect: (speciesData: String) => void
+}
 
 const iconStyle = {
   height: 25,
@@ -20,6 +22,7 @@ export function TreeTypeSelect(props: TreeTypeSelectProps) {
 
   function handleTreeTypeSelect(treeType: TreeTypes) {
     setCurrentType(treeType)
+    if(typeof props.onSelect == 'function') props.onSelect(treeType)
   }
 
   return (

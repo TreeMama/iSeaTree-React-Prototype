@@ -151,6 +151,7 @@ export function AddTreeScreen() {
     initialValues: {
       photo: null,
       coords: null,
+      speciesType: TreeTypes.CONIFER,
       speciesData: null,
       dbh: '',
       notes: '',
@@ -220,11 +221,15 @@ export function AddTreeScreen() {
           )}
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-            <TreeTypeSelect />
+            <TreeTypeSelect onSelect={(treeType) => {
+              formik.setFieldValue('speciesData', null)
+              formik.setFieldValue('speciesType', treeType)
+            }} />
           </View>
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
             <SpeciesSelect
+              speciesType={formik.values.speciesType}
               speciesData={formik.values.speciesData}
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)

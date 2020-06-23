@@ -32,27 +32,33 @@ export interface SpeciesData {
 }
 
 interface SpeciesSelectProps {
+  speciesType: string,
   speciesData: null | SpeciesData
   onSelect: (speciesData: null | SpeciesData) => void
 }
 
 const MIN_SEARCH_TERM_LENGTH = 3
 
-function getSpeciesFlatListData(
-  query?: string,
-): { ID: string; COMMON: string; SCIENTIFIC: string }[] {
+function getSpeciesFlatListData( type: string, query?: string ): { ID: string; COMMON: string; SCIENTIFIC: string }[] {
+  const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string }[] = []
+  speciesDataList.forEach((item, index) => {
+    if(type.toLowerCase() == item.TYPE.toLowerCase()){
+      $speciesDataList.push(item)
+    }
+  })
+
   if (!query) {
-    return speciesDataList
+    return $speciesDataList
   }
 
   const inputValue = query.trim().toLowerCase()
   const inputLength = inputValue.length
 
   if (inputLength < MIN_SEARCH_TERM_LENGTH) {
-    return speciesDataList
+    return $speciesDataList
   }
 
-  return speciesDataList.filter(
+  return $speciesDataList.filter(
     (datum) =>
       datum.COMMON.toLowerCase().includes(inputValue) ||
       datum.SCIENTIFIC.toLowerCase().includes(inputValue),
@@ -101,8 +107,8 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   const theme = useTheme()
 
   const currentSpeciesNamesItems = React.useMemo(() => {
-    return getSpeciesFlatListData(query)
-  }, [query])
+    return getSpeciesFlatListData(props.speciesType, query)
+  }, [query, isModalVisible])
 
   function handleSpeciesSelect(speciesData: SpeciesData) {
     setTimeout(() => {

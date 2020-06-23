@@ -8,6 +8,7 @@ export interface FormValues {
     uri: string
   }
   coords: null | { latitude: number; longitude: number }
+  speciesType: string
   speciesData: null | SpeciesData
   treeType: TreeTypes
   dbh: string
