@@ -39,7 +39,7 @@ export function LoginScreen() {
         setIsLoading(false)
         const errorMEssage = !!error.message
           ? error.message
-          : 'There was an unexpected error. Please try again later.'
+          : 'There was an unexpected error (LoginScreen:firebase). Please try again later.'
 
         setErrorMessage(errorMEssage)
       })

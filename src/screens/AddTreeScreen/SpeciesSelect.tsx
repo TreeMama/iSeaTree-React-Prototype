@@ -26,6 +26,7 @@ import speciesDataList from '../../../data/species.json'
 
 export interface SpeciesData {
   ID: string
+  TYPE: string
   COMMON: string
   SCIENTIFIC: string
   LEVEL?: string
@@ -39,10 +40,10 @@ interface SpeciesSelectProps {
 
 const MIN_SEARCH_TERM_LENGTH = 3
 
-function getSpeciesFlatListData( type: string, query?: string ): { ID: string; COMMON: string; SCIENTIFIC: string }[] {
-  const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string }[] = []
+function getSpeciesFlatListData(type: string, query?: string): { ID: string; COMMON: string; SCIENTIFIC: string, TYPE: string }[] {
+  const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string, TYPE: string }[] = []
   speciesDataList.forEach((item, index) => {
-    if(type.toLowerCase() == item.TYPE.toLowerCase()){
+    if (type.toLowerCase() == item.TYPE.toLowerCase()) {
       $speciesDataList.push(item)
     }
   })
