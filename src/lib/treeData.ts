@@ -5,7 +5,8 @@ export enum Species {
 
 export enum TreeTypes {
   CONIFER = 'conifer',
-  DECIDUOUS = 'deciduous',
+  BROADLEAF = 'broadleaf',
+  NULL='null'
 }
 
 export enum TreeValidationTypes {
