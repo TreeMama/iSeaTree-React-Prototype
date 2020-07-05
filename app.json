@@ -33,9 +33,16 @@
         "googleMaps": {
           "apiKey": "AIzaSyDXUgQFAUNeCgc8o7rmbChz8TKSnjnwUmI"
         }
+      },
+      "icon": "./assets/icon.png",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android_icon_forground.png",
+        "backgroundColor": "#FFFFF",
+        "backgroundImage": "./assets/android_icon_background.png"
       }
     },
     "ios": {
+      "icon": "./assets/icon.png",
       "bundleIdentifier": "com.treemama.iseatree",
       "buildNumber": "8",
       "supportsTablet": true,

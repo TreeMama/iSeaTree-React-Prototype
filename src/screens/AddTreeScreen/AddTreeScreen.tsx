@@ -19,7 +19,7 @@ import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { TreeTypes } from '../../lib/treeData'
 import { SpeciesSelect } from './SpeciesSelect'
-import { TreeTypeSelect } from './TreeTypeSelect'
+import TreeTypeSelect from './TreeTypeSelect'
 import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
@@ -58,6 +58,7 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 }
 export function AddTreeScreen() {
   const theme = useTheme()
+  const refTreeTypeSelect = React.useRef(null);
 
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
 
@@ -151,11 +152,11 @@ export function AddTreeScreen() {
     initialValues: {
       photo: null,
       coords: null,
-      speciesType: TreeTypes.CONIFER,
+      speciesType: TreeTypes.NULL,
       speciesData: null,
       dbh: '',
       notes: '',
-      treeType: TreeTypes.CONIFER,
+      treeType: TreeTypes.NULL,
       landUseCategory: null,
       locationType: null,
     },
@@ -221,8 +222,20 @@ export function AddTreeScreen() {
           )}
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-            <TreeTypeSelect onSelect={(treeType) => {
-              formik.setFieldValue('speciesData', null)
+            <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
+              // formik.setFieldValue('speciesData', null)
+              if (formik.values.speciesData && treeType != null) {
+                if (formik.values.speciesData.TYPE != treeType) {
+                  Alert.alert('', "This species is actually a " + formik.values.speciesData.TYPE, [
+                    {
+                      text: 'Ok',
+                      onPress: () => {
+                        console.log('ok')
+                      },
+                    },
+                  ])
+                }
+              }
               formik.setFieldValue('speciesType', treeType)
             }} />
           </View>
@@ -233,6 +246,23 @@ export function AddTreeScreen() {
               speciesData={formik.values.speciesData}
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)
+                if (formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null) {
+                  formik.setFieldValue('speciesData', speciesData)
+                  formik.setFieldValue('treeType', speciesData?.TYPE)
+                  formik.setFieldValue('speciesType', speciesData?.TYPE)
+                  
+                  setTimeout(() => {
+                    Alert.alert('', "Oops! Looks like you didn't say what type of tree this is. This species is a " + speciesData?.TYPE + ". I am going to correct this for you!", [
+                      {
+                        text: 'Ok',
+                        onPress: () => {
+                          console.log('ok')
+                        },
+                      },
+                    ])
+                  }, 1000)
+                  refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
+                }
               }}
             />
 
@@ -241,6 +271,7 @@ export function AddTreeScreen() {
                 {formik.errors.speciesData}
               </Text>
             )}
+
           </View>
 
           <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
@@ -324,7 +355,22 @@ export function AddTreeScreen() {
               <TreeBenefits speciesData={formik.values.speciesData} />
             </View>
 
-            <Button mode="contained" onPress={formik.handleSubmit} loading={formik.isSubmitting}>
+            <Button mode="contained"
+              onPress={() => {
+                formik.handleSubmit()
+                formik.values.speciesData?.COMMON === 'Unknown' && formik.values.speciesType === TreeTypes.NULL && (
+                  Alert.alert('', 'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.', [
+                    {
+                      text: 'Ok',
+                      onPress: () => {
+                        console.log('ok')
+                      },
+                    },
+                  ])
+                )
+              }
+              }
+              loading={formik.isSubmitting}>
               Save
           </Button>
           </View>

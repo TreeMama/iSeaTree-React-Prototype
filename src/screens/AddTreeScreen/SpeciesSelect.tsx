@@ -33,17 +33,23 @@ export interface SpeciesData {
 }
 
 interface SpeciesSelectProps {
-  speciesType: string,
+  speciesType: null | string,
   speciesData: null | SpeciesData
   onSelect: (speciesData: null | SpeciesData) => void
 }
 
 const MIN_SEARCH_TERM_LENGTH = 3
 
-function getSpeciesFlatListData(type: string, query?: string): { ID: string; COMMON: string; SCIENTIFIC: string, TYPE: string }[] {
+function getSpeciesFlatListData(type: string | null, query?: string): { ID: string; COMMON: string; SCIENTIFIC: string, TYPE: string }[] {
   const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string, TYPE: string }[] = []
   speciesDataList.forEach((item, index) => {
-    if (type.toLowerCase() == item.TYPE.toLowerCase()) {
+    if (typeof type == 'string') {
+      if (type.toLowerCase() == item.TYPE.toLowerCase()) {
+        $speciesDataList.push(item)
+      } else if (type.toLowerCase() == 'null'){
+        $speciesDataList.push(item)
+      }
+    } else {
       $speciesDataList.push(item)
     }
   })
@@ -219,7 +225,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
 
             <FlatList
               data={currentSpeciesNamesItems}
-              keyExtractor={(item) => item.ID}
+              keyExtractor={(item, index) => `${item.ID}-${index}`}
               renderItem={renderFlatListItem}
               initialNumToRender={20}
             />
