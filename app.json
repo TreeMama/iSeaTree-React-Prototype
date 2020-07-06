@@ -49,7 +49,6 @@
       "infoPlist": {
         "NSCameraUsageDescription": "We use the camera to allow you to take a photo and submit it with your iSeaTree reports.",
         "NSLocationWhenInUseUsageDescription": "We attach your location to your iSeaTree reports, and show your location on a map",
-        "NSPhotoLibraryUsageDescription": "You have asked to upload a tree photo from your photo library.",
       },
     },
     "entryPoint": "./src/App.tsx",
