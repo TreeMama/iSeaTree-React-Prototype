@@ -4,7 +4,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { View, Image, Alert } from 'react-native'
 import { Camera as ExpoCamera } from 'expo-camera'
 import { Text, Button } from 'react-native-paper'
-import * as ImagePicker from 'expo-image-picker'
 
 import { StatusBar } from './StatusBar'
 
@@ -48,23 +47,6 @@ export function Camera(props: CameraProps) {
       cameraRefObj.pausePreview()
       props.onTakePicture(photo)
     })
-  }
-
-  async function handleOpenImagePicker() {
-    const permissionResult = await ImagePicker.requestCameraRollPermissionsAsync()
-
-    if (permissionResult.granted === false) {
-      Alert.alert('Please allow access to your photos', 'Go to the settings and change permissions')
-      return
-    }
-
-    const pickerResult = await ImagePicker.launchImageLibraryAsync({ exif: true })
-
-    if (!pickerResult.cancelled) {
-      console.log(pickerResult.exif)
-      setSelectedPhotoUri(pickerResult.uri)
-      props.onTakePicture(pickerResult)
-    }
   }
 
   return (
@@ -121,7 +103,6 @@ export function Camera(props: CameraProps) {
         </ExpoCamera>
       )}
 
-      {!selectedPhotoUri && <Button onPress={handleOpenImagePicker}>Library</Button>}
     </View>
   )
 }
