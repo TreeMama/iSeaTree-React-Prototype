@@ -1,57 +1,57 @@
 {
-  "expo": {
-    "name": "iSeaTree",
-    "slug": "iSeaTree",
-    "privacy": "public",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.0.0",
-    "orientation": "default",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "android": {
-      "permissions": [
-        "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION",
-        "CAMERA"
-      ],
-      "package": "com.treemama.iseatree",
-      "versionCode": 10,
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyDXUgQFAUNeCgc8o7rmbChz8TKSnjnwUmI"
-        }
-      },
-      "icon": "./assets/icon.png",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/android_icon_forground.png",
-        "backgroundColor": "#FFFFF",
-        "backgroundImage": "./assets/android_icon_background.png"
-      }
-    },
-    "ios": {
-      "icon": "./assets/icon.png",
-      "bundleIdentifier": "com.treemama.iseatree",
-      "buildNumber": "10",
-      "supportsTablet": true,
-      "infoPlist": {
-        "NSCameraUsageDescription": "We use the camera to allow you to take a photo and submit it with your iSeaTree reports.",
-        "NSLocationWhenInUseUsageDescription": "We attach your location to your iSeaTree reports, and show your location on a map",
-      },
-    },
-    "entryPoint": "./src/App.tsx",
-    "description": ""
-  }
+	"expo": {
+		"name": "iSeaTree",
+		"slug": "iSeaTree",
+		"privacy": "public",
+		"platforms": [ "ios", "android" ],
+		"version": "1.0.0",
+		"orientation": "default",
+		"icon": "./assets/icon.png",
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "contain",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": [ "**/*" ],
+		"android": {
+			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA" ],
+			"package": "com.treemama.iseatree",
+			"versionCode": 12,
+			"config": {
+				"googleMaps": {
+					"apiKey": "AIzaSyBCXyRI_JS7_wQzLbPHMvF3HTJP-2zrN2s"
+				}
+			},
+			"icon": "./assets/icon.png",
+			"splash": {
+				"mdpi": "./assets/android-splash/splash.png",
+				"hdpi": "./assets/android-splash/splash_hdpi.png",
+				"xhdpi": "./assets/android-splash/splash_xhdpi.png",
+				"xxhdpi": "./assets/android-splash/splash_xxhdpi.png",
+				"resizeMode": "contain",
+				"backgroundColor": "#ffffff"
+			},
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/android_icon_forground.png",
+				"backgroundColor": "#FFFFF",
+				"backgroundImage": "./assets/android_icon_background.png"
+			}
+		},
+		"ios": {
+			"icon": "./assets/icon.png",
+			"bundleIdentifier": "com.treemama.iseatree",
+			"buildNumber": "10",
+			"supportsTablet": true,
+			"infoPlist": {
+				"NSCameraUsageDescription": "We use the camera to allow you to take a photo and submit it with your iSeaTree reports.",
+				"NSLocationWhenInUseUsageDescription": "We attach your location to your iSeaTree reports, and show your location on a map",
+				"NSPhotoLibraryUsageDescription": "You have asked to upload a tree photo from your photo library."
+			}
+		},
+		"entryPoint": "./src/App.tsx",
+		"description": ""
+	}
 }
