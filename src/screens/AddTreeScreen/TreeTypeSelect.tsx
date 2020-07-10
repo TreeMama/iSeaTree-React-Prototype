@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { View, Image } from 'react-native'
-import { Subheading, Button, Text } from 'react-native-paper'
-
+import { Subheading, Button, Text,useTheme } from 'react-native-paper'
+import { colors } from '../../styles/theme'
 import { TreeTypes } from '../../lib/treeData'
 import { TtypeHelp } from './TtypeHelp'
 const coniferImage = require('../../../assets/conifer.png')
@@ -18,6 +18,7 @@ const iconStyle = {
 }
 
 const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
+  const theme = useTheme()
   const [currentType, setCurrentType] = React.useState<TreeTypes>(TreeTypes.NULL)
 
   React.useImperativeHandle(ref, () => {
@@ -47,6 +48,7 @@ const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
         }}
       >
         <Button
+         style={{backgroundColor:currentType === TreeTypes.CONIFER ? theme.colors.background : 'white'}}
           mode={currentType === TreeTypes.CONIFER ? 'outlined' : 'text'}
           icon={() => <Image source={coniferImage} style={iconStyle} />}
           onPress={() => {
@@ -60,13 +62,14 @@ const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
           {TreeTypes.CONIFER}
         </Button>
         <Button
+          style={{backgroundColor:currentType === TreeTypes.BROADLEAF ? theme.colors.background : 'white',borderColor: theme.colors.backdrop}}
           mode={currentType === TreeTypes.BROADLEAF ? 'outlined' : 'text'}
           icon={() => <Image source={deciduousImage} style={iconStyle} />}
           onPress={() => {
             // handleTreeTypeSelect(TreeTypes.DECIDUOUS)
             if (currentType === TreeTypes.BROADLEAF)
               handleTreeTypeSelect(TreeTypes.NULL)
-            else
+            else 
               handleTreeTypeSelect(TreeTypes.BROADLEAF)
           }}
         >

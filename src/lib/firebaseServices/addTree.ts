@@ -22,7 +22,13 @@ export interface TreeData {
   locationType: string
   notes: string | null
   isValidated: TreeValidationTypes
-  level: string
+  level: string 
+  modelName: string | null
+  os_name: string | null
+  os_version: string | null
+  applicationVersion: string | null
+  BuildVersion: string | null
+  brand: string | null
 }
 
 const TREES_COLLECTION = 'trees'
