@@ -63,7 +63,13 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     },
     coords: treeCoords,
     isValidated: TreeValidationTypes.SPAM,
-    level: (typeof formValues.speciesData?.LEVEL === 'undefined') ? 'none' : formValues.speciesData?.LEVEL
+    level: (typeof formValues.speciesData?.LEVEL === 'undefined') ? 'none' : formValues.speciesData?.LEVEL,
+    brand: Device.brand,
+    modelName: Device.modelName,
+    os_name: Device.osName,
+    os_version: Device.osVersion,
+    applicationVersion: Application.nativeApplicationVersion,
+    BuildVersion: Application.nativeBuildVersion
   }
   addTree(treeData)
 

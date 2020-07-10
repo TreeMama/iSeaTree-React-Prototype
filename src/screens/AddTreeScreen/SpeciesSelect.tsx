@@ -44,7 +44,7 @@ function getSpeciesFlatListData(type: string | null, query?: string): { ID: stri
   const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string, TYPE: string }[] = []
   speciesDataList.forEach((item, index) => {
     if (typeof type == 'string') {
-      if (type.toLowerCase() == item.TYPE.toLowerCase()) {
+      if (type.toLowerCase() == item.TYPE.toLowerCase() || item.TYPE.toLowerCase()==='unknown' ) {
         $speciesDataList.push(item)
       } else if (type.toLowerCase() == 'null'){
         $speciesDataList.push(item)
@@ -151,7 +151,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
 
   return (
     <View>
-      <Subheading>SPECIES</Subheading>
+      <Subheading>Species</Subheading>
 
       <View
         style={{

@@ -42,10 +42,15 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   if (!values.photo) {
     errors.photo = 'You have to add photo'
   }
+  if (values.speciesType===TreeTypes.NULL) {
+    errors.treeType = "Can't be blank"
+  }
   if (!values.speciesData) {
     errors.speciesData = "Can't be blank"
   }
-
+  if (values.dbh==='') {
+    errors.dbh = "Can't be blank"
+  }
   if (!values.landUseCategory) {
     errors.landUseCategory = "Can't be blank"
   }
@@ -223,9 +228,9 @@ export function AddTreeScreen() {
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
             <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
-              // formik.setFieldValue('speciesData', null)
+              // formik.setFieldValue('speciesType', treeType)
               if (formik.values.speciesData && treeType != null) {
-                if (formik.values.speciesData.TYPE != treeType) {
+                if (formik.values.speciesData.TYPE != treeType && formik.values.speciesData.TYPE != 'unknown') {
                   Alert.alert('', "This species is actually a " + formik.values.speciesData.TYPE, [
                     {
                       text: 'Ok',
@@ -234,10 +239,18 @@ export function AddTreeScreen() {
                       },
                     },
                   ])
+                  refTreeTypeSelect.current.setTreeType(formik.values.speciesType)
+                } else {
+                  formik.setFieldValue('speciesType', treeType)
                 }
               }
-              formik.setFieldValue('speciesType', treeType)
+             
             }} />
+            {!!formik.errors.treeType && !!formik.touched.treeType && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+                {formik.errors.treeType}
+              </Text>
+            )}
           </View>
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
@@ -246,7 +259,9 @@ export function AddTreeScreen() {
               speciesData={formik.values.speciesData}
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)
-                if (formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null) {
+                if(speciesData?.TYPE != 'unknown' ){
+                  console.log('asf' +formik.values.speciesType )
+                if ((formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null) ) {
                   formik.setFieldValue('speciesData', speciesData)
                   formik.setFieldValue('treeType', speciesData?.TYPE)
                   formik.setFieldValue('speciesType', speciesData?.TYPE)
@@ -263,6 +278,7 @@ export function AddTreeScreen() {
                   }, 1000)
                   refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
                 }
+              }
               }}
             />
 
