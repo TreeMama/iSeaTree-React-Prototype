@@ -22,7 +22,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     name: 'Garry Oak',
     level: 'Easy',
     levelText:
-      'Medium, Rare in Seattle region, but common in other Pacific Northwest areas. Native.',
+      'Easy-level difficulty, Rare in Seattle region, but common in other Pacific Northwest areas. Native.',
     identifiable_attributes: [
       'Mature trees have a wide spreading crown, and are capable of growing more then 130 feet wide.',
       'Has deeply lobed leaves that are richly green and glossy on the upperside, and paler on the underside.',
@@ -31,7 +31,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       'Grows to an average height of 50–90 ft.',
     ],
     known_public_locations: [
-      `Seward Park (one of the last old-growth forest areas in all of Seattle) has several specimens. A mature Garry oak can be found not far east from the parking lot by the entrance, in an area known as "Clark's Prarie".`,
+      `Seward Park (one of the last old-growth forest areas in all of Seattle) has several specimens. A mature Garry Oak can be found not far east from the parking lot by the entrance, in an area known as "Clark's Prairie".`,
       'Oak Manor, 730 Belmont Avenue E is home to a specimen that is likely over 170 years old. This Capitol Hill neighborhood oak is on private property, however, it is so large and visible that it can easily be seen from the street.',
     ],
     fun_facts: ["Whidbey Island's Oak Harbor was named after this tree."],
@@ -92,7 +92,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       require('../assets/suggested-trees/shagbark-hickory-3.jpg'),
       require('../assets/suggested-trees/shagbark-hickory-4.jpg'),
       require('../assets/suggested-trees/shagbark-hickory-5.jpg'),
-      require('../assets/suggested-trees/shagbark-hickory-6.jpeg'),
+      require('../assets/suggested-trees/shagbark-hickory-6.jpg'),
     ],
     name: 'Shagbark Hickory',
     level: 'Expert',
@@ -123,7 +123,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     name: 'Northern White Cedar',
     level: 'Medium',
     levelText:
-      'Expert, common in Seattle region - however can be easily mistaken for its native cousin - the Western Red Cedar. Non-Native.',
+      'Medium-level difficulty, common in Seattle region - however can be easily mistaken for its native cousin - the Western Red Cedar. Non-Native.',
     identifiable_attributes: [
       `Key difference between the Western Red Cedar and the Northern White Cedar is in its size. Western Red Cedar's tend to be much larger (particularly in the Pacific Northwest, where they can grow up to 200 ft tall).`,
       'Leaves are evergreen. The leaves have a pattern of flat and filigree sprays made up of many tiny, scaly leaves.',
@@ -161,4 +161,76 @@ export const suggestedTrees: SuggestedTreeData[] = [
       `The name plicata comes from a Greek word meaning "folded in plaits," in reference to the arrangement of the leaves. This tree is notably long lived, some individuals can live well over a thousand years, and its highly valuable wood is so rot resistant that you can easily find ancient stumps that still have not began to decay.`,
     ],
   },
+
+  {
+    images: [
+    ],
+    name: 'Scotch Pine',
+    level: '',
+    levelText: '',
+    identifiable_attributes: [
+      'provide data',
+      ],
+    known_public_locations: [`N/A`],
+    fun_facts: [
+      `N/A`,
+    ],
+  },
+  {
+    images: [
+    ],
+    name: 'Douglas Fir',
+    level: '',
+    levelText: '',
+    identifiable_attributes: [
+      'provide data',
+      ],
+    known_public_locations: [`N/A`],
+    fun_facts: [
+      `N/A`,
+    ],
+  },
+  {
+    images: [
+    ],
+    name: 'Coast Redwood',
+    level: '',
+    levelText: '',
+    identifiable_attributes: [
+      'provide data',
+      ],
+    known_public_locations: [`N/A`],
+    fun_facts: [
+      `N/A`,
+    ],
+  },
+  {
+    images: [
+    ],
+    name: 'Big Leaf Maple',
+    level: '',
+    levelText: '',
+    identifiable_attributes: [
+      'provide data',
+      ],
+    known_public_locations: [`N/A`],
+    fun_facts: [
+      `N/A`,
+    ],
+  },
+  {
+    images: [
+    ],
+    name: 'Vine Maple',
+    level: '',
+    levelText: '',
+    identifiable_attributes: [
+      'provide data',
+      ],
+    known_public_locations: [`N/A`],
+    fun_facts: [
+      `N/A`,
+    ],
+  },
+
 ]

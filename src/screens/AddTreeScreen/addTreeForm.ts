@@ -15,4 +15,5 @@ export interface FormValues {
   notes: string
   landUseCategory: string | null
   locationType: string | null
+  estimate: boolean
 }

@@ -52,6 +52,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     speciesNameCommon: formValues.speciesData.COMMON,
     speciesNameScientific: formValues.speciesData.SCIENTIFIC,
     dbh: formValues.dbh,
+    estmated_dbh:formValues.estimate,
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,
     locationType: formValues.locationType,
