@@ -36,15 +36,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     roundedLongitude
   )
 
-  const now = new Date()
-  const debugNotes = formValues.notes || ""
-    + now.toString()
-    + "\n" + Device.brand + " " + Device.modelName + " " + Device.osName + " " + Device.osVersion
-    + (Device.isDevice ? " device " : " simulator ")
-    + "\n" + Application.applicationName + " " + Application.nativeApplicationVersion + " " + Application.nativeBuildVersion
-    + "\nLat: " + treeCoords.latitude.toString()
-    + "\nLon: " + treeCoords.longitude.toString()
-  console.log(debugNotes)
+  const submittedNotes = formValues.notes || ""
 
   const treeData: TreeData = {
     userId: authUser.uid,
@@ -52,11 +44,11 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     speciesNameCommon: formValues.speciesData.COMMON,
     speciesNameScientific: formValues.speciesData.SCIENTIFIC,
     dbh: formValues.dbh,
-    estmated_dbh:formValues.estimate,
+    estmated_dbh: formValues.estimate,
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,
     locationType: formValues.locationType,
-    notes: debugNotes,
+    notes: submittedNotes,
     photo: {
       url: imageDownloadUrl,
       width: formValues.photo.width,
