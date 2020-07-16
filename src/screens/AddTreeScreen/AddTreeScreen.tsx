@@ -11,9 +11,9 @@ import {
   Alert,
   ScrollView,
 } from 'react-native'
-import { Button, TextInput, Text, Subheading, useTheme } from 'react-native-paper'
+import { Button, TextInput, Text, Subheading, useTheme, } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
-
+import CheckBox from 'react-native-check-box'
 import { StatusBar } from '../../components/StatusBar'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
@@ -38,17 +38,16 @@ const styles = StyleSheet.create({
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
   const errors: FormikErrors<FormValues> = {}
-
   if (!values.photo) {
     errors.photo = 'You have to add photo'
   }
-  if (values.speciesType===TreeTypes.NULL) {
+  if (values.speciesType === TreeTypes.NULL) {
     errors.treeType = "Can't be blank"
   }
   if (!values.speciesData) {
     errors.speciesData = "Can't be blank"
   }
-  if (values.dbh==='') {
+  if (values.dbh === '') {
     errors.dbh = "Can't be blank"
   }
   if (!values.landUseCategory) {
@@ -73,6 +72,7 @@ export function AddTreeScreen() {
       {
         text: 'Yes, clear all',
         onPress: () => {
+          refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
           formik.resetForm()
         },
       },
@@ -80,6 +80,7 @@ export function AddTreeScreen() {
   }
 
   function handleAddTreeSuccess(formValues: FormValues) {
+    refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
     formik.resetForm()
     formik.setSubmitting(false)
 
@@ -164,6 +165,7 @@ export function AddTreeScreen() {
       treeType: TreeTypes.NULL,
       landUseCategory: null,
       locationType: null,
+      estimate: false
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -227,30 +229,47 @@ export function AddTreeScreen() {
           )}
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
-            <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
-              // formik.setFieldValue('speciesType', treeType)
-              if (formik.values.speciesData && treeType != null) {
-                if (formik.values.speciesData.TYPE != treeType && formik.values.speciesData.TYPE != 'unknown') {
-                  Alert.alert('', "This species is actually a " + formik.values.speciesData.TYPE, [
-                    {
-                      text: 'Ok',
-                      onPress: () => {
-                        console.log('ok')
+            <View>
+              <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
+                if (formik.values.speciesData && treeType != null) {
+                  if (formik.values.speciesData.TYPE != treeType && formik.values.speciesData.TYPE != 'unknown') {
+                    Alert.alert('', "This species is actually a " + formik.values.speciesData.TYPE, [
+                      {
+                        text: 'Ok',
+                        onPress: () => {
+                          console.log('ok')
+                        },
                       },
-                    },
-                  ])
-                  refTreeTypeSelect.current.setTreeType(formik.values.speciesType)
-                } else {
+                    ])
+                    refTreeTypeSelect.current.setTreeType(formik.values.speciesType)
+                  } else {
+                    formik.setFieldValue('speciesType', treeType)
+                  }
+                }
+                else {
                   formik.setFieldValue('speciesType', treeType)
                 }
-              }
-             
-            }} />
+
+              }} />
+            </View>
             {!!formik.errors.treeType && !!formik.touched.treeType && (
               <Text style={{ color: theme.colors.error, marginTop: 5 }}>
                 {formik.errors.treeType}
               </Text>
             )}
+            <View style={{ position: 'absolute', right: 15, bottom: 43 }}>
+              <Button mode="outlined" uppercase={true} style={{backgroundColor:'white',height:30}} labelStyle={{color:'green',fontSize:11}}
+                onPress={() => {
+                  console.log('clear')
+                  formik.setFieldValue('speciesType', TreeTypes.NULL)
+                  formik.setFieldValue('treeType', TreeTypes.NULL)
+                  refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
+                  formik.setFieldValue('speciesType',TreeTypes.NULL)
+                  formik.setFieldValue('speciesData', null)
+                }}>
+                Clear
+               </Button>
+              </View>
           </View>
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
@@ -259,26 +278,26 @@ export function AddTreeScreen() {
               speciesData={formik.values.speciesData}
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)
-                if(speciesData?.TYPE != 'unknown' ){
-                  console.log('asf' +formik.values.speciesType )
-                if ((formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null) ) {
-                  formik.setFieldValue('speciesData', speciesData)
-                  formik.setFieldValue('treeType', speciesData?.TYPE)
-                  formik.setFieldValue('speciesType', speciesData?.TYPE)
-                  
-                  setTimeout(() => {
-                    Alert.alert('', "Oops! Looks like you didn't say what type of tree this is. This species is a " + speciesData?.TYPE + ". I am going to correct this for you!", [
-                      {
-                        text: 'Ok',
-                        onPress: () => {
-                          console.log('ok')
+                if (speciesData?.TYPE != 'unknown') {
+                  console.log('asf' + formik.values.speciesType)
+                  if ((formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null)) {
+                    formik.setFieldValue('speciesData', speciesData)
+                    formik.setFieldValue('treeType', speciesData?.TYPE)
+                    formik.setFieldValue('speciesType', speciesData?.TYPE)
+
+                    setTimeout(() => {
+                      Alert.alert('', "Oops! Looks like you didn't say what type of tree this is. This species is a " + speciesData?.TYPE + ". I am going to correct this for you!", [
+                        {
+                          text: 'Ok',
+                          onPress: () => {
+                            console.log('ok')
+                          },
                         },
-                      },
-                    ])
-                  }, 1000)
-                  refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
+                      ])
+                    }, 1000)
+                    refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
+                  }
                 }
-              }
               }}
             />
 
@@ -294,6 +313,31 @@ export function AddTreeScreen() {
             <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
               <Subheading>DBH (in)</Subheading>
               <DbhHelp />
+              <View style={{ flexDirection: 'row', position: 'absolute', right: 0, bottom: -7 }}>
+                <CheckBox
+                  style={{ flex: 1, padding: 10 }}
+                  onClick={() => {
+                    if (formik.values.estimate === true) {
+                      console.log('if call')
+                      formik.setFieldValue('estimate', false)
+                    }
+                    else {
+                      formik.setFieldValue('estimate', true)
+                      console.log('else call')
+                      Alert.alert('', 'The DBH data entered should be your best visual guess of what the total diameter is of all the main stem branches at an adult breast height (i.e. 4.5 Ft). ', [
+                        {
+                          text: 'Ok',
+                          onPress: () => {
+                            console.log('ok')
+                          },
+                        },
+                      ])
+                    }
+                  }}
+                  isChecked={formik.values.estimate}
+                  rightText={'Estimate'}
+                />
+              </View>
             </View>
 
             <TextInput
