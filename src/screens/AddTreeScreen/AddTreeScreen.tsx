@@ -227,12 +227,26 @@ export function AddTreeScreen() {
               {formik.errors.photo}
             </Text>
           )}
-
+          <View style={{ alignSelf:'flex-end',marginRight:30,marginBottom:-50,marginTop:20 }}>
+            <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 30, width: 85 }} labelStyle={{ color: 'green', fontSize: 11 }}
+              onPress={() => {
+                console.log('clear')
+                formik.setFieldValue('speciesType', TreeTypes.NULL)
+                formik.setFieldValue('treeType', TreeTypes.NULL)
+                refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
+                formik.setFieldValue('speciesType', TreeTypes.NULL)
+                formik.setFieldValue('speciesData', null)
+              }}>
+              Clear
+               </Button>
+          </View>
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
             <View>
               <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
                 if (formik.values.speciesData && treeType != null) {
+                  console.log('first if' + treeType)
                   if (formik.values.speciesData.TYPE != treeType && formik.values.speciesData.TYPE != 'unknown') {
+                    console.log('second if' + treeType)
                     Alert.alert('', "This species is actually a " + formik.values.speciesData.TYPE, [
                       {
                         text: 'Ok',
@@ -241,12 +255,17 @@ export function AddTreeScreen() {
                         },
                       },
                     ])
+                    formik.setFieldValue('treeType', formik.values.speciesType)
                     refTreeTypeSelect.current.setTreeType(formik.values.speciesType)
                   } else {
+                    console.log('second else' + treeType)
                     formik.setFieldValue('speciesType', treeType)
+                    formik.setFieldValue('treeType', treeType)
                   }
                 }
                 else {
+                  console.log('first else' + treeType)
+                  formik.setFieldValue('treeType', treeType)
                   formik.setFieldValue('speciesType', treeType)
                 }
 
@@ -257,19 +276,6 @@ export function AddTreeScreen() {
                 {formik.errors.treeType}
               </Text>
             )}
-            <View style={{ position: 'absolute', right: 15, bottom: 43 }}>
-              <Button mode="outlined" uppercase={true} style={{backgroundColor:'white',height:30}} labelStyle={{color:'green',fontSize:11}}
-                onPress={() => {
-                  console.log('clear')
-                  formik.setFieldValue('speciesType', TreeTypes.NULL)
-                  formik.setFieldValue('treeType', TreeTypes.NULL)
-                  refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
-                  formik.setFieldValue('speciesType',TreeTypes.NULL)
-                  formik.setFieldValue('speciesData', null)
-                }}>
-                Clear
-               </Button>
-              </View>
           </View>
 
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
@@ -279,7 +285,7 @@ export function AddTreeScreen() {
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)
                 if (speciesData?.TYPE != 'unknown') {
-                  console.log('asf' + formik.values.speciesType)
+                  console.log('known selected' + formik.values.speciesType)
                   if ((formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null)) {
                     formik.setFieldValue('speciesData', speciesData)
                     formik.setFieldValue('treeType', speciesData?.TYPE)
