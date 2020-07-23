@@ -45,7 +45,8 @@
     "COMMON": "Vine Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer circinatum",
-    "ID": "7"
+    "ID": "7",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "Autumn Blaze Maple",
@@ -75,7 +76,8 @@
     "COMMON": "Big Leaf Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer macrophyllum",
-    "ID": "12"
+    "ID": "12",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "State Street Maple",
@@ -814,7 +816,8 @@
     "COMMON": "Scotch Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus sylvestris",
-    "ID": "135"
+    "ID": "135",
+    "LEVEL": "medium"
   },
   {
     "COMMON": "London Planetree (aka Hybrid Plane)",
@@ -913,10 +916,11 @@
     "ID": "151"
   },
   {
-    "COMMON": "Douglas Fir (aka Oregon Pine and Columbian Pine)",
+    "COMMON": "Douglas-Fir (aka Oregon Pine and Columbian Pine)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pseudotsuga menziesii",
-    "ID": "152"
+    "ID": "152",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "Fragrant Epaulette Tree (aka Wisteria Tree)",
@@ -1068,7 +1072,8 @@
     "COMMON": "Coast Redwood",
     "TYPE": "conifer",
     "SCIENTIFIC": "Sequoia sempervirens",
-    "ID": "177"
+    "ID": "177",
+    "LEVEL": "easy"
   },
   {
     "COMMON": "Japanese Pagoda Tree (aka Chinese Scholar Tree)",
@@ -1240,7 +1245,7 @@
     "ID": "205"
   },
   {
-    "COMMON": "Northern White Cedar",
+    "COMMON": "Northern White Cedar (Arborvitae)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Thuja occidentalis",
     "ID": "206",
@@ -1257,105 +1262,102 @@
     "COMMON": "European Larch",
     "TYPE": "conifer",
     "SCIENTIFIC": "Larix decidua",
-    "ID": "208",
-    "LEVEL": "medium"
+    "ID": "208"
   },
   {
-    "COMMON": "Weeping Blue Atlas Cedar (Cedrus atlantica 'Glauca Pendula')",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "209",
-    "LEVEL": "medium"
+    "COMMON": "Weeping Blue Atlas Cedar",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Cedrus atlantica 'Glauca Pendula'",
+    "ID": "209"
   },
   {
-    "COMMON": "Japanese Weeping Cherry (Prunus subhirtella pendula)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "210",
-    "LEVEL": "medium"
+    "COMMON": "Japanese Weeping Cherry",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Prunus subhirtella pendula",
+    "ID": "210"
   },
   {
-    "COMMON": "White Fir (Abies concolor)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "211",
-    "LEVEL": "medium"
+    "COMMON": "White Fir",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Abies concolor",
+    "ID": "211"
   },
   {
-    "COMMON": "Leyland Cypress (Cupressus × leylandii)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "212",
-    "LEVEL": "medium"
+    "COMMON": "Leyland Cypress",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Cupressus x leylandii",
+    "ID": "212"
   },
   {
-    "COMMON": "Golden Chain Tree (Laburnum x watereri 'Vossii')",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "213",
-    "LEVEL": "medium"
+    "COMMON": "Golden Chain Tree (aka Goldenchain Tree)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Laburnum x watereri",
+    "ID": "213"
   },
   {
-    "COMMON": "Amur Maple (Acer ginnala)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "214",
-    "LEVEL": "medium"
+    "COMMON": "Amur Maple",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Acer ginnala",
+    "ID": "214"
   },
   {
-    "COMMON": "Rocky Mountain Maple (Acer glabrum)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "215",
-    "LEVEL": "medium"
+    "COMMON": "Rocky Mountain Maple",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Acer glabrum",
+    "ID": "215"
   },
   {
-    "COMMON": "Weeping Katsura Tree (Cercidiphyllum japonicum 'Pendulum')",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "216",
-    "LEVEL": "medium"
+    "COMMON": "Weeping Katsura Tree",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Cercidiphyllum japonicum 'Pendulum'",
+    "ID": "216"
   },
   {
-    "COMMON": "Flowering Dogwood (Cornus florida)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "217",
-    "LEVEL": "medium"
+    "COMMON": "Flowering Dogwood",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Cornus florida",
+    "ID": "217"
   },
   {
-    "COMMON": "European Smoke Tree (aka European Smoketree) (Cotinus coggyrgia)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "218",
-    "LEVEL": "medium"
+    "COMMON": "European Smoke Tree (aka European Smoketree)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Cotinus coggyrgia",
+    "ID": "218"
   },
   {
-    "COMMON": "Leprechaun Ash (Fraxinus pennsylvanica 'Leprechaun')",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "219",
-    "LEVEL": "medium"
+    "COMMON": "Leprechaun Ash",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Fraxinus pennsylvanica 'Leprechaun'",
+    "ID": "219"
   },
   {
-    "COMMON": "Crimson Cloud Hawthorn (Crataegus laevigata 'Crimson Cloud')",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "220",
-    "LEVEL": "medium"
+    "COMMON": "Crimson Cloud Hawthorn",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Crataegus laevigata 'Crimson Cloud'",
+    "ID": "220"
   },
   {
-    "COMMON": "Rocky Mountain Bristlecone Pine (Pinus aristata)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "221",
-    "LEVEL": "medium"
+    "COMMON": "Rocky Mountain Bristlecone Pine",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus aristata",
+    "ID": "221"
   },
   {
-    "COMMON": "Staghorn Sumac (Rhus typhina)",
-    "TYPE": "notDecide",
-    "SCIENTIFIC": "",
-    "ID": "222",
-    "LEVEL": "medium"
+    "COMMON": "Staghorn Sumac",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Rhus typhina",
+    "ID": "222"
+  },
+  {
+    "COMMON": "Freeman Maple (aka Freeman's Maple)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Acer x freemanii",
+    "ID": "223"
+  },
+  {
+    "COMMON": "Weeping Douglas-Fir",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pseudotsuga menziesii 'Pendula'",
+    "ID": "224"
   }
 ]
