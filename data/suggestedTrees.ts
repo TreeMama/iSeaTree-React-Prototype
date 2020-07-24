@@ -113,7 +113,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     fun_facts: [
       "The Douglas-Fir is not a true fir, the hyphen in its common name signifies that it is NOT a 'true' fir (i.e. a member of the Abies genus). In 1867, it was given its own genus: Pseudotsuga - which means false (pseudo) hemlock. ",
-      "Old Douglas-Firs are remarkedly fire-resistant, largely due to the thick resin bark that it develops with age. This rugged bark can reach a remarkable thickness up to 20 inches. These durable trees are also very long-lived, and may live as long as 1,500-2,000 years.",
+      "Old Douglas-Firs are remarkably fire-resistant, largely due to the thick resin bark that it develops with age. This rugged bark can reach a remarkable thickness up to 20 inches. These durable trees are also very long-lived, and may live as long as 1,500-2,000 years.",
       "They are the second-tallest conifer in the world (after the Coast Redwood), and the state tree of Oregon."
     ],
   },
@@ -129,7 +129,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     levelText:
       'Easy-level difficulty, Rare in Seattle region, but common in other Pacific Northwest areas. Native.',
     identifiable_attributes: [
-      'Mature trees have a wide spreading crown, and are capable of growing more then 130 feet wide.',
+      'Mature trees have a wide spreading crown, and are capable of growing more than 130 feet wide.',
       'Has deeply lobed leaves that are richly green and glossy on the upperside, and paler on the underside.',
       'Acorns are small in size with a shallow scaly cup on one end.',
       'Bark is dark gray with deep grooves.',
@@ -234,7 +234,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     level: 'Expert',
     levelText: 'Expert, very rare in Seattle region. Non-Native.',
     identifiable_attributes: [
-      'The compound leaves generally have 5 leaflets (and occassionally 3 or 7 leaflets) that are about 8-14" long (see picture).',
+      'The compound leaves generally have 5 leaflets (and occasionally 3 or 7 leaflets) that are about 8-14" long (see picture).',
       'The leaf color is yellow-green, that turns a vivid golden yellow in the fall.',
       'In its mature size it has a broad, round crown with drooping and twisted branches.',
       'Husked nuts are very large and round. Squirrels are very fond of them, and will leave shreds of the emptied husk to be easily found.',
@@ -272,7 +272,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       "Bark is a pale silvery-gray to green color."
       ],
     known_public_locations: [
-     "University of Washington. There are two located by the west enterance of Harris Hydraulics Lab."
+     "University of Washington. There are two located by the west entrance of Harris Hydraulics Lab."
     ],
     fun_facts: [
       "Canadian trappers called the tree 'bois du diable' (wood of the devil) for its habit of tripping travelers who were trying to portage around them. ",
@@ -292,8 +292,8 @@ export const suggestedTrees: SuggestedTreeData[] = [
     identifiable_attributes: [
       `The evergreen leaves are flat foliage sprays. The sprays are tiny, pointed and scalelike. Occassionally you can see white marks on the underside of the sprays.`,
       'The leaf color is green to yellow-green.',
-      'The tree is large and pyramid shapped, with dropping branches that sometimes create distinctive arches.',
-      'Bark is a cinammon-red color with fibrous longitudinal fissures on the trunk.',
+      'The tree is large and pyramid shaped, with dropping branches that sometimes create distinctive arches.',
+      'Bark is a cinnamon-red color with fibrous longitudinal fissures on the trunk.',
       `Foliage is fruity-smelling when crushed. Smells sort of like pineapple, and smells distinctively sweeter then its cousin, the Northern White Cedar.`,
       'Seed cones are very small (<.5 inches), and egg shaped.',
       `At its tallest height - this tree has been known to grow 213 - 230 ft tall, with 9.8 - 23 ft in trunk diameter. Within Seattle, most of the trees are under 200 feet though.`,
