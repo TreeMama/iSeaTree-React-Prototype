@@ -164,7 +164,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       'Hiawatha Playfield, the largest red oak can be found North of the gym. ',
     ],
     fun_facts: [
-      'Native American tribes have used red oak bark as a medicine for bronchial and heart ailments. It has also been used as an astingent, disinfectant, and cleanser.',
+      'Native American tribes have used red oak bark as a medicine for bronchial and heart ailments. It has also been used as an astringent, disinfectant, and cleanser.',
     ],
   }, 
   {

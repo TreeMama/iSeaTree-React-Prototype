@@ -42,6 +42,7 @@ const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
       </View>
       <View
         style={{
+          marginTop:10,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
