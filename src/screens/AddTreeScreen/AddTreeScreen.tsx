@@ -227,20 +227,8 @@ export function AddTreeScreen() {
               {formik.errors.photo}
             </Text>
           )}
-          <View style={{ alignSelf:'flex-end',marginRight:30,marginBottom:-50,marginTop:20 }}>
-            <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 30, width: 85 }} labelStyle={{ color: 'green', fontSize: 11 }}
-              onPress={() => {
-                console.log('clear')
-                formik.setFieldValue('speciesType', TreeTypes.NULL)
-                formik.setFieldValue('treeType', TreeTypes.NULL)
-                refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
-                formik.setFieldValue('speciesType', TreeTypes.NULL)
-                formik.setFieldValue('speciesData', null)
-              }}>
-              Clear
-               </Button>
-          </View>
-          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+
+          <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
             <View>
               <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
                 if (formik.values.speciesData && treeType != null) {
@@ -270,6 +258,19 @@ export function AddTreeScreen() {
                 }
 
               }} />
+            </View>
+            <View style={{ position: 'absolute',top:5, right: 30 }}>
+              <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 30, width: 80 }} labelStyle={{ color: 'green', fontSize: 11 }}
+                onPress={() => {
+                  console.log('clear')
+                  formik.setFieldValue('speciesType', TreeTypes.NULL)
+                  formik.setFieldValue('treeType', TreeTypes.NULL)
+                  refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
+                  formik.setFieldValue('speciesType', TreeTypes.NULL)
+                  formik.setFieldValue('speciesData', null)
+                }}>
+                Clear
+               </Button>
             </View>
             {!!formik.errors.treeType && !!formik.touched.treeType && (
               <Text style={{ color: theme.colors.error, marginTop: 5 }}>

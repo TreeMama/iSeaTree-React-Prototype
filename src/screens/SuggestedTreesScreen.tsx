@@ -146,7 +146,11 @@ export function SuggestedTreesScreen() {
 
           <View style={{ flex: 1, padding: 15 }}>
             <View style={{ flexDirection: 'row' }}>
-              <Title>{currentSuggestedTreeData.name}</Title>
+              {
+                currentSuggestedTreeData.name === 'Western Red Cedar (Giant Arborvitae)' ?
+                  <Title>Western Red Cedar</Title> :
+                  <Title>{currentSuggestedTreeData.name}</Title>
+              }
               <Badge
                 visible
                 style={{
