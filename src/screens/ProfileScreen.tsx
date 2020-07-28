@@ -6,6 +6,9 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
+  Linking,
+  Text,
+  TouchableOpacity
 } from 'react-native'
 import { Divider, Button, Menu, Headline, Subheading } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -30,6 +33,16 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0,
   },
+  helpSectionLink: {
+    fontSize: 12,
+    paddingVertical: 5
+  },
+  linkColor: {
+    color: '#87CEEB',
+    fontSize: 12,
+    textDecorationLine: "underline"
+  }
+
 })
 
 export function ProfileScreen() {
@@ -141,7 +154,18 @@ export function ProfileScreen() {
                   <Subheading>{userData?.username}</Subheading>
                   <Subheading>{userData?.email}</Subheading>
                 </View>
-
+                <View>
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://treemama.org/forum');
+                  }}>
+                    <Text style={styles.helpSectionLink}>For Help: <Text style={styles.linkColor}>https://treemama.org/forum</Text></Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => {
+                    Linking.openURL('https://treemama.org/365-days-of-trees/dashboard');
+                  }}>
+                    <Text style={styles.helpSectionLink}>For Map: <Text style={styles.linkColor}>https://treemama.org/365-days-of-trees/dashboard</Text></Text>
+                  </TouchableOpacity>
+                </View>
                 <Divider style={{ width: '100%' }} />
 
                 <Headline style={{ marginTop: 20 }}>Your badges</Headline>
