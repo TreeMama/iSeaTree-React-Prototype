@@ -1152,7 +1152,7 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Thuja plicata",
     "ID": "190",
-    "LEVEL": "easy"
+    "LEVEL": "medium"
   },
   {
     "COMMON": "Redmond Linden",
@@ -1359,5 +1359,17 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Pseudotsuga menziesii 'Pendula'",
     "ID": "224"
-  }
+  },
+ {
+    "COMMON": "Hollywood Juniper",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Juniperus chinensis 'Torulosa'",
+    "ID": "225"
+ },
+ {
+    "COMMON": "Chinese Juniper",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Juniperus chinensis",
+    "ID": "226"
+ },
 ]

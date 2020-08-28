@@ -17,6 +17,7 @@
     "expo-camera": "~8.2.0",
     "expo-constants": "~9.0.0",
     "expo-device": "~2.1.0",
+    "expo-image-manipulator": "~8.1.0",
     "expo-location": "~8.1.0",
     "firebase": "7.9.0",
     "formik": "^2.1.4",

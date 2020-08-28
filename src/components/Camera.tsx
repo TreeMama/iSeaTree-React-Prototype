@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { View, Image, Alert } from 'react-native'
+import { View, Image, Alert, Platform } from 'react-native'
 import { Camera as ExpoCamera } from 'expo-camera'
 import { Text, Button } from 'react-native-paper'
+import * as ImageManipulator from 'expo-image-manipulator'
 
 import { StatusBar } from './StatusBar'
 
@@ -45,7 +46,17 @@ export function Camera(props: CameraProps) {
 
     cameraRefObj.takePictureAsync({ exif: true, quality: 0.6 }).then((photo) => {
       cameraRefObj.pausePreview()
-      props.onTakePicture(photo)
+      if (Platform.OS === 'android' && photo.exif.Orientation === 6) {
+        console.log('Image is rotated. Fixing.')
+        ImageManipulator.manipulateAsync(photo.uri, [{ rotate: -90 }], {
+          compress: 1,
+          format: ImageManipulator.SaveFormat.JPEG,
+        }).then((fixedPhoto) => {
+          props.onTakePicture(fixedPhoto)
+        })
+      } else {
+        props.onTakePicture(photo)
+      }
     })
   }
 
