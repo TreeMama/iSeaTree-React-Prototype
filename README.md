@@ -1,10 +1,66 @@
 # iSeaTree-React-Prototype
 
-Prototype for the iSeaTree (a mobile app which creates compatible data collection for the iTree project).
+This is the repository for iSeaTree, a mobile app which observers can use to collect data for the iSeaTree project.
 
-## Development
+* Git repository branching guidelines for contributors 
+* Setting up your development environment
+* One-time setup items [initialization](#initialization)
 
-Project was initialized using [Expo](https://expo.io). Here is a guide how to [get-started with expo](https://docs.expo.io/versions/latest/get-started/installation).
+# <a name="repository"></a>Git repository branching guidelines for contributors
+
+We follow a relaxed version of the [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) workflow.
+
+The `develop` branch is the default branch. The `develop` branch is always ready to be released. It contains only 
+completed features and completed bugfixes. Do not commit directly to `develop`; use pull requests and merges from
+feature branches instead.
+
+The `master` branch is where all releases are built from. Update the version number and build number directly
+in the `master branch, just before release. Do not commit directly to `master`, except for edits of `app.json`
+that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `master` from `develop`.
+
+All feature and bugfix work is done in feature branches, named with the pattern `feature/<short descriptive name>`. 
+Code reviews are not required, but pull requests are. You can approve your own PR, or you can tag another team
+member to review it if you like.
+
+## To add a feature or fix a bug:
+* `git checkout develop`
+* `git pull` (to make sure you're starting with the newest code)
+* `git checkout -b feature/frobishizer-bug` (just an example, we don't have a frobishizer in this project)
+* Fix the bug, or add the feature. `git push` periodically, to keep the Github repository updated with your work. The first time push, you'll have to use `git push --set-upstream origin feature/foo`, but the Github command line will remind you of this.
+* When your bugfix or new feature is finished, merge your work into the main (`develop`) branch:
+    - `git push`
+    - `git checkout develop`
+    - `git pull`
+    - `git checkout feature/mybranch`
+    - `git merge develop`
+    - `git push`
+    - Open your pull request, from `feature/mybranch` to `develop`, on the Github repository web page.
+    - Merge your pull request, or tag someone for a code review.
+    - After your pull request has been merged, you can delete your feature branch.
+
+For simple fixes, such as adding a new tree to the species list, you can do your branch creation and file editing directly on the Github web page. [Here are instructions for adding a branch using just the webpage](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository).
+
+## To release a version:
+* `git checkout develop`
+* `git pull` (to make sure you're starting with the newest code in the `develop` branch)
+* `git checkout master`
+* `git pull` (to make sure you're starting with the newest code in the `master` branch)
+* `git merge develop`
+* Edit `app.json`. Increment `version`, `versionCode`, and `bundleNumber`. Keep `versionCode` (the Android store build number) and `bundleNumber` (the Apple store build number) set to the same incremented value.
+* Commit your changes to `app.json` (`git add app.json`, `git commit 'updating build number and version number'`, `git push`.
+* Build your archive and post it to the relevant store.
+    - For iOS, start the build using `expo build:ios`. Choose "archive". When the `.ipa` file is ready on Fastlane, submit it to the App Store using Apple's "Transporter" app.
+    - For Android, .... (instructions needed here)
+* Notify the team (on Slack) ("I've updated to version 1.1, build number 92, and built/submitted the Android version. iOS version still needs to be done"). If you built the iOS version, the Android build master needs only to pull `master` and build what's there, and vice versa if it's Android that's getting built first. Keep version number and build number in sync for the two platforms. Now merge your changes back to `develop`:
+    * `git checkout develop`
+    * `git merge master`
+    * `git push`
+
+
+
+# <a name="development"></a>Development
+
+This project uses [Expo](https://expo.io). Here is a guide how to [get started with expo](https://docs.expo.io/versions/latest/get-started/installation).
 
 ### Prerequisites
 
@@ -25,6 +81,9 @@ yarn install
 ```bash
 yarn start
 ```
+
+Note: you'll probably have to run `yarn install` after a git pull, if the updated code has added React libraries or changed library versions.
+
 
 ### Secrets
 
@@ -195,5 +254,4 @@ page to see). Building the
 native app takes a while, but launching iSeaTree in multiple
 simulators (which is necessary for making screenshots) is faster this
 way.
-
 
