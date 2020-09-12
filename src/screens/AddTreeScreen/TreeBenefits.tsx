@@ -1,12 +1,13 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import axios from 'axios';
+import { parseString } from 'react-native-xml2js';
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import { Banner, Text, Headline, Button } from 'react-native-paper'
-
 import { StatusBar } from '../../components/StatusBar'
+import { CONFIG } from '../../../envVariables'
 
 interface TreeBenefitsProps {
-  speciesData: null | { ID: string; COMMON: string; SCIENTIFIC: string }
+  speciesData: null | { ID: string; COMMON: string; ITREECODE: string; SCIENTIFIC: string }
 }
 
 const styles = StyleSheet.create({
@@ -39,8 +40,30 @@ const styles = StyleSheet.create({
 
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
+  const [benefits, setBenefits] = React.useState<boolean>()
 
   const canCalculateBenefits: boolean = !!props.speciesData
+
+  useEffect(() => {
+    const loadBenefits = async() => {
+      console.log("loadBenefits: " + JSON.stringify(props.speciesData))
+      if (props.speciesData && props.speciesData.ID) {
+        const url = `${CONFIG.API_TREE_BENEFIT}?key=${CONFIG.ITREE_KEY}&NationFullName=${CONFIG.NATION}&StateAbbr=${CONFIG.STATE}&CountyName=${CONFIG.CITY}&CityName=${CONFIG.CITYNAME}&Species=${props.speciesData.ITREECODE}&DBHInch=42&condition=Good&CLE=2&TreeHeightMeter=-1&TreeCrownWidthMeter=-1&TreeCrownHeightMeter=-1`;
+        const response = await axios.get(url, {
+          headers: {
+            "Content-Type": "application/xml"
+          }
+        });
+        if (response.data) {
+          parseString(response.data, function (error, result) {
+            setBenefits(result);
+            console.log(JSON.stringify(result.Result));
+          });
+        }
+      }
+    }
+    loadBenefits();
+  }, [props.speciesData])
 
   return (
     <>
@@ -74,6 +97,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
             <ScrollView style={{ marginTop: 10 }}>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
                 <Headline>Calculated Tree Benefits</Headline>
+                <Text>
+                  {benefits && JSON.stringify(benefits)}
+                </Text>
                 <Text>
                   {props.speciesData.COMMON} ({props.speciesData.SCIENTIFIC})
                 </Text>

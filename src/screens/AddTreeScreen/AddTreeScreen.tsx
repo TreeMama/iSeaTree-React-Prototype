@@ -28,6 +28,8 @@ import { submitTreeData } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
+import { TreeConditionSelect } from './TreeConditionSelect'
+import { CrownLightExposureSelect } from './CrownLightExposureSelect'
 
 const styles = StyleSheet.create({
   container: {
@@ -52,6 +54,12 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   }
   if (!values.landUseCategory) {
     errors.landUseCategory = "Can't be blank"
+  }
+  if (!values.treeConditionCategory) {
+    errors.treeConditionCategory = "Can't be blank"
+  }
+  if (!values.crownLightExposureCategory) {
+    errors.crownLightExposureCategory = "Can't be blank"
   }
 
   if (!values.locationType) {
@@ -164,6 +172,8 @@ export function AddTreeScreen() {
       notes: '',
       treeType: TreeTypes.NULL,
       landUseCategory: null,
+      treeConditionCategory: null,
+      crownLightExposureCategory: null,
       locationType: null,
       estimate: false
     },
@@ -375,6 +385,38 @@ export function AddTreeScreen() {
             {!!formik.errors.landUseCategory && !!formik.touched.landUseCategory && (
               <Text style={{ color: theme.colors.error, marginTop: 5 }}>
                 {formik.errors.landUseCategory}
+              </Text>
+            )}
+          </View>
+ 
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <Subheading style={{ marginBottom: 5 }}>Tree Condition</Subheading>
+            <TreeConditionSelect
+              treeConditionCategoryName={formik.values.treeConditionCategory}
+              onValueChange={(value) => {
+                formik.setFieldValue('treeConditionCategory', value)
+              }}
+            />
+
+            {!!formik.errors.treeConditionCategory && !!formik.touched.treeConditionCategory && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+                {formik.errors.treeConditionCategory}
+              </Text>
+            )}
+          </View>
+ 
+          <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
+            <Subheading style={{ marginBottom: 5 }}>Crown Light Exposure (CLE)</Subheading>
+            <CrownLightExposureSelect
+              crownLightExposureCategoryName={formik.values.treeConditionCategory}
+              onValueChange={(value) => {
+                formik.setFieldValue('crownLightConditionCategory', value)
+              }}
+            />
+
+            {!!formik.errors.crownLightExposureCategory && !!formik.touched.crownLightExposureCategory && (
+              <Text style={{ color: theme.colors.error, marginTop: 5 }}>
+                {formik.errors.crownLightExposureCategory}
               </Text>
             )}
           </View>

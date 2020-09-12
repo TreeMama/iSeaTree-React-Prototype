@@ -30,6 +30,7 @@ export interface SpeciesData {
   COMMON: string
   SCIENTIFIC: string
   LEVEL?: string
+  ITREECODE?: string
 }
 
 interface SpeciesSelectProps {
