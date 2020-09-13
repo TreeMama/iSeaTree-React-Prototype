@@ -14,13 +14,12 @@ const selectItems: Item[] = crownLightExposureCategories.map((categoryName) => (
 
 type CrownLightExposureCategoryName = string | null
 
-interface CrownLightExposureSelectProps {
+interface CrownLightExposureCategorySelectProps {
   crownLightExposureCategoryName: CrownLightExposureCategoryName
-
   onValueChange: (value: CrownLightExposureCategoryName) => void
 }
 
-export function CrownLightExposureSelect(props: CrownLightExposureSelectProps) {
+export function CrownLightExposureSelect(props: CrownLightExposureCategorySelectProps) {
   const theme = useTheme()
 
   return (
@@ -35,7 +34,7 @@ export function CrownLightExposureSelect(props: CrownLightExposureSelectProps) {
         }
       }}
       placeholder={{
-        label: 'Select land use category...',
+        label: 'Select crown light exposure category...',
         value: null,
       }}
       style={{

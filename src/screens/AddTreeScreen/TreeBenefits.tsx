@@ -46,9 +46,8 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
   useEffect(() => {
     const loadBenefits = async() => {
-      console.log("loadBenefits: " + JSON.stringify(props.speciesData))
       if (props.speciesData && props.speciesData.ID) {
-        const url = `${CONFIG.API_TREE_BENEFIT}?key=${CONFIG.ITREE_KEY}&NationFullName=${CONFIG.NATION}&StateAbbr=${CONFIG.STATE}&CountyName=${CONFIG.CITY}&CityName=${CONFIG.CITYNAME}&Species=${props.speciesData.ITREECODE}&DBHInch=42&condition=Good&CLE=2&TreeHeightMeter=-1&TreeCrownWidthMeter=-1&TreeCrownHeightMeter=-1`;
+        const url = `${CONFIG.API_TREE_BENEFIT}?key=${CONFIG.ITREE_KEY}&NationFullName=${CONFIG.NATION}&StateAbbr=${CONFIG.STATE}&CountyName=${CONFIG.COUNTYNAME}&CityName=${CONFIG.CITYNAME}&Species=${props.speciesData.ITREECODE}&DBHInch=42&condition=Good&CLE=2&TreeHeightMeter=-1&TreeCrownWidthMeter=-1&TreeCrownHeightMeter=-1`;
         const response = await axios.get(url, {
           headers: {
             "Content-Type": "application/xml"
@@ -56,14 +55,23 @@ export function TreeBenefits(props: TreeBenefitsProps) {
         });
         if (response.data) {
           parseString(response.data, function (error, result) {
-            setBenefits(result);
-            console.log(JSON.stringify(result.Result));
+            if (result.Result && result.Result.OutputInformation) {
+              setBenefits(result.Result.OutputInformation);
+            }
           });
         }
       }
     }
     loadBenefits();
   }, [props.speciesData])
+
+  const getBenefitSequestered = () => {
+    if (benefits && benefits.length > 0) {
+      const decimal = benefits[0].Benefit[0].CO2Benefits[0].CO2SequesteredValue[0]["_"];
+      const dollars = decimal.substring(0,4);
+      return `$${dollars}`;
+    }
+  }
 
   return (
     <>
@@ -97,9 +105,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
             <ScrollView style={{ marginTop: 10 }}>
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
                 <Headline>Calculated Tree Benefits</Headline>
-                <Text>
+                {/* <Text>
                   {benefits && JSON.stringify(benefits)}
-                </Text>
+                </Text> */}
                 <Text>
                   {props.speciesData.COMMON} ({props.speciesData.SCIENTIFIC})
                 </Text>
@@ -116,7 +124,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                     <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO2) Sequestered</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>US$0.00</Text>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefitSequestered()}
+                    </Text>
                   </View>
                 </View>
 
@@ -182,6 +192,10 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                   </View>
                 </View>
               </View>
+
+              <Text>
+                {benefits && JSON.stringify(benefits)}
+              </Text>
             </ScrollView>
 
             <Button

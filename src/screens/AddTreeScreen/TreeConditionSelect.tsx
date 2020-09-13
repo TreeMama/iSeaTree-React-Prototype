@@ -5,9 +5,9 @@ import { useTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { colors } from '../../styles/theme'
-import treeConditionCategory from '../../../data/tree_conditions.json'
+import treeConditionCategories from '../../../data/tree_conditions.json'
 
-const selectItems: Item[] = treeConditionCategory.map((categoryName) => ({
+const selectItems: Item[] = treeConditionCategories.map((categoryName) => ({
   label: categoryName,
   value: categoryName,
 }))
@@ -16,7 +16,6 @@ type TreeConditionCategoryName = string | null
 
 interface TreeConditionCategorySelectProps {
   treeConditionCategoryName: TreeConditionCategoryName
-
   onValueChange: (value: TreeConditionCategoryName) => void
 }
 
@@ -35,7 +34,7 @@ export function TreeConditionSelect(props: TreeConditionCategorySelectProps) {
         }
       }}
       placeholder={{
-        label: 'Select land use category...',
+        label: 'Select tree condition category...',
         value: null,
       }}
       style={{

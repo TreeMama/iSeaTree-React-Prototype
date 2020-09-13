@@ -408,9 +408,9 @@ export function AddTreeScreen() {
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
             <Subheading style={{ marginBottom: 5 }}>Crown Light Exposure (CLE)</Subheading>
             <CrownLightExposureSelect
-              crownLightExposureCategoryName={formik.values.treeConditionCategory}
+              crownLightExposureCategoryName={formik.values.crownLightExposureCategory}
               onValueChange={(value) => {
-                formik.setFieldValue('crownLightConditionCategory', value)
+                formik.setFieldValue('crownLightExposureCategory', value)
               }}
             />
 
