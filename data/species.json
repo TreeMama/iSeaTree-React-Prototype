@@ -11,49 +11,49 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Abies amabilis",
     "ID": "1",
-    "ITREECODE": ""
+    "ITREECODE": "ABAM"
   },
   {
     "COMMON": "Grand Fir",
     "TYPE": "conifer",
     "SCIENTIFIC": "Abies grandis",
     "ID": "2",
-    "ITREECODE": ""
+    "ITREECODE": "ABGR"
   },
   {
     "COMMON": "Noble Fir (aka Red Fir and Christmas tree)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Abies procera",
     "ID": "3",
-    "ITREECODE": ""
+    "ITREECODE": "ABPR"
   },
   {
     "COMMON": "Trident Maple (aka Three-Toothed Maple)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer buegerianum",
     "ID": "4",
-    "ITREECODE": ""
+    "ITREECODE": "ACBU"
   },
   {
     "COMMON": "Hedge Maple (aka Field Maple)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer campestre",
     "ID": "5",
-    "ITREECODE": ""
+    "ITREECODE": "ACCA"
   },
   {
     "COMMON": "Queen Elizabeth Hedge Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer campestre ‘Evelyn’",
     "ID": "6",
-    "ITREECODE": ""
+    "ITREECODE": "ACCAQU"
   },
   {
     "COMMON": "Vine Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer circinatum",
     "ID": "7",
-    "ITREECODE": "",
+    "ITREECODE": "ACCI",
     "LEVEL": "easy"
   },
   {
@@ -75,14 +75,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer grandidentatum ‘Schmidt’",
     "ID": "10",
-    "ITREECODE": ""
+    "ITREECODE": "ACGR3"
   },
   {
     "COMMON": "Paperbark Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer griseum",
     "ID": "11",
-    "ITREECODE": ""
+    "ITREECODE": "ACGR"
   },
   {
     "COMMON": "Big Leaf Maple",
@@ -90,49 +90,49 @@
     "SCIENTIFIC": "Acer macrophyllum",
     "ID": "12",
     "LEVEL": "easy",
-    "ITREECODE": ""
+    "ITREECODE": "ACMA"
   },
   {
     "COMMON": "State Street Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer miyabei ‘Morton’",
     "ID": "13",
-    "ITREECODE": ""
+    "ITREECODE": "ACMI1"
   },
   {
     "COMMON": "Green Column Black Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer nigrum",
     "ID": "14",
-    "ITREECODE": ""
+    "ITREECODE": "ACNI"
   },
   {
     "COMMON": "Japanese Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer palmatum",
     "ID": "15",
-    "ITREECODE": ""
+    "ITREECODE": "ACPADI"
   },
   {
     "COMMON": "Norway Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer platanoides",
     "ID": "16",
-    "ITREECODE": ""
+    "ITREECODE": "ACPL"
   },
   {
     "COMMON": "Columnar Norway Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer platanoides ‘Columnar’",
     "ID": "17",
-    "ITREECODE": ""
+    "ITREECODE": "ACPLCO"
   },
   {
     "COMMON": "Emerald Queen Norway Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer platanoides ‘Emerald Queen’",
     "ID": "18",
-    "ITREECODE": ""
+    "ITREECODE": "ACPLQE"
   },
   {
     "COMMON": "Globe Norway Maple",
@@ -153,7 +153,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer pseudoplatanus ‘Atropupureum’",
     "ID": "21",
-    "ITREECODE": ""
+    "ITREECODE": "ACPSSP"
   },
   {
     "COMMON": "Red Maple (aka Swamp Maple)",
@@ -188,7 +188,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer saccharum ‘Bonfire’",
     "ID": "26",
-    "ITREECODE": ""
+    "ITREECODE": "ACSA2"
   },
   {
     "COMMON": "Commemoration Sugar Maple",
@@ -202,7 +202,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer saccharum ‘Green Mountain’",
     "ID": "28",
-    "ITREECODE": ""
+    "ITREECODE": "ACSA2GR"
   },
   {
     "COMMON": "Legacy Sugar Maple",
@@ -216,7 +216,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer triflorum",
     "ID": "30",
-    "ITREECODE": ""
+    "ITREECODE": "ACTR1"
   },
   {
     "COMMON": "‘Warrenred’ Pacific Sunset Maple",
@@ -237,84 +237,84 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Aesculus x carnea ‘Briottii’",
     "ID": "33",
-    "ITREECODE": ""
+    "ITREECODE": "AECABR"
   },
   {
     "COMMON": "Yellow Buckeye",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Aesculus flava",
     "ID": "34",
-    "ITREECODE": ""
+    "ITREECODE": "AEFL"
   },
   {
     "COMMON": "Horse Chestnut",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Aesculus hippocastanum",
     "ID": "35",
-    "ITREECODE": ""
+    "ITREECODE": "AEHI"
   },
   {
     "COMMON": "Red Alder",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Alnus rubra",
     "ID": "36",
-    "ITREECODE": ""
+    "ITREECODE": "ALRU2"
   },
   {
     "COMMON": "Sitka Alder (aka Mountain Alder)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Alnus sinuata (aka Alnus viridis)",
     "ID": "37",
-    "ITREECODE": ""
+    "ITREECODE": "ALSI"
   },
   {
     "COMMON": "Saskatoon Serviceberry (aka Western Serviceberry, Alder-Leave Shadbush, Western Juneberry, Pigeon Berry, or Chuckley Pear)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Amelanchier alnifolia",
     "ID": "38",
-    "ITREECODE": ""
+    "ITREECODE": "AMFL"
   },
   {
     "COMMON": "Autumn Brilliance Serviceberry",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Amelanchier x grandiflora ‘Autumn Brilliance’ (Amelanchier canadensis x Amelanchier laevis)",
     "ID": "39",
-    "ITREECODE": ""
+    "ITREECODE": "AMGR"
   },
   {
     "COMMON": "Princess Diana Serviceberry",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Amelanchier x grandiflora ‘Princess Diana’ (Amelanchier arborea x Amelanchier laevis)",
     "ID": "40",
-    "ITREECODE": ""
+    "ITREECODE": "AMAR"
   },
   {
     "COMMON": "Allegheny Serviceberry",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Amelanchier laevis ‘Cumulus’",
     "ID": "41",
-    "ITREECODE": ""
+    "ITREECODE": "AMLA"
   },
   {
     "COMMON": "Pacific Madrone",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Arbutus menziesii",
     "ID": "42",
-    "ITREECODE": ""
+    "ITREECODE": "ARME"
   },
   {
     "COMMON": "Strawberry Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Arbutus unedo ‘Marina’",
     "ID": "43",
-    "ITREECODE": ""
+    "ITREECODE": "ARUN"
   },
   {
     "COMMON": "Pawpaw",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Asimina triloba",
     "ID": "44",
-    "ITREECODE": ""
+    "ITREECODE": "ASTR"
   },
   {
     "COMMON": "Chinese Red Birch",
@@ -335,49 +335,49 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Betula papyrifera",
     "ID": "47",
-    "ITREECODE": ""
+    "ITREECODE": "BEPA"
   },
   {
     "COMMON": "Silver Birch",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Betula pendula",
     "ID": "48",
-    "ITREECODE": ""
+    "ITREECODE": "BEPEP"
   },
   {
     "COMMON": "Incense Cedar",
     "TYPE": "conifer",
     "SCIENTIFIC": "Calocedrus decurrens",
     "ID": "49",
-    "ITREECODE": ""
+    "ITREECODE": "CADE2"
   },
   {
     "COMMON": "Fastigiate Hornbeam (aka Pyramidal European Hornbeam)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Carpinus betulus",
     "ID": "50",
-    "ITREECODE": ""
+    "ITREECODE": "CABE"
   },
   {
     "COMMON": "American Hornbeam (aka Blue Beech)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Carpinus caroliniana",
     "ID": "51",
-    "ITREECODE": ""
+    "ITREECODE": "CACA"
   },
   {
     "COMMON": "Japanese Hornbeam",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Carpinus japonica",
     "ID": "52",
-    "ITREECODE": ""
+    "ITREECODE": "CAJA"
   },
   {
     "COMMON": "Blue Atlas Cedar",
     "TYPE": "conifer",
     "SCIENTIFIC": "Cedrus atlantica",
     "ID": "53",
-    "ITREECODE": "",
+    "ITREECODE": "CEATGL",
     "LEVEL": "medium"
   },
   {
@@ -385,70 +385,70 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Cedrus deodara",
     "ID": "54",
-    "ITREECODE": ""
+    "ITREECODE": "CEDE"
   },
   {
     "COMMON": "Katsura Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cercidiphyllum japonicum",
     "ID": "55",
-    "ITREECODE": ""
+    "ITREECODE": "CEJA"
   },
   {
     "COMMON": "Redbud Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cercis canadensis",
     "ID": "56",
-    "ITREECODE": ""
+    "ITREECODE": "CEOC3"
   },
   {
     "COMMON": "Judas Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cercis siliquastrum",
     "ID": "57",
-    "ITREECODE": ""
+    "ITREECODE": "CESI2"
   },
   {
     "COMMON": "Port Orford Cedar (aka Lawson’s Cypress)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Chamaecyparis lawsoniana",
     "ID": "58",
-    "ITREECODE": ""
+    "ITREECODE": "CHLA2"
   },
   {
     "COMMON": "Yellow Cedar (aka Yellow Cypress or Alaskan Yellow Cedar)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Chamaecyparis nootkatensis",
     "ID": "59",
-    "ITREECODE": ""
+    "ITREECODE": "CHNO"
   },
   {
     "COMMON": "Sawara Cypress",
     "TYPE": "conifer",
     "SCIENTIFIC": "Chamaecyparis pisifera",
     "ID": "60",
-    "ITREECODE": ""
+    "ITREECODE": "CHPI"
   },
   {
     "COMMON": "Yellowwood (aka American Yellowwood)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cladrastis kentukea",
     "ID": "61",
-    "ITREECODE": ""
+    "ITREECODE": "CLLU"
   },
   {
     "COMMON": "Pagoda Dogwood",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus alternifolia",
     "ID": "62",
-    "ITREECODE": ""
+    "ITREECODE": "COAL"
   },
   {
     "COMMON": "Giant Dogwood",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus controversa ‘June Snow’",
     "ID": "63",
-    "ITREECODE": ""
+    "ITREECODE": "COCO4"
   },
   {
     "COMMON": "Eddie’s White Wonder Dogwood",
@@ -462,105 +462,105 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus kousa ‘chinensis’",
     "ID": "65",
-    "ITREECODE": ""
+    "ITREECODE": "COKO"
   },
   {
     "COMMON": "Cornelian Cherry",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus mas",
     "ID": "66",
-    "ITREECODE": ""
+    "ITREECODE": "COMA"
   },
   {
     "COMMON": "Pacific Dogwood (aka Canadian Dogwood or Mountain Dogwood)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus nutallii",
     "ID": "67",
-    "ITREECODE": ""
+    "ITREECODE": "CONU2"
   },
   {
     "COMMON": "Red Osier Dogwood",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus sericea",
     "ID": "68",
-    "ITREECODE": ""
+    "ITREECODE": "COST"
   },
   {
     "COMMON": "Turkish Filbert (aka Turkish Hazel)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Corylus colurna",
     "ID": "69",
-    "ITREECODE": ""
+    "ITREECODE": "COCO2"
   },
   {
     "COMMON": "Beaked Hazelnut (aka Beaked Filbert)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Corylus cornuta",
     "ID": "70",
-    "ITREECODE": ""
+    "ITREECODE": "COCO3"
   },
   {
     "COMMON": "American Smoke Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cotinus obovatus",
     "ID": "71",
-    "ITREECODE": ""
+    "ITREECODE": "COOB"
   },
   {
     "COMMON": "Black Hawthorn",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Crataegus douglasii",
     "ID": "72",
-    "ITREECODE": ""
+    "ITREECODE": "CRDO"
   },
   {
     "COMMON": "Thornless Cockspur Hawthorn",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Crataegus crus-galli ‘Inermis’",
     "ID": "73",
-    "ITREECODE": ""
+    "ITREECODE": "CRCRIN"
   },
   {
     "COMMON": "Lavalle Hawthorn",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Crataegus x lavalii",
     "ID": "74",
-    "ITREECODE": ""
+    "ITREECODE": "CRLA"
   },
   {
     "COMMON": "Washington Hawthorn",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Crataegus phaenopyrum",
     "ID": "75",
-    "ITREECODE": ""
+    "ITREECODE": "CRPH"
   },
   {
     "COMMON": "Suksdorf’s Hawthorn",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Crataegus suksdorfii",
     "ID": "76",
-    "ITREECODE": ""
+    "ITREECODE": "CRSU16"
   },
   {
     "COMMON": "Dove Tree (aka Ghost Tree or Pocket Handkerchief Tree)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Davidia involucrata",
     "ID": "77",
-    "ITREECODE": ""
+    "ITREECODE": "DAIN"
   },
   {
     "COMMON": "Hardy Rubber Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Eucommia ulmoides",
     "ID": "78",
-    "ITREECODE": ""
+    "ITREECODE": "EUUL"
   },
   {
     "COMMON": "European Beech (aka Green Beech)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Fagus sylvatica",
     "ID": "79",
-    "ITREECODE": ""
+    "ITREECODE": "FASY"
   },
   {
     "COMMON": "Dawyck Purple Beech",
@@ -581,21 +581,21 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Fraxinus americana",
     "ID": "82",
-    "ITREECODE": ""
+    "ITREECODE": "FRAM"
   },
   {
     "COMMON": "Autumn Applause Ash",
     "TYPE": "conifer",
     "SCIENTIFIC": "Fraxinus Americana ‘Autumn Applause’",
     "ID": "83",
-    "ITREECODE": ""
+    "ITREECODE": "FRAMAA"
   },
   {
     "COMMON": "Oregon Ash",
     "TYPE": "conifer",
     "SCIENTIFIC": "Fraxinus latifolia",
     "ID": "84",
-    "ITREECODE": ""
+    "ITREECODE": "FRLA"
   },
   {
     "COMMON": "Cimmaron Ash",
@@ -609,7 +609,7 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Fraxinus pennsylvanica ‘Patmore’",
     "ID": "86",
-    "ITREECODE": ""
+    "ITREECODE": "FRPEPA"
   },
   {
     "COMMON": "Urbanite Ash",
@@ -644,70 +644,70 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Gymnocladus diocicus ‘Espresso’",
     "ID": "91",
-    "ITREECODE": ""
+    "ITREECODE": "GYDI"
   },
   {
     "COMMON": "Mountain Silverbell",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Halesia monticola",
     "ID": "92",
-    "ITREECODE": ""
+    "ITREECODE": "HATE3"
   },
   {
     "COMMON": "Carolina Silverbell (aka COMMON Silverbell)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Halesia tetraptera or Halesia carolina",
     "ID": "93",
-    "ITREECODE": ""
+    "ITREECODE": "HACA"
   },
   {
     "COMMON": "Chinese Witch Hazel (aka Orange Flowering Witch Hazel)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Hamamelis mollis",
     "ID": "94",
-    "ITREECODE": ""
+    "ITREECODE": "HAMO"
   },
   {
     "COMMON": "Goldenrain Tree (aka Varnish Tree)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Koelreuteria paniculate",
     "ID": "95",
-    "ITREECODE": ""
+    "ITREECODE": "KOPA"
   },
   {
     "COMMON": "Tuscarora Hybrid Crape Myrle",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Lagerstroemia indica ‘tuscarora’",
     "ID": "96",
-    "ITREECODE": ""
+    "ITREECODE": "LATU"
   },
   {
     "COMMON": "Dunkeld Larch",
     "TYPE": "conifer",
     "SCIENTIFIC": "Larix x marschlinsii",
     "ID": "97",
-    "ITREECODE": ""
+    "ITREECODE": "LAEU"
   },
   {
     "COMMON": "Western Larch",
     "TYPE": "conifer",
     "SCIENTIFIC": "Larix occidentalis",
     "ID": "98",
-    "ITREECODE": ""
+    "ITREECODE": "LAOC"
   },
   {
     "COMMON": "Alpine Larch (aka Subalpine Larch)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Larix lyallii",
     "ID": "99",
-    "ITREECODE": ""
+    "ITREECODE": "LALA2"
   },
   {
     "COMMON": "Sweet Gum",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Liquidambar styraciflua",
     "ID": "100",
-    "ITREECODE": ""
+    "ITREECODE": "LIST"
   },
   {
     "COMMON": "Rotundiloba Sweetgum",
@@ -742,7 +742,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Maackia amurensis",
     "ID": "105",
-    "ITREECODE": ""
+    "ITREECODE": "MAAM9"
   },
   {
     "COMMON": "Elizabeth Magnolia",
@@ -756,14 +756,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Magnolia denudata",
     "ID": "107",
-    "ITREECODE": ""
+    "ITREECODE": "MADE"
   },
   {
     "COMMON": "Galaxy Magnolia",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Magnolia ‘Galaxy’ (M. liliiflora ‘Nigra’ x M. sprengeri ‘Diva’)",
     "ID": "108",
-    "ITREECODE": ""
+    "ITREECODE": "MASOGA"
   },
   {
     "COMMON": "Evergreen Magnolia (aka Southern Magnolia)",
@@ -777,14 +777,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Magnolia grandiflora ‘Little Gem’",
     "ID": "110",
-    "ITREECODE": ""
+    "ITREECODE": "MAGRLG"
   },
   {
     "COMMON": "Wada’s Memory Magnolia",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Magnolia Kobus ‘Wada’s Memory’",
     "ID": "111",
-    "ITREECODE": ""
+    "ITREECODE": "MAKO"
   },
   {
     "COMMON": "Loebner Magnolia",
@@ -798,7 +798,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Magnolia sieboldii",
     "ID": "113",
-    "ITREECODE": ""
+    "ITREECODE": "MASI"
   },
   {
     "COMMON": "Adirondack Crabapple",
@@ -819,7 +819,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Malus fusca",
     "ID": "116",
-    "ITREECODE": ""
+    "ITREECODE": "PYFU"
   },
   {
     "COMMON": "Lancelot Crabapple (aka Roseybloom)",
@@ -833,7 +833,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Malus pumila",
     "ID": "118",
-    "ITREECODE": ""
+    "ITREECODE": "MAPU"
   },
   {
     "COMMON": "Red Barron Crabapple",
@@ -854,105 +854,105 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Malus ‘Tschonoskii’",
     "ID": "121",
-    "ITREECODE": ""
+    "ITREECODE": "MATS"
   },
   {
     "COMMON": "Dawn Redwood",
     "TYPE": "conifer",
     "SCIENTIFIC": "Metasequoia glyptostroboides",
     "ID": "122",
-    "ITREECODE": ""
+    "ITREECODE": "MEGL"
   },
   {
     "COMMON": "Antarctic Beech",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Nothofagus antartica",
     "ID": "123",
-    "ITREECODE": ""
+    "ITREECODE": "NOAN"
   },
   {
     "COMMON": "Black Tupelo (aka Blackgum)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Nyssa sylvatica",
     "ID": "124",
-    "ITREECODE": ""
+    "ITREECODE": "NYSY"
   },
   {
     "COMMON": "Ironwood (aka American Hop Hornbeam)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Ostrya virginiana",
     "ID": "125",
-    "ITREECODE": ""
+    "ITREECODE": "OSVI"
   },
   {
     "COMMON": "Sourwood",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Oxydendrum arboreum",
     "ID": "126",
-    "ITREECODE": ""
+    "ITREECODE": "OXAR"
   },
   {
     "COMMON": "Persian Parrotia (aka Persian Ironwood)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Parrotia persica",
     "ID": "127",
-    "ITREECODE": ""
+    "ITREECODE": "PAPE"
   },
   {
     "COMMON": "Macho Cork Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Phellodendron amurense ‘Macho’",
     "ID": "128",
-    "ITREECODE": ""
+    "ITREECODE": "PHAM"
   },
   {
     "COMMON": "Sitka Spruce",
     "TYPE": "conifer",
     "SCIENTIFIC": "Picea sitchensis",
     "ID": "129",
-    "ITREECODE": ""
+    "ITREECODE": "PISI"
   },
   {
     "COMMON": "Umbrella Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus densiflora ‘Umbraculifera’",
     "ID": "130",
-    "ITREECODE": ""
+    "ITREECODE": "PIDE"
   },
   {
     "COMMON": "Western White Pine (aka Silver Pine)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus monticola",
     "ID": "131",
-    "ITREECODE": ""
+    "ITREECODE": "PIMO3"
   },
   {
     "COMMON": "Austrian Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus nigra",
     "ID": "132",
-    "ITREECODE": ""
+    "ITREECODE": "PINI"
   },
   {
     "COMMON": "Italian Stone Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus pinea",
     "ID": "133",
-    "ITREECODE": ""
+    "ITREECODE": "PIPI2"
   },
   {
     "COMMON": "Ponderosa Pine (aka Bull Pine, Blackjack Pine, or Western Yellow-Pine)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus ponderosa",
     "ID": "134",
-    "ITREECODE": ""
+    "ITREECODE": "PIPO"
   },
   {
     "COMMON": "Scotch Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus sylvestris",
     "ID": "135",
-    "ITREECODE": "",
+    "ITREECODE": "PISY",
     "LEVEL": "medium"
   },
   {
@@ -960,14 +960,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Platanus x acerifolia",
     "ID": "136",
-    "ITREECODE": ""
+    "ITREECODE": "PLAC1"
   },
   {
     "COMMON": "Bloodgood London Planetree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Platanus x acerifolia ‘Bloodgood’",
     "ID": "137",
-    "ITREECODE": ""
+    "ITREECODE": "PLACBL"
   },
   {
     "COMMON": "Yarwood London Planetree",
@@ -981,21 +981,21 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Populus balsamifera",
     "ID": "139",
-    "ITREECODE": ""
+    "ITREECODE": "POBA"
   },
   {
     "COMMON": "Lombardy Poplar",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Populus nigra",
     "ID": "140",
-    "ITREECODE": ""
+    "ITREECODE": "PONIIT"
   },
   {
     "COMMON": "Quaking Aspen (aka Quakies, Trembling Aspen, Trembling Poplar, Popple, or American Aspen)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Populus tremuloides",
     "ID": "141",
-    "ITREECODE": ""
+    "ITREECODE": "POTR1"
   },
   {
     "COMMON": "Mt. St. Helens Plum",
@@ -1009,7 +1009,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Prunus cerasifera ‘Krauter Vesuvius’",
     "ID": "143",
-    "ITREECODE": ""
+    "ITREECODE": "PRCEKV"
   },
   {
     "COMMON": "Newport Plum",
@@ -1023,7 +1023,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Prunus cerasifera ‘Thundercloud’",
     "ID": "145",
-    "ITREECODE": ""
+    "ITREECODE": "PRCETH"
   },
   {
     "COMMON": "Spire Cherry",
@@ -1037,14 +1037,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Prunus sargentii ‘Columnaris’",
     "ID": "147",
-    "ITREECODE": ""
+    "ITREECODE": "PRSA"
   },
   {
     "COMMON": "Amanogawa Flowering Cherry",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Prunus serrulata ‘Amanogawa’",
     "ID": "148",
-    "ITREECODE": ""
+    "ITREECODE": "PRSEAM"
   },
   {
     "COMMON": "Snow Goose Cherry",
@@ -1058,21 +1058,21 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Prunus x yedoensis",
     "ID": "150",
-    "ITREECODE": ""
+    "ITREECODE": "PRYEAK"
   },
   {
     "COMMON": "Golden Larch",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pseudolarix amabilis",
     "ID": "151",
-    "ITREECODE": ""
+    "ITREECODE": "PSAM"
   },
   {
     "COMMON": "Douglas-Fir (aka Oregon Pine and Columbian Pine)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pseudotsuga menziesii",
     "ID": "152",
-    "ITREECODE": "",
+    "ITREECODE": "PSME",
     "LEVEL": "easy"
   },
   {
@@ -1080,14 +1080,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Pterostyrax hispida",
     "ID": "153",
-    "ITREECODE": ""
+    "ITREECODE": "PTHI"
   },
   {
     "COMMON": "Aristocrat Pear",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Pyrus calleryana ‘Aristocrat’",
     "ID": "154",
-    "ITREECODE": ""
+    "ITREECODE": "PYCAAR"
   },
   {
     "COMMON": "Cambridge Pear",
@@ -1101,42 +1101,42 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Pyrus calleryana ‘Glen’s Form’",
     "ID": "156",
-    "ITREECODE": ""
+    "ITREECODE": "PYCACH"
   },
   {
     "COMMON": "Redspire Pear",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Pyrus calleryana ‘Redspire’",
     "ID": "157",
-    "ITREECODE": ""
+    "ITREECODE": "PYCARS"
   },
   {
     "COMMON": "Swamp White Oak",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus bicolor",
     "ID": "158",
-    "ITREECODE": ""
+    "ITREECODE": "QUBI"
   },
   {
     "COMMON": "Scarlet Oak",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus coccinea",
     "ID": "159",
-    "ITREECODE": ""
+    "ITREECODE": "QUCO"
   },
   {
     "COMMON": "Italian Oak (aka Hungarian Oak)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus frainetto",
     "ID": "160",
-    "ITREECODE": ""
+    "ITREECODE": "QUFR"
   },
   {
     "COMMON": "Oregon Oak (aka White Oak or Garry Oak)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus garryana",
     "ID": "161",
-    "ITREECODE": "",
+    "ITREECODE": "QUGA2",
     "LEVEL": "easy"
   },
   {
@@ -1144,42 +1144,42 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus ilex",
     "ID": "162",
-    "ITREECODE": ""
+    "ITREECODE": "QUILBA"
   },
   {
     "COMMON": "Shingle Oak",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus imbricaria",
     "ID": "163",
-    "ITREECODE": ""
+    "ITREECODE": "QUIM"
   },
   {
     "COMMON": "Chinkapin Oak (aka Chestnut Oak)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus muehlenbergii",
     "ID": "164",
-    "ITREECODE": ""
+    "ITREECODE": "QUMU"
   },
   {
     "COMMON": "Pin Oak",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus palustris",
     "ID": "165",
-    "ITREECODE": ""
+    "ITREECODE": "QUPA"
   },
   {
     "COMMON": "English Oak",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus robur",
     "ID": "166",
-    "ITREECODE": ""
+    "ITREECODE": "QURO"
   },
   {
     "COMMON": "Crimson Spire Oak (aka Chrimschmidt)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus robur x alba",
     "ID": "167",
-    "ITREECODE": ""
+    "ITREECODE": "QUROFA"
   },
   {
     "COMMON": "Skyrocket Oak (aka Columnar English Oak)",
@@ -1193,7 +1193,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus rubra",
     "ID": "169",
-    "ITREECODE": "",
+    "ITREECODE": "QURU",
     "LEVEL": "easy"
   },
   {
@@ -1201,56 +1201,56 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Quercus velutina",
     "ID": "170",
-    "ITREECODE": ""
+    "ITREECODE": "QUVE"
   },
   {
     "COMMON": "Cascara (aka Cascara Buckthorn)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Rhamnus purshiana",
     "ID": "171",
-    "ITREECODE": ""
+    "ITREECODE": "RHPU"
   },
   {
     "COMMON": "Pink Idaho Locus (aka Purple Robe)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Robinia x ambigua",
     "ID": "172",
-    "ITREECODE": ""
+    "ITREECODE": "ROAMID"
   },
   {
     "COMMON": "Pacific Willow (Whiplash Willow)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Salix lasiandra",
     "ID": "173",
-    "ITREECODE": ""
+    "ITREECODE": "SALA2"
   },
   {
     "COMMON": "Scouler’s Willow",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Salix scouleriana",
     "ID": "174",
-    "ITREECODE": ""
+    "ITREECODE": "SASC"
   },
   {
     "COMMON": "Japanese Umbrella Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Sciadopitys verticillata",
     "ID": "175",
-    "ITREECODE": ""
+    "ITREECODE": "SCVE"
   },
   {
     "COMMON": "Giant Sequoia",
     "TYPE": "conifer",
     "SCIENTIFIC": "Sequoiadendron giganteum",
     "ID": "176",
-    "ITREECODE": ""
+    "ITREECODE": "SEGI"
   },
   {
     "COMMON": "Coast Redwood",
     "TYPE": "conifer",
     "SCIENTIFIC": "Sequoia sempervirens",
     "ID": "177",
-    "ITREECODE": "",
+    "ITREECODE": "SESE",
     "LEVEL": "easy"
   },
   {
@@ -1258,28 +1258,28 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Sophora japonica",
     "ID": "178",
-    "ITREECODE": ""
+    "ITREECODE": "SOJA"
   },
   {
     "COMMON": "Korean Mountain Ash",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Sorbus alnifolia",
     "ID": "179",
-    "ITREECODE": ""
+    "ITREECODE": "SOAL"
   },
   {
     "COMMON": "Red Cascade Mountain Ash",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Sorbus americana ‘Dwarfcrown’",
     "ID": "180",
-    "ITREECODE": ""
+    "ITREECODE": "SOAM"
   },
   {
     "COMMON": "European Mountain Ash",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Sorbus aucuparia",
     "ID": "181",
-    "ITREECODE": ""
+    "ITREECODE": "SOAU"
   },
   {
     "COMMON": "Cardinal Royal Mountain Ash",
@@ -1293,7 +1293,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Sorbus x hybridia",
     "ID": "183",
-    "ITREECODE": ""
+    "ITREECODE": "SOHY3"
   },
   {
     "COMMON": "Orange Bark Stewartia (aka Tall Stewartia)",
@@ -1307,35 +1307,35 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Stewartia pseudocamellia",
     "ID": "185",
-    "ITREECODE": ""
+    "ITREECODE": "STPS"
   },
   {
     "COMMON": "Fragrant Styrax (aka Fragrant Snowbell)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Styrax obassia",
     "ID": "186",
-    "ITREECODE": ""
+    "ITREECODE": "STOB"
   },
   {
     "COMMON": "Japanese Snowbell",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Styrax japonicus",
     "ID": "187",
-    "ITREECODE": ""
+    "ITREECODE": "STJA"
   },
   {
     "COMMON": "Brave Bald Cypress",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Taxodium distichum ‘Mickeslon’ Shawnee",
     "ID": "188",
-    "ITREECODE": ""
+    "ITREECODE": "TADI"
   },
   {
     "COMMON": "Pacific Yew (aka Western Yew)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Taxus brevifolia",
     "ID": "189",
-    "ITREECODE": ""
+    "ITREECODE": "TABR"
   },
   {
     "COMMON": "Western Red Cedar (aka Giant Arborvitae or Shinglewood)",
@@ -1350,14 +1350,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Tilia americana ‘Redmond’",
     "ID": "191",
-    "ITREECODE": ""
+    "ITREECODE": "TIAMRE"
   },
   {
     "COMMON": "Greenspire Linden",
     "TYPE": "broadleaf",
-    "SCIENTIFIC": "Tilia americana ‘Greenspire’",
+    "SCIENTIFIC": "Tilia cordata ‘Greenspire’",
     "ID": "192",
-    "ITREECODE": ""
+    "ITREECODE": "TICOGR"
   },
   {
     "COMMON": "Chancelor Linden (aka Little-leaf Linden)",
@@ -1371,42 +1371,42 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Tilia cordata ‘De Groot’",
     "ID": "194",
-    "ITREECODE": ""
+    "ITREECODE": "TICO"
   },
   {
     "COMMON": "Windmill Palm",
     "TYPE": "conifer",
     "SCIENTIFIC": "Trachycarpus fortunei",
     "ID": "195",
-    "ITREECODE": ""
+    "ITREECODE": "TRFO"
   },
   {
     "COMMON": "Canadian Hemlock (aka Eastern Hemlock-Spruce or Eastern Hemlock)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Tsuga canadensis",
     "ID": "196",
-    "ITREECODE": ""
+    "ITREECODE": "TSCA"
   },
   {
     "COMMON": "Western Hemlock",
     "TYPE": "conifer",
     "SCIENTIFIC": "Tsuga heterophylla",
     "ID": "197",
-    "ITREECODE": ""
+    "ITREECODE": "TSHE"
   },
   {
     "COMMON": "Mountain Hemlock",
     "TYPE": "conifer",
     "SCIENTIFIC": "Tsuga mertensiana",
     "ID": "198",
-    "ITREECODE": ""
+    "ITREECODE": "TSME"
   },
   {
     "COMMON": "Frontier Elm",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Ulmus ‘Frontier’",
     "ID": "199",
-    "ITREECODE": ""
+    "ITREECODE": "ULFR"
   },
   {
     "COMMON": "Homestead Elm",
@@ -1420,21 +1420,21 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Ulmus parvifolia ‘Emer I’",
     "ID": "201",
-    "ITREECODE": ""
+    "ITREECODE": "ULPAEV"
   },
   {
     "COMMON": "Allee Elm (aka Chinese Elm or Lacebark Elm)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Ulmus parviflolia ‘Elmer II’",
     "ID": "202",
-    "ITREECODE": ""
+    "ITREECODE": "ULPAEM"
   },
   {
     "COMMON": "Japanese Zelkova",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Zelkova serrata",
     "ID": "203",
-    "ITREECODE": ""
+    "ITREECODE": "ZESE"
   },
   {
     "COMMON": "Green Vase Zelkova",
@@ -1448,14 +1448,14 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Zelkova serrata ‘Village Green’",
     "ID": "205",
-    "ITREECODE": ""
+    "ITREECODE": "ZESEVG"
   },
   {
     "COMMON": "Northern White Cedar (Arborvitae)",
     "TYPE": "conifer",
     "SCIENTIFIC": "Thuja occidentalis",
     "ID": "206",
-    "ITREECODE": "",
+    "ITREECODE": "THOC",
     "LEVEL": "medium"
   },
   {
@@ -1463,7 +1463,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Carya ovata",
     "ID": "207",
-    "ITREECODE": "",
+    "ITREECODE": "CAOV",
     "LEVEL": "expert"
   },
   {
@@ -1471,14 +1471,14 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Larix decidua",
     "ID": "208",
-    "ITREECODE": ""
+    "ITREECODE": "LADE"
   },
   {
     "COMMON": "Weeping Blue Atlas Cedar",
     "TYPE": "conifer",
     "SCIENTIFIC": "Cedrus atlantica 'Glauca Pendula'",
     "ID": "209",
-    "ITREECODE": ""
+    "ITREECODE": "CEAT"
   },
   {
     "COMMON": "Japanese Weeping Cherry",
@@ -1492,111 +1492,111 @@
     "TYPE": "conifer",
     "SCIENTIFIC": "Abies concolor",
     "ID": "211",
-    "ITREECODE": ""
+    "ITREECODE": "ABCO"
   },
   {
     "COMMON": "Leyland Cypress",
     "TYPE": "conifer",
     "SCIENTIFIC": "Cupressus x leylandii",
     "ID": "212",
-    "ITREECODE": ""
+    "ITREECODE": "CULE"
   },
   {
     "COMMON": "Golden Chain Tree (aka Goldenchain Tree)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Laburnum x watereri",
     "ID": "213",
-    "ITREECODE": ""
+    "ITREECODE": "LAWA"
   },
   {
     "COMMON": "Amur Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer ginnala",
     "ID": "214",
-    "ITREECODE": ""
+    "ITREECODE": "ACGI"
   },
   {
     "COMMON": "Rocky Mountain Maple",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer glabrum",
     "ID": "215",
-    "ITREECODE": ""
+    "ITREECODE": "ACGL"
   },
   {
     "COMMON": "Weeping Katsura Tree",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cercidiphyllum japonicum 'Pendulum'",
     "ID": "216",
-    "ITREECODE": ""
+    "ITREECODE": "CEJA"
   },
   {
     "COMMON": "Flowering Dogwood",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cornus florida",
     "ID": "217",
-    "ITREECODE": ""
+    "ITREECODE": "COFL"
   },
   {
     "COMMON": "European Smoke Tree (aka European Smoketree)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Cotinus coggyrgia",
     "ID": "218",
-    "ITREECODE": ""
+    "ITREECODE": "COCO1"
   },
   {
     "COMMON": "Leprechaun Ash",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Fraxinus pennsylvanica 'Leprechaun'",
     "ID": "219",
-    "ITREECODE": ""
+    "ITREECODE": "FRPE"
   },
   {
     "COMMON": "Crimson Cloud Hawthorn",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Crataegus laevigata 'Crimson Cloud'",
     "ID": "220",
-    "ITREECODE": ""
+    "ITREECODE": "CRLA80"
   },
   {
     "COMMON": "Rocky Mountain Bristlecone Pine",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pinus aristata",
     "ID": "221",
-    "ITREECODE": ""
+    "ITREECODE": "PIAR"
   },
   {
     "COMMON": "Staghorn Sumac",
     "TYPE": "broadleaf",
-    "SCIENTIFIC": "Rhus typhina",
+    "SCIENTIFIC": "Rhus hirta",
     "ID": "222",
-    "ITREECODE": ""
+    "ITREECODE": "RHTY"
   },
   {
     "COMMON": "Freeman Maple (aka Freeman's Maple)",
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer x freemanii",
     "ID": "223",
-    "ITREECODE": ""
+    "ITREECODE": "ACFR"
   },
   {
     "COMMON": "Weeping Douglas-Fir",
     "TYPE": "conifer",
     "SCIENTIFIC": "Pseudotsuga menziesii 'Pendula'",
     "ID": "224",
-    "ITREECODE": ""
+    "ITREECODE": "PSME"
   },
   {
     "COMMON": "Hollywood Juniper",
     "TYPE": "conifer",
     "SCIENTIFIC": "Juniperus chinensis 'Torulosa'",
     "ID": "225",
-    "ITREECODE": ""
+    "ITREECODE": "JUCHTO"
   },
   {
     "COMMON": "Chinese Juniper",
     "TYPE": "conifer",
     "SCIENTIFIC": "Juniperus chinensis",
     "ID": "226",
-    "ITREECODE": ""
+    "ITREECODE": "JUCH"
   }
 ]
