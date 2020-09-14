@@ -1,7 +1,6 @@
-import { TreeValidationTypes } from './../treeData'
+/* eslint-disable @typescript-eslint/camelcase */
+import { TreeTypes, TreeValidationTypes } from './../treeData'
 import { firestore } from 'firebase'
-
-import { TreeTypes } from '../treeData'
 
 interface TreePhoto {
   width: number

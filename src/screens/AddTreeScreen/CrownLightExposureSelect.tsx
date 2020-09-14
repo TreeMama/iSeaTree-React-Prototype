@@ -7,9 +7,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { colors } from '../../styles/theme'
 import crownLightExposureCategories from '../../../data/crown_light_exposures.json'
 
-const selectItems: Item[] = crownLightExposureCategories.map((categoryName) => ({
-  label: categoryName,
-  value: categoryName,
+const selectItems: Item[] = crownLightExposureCategories.map((category) => ({
+  label: category.label,
+  value: category.value,
 }))
 
 type CrownLightExposureCategoryName = string | null

@@ -240,7 +240,7 @@ export function AddTreeScreen() {
 
           <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
             <View>
-              <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: String) => {
+              <TreeTypeSelect ref={refTreeTypeSelect} onSelect={(treeType: string) => {
                 if (formik.values.speciesData && treeType != null) {
                   console.log('first if' + treeType)
                   if (formik.values.speciesData.TYPE != treeType && formik.values.speciesData.TYPE != 'unknown') {
@@ -461,7 +461,7 @@ export function AddTreeScreen() {
             )}
 
             <View style={{ marginBottom: 25 }}>
-              <TreeBenefits speciesData={formik.values.speciesData} />
+              <TreeBenefits values={formik.values} />
             </View>
 
             <Button mode="contained"

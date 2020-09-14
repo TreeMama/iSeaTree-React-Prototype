@@ -1,1 +1,14 @@
-["Fully Shaded", "Partially Shaded", "Fully Exposed to Light"]
+[
+  {
+    "label": "Fully Exposed to Light",
+    "value": 5
+  },
+  {
+    "label": "Partially Shaded",
+    "value": 3
+  },
+  {
+    "label": "Fully Shaded",
+    "value": 0
+  }
+]

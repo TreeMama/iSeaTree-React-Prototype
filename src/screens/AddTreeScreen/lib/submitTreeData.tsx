@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import * as firebase from 'firebase'
 import * as Device from 'expo-device'
 import * as Application from 'expo-application'
