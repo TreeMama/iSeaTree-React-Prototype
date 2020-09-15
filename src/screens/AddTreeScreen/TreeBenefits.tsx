@@ -1,12 +1,15 @@
 import React from 'react'
-
+import axios from 'axios';
+import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import { Banner, Text, Headline, Button } from 'react-native-paper'
-
 import { StatusBar } from '../../components/StatusBar'
+import { CONFIG } from '../../../envVariables'
+import { FormValues } from './addTreeForm';
+import { Benefit, RootObject } from './TreeBenefitResponse';
 
 interface TreeBenefitsProps {
-  speciesData: null | { ID: string; COMMON: string; SCIENTIFIC: string }
+  values: FormValues
 }
 
 const styles = StyleSheet.create({
@@ -39,23 +42,89 @@ const styles = StyleSheet.create({
 
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
+  const [benefits, setBenefits] = React.useState<Benefit>()
+  const [formattedResponse, setFormattedResponse] = React.useState("")
+  const { values } = props;
+  const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
 
-  const canCalculateBenefits: boolean = !!props.speciesData
+  const canCalculateBenefits = !!(
+    speciesData
+    && crownLightExposureCategory
+    && dbh
+    && speciesData
+    && treeConditionCategory);
+
+  const loadBenefits = async() => {
+    if (speciesData && speciesData.ID) {
+      const url = `${CONFIG.API_TREE_BENEFIT}?`
+      + `key=${CONFIG.ITREE_KEY}&`
+      + `NationFullName=${CONFIG.NATION}&`
+      + `StateAbbr=${CONFIG.STATE}&`
+      + `CountyName=${CONFIG.COUNTYNAME}&`
+      + `CityName=${CONFIG.CITYNAME}&`
+      + `Species=${speciesData.ITREECODE}&`
+      + `DBHInch=${dbh}&`
+      + `condition=${treeConditionCategory}&`
+      + `CLE=${crownLightExposureCategory}&`
+      + `TreeHeightMeter=-1&`
+      + `TreeCrownWidthMeter=-1&`
+      + `TreeCrownHeightMeter=-1&`;
+
+      const response = await axios.get(url);
+      if (response.data) {
+        const formattedResponse: string = xml2json(response.data, {compact: true, spaces: 2});
+        const root: RootObject = xml2js(response.data, {compact: true}) as RootObject;
+        if (root) {
+          setBenefits(root.Result.OutputInformation.Benefit);
+          setFormattedResponse(formattedResponse);
+          setIsModalVisible(true);
+        }
+      }
+    }
+  }
+
+  const getBenefit = (benefitName: string) => {
+    if (benefits && benefits.CO2Benefits) {
+        let stringValue = ""
+        let unit = ""
+        switch (benefitName) {
+          case "CORemoved": {
+            stringValue = benefits.AirQualityBenefit.CORemovedValue._text;
+            unit = benefits.AirQualityBenefit.CORemovedValue._attributes.Unit;
+            break;
+          }
+          case "CO2Sequestered": {
+            stringValue = benefits.CO2Benefits.CO2SequesteredValue._text;
+            unit = benefits.CO2Benefits.CO2SequesteredValue._attributes.Unit;
+            break;
+          }
+          case "RunoffAvoided": {
+            stringValue = benefits.HydroBenefit.RunoffAvoidedValue._text;
+            unit = benefits.HydroBenefit.RunoffAvoidedValue._attributes.Unit;
+          }
+        }
+        const decimal = parseFloat(stringValue);
+        const isUnitPrefix = (unit === "$")
+        let display =  `${decimal.toFixed(2)} ${unit}`;
+        if (isUnitPrefix) {
+          display =  `${unit}${decimal.toFixed(2)}`;
+        }
+        return display;
+    }
+  }
 
   return (
     <>
       <Button
         mode="outlined"
-        onPress={() => {
-          setIsModalVisible(true)
-        }}
+        onPress={loadBenefits}
         disabled={!canCalculateBenefits}
         icon="calculator"
       >
         Calculate Tree Benefits
       </Button>
 
-      {!!props.speciesData && (
+      {!!speciesData && benefits && (
         <Modal
           visible={isModalVisible}
           animationType="slide"
@@ -75,7 +144,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
               <View style={{ flex: 1, paddingHorizontal: 15 }}>
                 <Headline>Calculated Tree Benefits</Headline>
                 <Text>
-                  {props.speciesData.COMMON} ({props.speciesData.SCIENTIFIC})
+                  {speciesData.COMMON} ({speciesData.SCIENTIFIC})
                 </Text>
 
                 <Banner visible actions={[]} style={{ marginTop: 15, backgroundColor: '#F0FFF4' }}>
@@ -90,7 +159,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                     <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO2) Sequestered</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>US$0.00</Text>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2Sequestered")}
+                    </Text>
                   </View>
                 </View>
 
@@ -108,7 +179,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                     <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>{'<'} $0.10</Text>
+                    <Text style={styles.headerTitleStyle}>
+                      {'<'} {getBenefit("RunoffAvoided")}
+                    </Text>
                   </View>
                 </View>
 
@@ -134,7 +207,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                     <Text style={styles.headerTitleStyle}>Air Pollution Removed Each Year</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>US$0.00</Text>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CORemoved")}
+                    </Text>
                   </View>
                 </View>
 
@@ -156,6 +231,10 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                   </View>
                 </View>
               </View>
+
+              <Text>
+                {formattedResponse}
+              </Text>
             </ScrollView>
 
             <Button

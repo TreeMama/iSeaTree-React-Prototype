@@ -1,7 +1,6 @@
-import { TreeValidationTypes } from './../treeData';
+/* eslint-disable @typescript-eslint/camelcase */
+import { TreeTypes, TreeValidationTypes } from './../treeData'
 import { firestore } from 'firebase'
-
-import { TreeTypes } from '../treeData'
 
 interface TreePhoto {
   width: number
@@ -17,13 +16,15 @@ export interface TreeData {
   speciesNameScientific: string
   speciesNameCommon: string
   dbh?: string
-  estmated_dbh:boolean
+  estmated_dbh: boolean
   treeType: TreeTypes
   landUseCategory: string
+  treeConditionCategory: string
+  crownLightExposureCategory: string
   locationType: string
   notes: string | null
   isValidated: TreeValidationTypes
-  level: string 
+  level: string
   modelName: string | null
   os_name: string | null
   os_version: string | null

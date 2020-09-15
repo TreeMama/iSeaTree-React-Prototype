@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import * as firebase from 'firebase'
 import * as Device from 'expo-device'
 import * as Application from 'expo-application'
@@ -20,6 +21,8 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     !formValues.photo ||
     !formValues.speciesData ||
     !formValues.landUseCategory ||
+    !formValues.treeConditionCategory ||
+    !formValues.crownLightExposureCategory ||
     !formValues.locationType ||
     !formValues.coords ||
     !userData
@@ -47,6 +50,8 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     estmated_dbh: formValues.estimate,
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,
+    treeConditionCategory: formValues.treeConditionCategory,
+    crownLightExposureCategory: formValues.crownLightExposureCategory,
     locationType: formValues.locationType,
     notes: submittedNotes,
     photo: {

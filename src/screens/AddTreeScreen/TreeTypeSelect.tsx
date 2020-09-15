@@ -1,15 +1,14 @@
 import React from 'react'
 
 import { View, Image } from 'react-native'
-import { Subheading, Button, Text,useTheme } from 'react-native-paper'
-import { colors } from '../../styles/theme'
+import { Subheading, Button, useTheme } from 'react-native-paper'
 import { TreeTypes } from '../../lib/treeData'
 import { TtypeHelp } from './TtypeHelp'
 const coniferImage = require('../../../assets/conifer.png')
 const deciduousImage = require('../../../assets/deciduous.png')
 
 interface TreeTypeSelectProps {
-  onSelect: (speciesData: String) => void
+  onSelect: (speciesData: string) => void
 }
 
 const iconStyle = {
@@ -17,6 +16,7 @@ const iconStyle = {
   width: 25,
 }
 
+// eslint-disable-next-line react/display-name
 const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
   const theme = useTheme()
   const [currentType, setCurrentType] = React.useState<TreeTypes>(TreeTypes.NULL)

@@ -1,4 +1,4 @@
-import { SpeciesData } from './SpeciesSelect';
+import { SpeciesData } from './SpeciesSelect'
 import { TreeTypes } from '../../lib/treeData'
 
 export interface FormValues {
@@ -14,6 +14,8 @@ export interface FormValues {
   dbh: string
   notes: string
   landUseCategory: string | null
+  treeConditionCategory: string | null
+  crownLightExposureCategory: string | null
   locationType: string | null
   estimate: boolean
 }
