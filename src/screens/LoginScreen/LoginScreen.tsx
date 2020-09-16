@@ -47,7 +47,7 @@ export function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+      <ScrollView>
         <Banner
           visible={!!errorMessage}
           actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
