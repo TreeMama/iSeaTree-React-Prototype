@@ -125,7 +125,7 @@
     "TYPE": "broadleaf",
     "SCIENTIFIC": "Acer palmatum",
     "ID": "15",
-    "ITREECODE": "ACPADI"
+    "ITREECODE": "ACPADI",
 	"LEVEL": "easy"
   },
   {
@@ -1868,7 +1868,7 @@
 	"ITREECODE": "BENI",
 	"LEVEL": "medium"
   },
-    {
+  {
 	"COMMON": "Lodgepole Pine (aka Rocky Mountain Lodgepole Pine)",
 	"TYPE": "conifer",
 	"SCIENTIFIC": "Pinus contorta var latifolia",
