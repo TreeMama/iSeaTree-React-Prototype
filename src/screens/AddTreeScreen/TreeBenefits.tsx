@@ -8,6 +8,10 @@ import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { Benefit, RootObject } from './TreeBenefitResponse';
 
+// 1 Cubic meter (m3) is equal to 264.172052 US gallons
+// https://www.asknumbers.com/cubic-meters-to-gallons.aspx
+const CUBIC_GALLONS_FACTOR = 264.172052;
+
 interface TreeBenefitsProps {
   values: FormValues
 }
@@ -105,9 +109,8 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           }
           case "RunoffAvoided": {
             stringValue = benefits.HydroBenefit.RunoffAvoided._text;
-            // * 264.172052
             const cubic = parseFloat(stringValue);
-            const gallons = cubic * 264.172052;
+            const gallons = cubic * CUBIC_GALLONS_FACTOR;
             unit = "gal";
             return(`${gallons.toFixed(2)} ${unit}`);
             break;
