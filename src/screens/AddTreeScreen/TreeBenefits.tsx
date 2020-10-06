@@ -8,6 +8,10 @@ import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { Benefit, RootObject } from './TreeBenefitResponse';
 
+// 1 Cubic meter (m3) is equal to 264.172052 US gallons
+// https://www.asknumbers.com/cubic-meters-to-gallons.aspx
+const CUBIC_GALLONS_FACTOR = 264.172052;
+
 interface TreeBenefitsProps {
   values: FormValues
 }
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const [benefits, setBenefits] = React.useState<Benefit>()
-  const [formattedResponse, setFormattedResponse] = React.useState("")
+  const [, setFormattedResponse] = React.useState("")
   const { values } = props;
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
 
@@ -94,13 +98,27 @@ export function TreeBenefits(props: TreeBenefitsProps) {
             break;
           }
           case "CO2Sequestered": {
+            stringValue = benefits.CO2Benefits.CO2Sequestered._text;
+            unit = "lbs";
+            break;
+          }
+          case "CO2SequesteredValue": {
             stringValue = benefits.CO2Benefits.CO2SequesteredValue._text;
             unit = benefits.CO2Benefits.CO2SequesteredValue._attributes.Unit;
             break;
           }
           case "RunoffAvoided": {
+            stringValue = benefits.HydroBenefit.RunoffAvoided._text;
+            const cubic = parseFloat(stringValue);
+            const gallons = cubic * CUBIC_GALLONS_FACTOR;
+            unit = "gal";
+            return(`${gallons.toFixed(2)} ${unit}`);
+            break;
+          }
+          case "RunoffAvoidedValue": {
             stringValue = benefits.HydroBenefit.RunoffAvoidedValue._text;
             unit = benefits.HydroBenefit.RunoffAvoidedValue._attributes.Unit;
+            break;
           }
         }
         const decimal = parseFloat(stringValue);
@@ -154,9 +172,20 @@ export function TreeBenefits(props: TreeBenefitsProps) {
               </View>
 
               <View>
+              <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2SequesteredValue")}
+                    </Text>
+                  </View>
+                </View>
+
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO2) Sequestered</Text>
+                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -165,76 +194,30 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                   </View>
                 </View>
 
-                {/* <View style={styles.tableRow}>
-                  <View style={styles.tableCell}>
-                    <Text>Annual CO2 equivalent of carbon</Text>
-                  </View>
-                  <View style={styles.tableCellRight}>
-                    <Text>{'<'} 0.10 lbs</Text>
-                  </View>
-                </View> */}
-
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided</Text>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
-                      {'<'} {getBenefit("RunoffAvoided")}
-                    </Text>
-                  </View>
-                </View>
-
-                {/* <View style={styles.tableRow}>
-                  <View style={styles.tableCell}>
-                    <Text>Runoff Avoided</Text>
-                  </View>
-                  <View style={styles.tableCellRight}>
-                    <Text>{'<'} 0.10 gal</Text>
-                  </View>
-                </View>
-                <View style={styles.tableRow}>
-                  <View style={styles.tableCell}>
-                    <Text>Rainfall Intercepted</Text>
-                  </View>
-                  <View style={styles.tableCellRight}>
-                    <Text>{'<'} 0.10 gal</Text>
-                  </View>
-                </View> */}
-
-                <View style={[styles.tableRow, styles.tableRowHeader]}>
-                  <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Each Year</Text>
-                  </View>
-                  <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("CORemoved")}
+                      {getBenefit("RunoffAvoidedValue")}
                     </Text>
                   </View>
                 </View>
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Energy Usage Per Year</Text>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>US$0.00</Text>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("RunoffAvoided")}
+                    </Text>
                   </View>
                 </View>
 
-                <View style={[styles.tableRow, styles.tableRowHeader]}>
-                  <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Avoided Energy Emissions</Text>
-                  </View>
-                  <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>US$0.00</Text>
-                  </View>
-                </View>
               </View>
 
-              <Text>
-                {formattedResponse}
-              </Text>
             </ScrollView>
 
             <Button
