@@ -166,8 +166,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                 </Text>
 
                 <Banner visible actions={[]} style={{ marginTop: 15, backgroundColor: '#F0FFF4' }}>
-                  This feature is currently under active development and will be made available in a
-                  future beta release
+                  Tree Benefits are calculated using the 'iTree API' with permission from the USDS Us Forest Service.
                 </Banner>
               </View>
 
