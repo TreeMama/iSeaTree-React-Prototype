@@ -231,8 +231,8 @@ export const suggestedTrees: SuggestedTreeData[] = [
       require('../assets/suggested-trees/shagbark-hickory-6.jpg'),
     ],
     name: 'Shagbark Hickory',
-    level: 'Expert',
-    levelText: 'Expert, very rare in Seattle region. Non-Native.',
+    level: 'Easy',
+    levelText: 'Easy, very rare in Seattle region. Non-Native.',
     identifiable_attributes: [
       'The compound leaves generally have 5 leaflets (and occasionally 3 or 7 leaflets) that are about 8-14" long (see picture).',
       'The leaf color is yellow-green, that turns a vivid golden yellow in the fall.',
