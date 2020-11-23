@@ -16,3 +16,5 @@ if ! shasum -s -p -a 512 --check checksums.txt; then
     echo "Your copy of $CONFIG_FILE is out of date. Please obtain the current version from a project administrator."
     exit 1
 fi
+
+echo "everything up to date"
