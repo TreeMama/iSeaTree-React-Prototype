@@ -87,13 +87,15 @@ Note: you'll probably have to run `yarn install` after a git pull, if the update
 
 ### Secrets
 
-`envVariables.ts` file holds all secret keys (api keys etc). It should never be commited to the repo. Before starting the app, get correct values from someone.
+`envVariables.ts` file holds all secret keys (api keys etc). It should never be commited to the repo. Before starting the app, get correct values from a project administrator.
 
 ```bash
-cp envVariables.example.ts envVariables.ts
+./verify-checksums.sh
 ```
+will check to see whether you have `envVariables.ts` in the right place, and whether it is the current version. 
 
-Now you can follow displayed instructioned. For example, you can open Android emulator pressing `a` in the current tab.
+For project administrators: when you update `envVariables.ts`, execute the 
+command `shasum -p -a 512 envVariables.ts > checksums.txt` and commit `checksums.txt` to the repository.
 
 ## Linting
 
