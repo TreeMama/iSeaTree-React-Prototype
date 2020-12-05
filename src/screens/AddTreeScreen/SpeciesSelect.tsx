@@ -44,9 +44,9 @@ function getSpeciesFlatListData(type: string | null, query?: string): { ID: stri
   const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string; TYPE: string }[] = []
   speciesDataList.forEach((item) => {
     if (typeof type == 'string') {
-      if (type.toLowerCase() == item.TYPE.toLowerCase() || item.TYPE.toLowerCase()==='unknown' ) {
+      if (type.toLowerCase() == item.TYPE.toLowerCase() || item.TYPE.toLowerCase() === 'unknown') {
         $speciesDataList.push(item)
-      } else if (type.toLowerCase() == 'null'){
+      } else if (type.toLowerCase() == 'null') {
         $speciesDataList.push(item)
       }
     } else {
@@ -108,6 +108,22 @@ function getTreeBadgeColor(level: string) {
   }
 }
 
+function rendergramtext(level: string) {
+  switch (level.toLowerCase()) {
+    case 'easy':
+      return 'an easy'
+
+    case 'medium':
+      return 'a medium'
+
+    case 'expert':
+      return 'an expert'
+
+    default:
+      return ''
+  }
+}
+
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const [query, setQuery] = React.useState<undefined | string>(undefined)
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
@@ -166,7 +182,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
               backgroundColor: getTreeBadgeColor(props.speciesData?.LEVEL),
             }}
           >
-            {`You've found ${props.speciesData.LEVEL} tree!`}
+            {`You've found ${rendergramtext(props.speciesData.LEVEL)} tree!`}
           </Badge>
         )}
 
