@@ -182,7 +182,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
               backgroundColor: getTreeBadgeColor(props.speciesData?.LEVEL),
             }}
           >
-            {`You've found ${rendergramtext(props.speciesData.LEVEL)} tree!`}
+            {`You've found ${rendergramtext(props.speciesData.LEVEL)}-level tree!`}
           </Badge>
         )}
 
