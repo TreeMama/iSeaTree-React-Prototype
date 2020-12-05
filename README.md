@@ -15,7 +15,7 @@ completed features and completed bugfixes. Do not commit directly to `develop`; 
 feature branches instead.
 
 The `master` branch is where all releases are built from. Update the version number and build number directly
-in the `master branch, just before release. Do not commit directly to `master`, except for edits of `app.json`
+in the `master` branch, just before release. Do not commit directly to `master`, except for edits of `app.json`
 that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `master` from `develop`.
 
 All feature and bugfix work is done in feature branches, named with the pattern `feature/<short descriptive name>`. 
