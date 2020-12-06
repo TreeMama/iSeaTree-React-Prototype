@@ -22,7 +22,7 @@ export function LoggedTabNavigator() {
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}
-      barStyle={{ paddingBottom: 5, backgroundColor: 'white' }}
+      barStyle={{ paddingBottom: 8, backgroundColor: 'white' }}
       labeled
     >
       <Tab.Screen
@@ -60,7 +60,7 @@ export function LoggedTabNavigator() {
             <Image
               source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
-              style={{ width: 30, height: 30 }}
+              style={{ width: 26, height: 26 }}
             />
           ),
         }}
