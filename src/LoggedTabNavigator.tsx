@@ -40,7 +40,7 @@ export function LoggedTabNavigator() {
         component={MapScreen}
         options={{
           tabBarLabel: 'Map',
-          tabBarIcon: ({ color }) => <SimpleLineIcons name="globe" color={color} size={22} />,
+          tabBarIcon: ({ color }) => <SimpleLineIcons name="globe" color={color} size={24} />,
         }}
       />
       <Tab.Screen
@@ -60,7 +60,7 @@ export function LoggedTabNavigator() {
             <Image
               source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
-              style={{ width: 30, height: 30 }}
+              style={{ width: 26, height: 26 }}
             />
           ),
         }}
