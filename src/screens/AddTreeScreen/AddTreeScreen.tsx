@@ -271,7 +271,7 @@ export function AddTreeScreen() {
             </View>
             <View style={{ position: 'absolute',top:5, right: 30 }}>
 
-              <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 40, width: 120 }} labelStyle={{ color: 'green', fontSize: 11 }}
+              <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 40, width: 120 }} labelStyle={{ color: 'green' }}
                 onPress={() => {
                   console.log('clear')
                   formik.setFieldValue('speciesType', TreeTypes.NULL)
