@@ -105,7 +105,7 @@ export function ProfileScreen() {
   }
   function addTreeCount(){
     if(userData?.treesCount == undefined){
-      return 'You haven\'t counted any trees yet.'
+      return 'You haven\'t added any trees yet.'
     }
     return userData?.treesCount;
 
