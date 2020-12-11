@@ -27,11 +27,7 @@ export function CrownLightExposureSelect(props: CrownLightExposureCategorySelect
       value={props.crownLightExposureCategoryName}
       items={selectItems}
       onValueChange={(value) => {
-        if (!value) {
-          props.onValueChange(null)
-        } else {
-          props.onValueChange(value)
-        }
+        props.onValueChange(value)
       }}
       placeholder={{
         label: 'Select crown light exposure category...',
