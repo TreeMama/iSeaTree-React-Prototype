@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const [benefits, setBenefits] = React.useState<Benefit>()
+  const [benefitsError, setBenefitsError] = React.useState("")
   const [, setFormattedResponse] = React.useState("")
   const { values } = props;
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
@@ -80,9 +81,14 @@ export function TreeBenefits(props: TreeBenefitsProps) {
         const formattedResponse: string = xml2json(response.data, {compact: true, spaces: 2});
         const root: RootObject = xml2js(response.data, {compact: true}) as RootObject;
         if (root) {
-          setBenefits(root.Result.OutputInformation.Benefit);
-          setFormattedResponse(formattedResponse);
-          setIsModalVisible(true);
+          const err = root.Result.Error;
+          if(Object.keys(err).length > 0){
+            setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this species.");
+          } else {
+            setBenefits(root.Result.OutputInformation.Benefit);
+          }
+            setIsModalVisible(true);
+            setFormattedResponse(formattedResponse);
         }
       }
     }
@@ -143,7 +149,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
         Calculate Tree Benefits
       </Button>
 
-      {!!speciesData && benefits && (
+      {!!speciesData && (benefits || benefitsError.length !== 0) && (
         <Modal
           visible={isModalVisible}
           animationType="slide"
@@ -160,19 +166,26 @@ export function TreeBenefits(props: TreeBenefitsProps) {
             }}
           >
             <ScrollView style={{ marginTop: 10 }}>
-              <View style={{ flex: 1, paddingHorizontal: 15 }}>
+              <View style={{flex: 1, paddingHorizontal: 15}}>
                 <Headline>Calculated Tree Benefits</Headline>
                 <Text>
                   {speciesData.COMMON} ({speciesData.SCIENTIFIC})
                 </Text>
 
-                <Banner visible actions={[]} style={{ marginTop: 15, backgroundColor: '#F0FFF4' }}>
-                  Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service.
+                <Banner visible actions={[]} style={{
+                  marginTop: 15,
+                  backgroundColor: benefitsError ? '#F8D7DA' : '#F0FFF4'
+                }}>
+                  {
+                    benefitsError
+                      ? benefitsError
+                      : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
+                  }
                 </Banner>
               </View>
 
               <View>
-              <View style={[styles.tableRow, styles.tableRowHeader]}>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
                     <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value</Text>
                   </View>
@@ -224,6 +237,8 @@ export function TreeBenefits(props: TreeBenefitsProps) {
               mode="contained"
               style={{ borderRadius: 0, padding: 15 }}
               onPress={() => {
+                setBenefits({})
+                setBenefitsError("")
                 setIsModalVisible(false)
               }}
             >
