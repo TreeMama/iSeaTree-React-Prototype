@@ -52,14 +52,15 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
 
   const canCalculateBenefits = !!(
-    speciesData
+    speciesData 
+    && speciesData.TYPE.toLowerCase() !== "unknown"
     && crownLightExposureCategory
     && dbh
     && speciesData
     && treeConditionCategory);
 
   const loadBenefits = async() => {
-    if (speciesData && speciesData.ID) {
+    if (canCalculateBenefits && speciesData && speciesData.ID) {
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
       + `NationFullName=${CONFIG.NATION}&`
