@@ -53,13 +53,14 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
   const canCalculateBenefits = !!(
     speciesData
-    && crownLightExposureCategory
+    && speciesData.TYPE.toLowerCase() !== "unknown"
+    && crownLightExposureCategory !== null
     && dbh
-    && speciesData
+    && dbh !== "0"
     && treeConditionCategory);
 
   const loadBenefits = async() => {
-    if (speciesData && speciesData.ID) {
+    if (canCalculateBenefits) {
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
       + `NationFullName=${CONFIG.NATION}&`
@@ -221,7 +222,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
             <Button
               mode="contained"
-              style={{ borderRadius: 0 }}
+              style={{ borderRadius: 0, padding: 15 }}
               onPress={() => {
                 setIsModalVisible(false)
               }}

@@ -98,7 +98,7 @@ export function DbhHelp() {
 
           <Button
             mode="contained"
-            style={{ borderRadius: 0 }}
+            style={{ borderRadius: 0, padding: 15 }}
             onPress={() => {
               setIsModalVisible(false)
             }}

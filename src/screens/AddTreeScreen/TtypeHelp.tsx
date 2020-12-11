@@ -35,7 +35,7 @@ export function TtypeHelp() {
           </View>
           <Button
             mode="contained"
-            style={{ borderRadius: 0, position: 'absolute', bottom: 5, width: '100%' }}
+            style={{ borderRadius: 0, position: 'absolute', bottom: 0, padding: 15, width: '100%' }}
             onPress={() => {
               setIsModalVisible(false)
             }}
