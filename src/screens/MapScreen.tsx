@@ -91,6 +91,19 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       props.navigation.removeListener('focus', getCurrentLocation)
     }
   }, [])
+  function timeConverter(UNIX_timestamp) {
+    let a = new Date(UNIX_timestamp * 1000);
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let year = a.getFullYear();
+    let month = months[a.getMonth()];
+    let date = a.getDate();
+    let hour = a.getHours();
+    let min = a.getMinutes();
+    let sec = a.getSeconds();
+    // let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    let time = date + ' ' + month + ' ' + year;
+    return time;
+  }
 
   const currentRegion: undefined | Region = !currentCoords
     ? undefined
@@ -100,6 +113,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       latitudeDelta: 0.01,
       longitudeDelta: 0.01,
     }
+
 
   const renderMaker = (treeType: string, text: string) => {
     let treeImg = '';
@@ -119,11 +133,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   return (
     <View style={styles.container}>
       <StatusBar />
-      <View><Text>My iSeaTree Status Map</Text></View>
-      <View style={{ borderWidth: 1, borderColor: '#bbb', width: '40%', position: 'absolute', top: 30, left: 10, zIndex: 5000, paddingVertical: 5 }}>
+      {/* <View style={{ borderWidth: 1, borderColor: '#bbb', width: '40%', position: 'absolute', top: 30, left: 10, zIndex: 5000, paddingVertical: 5 }}>
         {renderMaker('conifer', 'Conifer')}
         {renderMaker('broadleaf', 'Broadleaf')}
-      </View>
+      </View> */}
 
       <MapView
         style={styles.mapStyle}
@@ -134,6 +147,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           longitudeDelta: 1,
         }}
         region={currentRegion}
+        showsUserLocation
+        showsScale={true}
+        // zoomTapEnabled={true}
+        zoomControlEnabled={true}
       >
         {!!currentCoords && <Marker coordinate={currentCoords} />}
         {console.log('trees in render', trees)}
@@ -153,10 +170,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               treeImg = treeDeciduous;
           }
           { console.log('trees in treeImg', treeImg) }
-          let calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + item.created_at.seconds + '\n' + 'User : ' + item.username;
+          let calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
           return (<Marker key={index} coordinate={coords}>
             <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} />
-            <Callout tooltip style={{ minWidth: 200 }}>
+            <Callout tooltip style={{ minWidth: 200, backgroundColor: '#FFF', padding: 5 }}>
               <Text>{calloutText}</Text>
             </Callout>
 
