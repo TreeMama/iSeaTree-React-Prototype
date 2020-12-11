@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import axios from 'axios';
 import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
+import * as Location from 'expo-location'
+import * as Premmissions from 'expo-premmissions'
+
 import { Banner, Text, Headline, Button } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
@@ -50,7 +53,10 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const [, setFormattedResponse] = React.useState("")
   const { values } = props;
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
-
+  const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
+  const [location, setLocation ] = React.useState< >(null)
+  const [address, setAddress ] = useState(null);
+  const [currentCoords, setCurrentCoords] = useState<Object>(null)
   const canCalculateBenefits = !!(
     speciesData
     && crownLightExposureCategory
@@ -58,14 +64,53 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     && speciesData
     && treeConditionCategory);
 
+    interface Coords{
+      latitude: number
+      longitude: number
+    }
+// Todo add devices location to API_TREE_BENEFIT
+useEffect(() => {
+   (async () => {
+     let { status } = await Location.requestPermissionsAsync();
+     if (status !== 'granted') {
+       setErrorMsg('Permission to access location was denied');
+       return;
+     }
+     const location = await Location.getCurrentPositionAsync({});
+
+     setLocation(location);
+     setCurrentCoords({
+       latitude: location.coords.latitude,
+       longitude: location.coords.longitude,
+     })
+
+     let readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
+     setAddress(readOnlyAddress[0]);
+   })();
+ }, []);
+ let text = "Waiting..."
+ if(errorMessage){
+   text = errorMessage;
+ }else if (location){
+   text = JSON.stringify(location);
+ }
+ console.log(address.city);
+ let addressText = "waiting";
+ if(errorMessage){
+   addressText = errorMessage;
+ }else if(address){
+   addressText = JSON.stringify(address);
+ }
+
   const loadBenefits = async() => {
+
     if (speciesData && speciesData.ID) {
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
       + `NationFullName=${CONFIG.NATION}&`
       + `StateAbbr=${CONFIG.STATE}&`
       + `CountyName=${CONFIG.COUNTYNAME}&`
-      + `CityName=${CONFIG.CITYNAME}&`
+      + `CityName=${address.city}&`
       + `Species=${speciesData.ITREECODE}&`
       + `DBHInch=${dbh}&`
       + `condition=${treeConditionCategory}&`
@@ -132,7 +177,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   }
 
   return (
-    <>
+<>
       <Button
         mode="outlined"
         onPress={loadBenefits}
