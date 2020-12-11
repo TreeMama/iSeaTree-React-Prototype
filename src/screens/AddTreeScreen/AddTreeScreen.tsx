@@ -52,13 +52,16 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   if (values.dbh === '') {
     errors.dbh = "Can't be blank"
   }
+  if (values.dbh === '0') {
+    errors.dbh = "Can't be zero"
+  }
   if (!values.landUseCategory) {
     errors.landUseCategory = "Can't be blank"
   }
   if (!values.treeConditionCategory) {
     errors.treeConditionCategory = "Can't be blank"
   }
-  if (!values.crownLightExposureCategory) {
+  if (values.crownLightExposureCategory === null) {
     errors.crownLightExposureCategory = "Can't be blank"
   }
 
@@ -179,6 +182,7 @@ export function AddTreeScreen() {
     },
     validate: validateForm,
     onSubmit: (values) => {
+      // alert(JSON.stringify(values, null, 2));
       submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
     },
   })
