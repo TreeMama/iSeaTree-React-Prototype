@@ -174,6 +174,9 @@ export function ProfileScreen() {
                 </View>
                 <Divider style={{ width: '100%' }} />
 
+                <Headline>Trees recorded</Headline>
+                <Text>{ addTreeCount() }</Text>
+                
                 <Headline style={{ marginTop: 20 }}>Your badges</Headline>
 
                 <View
@@ -187,8 +190,7 @@ export function ProfileScreen() {
                   {addBadges()}
                 </View>
 
-                <Headline>Trees recorded</Headline>
-                <Text>{ addTreeCount() }</Text>
+
 
               </View>
             </View>
