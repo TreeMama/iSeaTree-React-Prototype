@@ -72,10 +72,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     if (!authUser) {
       throw Error('User is not authenticated')
     }
-    const trees = await getTree(authUser.uid);
+    // const trees = await getTree(authUser.uid);
     const TREES_COLLECTION = 'trees'
     firestore()
       .collection(TREES_COLLECTION)
+      .where('userId', '==', authUser.uid)
       .get()
       .then(data => {
         let trees: any = [];
