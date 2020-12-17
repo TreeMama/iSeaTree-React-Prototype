@@ -77,6 +77,7 @@ useEffect(() => {
      const location = await Location.getCurrentPositionAsync({});
 
      setLocation(location);
+     console.log(location);
      setCurrentCoords({
        latitude: location.coords.latitude,
        longitude: location.coords.longitude,
@@ -87,7 +88,7 @@ useEffect(() => {
        // latitude: 40.71427,
        // longitude: -74.00597,
      })
-
+     console.log(currentCoords);
      const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
      setAddress(readOnlyAddress[0]);
      console.log(address)
