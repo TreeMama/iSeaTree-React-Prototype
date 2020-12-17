@@ -10,6 +10,7 @@ import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { Benefit, RootObject } from './TreeBenefitResponse';
+import { convertRegion } from './geoHelper'
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
@@ -64,12 +65,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     && speciesData
     && treeConditionCategory);
 
-    interface Coords{
-      latitude: number
-      longitude: number
-    }
 // Todo add devices location to API_TREE_BENEFIT
 useEffect(() => {
+
    (async () => {
      let { status } = await Location.requestPermissionsAsync();
      if (status !== 'granted') {
@@ -82,34 +80,31 @@ useEffect(() => {
      setCurrentCoords({
        latitude: location.coords.latitude,
        longitude: location.coords.longitude,
+       //grand canyon
+       // latitude: 36.2368592,
+       // longitude:  -112.1914682,
+       //nyc
+       // latitude: 40.71427,
+       // longitude: -74.00597,
      })
 
-     let readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
+     const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
      setAddress(readOnlyAddress[0]);
+     console.log(address)
    })();
  }, []);
- let text = "Waiting..."
- if(errorMessage){
-   text = errorMessage;
- }else if (location){
-   text = JSON.stringify(location);
- }
- console.log(address.city);
- let addressText = "waiting";
- if(errorMessage){
-   addressText = errorMessage;
- }else if(address){
-   addressText = JSON.stringify(address);
- }
 
   const loadBenefits = async() => {
-
-    if (speciesData && speciesData.ID) {
+      let state = address.region;
+      if(state.length > 2){//state is abbreviated
+      state = convertRegion(address.region, 2);
+    }
+    console.log(state);
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
-      + `NationFullName=${CONFIG.NATION}&`
-      + `StateAbbr=${CONFIG.STATE}&`
-      + `CountyName=${CONFIG.COUNTYNAME}&`
+      + `NationFullName=${address.country}&`
+      + `StateAbbr=${state}&`
+      + `CountyName=${address.subregion}&`
       + `CityName=${address.city}&`
       + `Species=${speciesData.ITREECODE}&`
       + `DBHInch=${dbh}&`
@@ -127,10 +122,12 @@ useEffect(() => {
           setBenefits(root.Result.OutputInformation.Benefit);
           setFormattedResponse(formattedResponse);
           setIsModalVisible(true);
+        }else{
+          console.log("error with submittion ")
         }
       }
     }
-  }
+
 
   const getBenefit = (benefitName: string) => {
     if (benefits && benefits.CO2Benefits) {
