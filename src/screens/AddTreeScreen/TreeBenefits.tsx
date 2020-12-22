@@ -55,9 +55,9 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const { values } = props;
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
-  const [location, setLocation ] = React.useState< >(null)
-  const [address, setAddress ] = useState(null);
-  const [currentCoords, setCurrentCoords] = useState<Object>(null)
+  const [location, setLocation ] = React.useState<Object>(null)
+  const [address, setAddress ] = React.useState<Object>(null);
+  const [currentCoords, setCurrentCoords] = React.useState<Object>(null)
   const canCalculateBenefits = !!(
     speciesData
     && crownLightExposureCategory
@@ -77,10 +77,10 @@ useEffect(() => {
      const location = await Location.getCurrentPositionAsync({});
 
      setLocation(location);
-     console.log(location);
      setCurrentCoords({
        latitude: location.coords.latitude,
        longitude: location.coords.longitude,
+
        //grand canyon
        // latitude: 36.2368592,
        // longitude:  -112.1914682,
@@ -88,7 +88,7 @@ useEffect(() => {
        // latitude: 40.71427,
        // longitude: -74.00597,
      })
-     console.log(currentCoords);
+     console.log(location)
      const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
      setAddress(readOnlyAddress[0]);
      console.log(address)
@@ -96,9 +96,12 @@ useEffect(() => {
  }, []);
 
   const loadBenefits = async() => {
+    if(address){
       let state = address.region;
-      if(state.length > 2){//state is abbreviated
+      if(state.length > 2){//state is not abbreviated
       state = convertRegion(address.region, 2);
+    }else{
+      setErrorMsg('There is a problem with location services. Try again.');
     }
     console.log(state);
       const url = `${CONFIG.API_TREE_BENEFIT}?`
@@ -127,6 +130,9 @@ useEffect(() => {
           console.log("error with submittion ")
         }
       }
+    }else{
+      constol.log("waiting on position")
+    }
     }
 
 
