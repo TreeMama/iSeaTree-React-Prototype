@@ -80,7 +80,9 @@ useEffect(() => {
      setCurrentCoords({
        latitude: location.coords.latitude,
        longitude: location.coords.longitude,
-
+       //Everett WA
+       //latitude: 47.9789848,
+       //longitude:  -122.2020794,
        //grand canyon
        // latitude: 36.2368592,
        // longitude:  -112.1914682,
@@ -89,6 +91,7 @@ useEffect(() => {
        // longitude: -74.00597,
      })
      console.log(location)
+     console.log(currentCoords)
      const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
      setAddress(readOnlyAddress[0]);
      console.log(address)
@@ -131,7 +134,7 @@ useEffect(() => {
         }
       }
     }else{
-      constol.log("waiting on position")
+      console.log("waiting on position")
     }
     }
 

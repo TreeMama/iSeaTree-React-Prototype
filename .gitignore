@@ -17,3 +17,6 @@ envVariables.ts
 .vscode/.react/App.tsx.map
 .vscode/launch.json
 .vscode/.react/src%5CApp.tsx.bundle
+
+# webStorm ide
+.idea/*
