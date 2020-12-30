@@ -104,9 +104,8 @@ useEffect(() => {
       if(state.length > 2){//state is not abbreviated
       state = convertRegion(address.region, 2);
     }else{
-      setErrorMsg('There is a problem with location services. Try again.');
+      this.forceUpdate();
     }
-    console.log(state);
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
       + `NationFullName=${address.country}&`
