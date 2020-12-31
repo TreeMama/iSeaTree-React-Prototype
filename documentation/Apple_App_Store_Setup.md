@@ -1,4 +1,4 @@
-### One-time setup on your Apple developer account
+# One-time setup on your Apple developer account
 
 Create an app-specific password in developer account, if you want. Hal tried but the Expo build tools weren't 
 able to authenticate using the app-specific password.

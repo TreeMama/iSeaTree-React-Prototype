@@ -6,6 +6,8 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
 * [Setting up your development environment](#Development) 
 * [Interacting with the iOS Simulator](#Interacting-with-the-iOS-Simulator)
 * [App store release instructions](documentation/Release_Instructions.md)
+* [iSeaTree community forum](https://treemama.org/forum/)
+* [iSeaTree data dashboard](https://treemama.org/365-days-of-trees/dashboard/)
 * One-time setup items:
     - [Firebase](documentation/Firebase_Setup.md)
     - [Apple App Store](documentation/Apple_App_Store_Setup.md)
