@@ -24,7 +24,7 @@ All feature and bugfix work is done in feature branches, branching from `develop
 Code reviews are not required, but pull requests _are_ required. You can approve your own PR, or you can tag another team
 member to review it if you like.
 
- The `master` branch is where all releases are built from. __You will not do any work in `master` unless you are deploying a release
+ The `master` branch is where all releases are built from. __You will not touch the `master` branch at all unless you are deploying a release
 to an app store.__ Update the version number and build number directly
 in the `master` branch, just before release. Do not commit directly to `master`, except for edits of `app.json`
 that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `master` from `develop`.
@@ -46,7 +46,7 @@ that update `version`, `versionCode`, and `bundleNumber`. Merge all other change
     - After your pull request has been merged, you can delete your
     feature branch, both on the Github server and in your local repository.
 
-## Development
+## Development toolkit
 
 This project uses [Expo](https://expo.io). Here is a guide how to [get
 started with
@@ -58,7 +58,7 @@ or for submission to the Android or Apple app store.
 
 You do not need Xcode or Android Studio to work on this project.
 
-### Prerequisites
+### Tookit prerequisites
 
 - Nodejs v12.16.1 or later. You can download a prebuilt Nodejs installer from [https://nodejs.org/](https://nodejs.org/en/).
 - [yarn v1.19.1](https://yarnpkg.com). Install Yarn with `npm install --global yarn`, or perhaps `sudo npm install --global yarn`.
@@ -78,9 +78,9 @@ This sets up Yarn for the iSeaTree project directory.
 
 Note: you'll probably have to run `yarn install` after a git pull, if the updated code has added React libraries or changed library versions.
 
-### Secrets
+### Source Code Secrets
 
-`envVariables.ts` file holds all secret keys (api keys etc). It should
+`envVariables.ts` file holds all secret keys (api keys etc) associated with the iSeaTree project. It should
 never be commited to a Git repository. Before launching iSeaTree
 for the first time in your development environment, get a copy of the
 Development `envVariables.ts` from an iSeaTree project administrator.
@@ -116,7 +116,7 @@ This project has configured [Eslint](https://eslint.org/) with recommended types
 
 ## Interacting with the iOS Simulator
 
-When Expo commands touch the Simulator, the commands will work with the most
+When Expo commands touch the iOS Simulator, the commands will work with the most
 recently launched instance, even if that's not the instance you last
 used yourself.
 
@@ -128,7 +128,7 @@ hopefully including iSeaTree. iPad
 simulators show the app in full-screen mode. This is misleading,
 because the native build comes up in 1x letterboxed mode.
 
-To obtain a native build for the Simulator, use `expo build:ios` (you'll first need to establish a free Expo account). At the
+To obtain a standalone native build for the Simulator, use `expo build:ios` (you'll first need to establish a free Expo account). At the
 prompt, select "simulator". This will launch a build in the Expo
 build queue, and eventually return the URL of a downloadtable .tar
 file. Expand the .tar file and you'll see the iSeaTree app, marked as
