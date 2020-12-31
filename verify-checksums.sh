@@ -22,5 +22,5 @@ if shasum -s -a 512 --check checksum-prod.txt; then
     exit 0
 fi
 
-echo "Your copy of $CONFIG_FILE is out of date. Please obtain the current version from a project administrator."
+echo "Your copy of $CONFIG_FILE is out of date. Please obtain the current version from an iSeaTree project administrator."
 exit 1

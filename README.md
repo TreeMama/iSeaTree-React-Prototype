@@ -102,10 +102,11 @@ to load iSeaTree into an emulator.
 ```bash
 ./verify-checksums.sh
 ```
-will check to see whether you have `envVariables.ts` in the right place, and whether it is the current version. 
+will check to see whether you have `envVariables.ts` in the right place, and whether it is the current production or development version or something else. 
 
-For project administrators: when you update `envVariables.ts`, execute the 
-command `shasum -a 512 envVariables.ts > checksums.txt` and commit `checksums.txt` to the repository.
+For project administrators: when you update `envVariables.ts`:
+* For the production version, execute the command `shasum -a 512 envVariables.ts > checksum-prod.txt` and commit `checksum-prod.txt` to the repository.
+* For the development version, execute the command `shasum -a 512 envVariables.ts > checksum-dev.txt` and commit `checksum-dev.txt` to the repository.
 
 ## Linting
 
