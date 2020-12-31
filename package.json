@@ -1,6 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "prestart": "./verify-checksums.sh",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",

@@ -64,9 +64,11 @@ This project uses [Expo](https://expo.io). Here is a guide how to [get started w
 
 ### Prerequisites
 
-- node v12.16.1
-- [yarn v1.19.1](https://yarnpkg.com)
-- [expo-cli v3.16](https://www.npmjs.com/package/expo-cli)
+- Nodejs v12.16.1 or later. You can download a prebuilt Nodejs installer from [https://nodejs.org/](https://nodejs.org/en/).
+- [yarn v1.19.1](https://yarnpkg.com). Install Yarn with `npm install --global yarn`, or perhaps `sudo npm install --global yarn`.
+- [expo-cli v3.16](https://www.npmjs.com/package/expo-cli). Install Expo with `npm install --global expo-cli`, or perhaps `sudo npm install --global expo-cli`.
+
+This is a one-time setup for each computer you'll do Yarn/Expo development on.
 
 ### Installation
 
@@ -76,14 +78,22 @@ From the project's root directory run:
 yarn install
 ```
 
+This sets up Yarn for the iSeaTree project directory.
+
+Note: you'll probably have to run `yarn install` after a git pull, if the updated code has added React libraries or changed library versions.
+
 ### Running
 
 ```bash
 yarn start
 ```
 
-Note: you'll probably have to run `yarn install` after a git pull, if the updated code has added React libraries or changed library versions.
+This launches a webserver on your computer and loads the source code for the project. Then you'll scan the displayed 
+QR code with your iOS or Android device, which will load an interpreted version of the project from the local 
+webserver into the Expo app on your device. 
 
+If you have Android Studio or Xcode installed on your computer, You can also use the `a` or `i` commands within Yarn
+to load iSeaTree into an emulator.
 
 ### Secrets
 
@@ -95,13 +105,16 @@ Note: you'll probably have to run `yarn install` after a git pull, if the update
 will check to see whether you have `envVariables.ts` in the right place, and whether it is the current version. 
 
 For project administrators: when you update `envVariables.ts`, execute the 
-command `shasum -p -a 512 envVariables.ts > checksums.txt` and commit `checksums.txt` to the repository.
+command `shasum -a 512 envVariables.ts > checksums.txt` and commit `checksums.txt` to the repository.
 
 ## Linting
 
 This project has configured [Eslint](https://eslint.org/) with recommended typescript and react rules.
 
-## Firebase - Setup
+### Firebase - Setup
+
+This work has already been done for the project. You do not need to set up Firebase again. Instructions are included for 
+reference.
 
 1. Go to the https://console.firebase.google.com and create new project
 2. Click `Database` in the left side panel and create `Firestore`(!) Database
