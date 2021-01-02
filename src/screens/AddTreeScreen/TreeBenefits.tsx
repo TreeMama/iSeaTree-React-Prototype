@@ -92,8 +92,6 @@ useEffect(() => {
        // latitude: 40.71427,
        // longitude: -74.00597,
      })
-
-   console.log(location);
    })();
  }, []);
 useEffect(() =>{
@@ -104,6 +102,7 @@ useEffect(() =>{
     setAddress(readOnlyAddress[0]);
   })();
 }, [currentCoords])
+
   const loadBenefits = async() => {
 
     // checks to see if the address has been calculated
@@ -144,7 +143,7 @@ useEffect(() =>{
         }
       }
     }
-
+  }
 
   const getBenefit = (benefitName: string) => {
     if (benefits && benefits.CO2Benefits) {
