@@ -90,22 +90,24 @@ useEffect(() => {
        // latitude: 40.71427,
        // longitude: -74.00597,
      })
-     console.log(location)
-     console.log(currentCoords)
-     const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
-     setAddress(readOnlyAddress[0]);
-     console.log(address)
+
+   console.log(location);
    })();
  }, []);
-
+useEffect(() =>{
+  if(!currentCoords) return
+  (async () => {
+    //const location = await Location.getCurrentPositionAsync({});
+    const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
+    setAddress(readOnlyAddress[0]);
+  })();
+}, [currentCoords])
   const loadBenefits = async() => {
-    if(address){
+    // checks to see if the address has been calculated
+    if(!address) return;
       let state = address.region;
-      if(state.length > 2){//state is not abbreviated
-      state = convertRegion(address.region, 2);
-    }else{
-      this.forceUpdate();
-    }
+      //checks to see fit the state name needs to be abbrevated
+      if(state.length > 2){  state = convertRegion(address.region, 2);}
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
       + `NationFullName=${address.country}&`
@@ -132,9 +134,6 @@ useEffect(() => {
           console.log("error with submittion ")
         }
       }
-    }else{
-      console.log("waiting on position")
-    }
     }
 
 
