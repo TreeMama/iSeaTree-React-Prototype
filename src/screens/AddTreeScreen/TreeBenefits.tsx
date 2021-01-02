@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 import axios from 'axios';
 import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
+import * as Location from 'expo-location'
+import * as Premmissions from 'expo-premmissions'
+
 import { Banner, Text, Headline, Button } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { Benefit, RootObject } from './TreeBenefitResponse';
+import { convertRegion } from './geoHelper'
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
@@ -51,7 +55,10 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const [, setFormattedResponse] = React.useState("")
   const { values } = props;
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
-
+  const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
+  const [location, setLocation ] = React.useState<Object>(null)
+  const [address, setAddress ] = React.useState<Object>(null);
+  const [currentCoords, setCurrentCoords] = React.useState<Object>(null)
   const canCalculateBenefits = !!(
     speciesData
     && speciesData.TYPE.toLowerCase() !== "unknown"
@@ -60,14 +67,59 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     && dbh !== "0"
     && treeConditionCategory);
 
+// Todo add devices location to API_TREE_BENEFIT
+useEffect(() => {
+
+   (async () => {
+     let { status } = await Location.requestPermissionsAsync();
+     if (status !== 'granted') {
+       setErrorMsg('Permission to access location was denied');
+       return;
+     }
+     const location = await Location.getCurrentPositionAsync({});
+
+     setLocation(location);
+     setCurrentCoords({
+       latitude: location.coords.latitude,
+       longitude: location.coords.longitude,
+       //Everett WA
+       //latitude: 47.9789848,
+       //longitude:  -122.2020794,
+       //grand canyon
+       // latitude: 36.2368592,
+       // longitude:  -112.1914682,
+       //nyc
+       // latitude: 40.71427,
+       // longitude: -74.00597,
+     })
+
+   console.log(location);
+   })();
+ }, []);
+useEffect(() =>{
+  if(!currentCoords) return
+  (async () => {
+    //const location = await Location.getCurrentPositionAsync({});
+    const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
+    setAddress(readOnlyAddress[0]);
+  })();
+}, [currentCoords])
   const loadBenefits = async() => {
+
+    // checks to see if the address has been calculated
+    if(!address) return;
+      let state = address.region;
+      //checks to see fit the state name needs to be abbrevated
+      if(state.length > 2){  state = convertRegion(address.region, 2);}
+
     if (canCalculateBenefits) {
+
       const url = `${CONFIG.API_TREE_BENEFIT}?`
       + `key=${CONFIG.ITREE_KEY}&`
-      + `NationFullName=${CONFIG.NATION}&`
-      + `StateAbbr=${CONFIG.STATE}&`
-      + `CountyName=${CONFIG.COUNTYNAME}&`
-      + `CityName=${CONFIG.CITYNAME}&`
+      + `NationFullName=${address.country}&`
+      + `StateAbbr=${state}&`
+      + `CountyName=${address.subregion}&`
+      + `CityName=${address.city}&`
       + `Species=${speciesData.ITREECODE}&`
       + `DBHInch=${dbh}&`
       + `condition=${treeConditionCategory}&`
@@ -92,7 +144,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
         }
       }
     }
-  }
+
 
   const getBenefit = (benefitName: string) => {
     if (benefits && benefits.CO2Benefits) {
@@ -139,7 +191,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   }
 
   return (
-    <>
+<>
       <Button
         mode="outlined"
         onPress={loadBenefits}
