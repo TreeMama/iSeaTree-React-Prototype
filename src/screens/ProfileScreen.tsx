@@ -103,7 +103,13 @@ export function ProfileScreen() {
     }
     return badges
   }
+  function addTreeCount(){
+    if(userData?.treesCount == undefined){
+      return 'You haven\'t added any trees yet.'
+    }
+    return userData?.treesCount;
 
+  }
   return (
     <>
       <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -168,6 +174,9 @@ export function ProfileScreen() {
                 </View>
                 <Divider style={{ width: '100%' }} />
 
+                <Headline>Trees recorded</Headline>
+                <Text>{ addTreeCount() }</Text>
+                
                 <Headline style={{ marginTop: 20 }}>Your badges</Headline>
 
                 <View
@@ -180,6 +189,9 @@ export function ProfileScreen() {
                 >
                   {addBadges()}
                 </View>
+
+
+
               </View>
             </View>
           </ScrollView>
