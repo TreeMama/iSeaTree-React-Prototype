@@ -238,7 +238,7 @@ useEffect(() =>{
               <View>
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value</Text>
+                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value (Yearly)</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -249,7 +249,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered</Text>
+                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered (Yearly)</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -260,7 +260,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value</Text>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value (Yearly)</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -271,7 +271,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume</Text>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume (Yearly)</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -279,6 +279,19 @@ useEffect(() =>{
                     </Text>
                   </View>
                 </View>
+                
+                {/* NEED HELP FETCHING CORRECT VALUES */}
+                
+                {/* <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Value (Yearly)</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CORemoved")}
+                    </Text>
+                  </View>
+                </View> */}
 
               </View>
 
