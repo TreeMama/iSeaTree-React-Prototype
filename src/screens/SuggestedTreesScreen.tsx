@@ -11,7 +11,6 @@ import {
 import { Text, Badge, Title, useTheme } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-
 import { suggestedTrees, SuggestedTreeData } from '../../data/suggestedTrees'
 import { colors } from '../styles/theme'
 import { StatusBar } from '../components/StatusBar'
@@ -39,7 +38,7 @@ function getBadgeColor(level: string) {
   }
 }
 
-export function SuggestedTreesScreen() {
+export function SuggestedTreesScreen(props) {
   const theme = useTheme()
 
   const initialSuggestedTreeData = suggestedTrees[0]
@@ -55,6 +54,16 @@ export function SuggestedTreesScreen() {
     setSliderWidth(Dimensions.get('screen').width)
   }
 
+  // set the suggestedTrees data after navigate from map screen
+  async function getTreeIndex() {
+    const { params } = props.route;
+
+    if(params !== undefined) {
+      const treeIndex = parseInt(params.showIndex)
+      setCurrentSuggestedTreeData(suggestedTrees[treeIndex])
+    }
+  }
+
   React.useEffect(() => {
     if (!sliderRef.current) {
       return
@@ -62,6 +71,14 @@ export function SuggestedTreesScreen() {
 
     sliderRef.current.scrollTo({ x: 0, animated: true })
   }, [currentSuggestedTreeData.name])
+
+  React.useEffect(() => {
+    props.navigation.addListener('focus', getTreeIndex);
+
+    return () => {
+      props.navigation.removeListener('focus', getTreeIndex)
+    }
+  })
 
   React.useEffect(() => {
     Dimensions.addEventListener('change', handleOrientationChange)
