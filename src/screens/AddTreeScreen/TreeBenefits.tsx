@@ -150,8 +150,21 @@ useEffect(() =>{
         let stringValue = ""
         let unit = ""
         switch (benefitName) {
-          case "CORemoved": {
-            stringValue = benefits.AirQualityBenefit.CORemovedValue._text;
+          case "AirPollutionRemoved": {
+            stringValue = parseFloat(benefits.AirQualityBenefit.CORemoved._text)
+                        + parseFloat(benefits.AirQualityBenefit.NO2Removed._text)
+                        + parseFloat(benefits.AirQualityBenefit.SO2Removed._text)
+                        + parseFloat(benefits.AirQualityBenefit.O3Removed._text)
+                        + parseFloat(benefits.AirQualityBenefit.PM25Removed._text);
+            unit = "lbs";
+            break;
+          }
+          case "AirPollutionRemovedValue": {
+            stringValue = parseFloat(benefits.AirQualityBenefit.CORemovedValue._text)
+                        + parseFloat(benefits.AirQualityBenefit.NO2RemovedValue._text)
+                        + parseFloat(benefits.AirQualityBenefit.SO2RemovedValue._text)
+                        + parseFloat(benefits.AirQualityBenefit.O3RemovedValue._text)
+                        + parseFloat(benefits.AirQualityBenefit.PM25RemovedValue._text);
             unit = benefits.AirQualityBenefit.CORemovedValue._attributes.Unit;
             break;
           }
@@ -171,7 +184,6 @@ useEffect(() =>{
             const gallons = cubic * CUBIC_GALLONS_FACTOR;
             unit = "gal";
             return(`${gallons.toFixed(2)} ${unit}`);
-            break;
           }
           case "RunoffAvoidedValue": {
             stringValue = benefits.HydroBenefit.RunoffAvoidedValue._text;
@@ -280,18 +292,27 @@ useEffect(() =>{
                   </View>
                 </View>
                 
-                {/* NEED HELP FETCHING CORRECT VALUES */}
-                
-                {/* <View style={[styles.tableRow, styles.tableRowHeader]}>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
                     <Text style={styles.headerTitleStyle}>Air Pollution Removed Value (Yearly)</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
-                      {getBenefit("CORemoved")}
+                      {getBenefit("AirPollutionRemovedValue")}
                     </Text>
                   </View>
-                </View> */}
+                </View>
+
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Volume (Yearly)</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("AirPollutionRemoved")}
+                    </Text>
+                  </View>
+                </View>
 
               </View>
 
