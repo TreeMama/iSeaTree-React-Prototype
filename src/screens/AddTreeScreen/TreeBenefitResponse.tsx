@@ -52,6 +52,7 @@ export interface Carbon {
 }
 export interface OutputInformation {
     Benefit: Benefit
+    Carbon: Carbon
 }
 export interface Result {
     OutputInformation: OutputInformation
