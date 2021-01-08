@@ -9,7 +9,7 @@ import { Banner, Text, Headline, Button } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
-import { Benefit, RootObject } from './TreeBenefitResponse';
+import { OutputInformation, RootObject } from './TreeBenefitResponse';
 import { convertRegion } from './geoHelper'
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
@@ -46,11 +46,17 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 14,
   },
+  sectionHeaderStyle: {
+    fontWeight: 'bold',
+    color: '#2F855A',
+    fontSize: 16,
+    marginBottom: -10,
+  },
 })
 
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
-  const [benefits, setBenefits] = React.useState<Benefit>()
+  const [benefits, setBenefits] = React.useState<OutputInformation>()
   const [benefitsError, setBenefitsError] = React.useState("")
   const [, setFormattedResponse] = React.useState("")
   const { values } = props;
@@ -136,7 +142,7 @@ useEffect(() =>{
           if(Object.keys(err).length > 0){
             setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this species.");
           } else {
-            setBenefits(root.Result.OutputInformation.Benefit);
+            setBenefits(root.Result.OutputInformation);
           }
             setIsModalVisible(true);
             setFormattedResponse(formattedResponse);
@@ -146,48 +152,60 @@ useEffect(() =>{
   }
 
   const getBenefit = (benefitName: string) => {
-    if (benefits && benefits.CO2Benefits) {
+    if (benefits && benefits.Benefit) {
         let stringValue = ""
         let unit = ""
         switch (benefitName) {
           case "AirPollutionRemoved": {
-            stringValue = parseFloat(benefits.AirQualityBenefit.CORemoved._text)
-                        + parseFloat(benefits.AirQualityBenefit.NO2Removed._text)
-                        + parseFloat(benefits.AirQualityBenefit.SO2Removed._text)
-                        + parseFloat(benefits.AirQualityBenefit.O3Removed._text)
-                        + parseFloat(benefits.AirQualityBenefit.PM25Removed._text);
+            const total = parseFloat(benefits.Benefit.AirQualityBenefit.CORemoved._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.NO2Removed._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.SO2Removed._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.O3Removed._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.PM25Removed._text);
+            stringValue = total.toString();
             unit = "lbs";
             break;
           }
           case "AirPollutionRemovedValue": {
-            stringValue = parseFloat(benefits.AirQualityBenefit.CORemovedValue._text)
-                        + parseFloat(benefits.AirQualityBenefit.NO2RemovedValue._text)
-                        + parseFloat(benefits.AirQualityBenefit.SO2RemovedValue._text)
-                        + parseFloat(benefits.AirQualityBenefit.O3RemovedValue._text)
-                        + parseFloat(benefits.AirQualityBenefit.PM25RemovedValue._text);
-            unit = benefits.AirQualityBenefit.CORemovedValue._attributes.Unit;
+            const total = parseFloat(benefits.Benefit.AirQualityBenefit.CORemovedValue._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.NO2RemovedValue._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.SO2RemovedValue._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.O3RemovedValue._text)
+                        + parseFloat(benefits.Benefit.AirQualityBenefit.PM25RemovedValue._text);
+            stringValue = total.toString();
+            unit = benefits.Benefit.AirQualityBenefit.CORemovedValue._attributes.Unit;
             break;
           }
           case "CO2Sequestered": {
-            stringValue = benefits.CO2Benefits.CO2Sequestered._text;
+            stringValue = benefits.Benefit.CO2Benefits.CO2Sequestered._text;
             unit = "lbs";
             break;
           }
           case "CO2SequesteredValue": {
-            stringValue = benefits.CO2Benefits.CO2SequesteredValue._text;
-            unit = benefits.CO2Benefits.CO2SequesteredValue._attributes.Unit;
+            stringValue = benefits.Benefit.CO2Benefits.CO2SequesteredValue._text;
+            unit = benefits.Benefit.CO2Benefits.CO2SequesteredValue._attributes.Unit;
             break;
           }
           case "RunoffAvoided": {
-            stringValue = benefits.HydroBenefit.RunoffAvoided._text;
+            stringValue = benefits.Benefit.HydroBenefit.RunoffAvoided._text;
             const cubic = parseFloat(stringValue);
             const gallons = cubic * CUBIC_GALLONS_FACTOR;
             unit = "gal";
             return(`${gallons.toFixed(2)} ${unit}`);
           }
           case "RunoffAvoidedValue": {
-            stringValue = benefits.HydroBenefit.RunoffAvoidedValue._text;
-            unit = benefits.HydroBenefit.RunoffAvoidedValue._attributes.Unit;
+            stringValue = benefits.Benefit.HydroBenefit.RunoffAvoidedValue._text;
+            unit = benefits.Benefit.HydroBenefit.RunoffAvoidedValue._attributes.Unit;
+            break;
+          }
+          case "CO2Storage": {
+            stringValue = benefits.Carbon.CarbonDioxideStorage._text;
+            unit = "lbs";
+            break;
+          }
+          case "CO2StorageValue": {
+            stringValue = benefits.Carbon.CarbonDioxideStorageValue._text;
+            unit = benefits.Carbon.CarbonDioxideStorageValue._attributes.Unit;
             break;
           }
         }
@@ -250,7 +268,13 @@ useEffect(() =>{
               <View>
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value (Yearly)</Text>
+                    <Text style={styles.sectionHeaderStyle}>Annual:</Text>
+                  </View>
+                </View>
+
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -261,7 +285,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered (Yearly)</Text>
+                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -272,7 +296,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value (Yearly)</Text>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -283,7 +307,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume (Yearly)</Text>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -294,7 +318,7 @@ useEffect(() =>{
                 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Value (Yearly)</Text>
+                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -305,11 +329,39 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Volume (Yearly)</Text>
+                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Volume</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
                       {getBenefit("AirPollutionRemoved")}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.sectionHeaderStyle}>To Date:</Text>
+                  </View>
+                </View>
+
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Total Carbon Dioxide (CO²) Storage Value</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2StorageValue")}
+                    </Text>
+                  </View>
+                </View>
+
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Total Carbon Dioxide (CO²) Storage</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2Storage")}
                     </Text>
                   </View>
                 </View>
