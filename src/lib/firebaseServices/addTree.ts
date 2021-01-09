@@ -31,6 +31,14 @@ export interface TreeData {
   applicationVersion: string | null
   BuildVersion: string | null
   brand: string | null
+  AirPollutionRemoved: string | null
+  AirPollutionRemovedValue: string | null
+  CO2Sequestered: string | null
+  CO2SequesteredValue: string | null
+  RunoffAvoided: string | null
+  RunoffAvoidedValue: string | null
+  CO2Storage: string | null
+  CO2StorageValue: string | null
 }
 
 const TREES_COLLECTION = 'trees'

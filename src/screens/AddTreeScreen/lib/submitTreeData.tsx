@@ -7,6 +7,22 @@ import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
 import { TreeValidationTypes } from '../../../lib/treeData'
+import { AsyncStorage } from 'react-native'
+
+async function getItem(item: string) {
+  try {
+    const value = await AsyncStorage.getItem(item);
+    if (value !== null) {
+      console.log(item, value);
+      return value;
+    } else {
+      return 'NULL';
+    }
+  } catch (error) {
+    // Error retrieving data
+    return 'NULL';
+  }
+}
 
 export async function submitTreeData(formValues: FormValues): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
@@ -16,6 +32,15 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
   }
 
   const userData = await getUser(authUser.uid)
+
+  const AirPollutionRemoved = await getItem('AirPollutionRemoved')
+  const AirPollutionRemovedValue = await getItem('AirPollutionRemovedValue')
+  const CO2Sequestered = await getItem('CO2Sequestered')
+  const CO2SequesteredValue = await getItem('CO2SequesteredValue')
+  const RunoffAvoided = await getItem('RunoffAvoided')
+  const RunoffAvoidedValue = await getItem('RunoffAvoidedValue')
+  const CO2Storage = await getItem('CO2Storage')
+  const CO2StorageValue = await getItem('CO2StorageValue')
 
   if (
     !formValues.photo ||
@@ -67,7 +92,15 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     os_name: Device.osName,
     os_version: Device.osVersion,
     applicationVersion: Application.nativeApplicationVersion,
-    BuildVersion: Application.nativeBuildVersion
+    BuildVersion: Application.nativeBuildVersion,
+    AirPollutionRemoved,
+    AirPollutionRemovedValue,
+    CO2Sequestered,
+    CO2SequesteredValue,
+    RunoffAvoided,
+    RunoffAvoidedValue,
+    CO2Storage,
+    CO2StorageValue
   }
   addTree(treeData)
 

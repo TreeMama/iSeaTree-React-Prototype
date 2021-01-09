@@ -10,7 +10,8 @@ import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { OutputInformation, RootObject } from './TreeBenefitResponse';
-import { convertRegion } from './geoHelper'
+import { convertRegion } from './geoHelper';
+import { AsyncStorage } from 'react-native';
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
@@ -215,6 +216,8 @@ useEffect(() =>{
         if (isUnitPrefix) {
           display =  `${unit}${decimal.toFixed(2)}`;
         }
+        console.log(benefitName, display);
+        AsyncStorage.setItem(benefitName, display.toString());
         return display;
     }
   }
