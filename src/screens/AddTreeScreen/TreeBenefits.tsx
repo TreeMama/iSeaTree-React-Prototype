@@ -55,6 +55,21 @@ const styles = StyleSheet.create({
   },
 })
 
+async function setItem(key: string, stringValue: string, unit: string) {
+  const decimal = parseFloat(stringValue);
+  const isUnitPrefix = (unit === "$")
+  let display =  `${decimal.toFixed(2)} ${unit}`;
+  if (Number.isNaN(decimal)) {
+    display = stringValue;
+  } else if (isUnitPrefix) {
+    display =  `${unit}${decimal.toFixed(2)}`;
+  } else if (unit === "") {
+    display = `${decimal.toFixed(2)}`;
+  }
+  console.log(key, display);
+  await AsyncStorage.setItem(key, display.toString());
+}
+
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const [benefits, setBenefits] = React.useState<OutputInformation>()
@@ -143,6 +158,44 @@ useEffect(() =>{
           if(Object.keys(err).length > 0){
             setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this species.");
           } else {
+            const inputInformation = root.Result.InputInformation;
+            setItem('NationFullName', inputInformation.Location.NationFullName._text, '');
+            setItem('StateAbbr', inputInformation.Location.StateAbbr._text, '');
+            setItem('CountyName', inputInformation.Location.CountyName._text, '');
+            setItem('CityName', inputInformation.Location.CityName._text, '');
+
+            setItem('CalculatedCrownHeightMeter', inputInformation.Tree.CalculatedCrownHeightMeter._text, '');
+            setItem('CalculatedCrownWidthMeter', inputInformation.Tree.CalculatedCrownWidthMeter._text, '');
+
+            const outputInformation = root.Result.OutputInformation;
+
+            setItem('RunoffAvoided', outputInformation.Benefit.HydroBenefit.RunoffAvoided._text, '');
+            setItem('RunoffAvoidedValue', outputInformation.Benefit.HydroBenefit.RunoffAvoidedValue._text, '$');
+            setItem('Interception', outputInformation.Benefit.HydroBenefit.Interception._text, '');
+            setItem('PotentialEvaporation', outputInformation.Benefit.HydroBenefit.PotentialEvaporation._text, '');
+            setItem('PotentialEvapotranspiration', outputInformation.Benefit.HydroBenefit.PotentialEvapotranspiration._text, '');
+            setItem('Evaporation', outputInformation.Benefit.HydroBenefit.Evaporation._text, '');
+            setItem('Transpiration', outputInformation.Benefit.HydroBenefit.Transpiration._text, '');
+
+            setItem('CORemoved', outputInformation.Benefit.AirQualityBenefit.CORemoved._text, 'lb');
+            setItem('CORemovedValue', outputInformation.Benefit.AirQualityBenefit.CORemovedValue._text, '$');
+            setItem('NO2Removed', outputInformation.Benefit.AirQualityBenefit.NO2Removed._text, 'lb');
+            setItem('NO2RemovedValue', outputInformation.Benefit.AirQualityBenefit.NO2RemovedValue._text, '$');
+            setItem('SO2Removed', outputInformation.Benefit.AirQualityBenefit.SO2Removed._text, 'lb');
+            setItem('SO2RemovedValue', outputInformation.Benefit.AirQualityBenefit.SO2RemovedValue._text, '$');
+            setItem('O3Removed', outputInformation.Benefit.AirQualityBenefit.O3Removed._text, 'lb');
+            setItem('O3RemovedValue', outputInformation.Benefit.AirQualityBenefit.O3RemovedValue._text, '$');
+            setItem('PM25Removed', outputInformation.Benefit.AirQualityBenefit.PM25Removed._text, 'lb');
+            setItem('PM25RemovedValue', outputInformation.Benefit.AirQualityBenefit.PM25RemovedValue._text, '$');
+
+            setItem('CO2Sequestered', outputInformation.Benefit.CO2Benefits.CO2Sequestered._text, 'lb');
+            setItem('CO2SequesteredValue', outputInformation.Benefit.CO2Benefits.CO2SequesteredValue._text, '$');
+
+            setItem('CarbonStorage', outputInformation.Carbon.CarbonStorage._text, 'lb');
+            setItem('CarbonDioxideStorage', outputInformation.Carbon.CarbonDioxideStorage._text, 'lb');
+            setItem('CarbonDioxideStorageValue', outputInformation.Carbon.CarbonDioxideStorageValue._text, '$');
+            setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb');
+
             setBenefits(root.Result.OutputInformation);
           }
             setIsModalVisible(true);
@@ -216,8 +269,6 @@ useEffect(() =>{
         if (isUnitPrefix) {
           display =  `${unit}${decimal.toFixed(2)}`;
         }
-        console.log(benefitName, display);
-        AsyncStorage.setItem(benefitName, display.toString());
         return display;
     }
   }

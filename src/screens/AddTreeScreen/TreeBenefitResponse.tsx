@@ -54,8 +54,23 @@ export interface OutputInformation {
     Benefit: Benefit
     Carbon: Carbon
 }
+export interface Location {
+    NationFullName: Value
+    StateAbbr: Value
+    CountyName: Value
+    CityName: Value
+}
+export interface Tree {
+    CalculatedCrownHeightMeter: Value
+    CalculatedCrownWidthMeter: Value
+}
+export interface InputInformation {
+    Location: Location
+    Tree: Tree
+}
 export interface Result {
     OutputInformation: OutputInformation
+    InputInformation: InputInformation
 }
 export interface RootObject {
     Result: Result
