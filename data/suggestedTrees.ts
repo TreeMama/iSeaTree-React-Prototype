@@ -22,7 +22,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Big Leaf Maple',
     level: 'Easy',
-    levelText: 'Easy-level difficulty, abundant within Seattle and the King County region. Native.',
+    levelText: 'Easy-level difficulty.',
     identifiable_attributes: [
       "Large 5-lobed leaves, that span from 6-inches to 12-inches across.",
       "At maturity, the tree can have a rounded crown appearance.",
@@ -45,7 +45,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Blue Atlas Cedar',
     level: 'Medium',
-    levelText: 'Difficulty Level: Medium, Rare in Seattle region. Non-native.',
+    levelText: 'Difficulty Level: Medium',
     identifiable_attributes: [
       'Grows in a large, pyramidal shape.',
       'Has silvery blue to bluish-green needles up to 1½" long that are somewhat stiff but not very sharp.',
@@ -71,7 +71,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Coast Redwood',
     level: 'Easy',
-    levelText: 'Easy-level difficulty, very common in Seattle/King County region. Non-Native.',
+    levelText: 'Easy-level difficulty',
     identifiable_attributes: [
       "Coast redwoods thrive in the wet and shady areas of King County.",
       "They grow in a pyramidal shape, and can be found around the region at heights ranging from 100-150 feet.",
@@ -98,7 +98,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Douglas-Fir (Oregon Pine)',
     level: 'Easy',
-    levelText: 'Easy-level difficulty, very common in Seattle region. Native.',
+    levelText: 'Easy-level difficulty',
     identifiable_attributes: [
       "Mature Douglas-Fir trees are medium-sized to extremely large trees. ",
       "In King County, mature heights range from 160-180 feet. However, trees as tall as 200 feet can be regularly found around the region.",
@@ -127,7 +127,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     name: 'Garry Oak',
     level: 'Easy',
     levelText:
-      'Easy-level difficulty, Rare in Seattle region, but common in other Pacific Northwest areas. Native.',
+      'Easy-level difficulty',
     identifiable_attributes: [
       'Mature trees have a wide spreading crown, and are capable of growing more than 130 feet wide.',
       'Has deeply lobed leaves that are richly green and glossy on the upperside, and paler on the underside.',
@@ -151,7 +151,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Northern Red Oak',
     level: 'Easy',
-    levelText: 'Easy, common in Seattle region. Non-Native.',
+    levelText: 'Easy',
     identifiable_attributes: [
       'Mature trees have a rounded crown, consisting of stout branches.',
       'Has shallow, wavy lobed leaves that have bristle tips (*very different than the White Oak, which has no bristle tips).',
@@ -177,7 +177,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     name: 'Northern White Cedar (Arborvitae)',
     level: 'Medium',
     levelText:
-      'Medium-level difficulty, common in Seattle region - however can be easily mistaken for its native cousin - the Western Red Cedar. Non-Native.',
+      'Medium-level difficulty',
     identifiable_attributes: [
       `Key difference between the Western Red Cedar and the Northern White Cedar is in its size. Western Red Cedar's tend to be much larger (particularly in the Pacific Northwest, where they can grow up to 200 ft tall).`,
       'Leaves are evergreen. The leaves have a pattern of flat and filigree sprays made up of many tiny, scaly leaves.',
@@ -202,7 +202,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Scotch Pine',
     level: 'Medium',
-    levelText: 'Medium-difficulty, common in Seattle region. Native to Eurasia.',
+    levelText: 'Medium-difficulty',
     identifiable_attributes: [
       "Bark color is yellow-orange, similar to the Japanese Red Pine's. Bark is flaky, and has a peeling characteristic to it.",
       "Needle foliage color ranges from gray-green to bluish-green. 1-4 inches in length.",
@@ -232,7 +232,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Shagbark Hickory',
     level: 'Easy',
-    levelText: 'Easy, very rare in Seattle region. Non-Native.',
+    levelText: 'Easy',
     identifiable_attributes: [
       'The compound leaves generally have 5 leaflets (and occasionally 3 or 7 leaflets) that are about 8-14" long (see picture).',
       'The leaf color is yellow-green, that turns a vivid golden yellow in the fall.',
@@ -260,7 +260,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Vine Maple',
     level: 'Easy',
-    levelText: 'Easy-level difficulty, abundant within Seattle and the King County region. Native.',
+    levelText: 'Easy-level difficulty',
     identifiable_attributes: [
       "A multi-stemmed tree, that usually has a 'shrub' like appearance to it.",
       "At times can reach heights of 60 feet (in urban King County, usually 20-40 feet). ",
@@ -288,7 +288,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     ],
     name: 'Western Red Cedar (Giant Arborvitae)',
     level: 'Medium',
-    levelText: 'Medium, very common in Seattle region. Native.',
+    levelText: 'Medium',
     identifiable_attributes: [
       `The evergreen leaves are flat foliage sprays. The sprays are tiny, pointed and scalelike. Occassionally you can see white marks on the underside of the sprays.`,
       'The leaf color is green to yellow-green.',
