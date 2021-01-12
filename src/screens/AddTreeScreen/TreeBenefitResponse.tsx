@@ -61,6 +61,7 @@ export interface Location {
     CityName: Value
 }
 export interface Tree {
+    CalculatedHeightMeter: Value
     CalculatedCrownHeightMeter: Value
     CalculatedCrownWidthMeter: Value
 }
@@ -69,6 +70,7 @@ export interface InputInformation {
     Tree: Tree
 }
 export interface Result {
+    Error: any;
     OutputInformation: OutputInformation
     InputInformation: InputInformation
 }

@@ -35,6 +35,7 @@ export interface TreeData {
   StateAbbr: string | null
   CountyName: string | null
   CityName: string | null
+  CalculatedHeightMeter: string | null
   CalculatedCrownHeightMeter: string | null
   CalculatedCrownWidthMeter: string | null
   RunoffAvoided: string | null
