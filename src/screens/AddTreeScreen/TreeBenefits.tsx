@@ -125,8 +125,37 @@ useEffect(() =>{
   })();
 }, [currentCoords])
 
+useEffect(() => {
+    (async function () {
+      console.log('speciesData +++', speciesData);
+      await loadBenefits();
+    })();
+  }, [speciesData])
+
+useEffect(() => {
+  (async function () {
+    console.log('crownLightExposureCategory +++', crownLightExposureCategory);
+    await loadBenefits();
+  })();
+}, [crownLightExposureCategory])
+
+useEffect(() => {
+  (async function () {
+    console.log('dbh +++', dbh);
+    await loadBenefits();
+  })();
+}, [dbh])
+
+useEffect(() => {
+  (async function() {
+    console.log('treeConditionCategory +++', treeConditionCategory);
+    await loadBenefits();
+  })();
+}, [treeConditionCategory])
+
   const loadBenefits = async() => {
     if (canCalculateBenefits) {
+      console.log('iSeaTreeApi called +++');
       // checks to see if the address has been calculated
       if(!address) return;
       let state = address.region;
@@ -135,18 +164,18 @@ useEffect(() =>{
 
       if (canCalculateBenefits) {
         const url = `${CONFIG.API_TREE_BENEFIT}?`
-        + `key=${CONFIG.ITREE_KEY}&`
-        + `NationFullName=United+States+of+America&`
-        + `StateAbbr=WA&`
-        + `CountyName=King&`
-        + `CityName=Seattle&`
-        + `Species=${speciesData.ITREECODE}&`
-        + `DBHInch=${dbh}&`
-        + `condition=${treeConditionCategory}&`
-        + `CLE=${crownLightExposureCategory}&`
-        + `TreeHeightMeter=-1&`
-        + `TreeCrownWidthMeter=-1&`
-        + `TreeCrownHeightMeter=-1&`;
+          + `key=${CONFIG.ITREE_KEY}&`
+          + `NationFullName=${address.country}&`
+          + `StateAbbr=${state}&`
+          + `CountyName=${address.subregion}&`
+          + `CityName=${address.city}&`
+          + `Species=${speciesData.ITREECODE}&`
+          + `DBHInch=${dbh}&`
+          + `condition=${treeConditionCategory}&`
+          + `CLE=${crownLightExposureCategory}&`
+          + `TreeHeightMeter=-1&`
+          + `TreeCrownWidthMeter=-1&`
+          + `TreeCrownHeightMeter=-1&`;
 
         const response = await axios.get(url);
         if (response.data) {
@@ -203,6 +232,8 @@ useEffect(() =>{
           }
         }
       }
+    } else {
+      console.log('iSeaTreeApi not called ---');
     }
   }
 
