@@ -37,6 +37,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
   const StateAbbr= await getItem('StateAbbr')
   const CountyName= await getItem('CountyName')
   const CityName = await getItem('CityName')
+  const CalculatedHeightMeter = await getItem('CalculatedHeightMeter')
   const CalculatedCrownHeightMeter = await getItem('CalculatedCrownHeightMeter')
   const CalculatedCrownWidthMeter = await getItem('CalculatedCrownWidthMeter')
   const RunoffAvoided = await getItem('RunoffAvoided')
@@ -118,6 +119,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     StateAbbr,
     CountyName,
     CityName,
+    CalculatedHeightMeter,
     CalculatedCrownHeightMeter,
     CalculatedCrownWidthMeter,
     RunoffAvoided,
