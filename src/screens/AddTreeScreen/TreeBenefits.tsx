@@ -2,8 +2,8 @@ import React, { useState, useEffect} from 'react'
 import axios from 'axios';
 import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet } from 'react-native'
-import * as Location from 'expo-location'
 import * as Premmissions from 'expo-premmissions'
+import * as Location from 'expo-location'
 
 import { Banner, Text, Headline, Button } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
@@ -144,6 +144,7 @@ useEffect(() =>{
         }
       }
     }
+  }
 
 
   const getBenefit = (benefitName: string) => {
@@ -221,9 +222,11 @@ useEffect(() =>{
               <View style={{flex: 1, paddingHorizontal: 15}}>
                 <Headline>Calculated Tree Benefits</Headline>
                 <Text>
+                  {address.city}, { address.region }
+                </Text>
+                <Text>
                   {speciesData.COMMON} ({speciesData.SCIENTIFIC})
                 </Text>
-
                 <Banner visible actions={[]} style={{
                   marginTop: 15,
                   backgroundColor: benefitsError ? '#F8D7DA' : '#F0FFF4'
