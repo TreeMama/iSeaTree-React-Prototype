@@ -7,6 +7,22 @@ import { FormValues } from '../addTreeForm'
 import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
 import { TreeValidationTypes } from '../../../lib/treeData'
+import { AsyncStorage } from 'react-native'
+
+async function getItem(item: string) {
+  try {
+    const value = await AsyncStorage.getItem(item);
+    if (value !== null) {
+      console.log(item, value);
+      return value;
+    } else {
+      return 'NULL';
+    }
+  } catch (error) {
+    // Error retrieving data
+    return 'NULL';
+  }
+}
 
 export async function submitTreeData(formValues: FormValues): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
@@ -16,6 +32,37 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
   }
 
   const userData = await getUser(authUser.uid)
+
+  const NationFullName = await getItem('NationFullName')
+  const StateAbbr= await getItem('StateAbbr')
+  const CountyName= await getItem('CountyName')
+  const CityName = await getItem('CityName')
+  const CalculatedHeightMeter = await getItem('CalculatedHeightMeter')
+  const CalculatedCrownHeightMeter = await getItem('CalculatedCrownHeightMeter')
+  const CalculatedCrownWidthMeter = await getItem('CalculatedCrownWidthMeter')
+  const RunoffAvoided = await getItem('RunoffAvoided')
+  const RunoffAvoidedValue = await getItem('RunoffAvoidedValue')
+  const Interception = await getItem('Interception')
+  const PotentialEvaporation = await getItem('PotentialEvaporation')
+  const PotentialEvapotranspiration = await getItem('PotentialEvapotranspiration')
+  const Evaporation = await getItem('Evaporation')
+  const Transpiration = await getItem('Transpiration')
+  const CORemoved = await getItem('CORemoved')
+  const CORemovedValue = await getItem('CORemovedValue')
+  const NO2Removed = await getItem('NO2Removed')
+  const NO2RemovedValue = await getItem('NO2RemovedValue')
+  const SO2Removed = await getItem('SO2Removed')
+  const SO2RemovedValue = await getItem('SO2RemovedValue')
+  const O3Removed = await getItem('O3Removed')
+  const O3RemovedValue = await getItem('O3RemovedValue')
+  const PM25Removed = await getItem('PM25Removed')
+  const PM25RemovedValue = await getItem('PM25RemovedValue')
+  const CO2Sequestered = await getItem('CO2Sequestered')
+  const CO2SequesteredValue = await getItem('CO2SequesteredValue')
+  const CarbonStorage = await getItem('CarbonStorage')
+  const CarbonDioxideStorage = await getItem('CarbonDioxideStorage')
+  const CarbonDioxideStorageValue = await getItem('CarbonDioxideStorageValue')
+  const DryWeight = await getItem('DryWeight')
 
   if (
     !formValues.photo ||
@@ -67,7 +114,37 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     os_name: Device.osName,
     os_version: Device.osVersion,
     applicationVersion: Application.nativeApplicationVersion,
-    BuildVersion: Application.nativeBuildVersion
+    BuildVersion: Application.nativeBuildVersion,
+    NationFullName,
+    StateAbbr,
+    CountyName,
+    CityName,
+    CalculatedHeightMeter,
+    CalculatedCrownHeightMeter,
+    CalculatedCrownWidthMeter,
+    RunoffAvoided,
+    RunoffAvoidedValue,
+    Interception,
+    PotentialEvaporation,
+    PotentialEvapotranspiration,
+    Evaporation,
+    Transpiration,
+    CORemoved,
+    CORemovedValue,
+    NO2Removed,
+    NO2RemovedValue,
+    SO2Removed,
+    SO2RemovedValue,
+    O3Removed,
+    O3RemovedValue,
+    PM25Removed,
+    PM25RemovedValue,
+    CO2Sequestered,
+    CO2SequesteredValue,
+    CarbonStorage,
+    CarbonDioxideStorage,
+    CarbonDioxideStorageValue,
+    DryWeight
   }
   addTree(treeData)
 

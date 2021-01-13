@@ -5,6 +5,7 @@ export enum ScreenNames {
   register = 'register',
   resetPassword = 'resetPassword',
   loggedTabNavigator = 'loggedTabNavigator',
+  showImage = 'showImage'
 }
 
 export enum TabScreenNames {
@@ -33,6 +34,9 @@ export function useNavigationActions(): NavigationActions {
     resetPassword: () => {
       navigation.navigate(ScreenNames.resetPassword)
     },
+    showImage: () => {
+      navigation.navigate(ScreenNames.showImage)
+    }
   }
 }
 

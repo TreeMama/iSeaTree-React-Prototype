@@ -11,6 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { RegisterScreen } from './screens/RegisterScreen'
 import { LoginScreen } from './screens/LoginScreen'
+import { ShowImage } from './screens/ShowImage'
 import { initializeFirebase } from './config/initializeFirebase'
 import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
@@ -19,7 +20,7 @@ import { LoggedTabNavigator } from './LoggedTabNavigator'
 import { usePrevious } from './hooks/usePrevious'
 
 initializeFirebase()
-
+console.disableYellowBox = true;
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
@@ -72,30 +73,37 @@ export function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
           {isUserLogged ? (
-            <Stack.Screen
-              name={ScreenNames.loggedTabNavigator}
-              component={LoggedTabNavigator}
-              options={{ headerShown: false }}
-            />
-          ) : (
             <>
               <Stack.Screen
-                name={ScreenNames.login}
-                component={LoginScreen}
+                name={ScreenNames.loggedTabNavigator}
+                component={LoggedTabNavigator}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name={ScreenNames.register}
-                component={RegisterScreen}
+                name={ScreenNames.showImage}
+                component={ShowImage}
                 options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={ScreenNames.resetPassword}
-                component={ResetPasswordScreen}
-                options={{ title: 'Password reset' }}
               />
             </>
-          )}
+          ) : (
+              <>
+                <Stack.Screen
+                  name={ScreenNames.login}
+                  component={LoginScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={ScreenNames.register}
+                  component={RegisterScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={ScreenNames.resetPassword}
+                  component={ResetPasswordScreen}
+                  options={{ title: 'Password reset' }}
+                />
+              </>
+            )}
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
