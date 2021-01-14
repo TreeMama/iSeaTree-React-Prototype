@@ -166,17 +166,13 @@ export function ProfileScreen() {
                   }}>
                     <Text style={styles.helpSectionLink}>For Help: <Text style={styles.linkColor}>https://treemama.org/forum</Text></Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => {
-                    Linking.openURL('https://treemama.org/365-days-of-trees/dashboard');
-                  }}>
-                    <Text style={styles.helpSectionLink}>For Map: <Text style={styles.linkColor}>https://treemama.org/365-days-of-trees/dashboard</Text></Text>
-                  </TouchableOpacity>
+                
                 </View>
                 <Divider style={{ width: '100%' }} />
 
                 <Headline>Trees recorded</Headline>
                 <Text>{ addTreeCount() }</Text>
-                
+
                 <Headline style={{ marginTop: 20 }}>Your badges</Headline>
 
                 <View

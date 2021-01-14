@@ -4,7 +4,7 @@
 		"slug": "iSeaTree",
 		"privacy": "public",
 		"platforms": [ "ios", "android" ],
-		"version": "1.5",
+		"version": "2.0",
 		"orientation": "default",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -19,7 +19,7 @@
 		"android": {
 			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA" ],
 			"package": "com.treemama.iseatree",
-			"versionCode": 32,
+			"versionCode": 33,
 			"config": {
 				"googleMaps": {
 					"apiKey": "AIzaSyBCXyRI_JS7_wQzLbPHMvF3HTJP-2zrN2s"
@@ -43,7 +43,7 @@
 		"ios": {
 			"icon": "./assets/icon.png",
 			"bundleIdentifier": "com.treemama.iseatree",
-			"buildNumber": "32",
+			"buildNumber": "33",
 			"supportsTablet": true,
 			"infoPlist": {
 				"NSCameraUsageDescription": "We use the camera to allow you to take a photo and submit it with your iSeaTree reports.",
