@@ -12,6 +12,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { RegisterScreen } from './screens/RegisterScreen'
 import { LoginScreen } from './screens/LoginScreen'
 import { ShowImage } from './screens/ShowImage'
+import { IdentifySpecies } from './screens/IdentifySpecies'
 import { initializeFirebase } from './config/initializeFirebase'
 import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
@@ -82,6 +83,11 @@ export function App() {
               <Stack.Screen
                 name={ScreenNames.showImage}
                 component={ShowImage}
+                options={{ headerShown: false }}
+              />
+               <Stack.Screen
+                name={ScreenNames.identifySpecies}
+                component={IdentifySpecies}
                 options={{ headerShown: false }}
               />
             </>
