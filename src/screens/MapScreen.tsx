@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 
-import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity } from 'react-native'
+import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity, ActivityIndicator, Modal, FlatList, TouchableHighlight } from 'react-native'
 import MapView, { Marker, Region, Callout, CalloutSubview } from 'react-native-maps'
 import Constants from 'expo-constants'
 import * as Location from 'expo-location'
@@ -36,12 +36,14 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const [trees, setTrees] = React.useState<any[]>([]);
   const [isChecked, setisChecked] = React.useState<null | Boolean>(false)
   const [isActiveown, setActiveown] = React.useState<null | Boolean>(true) // show current active map on screen
+  const [isDataLoaded, setDataLoaded] = React.useState<null | Boolean>(false) // show load data indicator
+  const [showAlertHandler, setshowAlertHandler] = React.useState<null | Boolean>(false) // show validate unknown popup
   const [selectTrees, setSelectTrees] = React.useState<any[]>([]);
+  const [speciesName, setSpeciesName] = React.useState<undefined | string>("Please identify this species")
   let markerref = useRef([]); // Create map marker refrence
   let mapref = useRef(null); // Create map refrence
   let calloutref = useRef(null); // Create callout refrence
-  let RBSheetref = useRef(null); // Create callout refrence
-
+  let RBSheetref = useRef(null); // Create RBSheet refrence
 
   async function getCurrentLocation() {
     try {
@@ -86,6 +88,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   React.useEffect(() => {
     if (mapref !== null && trees.length > 0 && currentCoords !== null) {
       onfitToSuppliedMarkers()
+      setDataLoaded(true)
     }
   }, [currentCoords, trees])
 
@@ -128,6 +131,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         });
         // return trees;
         setTrees(trees);
+        // setDataLoaded(true);
         // console.log('tree3', trees);
       })
 
@@ -140,6 +144,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   async function setOwnmap() {
     setActiveown(true);
     setTrees([]);
+    setDataLoaded(false);
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
@@ -157,6 +162,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           trees.push(appObj)
         });
         setTrees(trees);
+        // setDataLoaded(true);
       })
   }
 
@@ -166,6 +172,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
     setActiveown(false);
     setTrees([]);
+    setDataLoaded(false);
     firestore()
       .collection(TREES_COLLECTION)
       .get()
@@ -186,6 +193,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         });
         trees = sortarray.slice(0, 10)
         setTrees(alltrees);
+        // setDataLoaded(true);
       })
   }
 
@@ -234,6 +242,39 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             const updatedItem = { ...selectedItem, isValidated: 'VALIDATED' }
             setSelectTrees(updatedItem);
           }
+          setshowAlertHandler(false);
+          setSpeciesName('Please identify this species');
+        });
+    } catch (error) {
+      console.log('update trees status error ', error)
+    }
+
+  }
+
+  const Validatewithspecies = (selectedItem) => {
+    try {
+      firestore()
+        .collection('trees')
+        .doc(selectedItem.id)
+        .update({
+          isValidated: 'VALIDATED',
+          speciesNameCommon: speciesName?.trim()
+        })
+        .then(() => {
+          console.log('Trees status updated!');
+          setisChecked(!isChecked)
+          setTrees(
+            trees.map(item =>
+              item.id === selectedItem.id
+                ? { ...item, isValidated: 'VALIDATED' }
+                : item
+            ))
+          if (Platform.OS === 'android') {
+            const updatedItem = { ...selectedItem, isValidated: 'VALIDATED', speciesNameCommon: speciesName?.trim() }
+            setSelectTrees(updatedItem);
+          }
+          setshowAlertHandler(false);
+          setSpeciesName('Please identify this species');
         });
     } catch (error) {
       console.log('update trees status error ', error)
@@ -242,22 +283,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }
 
   const validateAlertHandler = (selectedItem: any) => {
-    Alert.alert(
-      'VALIDATE THIS TREE!',
-      'Do you validate that this tree has the correct species and DBH information?',
-      [
-        {
-          text: 'YES!',
-          onPress: () => onValidated(selectedItem)
-        },
-        {
-          text: 'NO!',
-          onPress: () => console.log('No Pressed'), style: 'cancel'
-        },
-      ],
-      { cancelable: false },
-      //clicking out side of alert will not cancel
-    );
+    if (Platform.OS === 'ios') {
+      setSelectTrees(selectedItem);
+    } else {
+      RBSheetref.close();
+    }
+    setshowAlertHandler(true)
   };
 
   // set check box to vilidate tree
@@ -266,7 +297,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     return (
       <CheckBox
         style={{ flex: 1, padding: 10 }}
-        onClick={() => Platform.OS === 'ios' ? console.log('checkbox click') : item.isValidated === 'NOT VALIDATED' && validateAlertHandler(item)}
+        onClick={() => Platform.OS === 'ios' ? console.log('checkbox click') : (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') && validateAlertHandler(item)}
         isChecked={item.isValidated === 'VALIDATED' ? true : false}
         rightText={rightText}
         rightTextStyle={{ color: 'rgb(67,166,85)', fontSize: 10, }}
@@ -301,6 +332,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const CalloutComponentIos = (item) => {
     const extractTreeName = (item.item.speciesNameCommon).split('(')[0];
     const isMoreinfo = suggestedTrees.some(obj => (obj.name).split('(')[0] === extractTreeName);
+    const isCarbonDioxideStorage = item.item.CarbonDioxideStorage !== undefined;
     return (
       <View style={[styles.calloutContainer, { zIndex: 999 }]} >
         <View style={[styles.horizontalContainer, { paddingBottom: 4 }]}>
@@ -314,8 +346,9 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             <Text style={styles.statusText}>Status: {item.item.isValidated === 'SPAM' ? 'PROCESSING' : item.item.isValidated}</Text>
             <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
             <Text style={styles.statusText}>User: {item.item.username}</Text>
-            <Text style={styles.statusText}>DBH: {item.item.dbh}</Text>
-            <CalloutSubview onPress={() => item.item.isValidated === 'NOT VALIDATED' && validateAlertHandler(item.item)}>
+            <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
+            <Text style={styles.statusText}>CO Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
+            <CalloutSubview onPress={() => (item.item.isValidated === 'NOT VALIDATED' || item.item.isValidated === 'NEEDS VALIDATION') && validateAlertHandler(item.item)}>
               {item.item.isValidated !== 'SPAM' && renderCheckBox(item.item)}
             </CalloutSubview>
           </View>
@@ -370,6 +403,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const CalloutComponent = (item) => {
     const extractTreeName = (item.item.speciesNameCommon).split('(')[0];
     const isMoreinfo = suggestedTrees.some(obj => (obj.name).split('(')[0] === extractTreeName);
+    const isCarbonDioxideStorage = item.item.CarbonDioxideStorage !== undefined;
     return (
       <>
         <View style={{ flexGrow: 1, width: '100%', padding: 8, paddingBottom: item.item.isValidated !== 'SPAM' ? 8 : 0 }} >
@@ -385,6 +419,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
               <Text style={styles.statusText}>User: {item.item.username}</Text>
               <Text style={styles.statusText}>DBH: {item.item.dbh}</Text>
+              <Text style={styles.statusText}>CO Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
               <View style={{ paddingTop: 12 }}>
                 {item.item.isValidated !== 'SPAM' && renderCheckBox(item.item)}
               </View>
@@ -429,6 +464,68 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     setSelectTrees(item);
     RBSheetref.open();
   }
+
+  const modalHeader = (
+    <View style={styles.modalHeader}>
+      <Text style={styles.title}>VALIDATE THIS TREE!</Text>
+      <View style={styles.divider}></View>
+    </View>
+  )
+
+  const onSelect = (data) => {
+    setshowAlertHandler(true)
+    setSpeciesName(data.COMMON)
+  }
+
+  const modalBody = (
+    <View style={styles.modalBody}>
+      <Text style={styles.modalBodyText}>Do you validate that this tree has the correct species and DBH information?</Text>
+      {selectTrees.speciesNameCommon === 'Unknown'
+        &&
+        <TouchableOpacity style={styles.redirectionContainer} onPress={() => {
+          setshowAlertHandler(false)
+          props.navigation.navigate('identifySpecies', { treeType: selectTrees.treeType, onSelect: (data) => onSelect(data) })
+        }}>
+          <Text style={[styles.redirectionText, { flex: 1 }]}>{speciesName}</Text>
+          <MaterialIcons name="navigate-next" style={[styles.redirectionText, { fontSize: 14 }]} />
+        </TouchableOpacity>
+      }
+
+    </View>
+  )
+
+  const modalFooter = (
+    <View style={styles.modalFooter}>
+      <View style={styles.divider}></View>
+      <View style={{ flexDirection: "row-reverse", margin: 10 }}>
+        <TouchableOpacity style={{ ...styles.actions, backgroundColor: "#db2828" }}
+          onPress={() => {
+            console.log('No Pressed')
+            setshowAlertHandler(false);
+          }}>
+          <Text style={styles.actionText}>No</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ ...styles.actions, backgroundColor: "#21ba45" }}
+          onPress={() => {
+            speciesName !== 'Unknown'
+              ?
+              selectTrees.speciesNameCommon === 'Unknown' ? Validatewithspecies(selectTrees) : onValidated(selectTrees)
+              :
+              alert('Needs Validation')
+          }}>
+          <Text style={styles.actionText}>Yes</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+
+  const modalContainer = (
+    <View style={styles.modalContainer}>
+      {modalHeader}
+      {modalBody}
+      {modalFooter}
+    </View>
+  )
 
   return (
     <View style={styles.container}>
@@ -501,6 +598,21 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         </RBSheet>
       </View>
 
+      <Modal visible={showAlertHandler} transparent={true} style={styles.modal} onRequestClose={() => setshowAlertHandler(false)}>
+        <View style={styles.modalInsetContainer}>
+          {modalContainer}
+        </View>
+      </Modal>
+
+      {!isDataLoaded
+        &&
+        <View style={styles.loaderContainer}>
+          <View style={styles.loaderstyle}>
+            <ActivityIndicator size="large" color={colors.green[700]} />
+            <Text style={styles.loaderText}>Loading data...</Text>
+          </View>
+        </View>
+      }
 
       <TouchableOpacity
         activeOpacity={0.7}
@@ -558,7 +670,7 @@ const styles = StyleSheet.create({
   },
   redirectionOuterContainer: {
     justifyContent: 'flex-end',
-    flex: 0.8
+    flex: 0.7
   },
   redirectionContainer: {
     flexDirection: 'row',
@@ -597,5 +709,86 @@ const styles = StyleSheet.create({
     height: 28,
     alignSelf: 'center',
     justifyContent: 'center'
+  },
+  loaderContainer: {
+    height: '100%',
+    width: '100%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    zIndex: 99,
+    position: 'absolute'
+  },
+  loaderstyle: {
+    height: 110,
+    width: 135,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'space-evenly'
+  },
+  loaderText: {
+    fontSize: 16,
+    textAlign: 'center'
+  },
+  // modal
+  modal: {
+    backgroundColor: "#00000099",
+    // flex:1,
+    height: win.height,
+    width: win.width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 99,
+  },
+  modalInsetContainer: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: win.height,
+    width: win.width,
+    position: 'absolute',
+    backgroundColor: '#00000099'
+  },
+  modalContainer: {
+    backgroundColor: "#f9fafb",
+    width: "80%",
+    borderRadius: 5,
+    // bottom: 30
+  },
+  modalHeader: {
+
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 20,
+    padding: 15,
+    color: "#000"
+  },
+  divider: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "lightgray"
+  },
+  modalBody: {
+    backgroundColor: "#fff",
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+  },
+  modalBodyText: {
+    fontSize: 13,
+    lineHeight: 20,
+    textAlign: 'left'
+  },
+  modalFooter: {
+  },
+  actions: {
+    borderRadius: 5,
+    marginHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20
+  },
+  actionText: {
+    color: "#fff"
   },
 })

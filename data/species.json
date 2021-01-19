@@ -1886,5 +1886,483 @@
 	"ITREECODE": "PICO",
 	"LEVEL": "medium",
 	"ITREECODE_APPROX":"y"
-	}
+  },
+  {
+    "COMMON": "Joshua tree",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Yucca brevifolia",
+    "ID": "230",
+    "ITREECODE": "YUBR",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+   {
+    "COMMON": "Aloe yucca",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Yucca aloifolia",
+    "ID": "231",
+    "ITREECODE": "YUAL",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+   {
+    "COMMON": "Screwbean mesquite",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Prosopis pubescens",
+    "ID": "232",
+    "ITREECODE": "PR6",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"y"
+    },
+   {
+    "COMMON": "Mesquite spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Prosopis",
+    "ID": "233",
+    "ITREECODE": "PR6",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+   {
+    "COMMON": "Oak spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Quercus",
+    "ID": "234",
+    "ITREECODE": "QU",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+   {
+    "COMMON": "Ginkgo",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Ginkgoopsida",
+    "ID": "235",
+    "ITREECODE": "GICLASS",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Acacia spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Acacia",
+    "ID": "236",
+    "ITREECODE": "ACSP2",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Maple spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Acer",
+    "ID": "237",
+    "ITREECODE": "AC",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Abelia spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Abelia",
+    "ID": "238",
+    "ITREECODE": "AB1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Indian mallow spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Abutilon",
+    "ID": "239",
+    "ITREECODE": "AB3",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Adansonia spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Adansonia",
+    "ID": "240",
+    "ITREECODE": "AB1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Wild lime spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Adelia",
+    "ID": "241",
+    "ITREECODE": "AD2",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Beadtree spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Adenanthera",
+    "ID": "242",
+    "ITREECODE": "AD3",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Prickbush spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Adolphia",
+    "ID": "243",
+    "ITREECODE": "AD6",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Buckeye spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Aesculus",
+    "ID": "244",
+    "ITREECODE": "AE",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Tree of Heaven (or Ailanthus spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Ailanthus",
+    "ID": "245",
+    "ITREECODE": "AI1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Albizia spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Albizia",
+    "ID": "246",
+    "ITREECODE": "AL1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Alchorneopsis spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Alchorneopsis",
+    "ID": "247",
+    "ITREECODE": "AL2",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Alhagi spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Alhagi",
+    "ID": "248",
+    "ITREECODE": "AL6",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Alder spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Alnus",
+    "ID": "249",
+    "ITREECODE": "AL",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Coast oak",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Quercus parvula",
+    "ID": "250",
+    "ITREECODE": "QUPA8",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Coastal live oak",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Quercus/live agrifolia",
+    "ID": "251",
+    "ITREECODE": "QUAG",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Evergreen pear",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Pyrus kawakamii",
+    "ID": "252",
+    "ITREECODE": "PYKA",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "California palm",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Washingtonia filifera",
+    "ID": "253",
+    "ITREECODE": "WAFI",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Mexican fan palm",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Washingtonia robusta",
+    "ID": "254",
+    "ITREECODE": "WARO",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Fan Palms (Washingtonia spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Washingtonia",
+    "ID": "255",
+    "ITREECODE": "WA4",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Yucca (Yucca spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Yucca",
+    "ID": "256",
+    "ITREECODE": "YU1",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Silver dollar eucalyptus",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Eucalyptus cinerea",
+    "ID": "257",
+    "ITREECODE": "EUCI",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Eucalyptus (Gum spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Eucalyptus",
+    "ID": "258",
+    "ITREECODE": "EU1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Monterey pine",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus radiata",
+    "ID": "259",
+    "ITREECODE": "PIRA",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Hawai'i poisonberry tree",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Pittosporum argentifolium",
+    "ID": "260",
+    "ITREECODE": "PIAR4",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Corcho bobo",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Pisonia albida",
+    "ID": "261",
+    "ITREECODE": "PIAL3",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Aulu",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Pisonia sandwicensis",
+    "ID": "262",
+    "ITREECODE": "PISA5",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Sierran palm",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Prestoea acuminata",
+    "ID": "263",
+    "ITREECODE": "PRAC",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Eastern white pine",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus strobus",
+    "ID": "264",
+    "ITREECODE": "PIST",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Pine (Pinus spp.)",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus",
+    "ID": "265",
+    "ITREECODE": "PI2",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Birch (Betula spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Betula",
+    "ID": "266",
+    "ITREECODE": "BE",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Hickory (Hickory spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Carya",
+    "ID": "267",
+    "ITREECODE": "CA1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Chestnut (Chestnut spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Castanea",
+    "ID": "268",
+    "ITREECODE": "CA4",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Golden Rain Tree (or Goldenrain 'Fastigiata')",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Koelreuteria paniculata 'Fastigiata'",
+    "ID": "269",
+    "ITREECODE": "KOPAFA",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Katsura tree spp.",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Cercidiphyllum",
+    "ID": "270",
+    "ITREECODE": "CE17",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Elm (Elm spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Ulmus",
+    "ID": "271",
+    "ITREECODE": "ULS",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Spruce (Spruce spp.)",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Picea",
+    "ID": "272",
+    "ITREECODE": "PI1",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Fir (Fir spp.)",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Abies",
+    "ID": "273",
+    "ITREECODE": "AB",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Willow (Salix spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Salix",
+    "ID": "274",
+    "ITREECODE": "SA",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Pear (Pear spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Pyrus",
+    "ID": "275",
+    "ITREECODE": "PY",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Sassafras  (Sassafras spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Sassafras",
+    "ID": "276",
+    "ITREECODE": "SA23",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Ash  (Ash spp.)",
+    "TYPE": "broadleaf",
+    "SCIENTIFIC": "Fraxinus",
+    "ID": "277",
+    "ITREECODE": "FR",
+    "LEVEL": "easy",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Limber pine  (or Rocky Mountain white pine)",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus flexilis",
+    "ID": "278",
+    "ITREECODE": "PIFL",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Coulter pine",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus coulteri",
+    "ID": "279",
+    "ITREECODE": "PICO2",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Intermountain bristlecone pine (or Great Basin bristlecone pine)",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus longaeva",
+    "ID": "280",
+    "ITREECODE": "PILO",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Arizona pine",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus arizonica",
+    "ID": "281",
+    "ITREECODE": "PIAR5",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    },
+  {
+    "COMMON": "Bristlecone pine",
+    "TYPE": "conifer",
+    "SCIENTIFIC": "Pinus aristata",
+    "ID": "282",
+    "ITREECODE": "PIAR",
+    "LEVEL": "medium",
+    "ITREECODE_APPROX":"n"
+    }
+  
 ]
