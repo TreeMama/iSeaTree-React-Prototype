@@ -74,6 +74,12 @@ From the project's root directory run:
 yarn install
 ```
 
+Resolved "react-native-raw-bottom-sheet" dependency by running yarn install 
+```bash
+Step 1:  npm uninstall react-native-raw-bottom-sheet
+Step 2:  yarn add react-native-raw-bottom-sheet
+```
+
 This sets up Yarn for the iSeaTree project directory.
 
 Note: you'll probably have to run `yarn install` after a git pull, if the updated code has added React libraries or changed library versions.
