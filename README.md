@@ -78,6 +78,12 @@ This sets up Yarn for the iSeaTree project directory.
 
 Note: you'll probably have to run `yarn install` after a git pull, if the updated code has added React libraries or changed library versions.
 
+
+Resolved "react-native-raw-bottom-sheet" dependency by running yarn install 
+```bash
+Step 1:  npm uninstall react-native-raw-bottom-sheet
+Step 2:  yarn add react-native-raw-bottom-sheet
+```
 ### Source Code Secrets
 
 `envVariables.ts` file holds all secret keys (api keys etc) associated with the iSeaTree project. It should
@@ -140,7 +146,5 @@ simulators (which is necessary for making screenshots) is faster this
 way.
 
 
-## Resolved "react-native-raw-bottom-sheet" dependency by running yarn install 
-Step 1:  npm uninstall react-native-raw-bottom-sheet
-Step 2:  yarn add react-native-raw-bottom-sheet
+
 
