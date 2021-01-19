@@ -139,3 +139,8 @@ native app takes a while, but launching iSeaTree in multiple
 simulators (which is necessary for making screenshots) is faster this
 way.
 
+
+## Resolved "react-native-raw-bottom-sheet" dependency by running yarn install 
+Step 1:  npm uninstall react-native-raw-bottom-sheet
+Step 2:  yarn add react-native-raw-bottom-sheet
+
