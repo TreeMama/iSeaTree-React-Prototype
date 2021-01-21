@@ -2363,6 +2363,87 @@
     "ITREECODE": "PIAR",
     "LEVEL": "medium",
     "ITREECODE_APPROX":"n"
-    }
+    },
+    {
+      "COMMON": "Mount diablo manzanita",
+      "TYPE": "broadleaf",
+      "SCIENTIFIC": "Arctostaphylos auriculata",
+      "ID": "283",
+      "ITREECODE": "ARAU",
+      "LEVEL": "medium",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Manilla palm",
+      "TYPE": "broadleaf",
+      "SCIENTIFIC": "Adonidia merrilli",
+      "ID": "284",
+      "ITREECODE": "ADME",
+      "LEVEL": "medium",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "California red fir",
+      "TYPE": "conifer",
+      "SCIENTIFIC": "Abies magnifica",
+      "ID": "285",
+      "ITREECODE": "ABMA",
+      "LEVEL": "medium",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Bald cypress spp.",
+      "TYPE": "conifer",
+      "SCIENTIFIC": "Taxodium",
+      "ID": "286",
+      "ITREECODE": "TA10",
+      "LEVEL": "easy",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Tamarind spp.",
+      "TYPE": "broadleaf",
+      "SCIENTIFIC": "Tamarindus",
+      "ID": "287",
+      "ITREECODE": "TA7",
+      "LEVEL": "easy",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Cypress spp.",
+      "TYPE": "conifer",
+      "SCIENTIFIC": "Cupressus",
+      "ID": "288",
+      "ITREECODE": "CU",
+      "LEVEL": "easy",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Monterey cypress",
+      "TYPE": "conifer",
+      "SCIENTIFIC": "Cupressus macrocarpa",
+      "ID": "289",
+      "ITREECODE": "CUMA",
+      "LEVEL": "easy",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Cedar spp.",
+      "TYPE": "conifer",
+      "SCIENTIFIC": "Cedrus",
+      "ID": "290",
+      "ITREECODE": "CE7",
+      "LEVEL": "easy",
+      "ITREECODE_APPROX":"n"
+      },
+    {
+      "COMMON": "Magnolia spp.",
+      "TYPE": "broadleaf",
+      "SCIENTIFIC": "Magnolia",
+      "ID": "291",
+      "ITREECODE": "MA1",
+      "LEVEL": "easy",
+      "ITREECODE_APPROX":"n"
+      }
   
 ]
