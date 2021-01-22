@@ -126,33 +126,33 @@ useEffect(() =>{
   })();
 }, [currentCoords])
 
-useEffect(() => {
-    (async function () {
-      console.log('speciesData +++', speciesData);
-      await loadBenefits();
-    })();
-  }, [speciesData])
+// useEffect(() => {
+//     (async function () {
+//       console.log('speciesData +++', speciesData);
+//       await loadBenefits();
+//     })();
+//   }, [speciesData])
 
-useEffect(() => {
-  (async function () {
-    console.log('crownLightExposureCategory +++', crownLightExposureCategory);
-    await loadBenefits();
-  })();
-}, [crownLightExposureCategory])
+// useEffect(() => {
+//   (async function () {
+//     console.log('crownLightExposureCategory +++', crownLightExposureCategory);
+//     await loadBenefits();
+//   })();
+// }, [crownLightExposureCategory])
 
-useEffect(() => {
-  (async function () {
-    console.log('dbh +++', dbh);
-    await loadBenefits();
-  })();
-}, [dbh])
+// useEffect(() => {
+//   (async function () {
+//     console.log('dbh +++', dbh);
+//     await loadBenefits();
+//   })();
+// }, [dbh])
 
-useEffect(() => {
-  (async function() {
-    console.log('treeConditionCategory +++', treeConditionCategory);
-    await loadBenefits();
-  })();
-}, [treeConditionCategory])
+// useEffect(() => {
+//   (async function() {
+//     console.log('treeConditionCategory +++', treeConditionCategory);
+//     await loadBenefits();
+//   })();
+// }, [treeConditionCategory])
 
   const loadBenefits = async() => {
     if (canCalculateBenefits) {

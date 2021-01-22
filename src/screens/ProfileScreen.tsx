@@ -6,13 +6,15 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
+  Dimensions,
+  Image,
+  FlatList,
   Linking,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Platform
 } from 'react-native'
-import { Divider, Button, Menu, Headline, Subheading } from 'react-native-paper'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-
+import Constants from 'expo-constants';
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
 import {
@@ -23,6 +25,13 @@ import {
   getCurrentAuthUser,
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
+
+const win = Dimensions.get('window');
+const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
+const imageReward = require('../../assets/profile/reward_icon.png');
+const imageTree = require('../../assets/profile/tree_icon.png');
+const informationIcon = require('../../assets/profile/information.png');
+const logoutIcon = require('../../assets/profile/logout.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +50,103 @@ const styles = StyleSheet.create({
     color: '#87CEEB',
     fontSize: 12,
     textDecorationLine: "underline"
+  },
+  profileContainer: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: win.height / 2.6,
+    backgroundColor: colors.gray[600],
+    paddingTop: 40
+  },
+  profileImageContainer: {
+    height: win.width / 3,
+    width: win.width / 3,
+    borderRadius: win.width / 6,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    borderWidth: 5,
+    borderColor: '#fff',
+    overflow: 'hidden',
+    backgroundColor: 'rgba(255,255,255,0.5)'
+  },
+  profileImage: {
+    height: win.width/6,
+    width: win.width/6,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    tintColor: '#fff'
+  },
+  profiledetailContainer: {
+    marginTop: 10,
+    alignContent: 'center',
+    justifyContent: 'center'
+  },
+  userNameText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#fff',
+    lineHeight: 30,
+  },
+  userakaNameText: {
+    fontSize: 16,
+    fontWeight: '500',
+    textAlign: 'center',
+    color: '#fff',
+    lineHeight: 25
+  },
+  profileRightMenuContainer: {
+    right: 15,
+    top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
+    position: 'absolute'
+  },
+  menuIcon: {
+    height: 30,
+    width: 30,
+    resizeMode: 'contain',
+    tintColor: '#fff'
+  },
+  statusCell: {
+    height: Platform.OS === 'ios' ? win.height / 6 : win.height / 5,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.gray[600]
+  },
+  statuscellImage: {
+    height: 40,
+    width: 40,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    tintColor: colors.gray[600]
+  },
+  statusCellValueText: {
+    fontSize: 24,
+    fontWeight: '700',
+    textAlign: 'center',
+    color: colors.gray[700]
+  },
+  statusCellTitleText: {
+    fontSize: 14,
+    textAlign: 'center',
+    color: colors.gray[600]
+  },
+  badgeViewContainer: {
+    flex: 1,
+    margin: 12,
+    borderWidth: 1,
+    borderRadius: 18,
+    borderColor: 'rgb(187,187,187)',
+    backgroundColor: 'rgb(187,187,187)',
+  },
+  badgeCell: {
+    height: win.height / 6,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: Platform.OS === 'android' ? 10 : 0
   }
 
 })
@@ -48,6 +154,10 @@ const styles = StyleSheet.create({
 export function ProfileScreen() {
   const [isMenuVisible, setIsMenuVisible] = React.useState<boolean>(false)
   const [userData, setUserData] = React.useState<null | UserData>(null)
+  const [statusData, setStatusData] = React.useState<any[]>([
+    { id: 1, title: 'Trees identified', value: 0, imgSrc: imageTree },
+    { id: 2, title: 'Badge Earned', value: 0, imgSrc: imageReward },
+  ]);
 
   const authUser = getCurrentAuthUser()
 
@@ -61,7 +171,21 @@ export function ProfileScreen() {
         return
       }
 
-      setUserData(userData)
+      const treecount = addTreeCount(userData);
+      let badgeLength: number;
+      if (userData?.badges !== undefined) {
+        badgeLength = userData?.badges.length;
+      } else {
+        badgeLength = 0;
+      }
+
+      setStatusData(
+        statusData.map(item =>
+          item.id === 1
+            ? { ...item, value: treecount }
+            : item.id === 2 ? { ...item, value: badgeLength } : item
+        ))
+      setUserData(userData);
     })
 
     return () => {
@@ -78,120 +202,110 @@ export function ProfileScreen() {
     return null
   }
 
-  function addBadges() {
-    var badges = []
-    if (userData?.badges?.includes('SEEDLING')) {
-      badges.push(<Badge key="seedling" variant="seedling" />)
+  function addTreeCount(data) {
+    if (data?.treesCount == undefined) {
+      // return 'You haven\'t added any trees yet.'
+      return 0;
     }
-    if (userData?.badges?.includes('SAPLING')) {
-      badges.push(<Badge key="sapling" variant="sapling" />)
-    }
-    if (userData?.badges?.includes('OLD_GROWTH_EXPERT')) {
-      badges.push(<Badge key="old_growth_expert" variant="old_growth_expert" />)
-    }
-    if (userData?.badges?.includes('FIRST_TREE')) {
-      badges.push(<Badge key="first_tree" variant="first_tree" />)
-    }
-    if (userData?.badges?.includes('FIFTH_TREE')) {
-      badges.push(<Badge key="fifth_tree" variant="fifth_tree" />)
-    }
-    if (userData?.badges?.includes('TENTH_TREE')) {
-      badges.push(<Badge key="tenth_tree" variant="tenth_tree" />)
-    }
-    if (userData?.badges?.includes('DBH')) {
-      badges.push(<Badge key="dbh" variant="dbh" />)
-    }
-    return badges
-  }
-  function addTreeCount(){
-    if(userData?.treesCount == undefined){
-      return 'You haven\'t added any trees yet.'
-    }
-    return userData?.treesCount;
+    return data?.treesCount;
 
   }
+
+  function renderStatusList({ item, index }) {
+    return (
+      <View style={[styles.statusCell, index % 2 !== 0 && { borderLeftWidth: 0.5, borderLeftColor: colors.gray[600] }]}>
+        <Image source={item.imgSrc} style={styles.statuscellImage} resizeMode="contain" />
+        <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 15 }}>
+          <Text style={styles.statusCellValueText}>{item.value}</Text>
+          <Text style={styles.statusCellTitleText}>{item.title}</Text>
+        </View>
+      </View>
+    )
+  }
+
+  function renderBadgeList({ item, index }) {
+    return (
+      <View style={styles.badgeCell}>
+        {item === 'SEEDLING'
+          &&
+          <Badge key="seedling" variant="seedling" />
+        }
+        {item === 'SAPLING'
+          &&
+          <Badge key="sapling" variant="sapling" />
+        }
+        {item === 'OLD_GROWTH_EXPERT'
+          &&
+          <Badge key="old_growth_expert" variant="old_growth_expert" />
+        }
+        {item === 'FIRST_TREE'
+          &&
+          <Badge key="first_tree" variant="first_tree" />
+        }
+        {item === 'FIFTH_TREE'
+          &&
+          <Badge key="fifth_tree" variant="fifth_tree" />
+        }
+        {item === 'TENTH_TREE'
+          &&
+          <Badge key="tenth_tree" variant="tenth_tree" />
+        }
+        {item === 'DBH'
+          &&
+          <Badge key="dbh" variant="dbh" />
+        }
+      </View>
+    )
+  }
+
   return (
     <>
       <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
-        <SafeAreaView style={styles.container}>
-          <StatusBar />
-          <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-            <View style={styles.container}>
-              <View
-                style={{
-                  width: '100%',
-                  flexDirection: 'row',
-                  justifyContent: 'flex-end',
-                  alignItems: 'center',
-                  height: 55,
-                }}
-              >
-                <Menu
-                  visible={isMenuVisible}
-                  onDismiss={() => {
-                    setIsMenuVisible(false)
-                  }}
-                  anchor={
-                    <Button
-                      onPress={() => {
-                        setIsMenuVisible(!isMenuVisible)
-                      }}
-                    >
-                      <MaterialCommunityIcons name="dots-vertical" size={30} />
-                    </Button>
-                  }
-                >
-                  <Menu.Item icon="logout" onPress={handleSignout} title="Sign out" />
-                </Menu>
+        <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
+          <View style={styles.container}>
+            <View style={styles.profileContainer}>
+              <View style={styles.profileRightMenuContainer}>
+                <TouchableOpacity onPress={() => {
+                  Linking.openURL('https://treemama.org/forum');
+                }}>
+                  <Image source={informationIcon} style={styles.menuIcon} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleSignout}>
+                  <Image source={logoutIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.profileImageContainer}>
+                <Image source={imagePlaceholder} style={styles.profileImage} />
               </View>
 
-              <View style={styles.content}>
-                <View style={{ marginBottom: 20, alignItems: 'center' }}>
-                  <View
-                    style={{
-                      width: 100,
-                      height: 100,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <MaterialCommunityIcons name="account-box" size={100} color={colors.gray[400]} />
-                  </View>
-                  <Subheading>{userData?.username}</Subheading>
-                  <Subheading>{userData?.email}</Subheading>
-                </View>
-                <View>
-                  <TouchableOpacity onPress={() => {
-                    Linking.openURL('https://treemama.org/forum');
-                  }}>
-                    <Text style={styles.helpSectionLink}>For Help: <Text style={styles.linkColor}>https://treemama.org/forum</Text></Text>
-                  </TouchableOpacity>
-                
-                </View>
-                <Divider style={{ width: '100%' }} />
-
-                <Headline>Trees recorded</Headline>
-                <Text>{ addTreeCount() }</Text>
-
-                <Headline style={{ marginTop: 20 }}>Your badges</Headline>
-
-                <View
-                  style={{
-                    justifyContent: 'center',
-                    flexDirection: 'row',
-                    marginTop: 20,
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  {addBadges()}
-                </View>
-
-
-
+              <View style={styles.profiledetailContainer}>
+                <Text style={styles.userNameText}>{userData?.username}</Text>
+                <Text style={styles.userakaNameText}>{userData?.email}</Text>
               </View>
             </View>
-          </ScrollView>
-        </SafeAreaView>
+
+            <View style={{ flex: 1, backgroundColor: '#ff0' }}>
+              <FlatList
+                data={statusData}
+                style={styles.container}
+                renderItem={object => renderStatusList(object)}
+                numColumns={2} />
+            </View>
+
+            {userData?.badges !== undefined
+              &&
+              <View style={styles.container}>
+                <FlatList
+                  data={userData?.badges}
+                  style={styles.badgeViewContainer}
+                  renderItem={object => renderBadgeList(object)}
+                  numColumns={2} />
+              </View>
+            }
+
+
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </>
   )
