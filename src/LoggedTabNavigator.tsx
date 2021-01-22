@@ -15,6 +15,8 @@ const Tab = createMaterialBottomTabNavigator()
 
 const treeCameraIcon = require('../assets/tree_camera_inactive.png')
 const treeCameraActiveIcon = require('../assets/tree_camera_active.png')
+const infoIcon = require('../assets/info_tree.png')
+const mapIcon = require('../assets/map_icon.png')
 
 export function LoggedTabNavigator() {
   const theme = useTheme()
@@ -39,16 +41,28 @@ export function LoggedTabNavigator() {
         name={TabScreenNames.mapScreen}
         component={MapScreen}
         options={{
-          tabBarLabel: 'Map',
-          tabBarIcon: ({ color }) => <SimpleLineIcons name="globe" color={color} size={22} />,
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={mapIcon}
+              fadeDuration={0}
+              style={{ width: 26, height: 26, tintColor: color }}
+            />
+          ),
         }}
       />
       <Tab.Screen
         name={TabScreenNames.suggestedTrees}
         component={SuggestedTreesScreen}
         options={{
-          tabBarLabel: 'Suggested',
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="star" color={color} size={26} />,
+          tabBarLabel: 'Information',
+          tabBarIcon: ({ color }) => (
+            <Image
+              source={infoIcon}
+              fadeDuration={0}
+              style={{ width: 26, height: 26, tintColor: color }}
+            />
+          ),
         }}
       />
       <Tab.Screen
