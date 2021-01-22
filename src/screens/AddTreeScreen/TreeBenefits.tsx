@@ -98,8 +98,9 @@ useEffect(() => {
        setErrorMsg('Permission to access location was denied');
        return;
      }
-     const location = await Location.getCurrentPositionAsync({});
-
+     // will update the location
+     const location = await Location.getLastKnownPositionAsync({maxAge:300000, requiredAccuracy: 10});
+     // const location = await Location.getCurrentPositionAsync({});
      setLocation(location);
      setCurrentCoords({
        latitude: location.coords.latitude,
@@ -404,7 +405,7 @@ useEffect(() => {
                     </Text>
                   </View>
                 </View>
-                
+
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
                     <Text style={styles.headerTitleStyle}>Air Pollution Removed Value</Text>
