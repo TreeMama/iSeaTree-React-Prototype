@@ -5,13 +5,14 @@ import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import * as Premmissions from 'expo-premmissions'
 import * as Location from 'expo-location'
 
-import { Banner, Text, Headline, Button } from 'react-native-paper'
+import { Text, Headline, Button } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { OutputInformation, RootObject } from './TreeBenefitResponse';
 import { convertRegion } from './geoHelper';
 import { AsyncStorage } from 'react-native';
+import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
@@ -86,7 +87,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     && speciesData.TYPE.toLowerCase() !== "unknown"
     && crownLightExposureCategory !== null
     && dbh
-    && dbh !== "0"
+    && parseInt(dbh) !== 0
     && treeConditionCategory);
 
 // Todo add devices location to API_TREE_BENEFIT
@@ -337,22 +338,25 @@ useEffect(() =>{
             <ScrollView style={{ marginTop: 10 }}>
               <View style={{flex: 1, paddingHorizontal: 15}}>
                 <Headline>Calculated Tree Benefits</Headline>
-                <Text>
-                  {address.city}, { address.region }
-                </Text>
-                <Text>
-                  {speciesData.COMMON} ({speciesData.SCIENTIFIC})
-                </Text>
-                <Banner visible actions={[]} style={{
-                  marginTop: 15,
-                  backgroundColor: benefitsError ? '#F8D7DA' : '#F0FFF4'
-                }}>
+                  <Text style={{
+                    color: benefitsError ? '#B31816' : '#2F855A',
+                    backgroundColor: benefitsError ? '#FCE1E3' : '#F0FFF4',
+                    fontSize: 12,
+                    marginBottom: 10,
+                    padding: 10
+                  }}>
                   {
                     benefitsError
-                      ? benefitsError
-                      : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
+                    ? benefitsError
+                    : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
                   }
-                </Banner>
+                  </Text>
+                <Text style={{fontSize: 16, fontWeight: 'bold', paddingBottom: 5}}>
+                  Species: {speciesData.COMMON} ({speciesData.SCIENTIFIC})
+                </Text>
+                <Text>
+                  Location: {address.city}, { address.region }, {address.country}
+                </Text>
               </View>
 
               <View>
@@ -364,7 +368,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered Value</Text>
+                    <Text style={styles.headerTitleStyle}>CO² Sequestered Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -375,7 +379,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Carbon Dioxide (CO²) Sequestered</Text>
+                    <Text style={styles.headerTitleStyle}>CO² Sequestered</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -436,7 +440,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Total Carbon Dioxide (CO²) Storage Value</Text>
+                    <Text style={styles.headerTitleStyle}>Total CO² Storage Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
@@ -447,7 +451,7 @@ useEffect(() =>{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Total Carbon Dioxide (CO²) Storage</Text>
+                    <Text style={styles.headerTitleStyle}>Total CO² Storage</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
