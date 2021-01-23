@@ -136,17 +136,14 @@ const styles = StyleSheet.create({
   badgeViewContainer: {
     flex: 1,
     margin: 12,
-    borderWidth: 1,
     borderRadius: 18,
-    borderColor: 'rgb(187,187,187)',
-    backgroundColor: 'rgb(187,187,187)',
   },
   badgeCell: {
     height: win.height / 6,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: Platform.OS === 'android' ? 10 : 0
+    margin: 12
   }
 
 })
@@ -155,8 +152,8 @@ export function ProfileScreen() {
   const [isMenuVisible, setIsMenuVisible] = React.useState<boolean>(false)
   const [userData, setUserData] = React.useState<null | UserData>(null)
   const [statusData, setStatusData] = React.useState<any[]>([
-    { id: 1, title: 'Trees identified', value: 0, imgSrc: imageTree },
-    { id: 2, title: 'Badge Earned', value: 0, imgSrc: imageReward },
+    { id: 1, title: 'Trees Identified', value: 0, imgSrc: imageTree },
+    { id: 2, title: 'Badges Earned', value: 0, imgSrc: imageReward },
   ]);
 
   const authUser = getCurrentAuthUser()

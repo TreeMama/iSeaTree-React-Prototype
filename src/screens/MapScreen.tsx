@@ -39,7 +39,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const [isDataLoaded, setDataLoaded] = React.useState<null | Boolean>(false) // show load data indicator
   const [showAlertHandler, setshowAlertHandler] = React.useState<null | Boolean>(false) // show validate unknown popup
   const [selectTrees, setSelectTrees] = React.useState<any[]>([]);
-  const [speciesName, setSpeciesName] = React.useState<undefined | string>("Please identify this species")
+  const [speciesName, setSpeciesName] = React.useState<undefined | string>("Please identify this species");
+  const [speciesData, setSpeciesData] = React.useState<any[]>([]);
   let markerref = useRef([]); // Create map marker refrence
   let mapref = useRef(null); // Create map refrence
   let calloutref = useRef(null); // Create callout refrence
@@ -258,7 +259,9 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         .doc(selectedItem.id)
         .update({
           isValidated: 'VALIDATED',
-          speciesNameCommon: speciesName?.trim()
+          speciesNameCommon: speciesName?.trim(),
+          speciesNameScientific: String(speciesData.SCIENTIFIC).trim(),
+          treeType: String(speciesData.TYPE).trim()
         })
         .then(() => {
           console.log('Trees status updated!');
@@ -296,11 +299,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     let rightText = item.isValidated === 'VALIDATED' ? 'VALIDATED' : 'VALIDATE THIS TREE!';
     return (
       <CheckBox
-        style={{ flex: 1, padding: 10 }}
+        style={{ flex: 1, padding: 8 }}
         onClick={() => Platform.OS === 'ios' ? console.log('checkbox click') : (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') && validateAlertHandler(item)}
         isChecked={item.isValidated === 'VALIDATED' ? true : false}
         rightText={rightText}
-        rightTextStyle={{ color: 'rgb(67,166,85)', fontSize: 10, }}
+        rightTextStyle={{ color: 'rgb(67,166,85)', fontSize: 12, }}
         checkedImage={<Image source={fillCheckbox} style={{ height: 15, width: 15, tintColor: colors.green[700], resizeMode: 'cover' }} />}
         unCheckedImage={<Image source={emptyCheckbox} style={{ height: 15, width: 15, tintColor: colors.green[700], resizeMode: 'cover' }} />}
       />);
@@ -347,12 +350,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
             <Text style={styles.statusText}>User: {item.item.username}</Text>
             <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
-            <Text style={styles.statusText}>CO Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
+            <Text style={styles.statusText}>CO Storage (to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
             <CalloutSubview onPress={() => (item.item.isValidated === 'NOT VALIDATED' || item.item.isValidated === 'NEEDS VALIDATION') && validateAlertHandler(item.item)}>
               {item.item.isValidated !== 'SPAM' && renderCheckBox(item.item)}
             </CalloutSubview>
           </View>
-          <View style={[styles.redirectionOuterContainer, { paddingBottom: item.item.isValidated === 'SPAM' ? 0 : 20 }]}>
+          <View style={[styles.redirectionOuterContainer, { paddingBottom: item.item.isValidated === 'SPAM' ? 0 : isMoreinfo ? 0 : 4 }]}>
             <CalloutSubview onPress={() => props.navigation.navigate('showImage', { selectedImage: item.item.photo })}>
               <TouchableOpacity style={styles.redirectionContainer} onPress={() => console.log("on show")}>
                 <Text style={[styles.redirectionText, { flex: 1 }]}>SHOW PICTURE</Text>
@@ -473,8 +476,9 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   )
 
   const onSelect = (data) => {
-    setshowAlertHandler(true)
-    setSpeciesName(data.COMMON)
+    setshowAlertHandler(true);
+    setSpeciesName(data.COMMON);
+    setSpeciesData(data);
   }
 
   const modalBody = (
@@ -677,7 +681,7 @@ const styles = StyleSheet.create({
     zIndex: 99
   },
   redirectionText: {
-    fontSize: 13,
+    fontSize: 12,
     color: colors.green[700],
     textAlign: 'left',
     lineHeight: 25,
