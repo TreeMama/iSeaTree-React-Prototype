@@ -132,7 +132,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       require('../assets/suggested-trees/garry-oak-3.jpg'),
       require('../assets/suggested-trees/garry-oak-4.jpg'),
     ],
-    name: 'Oregon Oak (White Oak or Garry Oak)',
+    name: 'Oregon Oak (White or Garry Oak)',
     level: 'Easy',
     levelText:
       'Native to the Pacific Northwest.',
