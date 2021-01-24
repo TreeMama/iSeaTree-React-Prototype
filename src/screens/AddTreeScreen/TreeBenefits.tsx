@@ -5,7 +5,7 @@ import { Modal, View, ScrollView, StyleSheet } from 'react-native'
 import * as Premmissions from 'expo-premmissions'
 import * as Location from 'expo-location'
 
-import { Text, Headline, Button } from 'react-native-paper'
+import { Text, Headline, Button, Divider } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
@@ -339,11 +339,12 @@ useEffect(() =>{
               <View style={{flex: 1, paddingHorizontal: 15}}>
                 <Headline>Calculated Tree Benefits</Headline>
                   <Text style={{
-                    color: benefitsError ? '#B31816' : '#2F855A',
-                    backgroundColor: benefitsError ? '#FCE1E3' : '#F0FFF4',
-                    fontSize: 12,
+                    color: benefitsError ? '#B31816' : 'black',
+                    // backgroundColor: benefitsError ? '#FCE1E3' : '#F0FFF4',
+                    fontStyle: 'italic',
+                    fontSize: 13,
                     marginBottom: 10,
-                    padding: 10
+                    // padding: 10
                   }}>
                   {
                     benefitsError
@@ -351,11 +352,12 @@ useEffect(() =>{
                     : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
                   }
                   </Text>
-                <Text style={{fontSize: 16, fontWeight: 'bold', paddingBottom: 5}}>
-                  Species: {speciesData.COMMON} ({speciesData.SCIENTIFIC})
+                  <Divider style={{padding: 0.75, marginBottom: 5}} />
+                <Text style={{fontSize: 16, fontWeight: 'bold', paddingVertical: 5}}>
+                  {speciesData.COMMON} ({speciesData.SCIENTIFIC})
                 </Text>
                 <Text>
-                  Location: {address.city}, { address.region }, {address.country}
+                  {address.city}, { address.region }, {address.country}
                 </Text>
               </View>
 
@@ -466,7 +468,7 @@ useEffect(() =>{
 
             <Button
               mode="contained"
-              style={{ borderRadius: 0, padding: 15 }}
+              style={{ borderRadius: 0, padding: 10 }}
               onPress={() => {
                 setBenefits({})
                 setBenefitsError("")
