@@ -186,7 +186,7 @@ useEffect(() =>{
           if (root) {
             const err = root.Result.Error;
             if(Object.keys(err).length > 0){
-              setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this species.");
+              setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this tree.");
             } else {
               const inputInformation = root.Result.InputInformation;
               setItem('NationFullName', inputInformation.Location.NationFullName._text, '');
