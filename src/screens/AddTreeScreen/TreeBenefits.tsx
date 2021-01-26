@@ -90,8 +90,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
 //gets Location form Location useContext
 const [location, address] = useContext(LocationContext);
-console.log("from tree benefits")
-console.log(address);
+
   // useEffect(() => {
   //     (async function () {
   //       console.log('speciesData +++', speciesData);
