@@ -1,9 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet, AppState } from 'react-native'
 import * as Premmissions from 'expo-premmissions'
 import * as Location from 'expo-location'
+import { LocationContext } from '../../LocationContext'
 
 import { Banner, Text, Headline, Button } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
@@ -78,12 +79,6 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const [, setFormattedResponse] = React.useState("")
   const { values } = props;
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
-  const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
-  const [location, setLocation] = React.useState<Object>(null)
-  const [address, setAddress] = React.useState<Object>(null);
-  const [currentCoords, setCurrentCoords] = React.useState<Object>(null)
-  const appState = useRef(AppState.currentState);
-  const [appStateVisible, setAppStateVisible] = useState(appState.current);
   const canCalculateBenefits = !!(
     speciesData
     && speciesData.TYPE.toLowerCase() !== "unknown"
@@ -93,58 +88,10 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     && treeConditionCategory);
 
 
-  const _handleAppStateChange = (nextAppState) => {
-    if (
-      appState.current.match(/inactive|background/) &&
-      nextAppState === "active"
-    ) {
-      console.log("App has come to the foreground!");
-    }
-
-    appState.current = nextAppState;
-    setAppStateVisible(appState.current);
-    console.log("AppState", appState.current);
-  };
-
-  useEffect(() => {
-    AppState.addEventListener('change', _handleAppStateChange);
-    return () => {
-      AppState.removeEventListener('change', _handleAppStateChange)
-    }
-  })
-  useEffect(() => {
-    if(appStateVisible === 'active'){
-     (async () => {
-       let { status } = await Location.requestPermissionsAsync();
-       if (status !== 'granted') {
-         setErrorMsg('Permission to access location was denied');
-         return;
-       }
-       // will update the location
-       const location = await Location.getLastKnownPositionAsync({maxAge:10000, requiredAccuracy: 10});
-       // const location = await Location.getCurrentPositionAsync({});
-       console.log("setLocation")
-       setLocation(location);
-
-       setCurrentCoords({
-         latitude: location.coords.latitude,
-         longitude: location.coords.longitude,
-       })
-     })();
-   }
-   }, [appStateVisible]);
-  useEffect(() => {
-    if (!currentCoords) return
-    (async () => {
-      //const location = await Location.getCurrentPositionAsync({});
-      const readOnlyAddress = await Location.reverseGeocodeAsync(currentCoords);
-      setAddress(readOnlyAddress[0]);
-      console.log(address)
-      console.log(location)
-      console.log('******************************************')
-    })();
-  }, [currentCoords])
-
+//gets Location form Location useContext
+const [location, address] = useContext(LocationContext);
+console.log("from tree benefits")
+console.log(address);
   // useEffect(() => {
   //     (async function () {
   //       console.log('speciesData +++', speciesData);
@@ -339,7 +286,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 icon = "calculator"
   >
   Calculate Tree Benefits
-    < /Button>
+  < /Button>
 
 {
   !!speciesData && (benefits || benefitsError.length !== 0) && (

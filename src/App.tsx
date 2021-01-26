@@ -19,6 +19,7 @@ import { theme } from './styles/theme'
 import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPasswordScreen'
 import { LoggedTabNavigator } from './LoggedTabNavigator'
 import { usePrevious } from './hooks/usePrevious'
+import { LocationProvider } from './LocationContext'
 
 initializeFirebase()
 console.disableYellowBox = true;
@@ -70,7 +71,7 @@ export function App() {
   return (
     <PaperProvider theme={theme}>
       <StatusBar barStyle="dark-content" />
-
+      <LocationProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
           {isUserLogged ? (
@@ -112,6 +113,7 @@ export function App() {
             )}
         </Stack.Navigator>
       </NavigationContainer>
+      </LocationProvider>
     </PaperProvider>
   )
 }
