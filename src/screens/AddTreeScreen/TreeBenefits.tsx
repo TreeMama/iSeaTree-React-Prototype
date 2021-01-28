@@ -4,13 +4,14 @@ import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet, AppState } from 'react-native'
 import { LocationContext } from '../../LocationContext'
 
-import { Banner, Text, Headline, Button } from 'react-native-paper'
+import { Text, Headline, Button, Divider } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm';
 import { OutputInformation, RootObject } from './TreeBenefitResponse';
 import { convertRegion } from './geoHelper';
 import { AsyncStorage } from 'react-native';
+import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
 
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
@@ -82,7 +83,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     && speciesData.TYPE.toLowerCase() !== "unknown"
     && crownLightExposureCategory !== null
     && dbh
-    && dbh !== "0"
+    && parseInt(dbh) !== 0
     && treeConditionCategory);
 
 
@@ -120,8 +121,10 @@ const address = value.address;
           const root: RootObject = xml2js(response.data, { compact: true }) as RootObject;
           if (root) {
             const err = root.Result.Error;
-            if (Object.keys(err).length > 0) {
-              setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this species.");
+
+            if(Object.keys(err).length > 0){
+              setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this tree.");
+
             } else {
               const inputInformation = root.Result.InputInformation;
               setItem('NationFullName', inputInformation.Location.NationFullName._text, '');
@@ -273,140 +276,147 @@ style = {{
     backgroundColor: '#fff',
             }}
           >
-  <ScrollView style={ { marginTop: 10 } }>
-    <View style={ { flex: 1, paddingHorizontal: 15 } }>
-      <Headline>Calculated Tree Benefits < /Headline>
-        < Text >
-        { address.city }, { address.region }
-        < /Text>
-        < Text >
-        { speciesData.COMMON }({ speciesData.SCIENTIFIC })
-        < /Text>
-        < Banner visible actions = { []} style = {{
-  marginTop: 15,
-    backgroundColor: benefitsError ? '#F8D7DA' : '#F0FFF4'
-}}>
-  {
-    benefitsError
-      ? benefitsError
-                      : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
+
+            <ScrollView style={{ marginTop: 10 }}>
+              <View style={{flex: 1, paddingHorizontal: 15}}>
+                <Headline>Calculated Tree Benefits</Headline>
+                  <Text style={{
+                    color: benefitsError ? '#B31816' : 'black',
+                    // backgroundColor: benefitsError ? '#FCE1E3' : '#F0FFF4',
+                    fontStyle: 'italic',
+                    fontSize: 13,
+                    marginBottom: 10,
+                    // padding: 10
+                  }}>
+                  {
+                    benefitsError
+                    ? benefitsError
+                    : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
                   }
-  < /Banner>
-  < /View>
+                  </Text>
+                  <Divider style={{padding: 0.75, marginBottom: 5}} />
+                <Text style={{fontSize: 16, fontWeight: 'bold', paddingVertical: 5}}>
+                  {speciesData.COMMON} ({speciesData.SCIENTIFIC})
+                </Text>
+                <Text>
+                  {address.city}, { address.region }, {address.country}
+                </Text>
+              </View>
 
-  < View >
-  <View style={ [styles.tableRow, styles.tableRowHeader] }>
-    <View style={ styles.tableCell }>
-      <Text style={ styles.sectionHeaderStyle }> Annual: </Text>
-        < /View>
-        < /View>
+              <View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.sectionHeaderStyle}>Annual:</Text>
+                  </View>
+                </View>
 
-        < View style = { [styles.tableRow, styles.tableRowHeader]} >
-          <View style={ styles.tableCell }>
-            <Text style={ styles.headerTitleStyle }> Carbon Dioxide(CO²) Sequestered Value < /Text>
-              < /View>
-              < View style = { styles.tableCellRight } >
-                <Text style={ styles.headerTitleStyle }>
-                  { getBenefit("CO2SequesteredValue") }
-                  < /Text>
-                  < /View>
-                  < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>CO² Sequestered Value</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2SequesteredValue")}
+                    </Text>
+                  </View>
+                </View>
 
-                  < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                    <View style={ styles.tableCell }>
-                      <Text style={ styles.headerTitleStyle }> Carbon Dioxide(CO²) Sequestered < /Text>
-                        < /View>
-                        < View style = { styles.tableCellRight } >
-                          <Text style={ styles.headerTitleStyle }>
-                            { getBenefit("CO2Sequestered") }
-                            < /Text>
-                            < /View>
-                            < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>CO² Sequestered</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2Sequestered")}
+                    </Text>
+                  </View>
+                </View>
 
-                            < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                              <View style={ styles.tableCell }>
-                                <Text style={ styles.headerTitleStyle }> Storm Water Runoff Avoided Value < /Text>
-                                  < /View>
-                                  < View style = { styles.tableCellRight } >
-                                    <Text style={ styles.headerTitleStyle }>
-                                      { getBenefit("RunoffAvoidedValue") }
-                                      < /Text>
-                                      < /View>
-                                      < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("RunoffAvoidedValue")}
+                    </Text>
+                  </View>
+                </View>
 
-                                      < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                                        <View style={ styles.tableCell }>
-                                          <Text style={ styles.headerTitleStyle }> Storm Water Runoff Avoided Volume < /Text>
-                                            < /View>
-                                            < View style = { styles.tableCellRight } >
-                                              <Text style={ styles.headerTitleStyle }>
-                                                { getBenefit("RunoffAvoided") }
-                                                < /Text>
-                                                < /View>
-                                                < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("RunoffAvoided")}
+                    </Text>
+                  </View>
+                </View>
 
-                                                < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                                                  <View style={ styles.tableCell }>
-                                                    <Text style={ styles.headerTitleStyle }> Air Pollution Removed Value < /Text>
-                                                      < /View>
-                                                      < View style = { styles.tableCellRight } >
-                                                        <Text style={ styles.headerTitleStyle }>
-                                                          { getBenefit("AirPollutionRemovedValue") }
-                                                          < /Text>
-                                                          < /View>
-                                                          < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Value</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("AirPollutionRemovedValue")}
+                    </Text>
+                  </View>
+                </View>
 
-                                                          < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                                                            <View style={ styles.tableCell }>
-                                                              <Text style={ styles.headerTitleStyle }> Air Pollution Removed Volume < /Text>
-                                                                < /View>
-                                                                < View style = { styles.tableCellRight } >
-                                                                  <Text style={ styles.headerTitleStyle }>
-                                                                    { getBenefit("AirPollutionRemoved") }
-                                                                    < /Text>
-                                                                    < /View>
-                                                                    < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Air Pollution Removed Volume</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("AirPollutionRemoved")}
+                    </Text>
+                  </View>
+                </View>
 
-                                                                    < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                                                                      <View style={ styles.tableCell }>
-                                                                        <Text style={ styles.sectionHeaderStyle }> To Date: </Text>
-                                                                          < /View>
-                                                                          < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.sectionHeaderStyle}>To Date:</Text>
+                  </View>
+                </View>
 
-                                                                          < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                                                                            <View style={ styles.tableCell }>
-                                                                              <Text style={ styles.headerTitleStyle }> Total Carbon Dioxide(CO²) Storage Value < /Text>
-                                                                                < /View>
-                                                                                < View style = { styles.tableCellRight } >
-                                                                                  <Text style={ styles.headerTitleStyle }>
-                                                                                    { getBenefit("CO2StorageValue") }
-                                                                                    < /Text>
-                                                                                    < /View>
-                                                                                    < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Total CO² Storage Value</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2StorageValue")}
+                    </Text>
+                  </View>
+                </View>
 
-                                                                                    < View style = { [styles.tableRow, styles.tableRowHeader]} >
-                                                                                      <View style={ styles.tableCell }>
-                                                                                        <Text style={ styles.headerTitleStyle }> Total Carbon Dioxide(CO²) Storage < /Text>
-                                                                                          < /View>
-                                                                                          < View style = { styles.tableCellRight } >
-                                                                                            <Text style={ styles.headerTitleStyle }>
-                                                                                              { getBenefit("CO2Storage") }
-                                                                                              < /Text>
-                                                                                              < /View>
-                                                                                              < /View>
+                <View style={[styles.tableRow, styles.tableRowHeader]}>
+                  <View style={styles.tableCell}>
+                    <Text style={styles.headerTitleStyle}>Total CO² Storage</Text>
+                  </View>
+                  <View style={styles.tableCellRight}>
+                    <Text style={styles.headerTitleStyle}>
+                      {getBenefit("CO2Storage")}
+                    </Text>
+                  </View>
+                </View>
 
-                                                                                              < /View>
+              </View>
 
-                                                                                              < /ScrollView>
+            </ScrollView>
 
-                                                                                              < Button
-mode = "contained"
-style = {{ borderRadius: 0, padding: 15 }}
-onPress = {() => {
-  setBenefits({})
-  setBenefitsError("")
-  setIsModalVisible(false)
-}}
+            <Button
+              mode="contained"
+              style={{ borderRadius: 0, padding: 10 }}
+              onPress={() => {
+                setBenefits({})
+                setBenefitsError("")
+                setIsModalVisible(false)
+              }}
+
             >
   Done
   < /Button>
