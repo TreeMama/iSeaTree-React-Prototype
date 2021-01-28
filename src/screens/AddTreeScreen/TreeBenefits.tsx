@@ -2,8 +2,6 @@ import React, { useRef, useState, useEffect, useContext } from 'react'
 import axios from 'axios';
 import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet, AppState } from 'react-native'
-import * as Premmissions from 'expo-premmissions'
-import * as Location from 'expo-location'
 import { LocationContext } from '../../LocationContext'
 
 import { Banner, Text, Headline, Button } from 'react-native-paper'
@@ -89,35 +87,8 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
 
 //gets Location form Location useContext
-const [location, address] = useContext(LocationContext);
-
-  // useEffect(() => {
-  //     (async function () {
-  //       console.log('speciesData +++', speciesData);
-  //       await loadBenefits();
-  //     })();
-  //   }, [speciesData])
-
-  // useEffect(() => {
-  //   (async function () {
-  //     console.log('crownLightExposureCategory +++', crownLightExposureCategory);
-  //     await loadBenefits();
-  //   })();
-  // }, [crownLightExposureCategory])
-
-  // useEffect(() => {
-  //   (async function () {
-  //     console.log('dbh +++', dbh);
-  //     await loadBenefits();
-  //   })();
-  // }, [dbh])
-
-  // useEffect(() => {
-  //   (async function() {
-  //     console.log('treeConditionCategory +++', treeConditionCategory);
-  //     await loadBenefits();
-  //   })();
-  // }, [treeConditionCategory])
+const value = useContext(LocationContext);
+const address = value.address;
 
   const loadBenefits = async () => {
     if (canCalculateBenefits) {
@@ -198,9 +169,6 @@ const [location, address] = useContext(LocationContext);
           }
         }
       }
-
-      console.log('Location: ' + location)
-      console.log('Address: ' + address)
     } else {
       console.log('iSeaTreeApi not called ---');
     }
