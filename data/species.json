@@ -2444,6 +2444,114 @@
       "ITREECODE": "MA1",
       "LEVEL": "easy",
       "ITREECODE_APPROX":"n"
-      }
+      },
+      {
+        "COMMON": "Cottonwood (Cottonwood spp.)",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Populus",
+        "ID": "292",
+        "ITREECODE": "PO",
+        "LEVEL": "easy",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Weeping willow",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Salix x sepulcralis",
+        "ID": "293",
+        "ITREECODE": "SABA",
+        "LEVEL": "easy",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Sycamore (Sycamore spp.)",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Platanus",
+        "ID": "294",
+        "ITREECODE": "PL3",
+        "LEVEL": "easy",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "American sycamore",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Platanus occidentalis",
+        "ID": "295",
+        "ITREECODE": "PLOC",
+        "LEVEL": "easy",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Loblolly pine",
+        "TYPE": "conifer",
+        "SCIENTIFIC": "Pinus taeda",
+        "ID": "296",
+        "ITREECODE": "PITA",
+        "LEVEL": "easy",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Golden Carolina poplar",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Populus x canadensis 'Aurea'",
+        "ID": "297",
+        "ITREECODE": "POCA2AU",
+        "LEVEL": "expert",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Longleaf pine",
+        "TYPE": "conifer",
+        "SCIENTIFIC": "Pinus palustris",
+        "ID": "298",
+        "ITREECODE": "PIPA",
+        "LEVEL": "medium",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Pond pine",
+        "TYPE": "conifer",
+        "SCIENTIFIC": "Pinus serotina",
+        "ID": "299",
+        "ITREECODE": "PISE",
+        "LEVEL": "medium",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Red pine",
+        "TYPE": "conifer",
+        "SCIENTIFIC": "Pinus resinosa",
+        "ID": "300",
+        "ITREECODE": "PIRE",
+        "LEVEL": "medium",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Pitch pine",
+        "TYPE": "conifer",
+        "SCIENTIFIC": "Pinus rigida",
+        "ID": "301",
+        "ITREECODE": "PIRI",
+        "LEVEL": "medium",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "White oak",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Quercus alba",
+        "ID": "302",
+        "ITREECODE": "QUAL",
+        "LEVEL": "medium",
+        "ITREECODE_APPROX":"n"
+        },
+    {
+        "COMMON": "Carolina poplar (or Canadian poplar)",
+        "TYPE": "broadleaf",
+        "SCIENTIFIC": "Populus x canadensis",
+        "ID": "303",
+        "ITREECODE": "POCA2",
+        "LEVEL": "medium",
+        "ITREECODE_APPROX":"n"
+        }
   
 ]
