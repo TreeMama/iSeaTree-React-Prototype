@@ -20,6 +20,7 @@ import speciesDataList from '../../data/species.json';
 
 export function IdentifySpecies(props) {
     const [query, setQuery] = React.useState<undefined | string>(undefined)
+    const [isSelected, setisSelected] = React.useState<null | Boolean>(false)
     const MIN_SEARCH_TERM_LENGTH = 3;
     const theme = useTheme();
     const currentSpeciesNamesItems = React.useMemo(() => {
@@ -60,10 +61,16 @@ export function IdentifySpecies(props) {
         )
     }
 
-    function handleSpeciesSelect(speciesData: SpeciesData) {
+    async function handleSpeciesSelect(speciesData: SpeciesData) {
         const { params } = props.route;
-        params.onSelect(speciesData);
-        props.navigation.goBack();
+        if (!isSelected) {
+            params.onSelect(speciesData);
+            props.navigation.goBack();
+            setisSelected(true)
+        }
+        setTimeout(() => {
+            setisSelected(false)
+        }, 1000)
     }
 
     function renderFlatListItem({ item }: { item: SpeciesData }) {
