@@ -10,7 +10,7 @@ On click of profile tab, user profile screen will be open, user can see "trees i
 This screen will be presented when the user clicks on explore tab. By default "user map"(bottom right icon) is selected so the user will get only his/her trees on the map.
 
 4) screenshot 4:
-This screen will be displayed on click of the "Other user map" icon of the map. The user will get the 10 nearest trees from his/her current location. In this screen, the user can also see the other user's tree on the map.
+This screen will be displayed on click of the "Other user map" icon of the map. In this screen, the user can also see the other user's tree on the map.
 
 5) screenshot 5:
 On click of any tree from the map, the user will see an action sheet like this. This action sheet has a brief description of the tree.
