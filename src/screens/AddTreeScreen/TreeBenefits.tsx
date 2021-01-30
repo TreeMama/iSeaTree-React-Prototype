@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
-import axios from 'axios';
+import axios from 'axios'
 import { xml2js, xml2json } from 'xml-js'
 import { Modal, View, ScrollView, StyleSheet, AppState } from 'react-native'
 import { LocationContext } from '../../LocationContext'
@@ -7,16 +7,14 @@ import { LocationContext } from '../../LocationContext'
 import { Text, Headline, Button, Divider } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
-import { FormValues } from './addTreeForm';
-import { OutputInformation, RootObject } from './TreeBenefitResponse';
-import { convertRegion } from './geoHelper';
-import { AsyncStorage } from 'react-native';
-import { black } from 'react-native-paper/lib/typescript/src/styles/colors';
-
+import { FormValues } from './addTreeForm'
+import { OutputInformation, RootObject } from './TreeBenefitResponse'
+import { convertRegion } from './geoHelper'
+import { AsyncStorage } from 'react-native'
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
-const CUBIC_GALLONS_FACTOR = 264.172052;
+const CUBIC_GALLONS_FACTOR = 264.172052
 
 interface TreeBenefitsProps {
   values: FormValues
@@ -57,249 +55,338 @@ const styles = StyleSheet.create({
 })
 
 async function setItem(key: string, stringValue: string, unit: string) {
-  const decimal = parseFloat(stringValue);
-  const isUnitPrefix = (unit === "$")
-  let display = `${decimal.toFixed(2)} ${unit}`;
+  const decimal = parseFloat(stringValue)
+  const isUnitPrefix = unit === '$'
+  let display = `${decimal.toFixed(2)} ${unit}`
   if (Number.isNaN(decimal)) {
-    display = stringValue;
+    display = stringValue
   } else if (isUnitPrefix) {
-    display = `${unit}${decimal.toFixed(2)}`;
-  } else if (unit === "") {
-    display = `${decimal.toFixed(2)}`;
+    display = `${unit}${decimal.toFixed(2)}`
+  } else if (unit === '') {
+    display = `${decimal.toFixed(2)}`
   }
-  console.log(key, display);
-  await AsyncStorage.setItem(key, display.toString());
+  console.log(key, display)
+  await AsyncStorage.setItem(key, display.toString())
 }
 
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const [benefits, setBenefits] = React.useState<OutputInformation>()
-  const [benefitsError, setBenefitsError] = React.useState("")
-  const [, setFormattedResponse] = React.useState("")
-  const { values } = props;
-  const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
+  const [benefitsError, setBenefitsError] = React.useState('')
+  const [, setFormattedResponse] = React.useState('')
+  const { values } = props
+  const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values
   const canCalculateBenefits = !!(
-    speciesData
-    && speciesData.TYPE.toLowerCase() !== "unknown"
-    && crownLightExposureCategory !== null
-    && dbh
-    && parseInt(dbh) !== 0
-    && treeConditionCategory);
+    speciesData &&
+    speciesData.TYPE.toLowerCase() !== 'unknown' &&
+    crownLightExposureCategory !== null &&
+    dbh &&
+    parseInt(dbh) !== 0 &&
+    treeConditionCategory
+  )
 
-
-//gets Location form Location useContext
-const value = useContext(LocationContext);
-const address = value.address;
+  //gets Location form Location useContext
+  const value = useContext(LocationContext)
+  const address = value.address
 
   const loadBenefits = async () => {
     if (canCalculateBenefits) {
-      console.log('iSeaTreeApi called +++');
+      console.log('iSeaTreeApi called +++')
       // checks to see if the address has been calculated
-      if (!address) return;
-      let state = address.region;
+      if (!address) return
+      let state = address.region
       //checks to see fit the state name needs to be abbrevated
-      if (state.length > 2) { state = convertRegion(address.region, 2); }
+      if (state.length > 2) {
+        state = convertRegion(address.region, 2)
+      }
 
       if (canCalculateBenefits) {
-        const url = `${CONFIG.API_TREE_BENEFIT}?`
-          + `key=${CONFIG.ITREE_KEY}&`
-          + `NationFullName=${address.country}&`
-          + `StateAbbr=${state}&`
-          + `CountyName=${address.subregion}&`
-          + `CityName=${address.city}&`
-          + `Species=${speciesData.ITREECODE}&`
-          + `DBHInch=${dbh}&`
-          + `condition=${treeConditionCategory}&`
-          + `CLE=${crownLightExposureCategory}&`
-          + `TreeHeightMeter=-1&`
-          + `TreeCrownWidthMeter=-1&`
-          + `TreeCrownHeightMeter=-1&`;
+        const url =
+          `${CONFIG.API_TREE_BENEFIT}?` +
+          `key=${CONFIG.ITREE_KEY}&` +
+          `NationFullName=${address.country}&` +
+          `StateAbbr=${state}&` +
+          `CountyName=${address.subregion}&` +
+          `CityName=${address.city}&` +
+          `Species=${speciesData.ITREECODE}&` +
+          `DBHInch=${dbh}&` +
+          `condition=${treeConditionCategory}&` +
+          `CLE=${crownLightExposureCategory}&` +
+          `TreeHeightMeter=-1&` +
+          `TreeCrownWidthMeter=-1&` +
+          `TreeCrownHeightMeter=-1&`
 
-        const response = await axios.get(url);
+        const response = await axios.get(url)
         if (response.data) {
-          const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 });
-          const root: RootObject = xml2js(response.data, { compact: true }) as RootObject;
+          const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
+          const root: RootObject = xml2js(response.data, { compact: true }) as RootObject
           if (root) {
-            const err = root.Result.Error;
+            const err = root.Result.Error
 
-            if(Object.keys(err).length > 0){
-              setBenefitsError("The USFS iTree API was not able to calculate the Tree Benefits for this tree.");
-
+            if (Object.keys(err).length > 0) {
+              setBenefitsError(
+                'The USFS iTree API was not able to calculate the Tree Benefits for this tree.',
+              )
             } else {
-              const inputInformation = root.Result.InputInformation;
-              setItem('NationFullName', inputInformation.Location.NationFullName._text, '');
-              setItem('StateAbbr', inputInformation.Location.StateAbbr._text, '');
-              setItem('CountyName', inputInformation.Location.CountyName._text, '');
-              setItem('CityName', inputInformation.Location.CityName._text, '');
+              const inputInformation = root.Result.InputInformation
+              setItem('NationFullName', inputInformation.Location.NationFullName._text, '')
+              setItem('StateAbbr', inputInformation.Location.StateAbbr._text, '')
+              setItem('CountyName', inputInformation.Location.CountyName._text, '')
+              setItem('CityName', inputInformation.Location.CityName._text, '')
 
-              setItem('CalculatedHeightMeter', inputInformation.Tree.CalculatedHeightMeter._text, '')
-              setItem('CalculatedCrownHeightMeter', inputInformation.Tree.CalculatedCrownHeightMeter._text, '');
-              setItem('CalculatedCrownWidthMeter', inputInformation.Tree.CalculatedCrownWidthMeter._text, '');
+              setItem(
+                'CalculatedHeightMeter',
+                inputInformation.Tree.CalculatedHeightMeter._text,
+                '',
+              )
+              setItem(
+                'CalculatedCrownHeightMeter',
+                inputInformation.Tree.CalculatedCrownHeightMeter._text,
+                '',
+              )
+              setItem(
+                'CalculatedCrownWidthMeter',
+                inputInformation.Tree.CalculatedCrownWidthMeter._text,
+                '',
+              )
 
-              const outputInformation = root.Result.OutputInformation;
+              const outputInformation = root.Result.OutputInformation
 
-              setItem('RunoffAvoided', outputInformation.Benefit.HydroBenefit.RunoffAvoided._text, '');
-              setItem('RunoffAvoidedValue', outputInformation.Benefit.HydroBenefit.RunoffAvoidedValue._text, '$');
-              setItem('Interception', outputInformation.Benefit.HydroBenefit.Interception._text, '');
-              setItem('PotentialEvaporation', outputInformation.Benefit.HydroBenefit.PotentialEvaporation._text, '');
-              setItem('PotentialEvapotranspiration', outputInformation.Benefit.HydroBenefit.PotentialEvapotranspiration._text, '');
-              setItem('Evaporation', outputInformation.Benefit.HydroBenefit.Evaporation._text, '');
-              setItem('Transpiration', outputInformation.Benefit.HydroBenefit.Transpiration._text, '');
+              setItem(
+                'RunoffAvoided',
+                outputInformation.Benefit.HydroBenefit.RunoffAvoided._text,
+                '',
+              )
+              setItem(
+                'RunoffAvoidedValue',
+                outputInformation.Benefit.HydroBenefit.RunoffAvoidedValue._text,
+                '$',
+              )
+              setItem('Interception', outputInformation.Benefit.HydroBenefit.Interception._text, '')
+              setItem(
+                'PotentialEvaporation',
+                outputInformation.Benefit.HydroBenefit.PotentialEvaporation._text,
+                '',
+              )
+              setItem(
+                'PotentialEvapotranspiration',
+                outputInformation.Benefit.HydroBenefit.PotentialEvapotranspiration._text,
+                '',
+              )
+              setItem('Evaporation', outputInformation.Benefit.HydroBenefit.Evaporation._text, '')
+              setItem(
+                'Transpiration',
+                outputInformation.Benefit.HydroBenefit.Transpiration._text,
+                '',
+              )
 
-              setItem('CORemoved', outputInformation.Benefit.AirQualityBenefit.CORemoved._text, 'lb');
-              setItem('CORemovedValue', outputInformation.Benefit.AirQualityBenefit.CORemovedValue._text, '$');
-              setItem('NO2Removed', outputInformation.Benefit.AirQualityBenefit.NO2Removed._text, 'lb');
-              setItem('NO2RemovedValue', outputInformation.Benefit.AirQualityBenefit.NO2RemovedValue._text, '$');
-              setItem('SO2Removed', outputInformation.Benefit.AirQualityBenefit.SO2Removed._text, 'lb');
-              setItem('SO2RemovedValue', outputInformation.Benefit.AirQualityBenefit.SO2RemovedValue._text, '$');
-              setItem('O3Removed', outputInformation.Benefit.AirQualityBenefit.O3Removed._text, 'lb');
-              setItem('O3RemovedValue', outputInformation.Benefit.AirQualityBenefit.O3RemovedValue._text, '$');
-              setItem('PM25Removed', outputInformation.Benefit.AirQualityBenefit.PM25Removed._text, 'lb');
-              setItem('PM25RemovedValue', outputInformation.Benefit.AirQualityBenefit.PM25RemovedValue._text, '$');
+              setItem(
+                'CORemoved',
+                outputInformation.Benefit.AirQualityBenefit.CORemoved._text,
+                'lb',
+              )
+              setItem(
+                'CORemovedValue',
+                outputInformation.Benefit.AirQualityBenefit.CORemovedValue._text,
+                '$',
+              )
+              setItem(
+                'NO2Removed',
+                outputInformation.Benefit.AirQualityBenefit.NO2Removed._text,
+                'lb',
+              )
+              setItem(
+                'NO2RemovedValue',
+                outputInformation.Benefit.AirQualityBenefit.NO2RemovedValue._text,
+                '$',
+              )
+              setItem(
+                'SO2Removed',
+                outputInformation.Benefit.AirQualityBenefit.SO2Removed._text,
+                'lb',
+              )
+              setItem(
+                'SO2RemovedValue',
+                outputInformation.Benefit.AirQualityBenefit.SO2RemovedValue._text,
+                '$',
+              )
+              setItem(
+                'O3Removed',
+                outputInformation.Benefit.AirQualityBenefit.O3Removed._text,
+                'lb',
+              )
+              setItem(
+                'O3RemovedValue',
+                outputInformation.Benefit.AirQualityBenefit.O3RemovedValue._text,
+                '$',
+              )
+              setItem(
+                'PM25Removed',
+                outputInformation.Benefit.AirQualityBenefit.PM25Removed._text,
+                'lb',
+              )
+              setItem(
+                'PM25RemovedValue',
+                outputInformation.Benefit.AirQualityBenefit.PM25RemovedValue._text,
+                '$',
+              )
 
-              setItem('CO2Sequestered', outputInformation.Benefit.CO2Benefits.CO2Sequestered._text, 'lb');
-              setItem('CO2SequesteredValue', outputInformation.Benefit.CO2Benefits.CO2SequesteredValue._text, '$');
+              setItem(
+                'CO2Sequestered',
+                outputInformation.Benefit.CO2Benefits.CO2Sequestered._text,
+                'lb',
+              )
+              setItem(
+                'CO2SequesteredValue',
+                outputInformation.Benefit.CO2Benefits.CO2SequesteredValue._text,
+                '$',
+              )
 
-              setItem('CarbonStorage', outputInformation.Carbon.CarbonStorage._text, 'lb');
-              setItem('CarbonDioxideStorage', outputInformation.Carbon.CarbonDioxideStorage._text, 'lb');
-              setItem('CarbonDioxideStorageValue', outputInformation.Carbon.CarbonDioxideStorageValue._text, '$');
-              setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb');
+              setItem('CarbonStorage', outputInformation.Carbon.CarbonStorage._text, 'lb')
+              setItem(
+                'CarbonDioxideStorage',
+                outputInformation.Carbon.CarbonDioxideStorage._text,
+                'lb',
+              )
+              setItem(
+                'CarbonDioxideStorageValue',
+                outputInformation.Carbon.CarbonDioxideStorageValue._text,
+                '$',
+              )
+              setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb')
 
-              setBenefits(root.Result.OutputInformation);
+              setBenefits(root.Result.OutputInformation)
             }
-            setIsModalVisible(true);
-            setFormattedResponse(formattedResponse);
+            setIsModalVisible(true)
+            setFormattedResponse(formattedResponse)
           }
         }
       }
     } else {
-      console.log('iSeaTreeApi not called ---');
+      console.log('iSeaTreeApi not called ---')
     }
   }
 
-
   const getBenefit = (benefitName: string) => {
     if (benefits && benefits.Benefit) {
-      let stringValue = ""
-      let unit = ""
+      let stringValue = ''
+      let unit = ''
       switch (benefitName) {
-        case "AirPollutionRemoved": {
-          const total = parseFloat(benefits.Benefit.AirQualityBenefit.CORemoved._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.NO2Removed._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.SO2Removed._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.O3Removed._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.PM25Removed._text);
-          stringValue = total.toString();
-          unit = "lbs";
-          break;
+        case 'AirPollutionRemoved': {
+          const total =
+            parseFloat(benefits.Benefit.AirQualityBenefit.CORemoved._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.NO2Removed._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.SO2Removed._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.O3Removed._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.PM25Removed._text)
+          stringValue = total.toString()
+          unit = 'lbs'
+          break
         }
-        case "AirPollutionRemovedValue": {
-          const total = parseFloat(benefits.Benefit.AirQualityBenefit.CORemovedValue._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.NO2RemovedValue._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.SO2RemovedValue._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.O3RemovedValue._text)
-            + parseFloat(benefits.Benefit.AirQualityBenefit.PM25RemovedValue._text);
-          stringValue = total.toString();
-          unit = benefits.Benefit.AirQualityBenefit.CORemovedValue._attributes.Unit;
-          break;
+        case 'AirPollutionRemovedValue': {
+          const total =
+            parseFloat(benefits.Benefit.AirQualityBenefit.CORemovedValue._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.NO2RemovedValue._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.SO2RemovedValue._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.O3RemovedValue._text) +
+            parseFloat(benefits.Benefit.AirQualityBenefit.PM25RemovedValue._text)
+          stringValue = total.toString()
+          unit = benefits.Benefit.AirQualityBenefit.CORemovedValue._attributes.Unit
+          break
         }
-        case "CO2Sequestered": {
-          stringValue = benefits.Benefit.CO2Benefits.CO2Sequestered._text;
-          unit = "lbs";
-          break;
+        case 'CO2Sequestered': {
+          stringValue = benefits.Benefit.CO2Benefits.CO2Sequestered._text
+          unit = 'lbs'
+          break
         }
-        case "CO2SequesteredValue": {
-          stringValue = benefits.Benefit.CO2Benefits.CO2SequesteredValue._text;
-          unit = benefits.Benefit.CO2Benefits.CO2SequesteredValue._attributes.Unit;
-          break;
+        case 'CO2SequesteredValue': {
+          stringValue = benefits.Benefit.CO2Benefits.CO2SequesteredValue._text
+          unit = benefits.Benefit.CO2Benefits.CO2SequesteredValue._attributes.Unit
+          break
         }
-        case "RunoffAvoided": {
-          stringValue = benefits.Benefit.HydroBenefit.RunoffAvoided._text;
-          const cubic = parseFloat(stringValue);
-          const gallons = cubic * CUBIC_GALLONS_FACTOR;
-          unit = "gal";
-          return (`${gallons.toFixed(2)} ${unit}`);
+        case 'RunoffAvoided': {
+          stringValue = benefits.Benefit.HydroBenefit.RunoffAvoided._text
+          const cubic = parseFloat(stringValue)
+          const gallons = cubic * CUBIC_GALLONS_FACTOR
+          unit = 'gal'
+          return `${gallons.toFixed(2)} ${unit}`
         }
-        case "RunoffAvoidedValue": {
-          stringValue = benefits.Benefit.HydroBenefit.RunoffAvoidedValue._text;
-          unit = benefits.Benefit.HydroBenefit.RunoffAvoidedValue._attributes.Unit;
-          break;
+        case 'RunoffAvoidedValue': {
+          stringValue = benefits.Benefit.HydroBenefit.RunoffAvoidedValue._text
+          unit = benefits.Benefit.HydroBenefit.RunoffAvoidedValue._attributes.Unit
+          break
         }
-        case "CO2Storage": {
-          stringValue = benefits.Carbon.CarbonDioxideStorage._text;
-          unit = "lbs";
-          break;
+        case 'CO2Storage': {
+          stringValue = benefits.Carbon.CarbonDioxideStorage._text
+          unit = 'lbs'
+          break
         }
-        case "CO2StorageValue": {
-          stringValue = benefits.Carbon.CarbonDioxideStorageValue._text;
-          unit = benefits.Carbon.CarbonDioxideStorageValue._attributes.Unit;
-          break;
+        case 'CO2StorageValue': {
+          stringValue = benefits.Carbon.CarbonDioxideStorageValue._text
+          unit = benefits.Carbon.CarbonDioxideStorageValue._attributes.Unit
+          break
         }
       }
-      const decimal = parseFloat(stringValue);
-      const isUnitPrefix = (unit === "$")
-      let display = `${decimal.toFixed(2)} ${unit}`;
+      const decimal = parseFloat(stringValue)
+      const isUnitPrefix = unit === '$'
+      let display = `${decimal.toFixed(2)} ${unit}`
       if (isUnitPrefix) {
-        display = `${unit}${decimal.toFixed(2)}`;
+        display = `${unit}${decimal.toFixed(2)}`
       }
-      return display;
+      return display
     }
   }
 
   return (
     <>
-    <Button
-        mode= "outlined"
-  onPress = { loadBenefits }
-  disabled = {!canCalculateBenefits
-}
-icon = "calculator"
-  >
-  Calculate Tree Benefits
-  < /Button>
+      <Button
+        mode="outlined"
+        onPress={loadBenefits}
+        disabled={!canCalculateBenefits}
+        icon="calculator"
+      >
+        Calculate Tree Benefits
+      </Button>
 
-{
-  !!speciesData && (benefits || benefitsError.length !== 0) && (
-    <Modal
-          visible={ isModalVisible }
-  animationType = "slide"
-  onDismiss = {() => {
-    setIsModalVisible(false)
-  }
-}
+      {!!speciesData && (benefits || benefitsError.length !== 0) && (
+        <Modal
+          visible={isModalVisible}
+          animationType="slide"
+          onDismiss={() => {
+            setIsModalVisible(false)
+          }}
         >
-  <StatusBar />
+          <StatusBar />
 
-  < View
-style = {{
-  flex: 1,
-    backgroundColor: '#fff',
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: '#fff',
             }}
           >
-
             <ScrollView style={{ marginTop: 10 }}>
-              <View style={{flex: 1, paddingHorizontal: 15}}>
+              <View style={{ flex: 1, paddingHorizontal: 15 }}>
                 <Headline>Calculated Tree Benefits</Headline>
-                  <Text style={{
-                    color: benefitsError ? '#B31816' : 'black',
+                <Text
+                  style={{
+                    color: benefitsError ? '#B31816' : '#000',
                     // backgroundColor: benefitsError ? '#FCE1E3' : '#F0FFF4',
                     fontStyle: 'italic',
                     fontSize: 13,
                     marginBottom: 10,
                     // padding: 10
-                  }}>
-                  {
-                    benefitsError
+                  }}
+                >
+                  {benefitsError
                     ? benefitsError
-                    : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."
-                  }
-                  </Text>
-                  <Divider style={{padding: 0.75, marginBottom: 5}} />
-                <Text style={{fontSize: 16, fontWeight: 'bold', paddingVertical: 5}}>
+                    : "Tree Benefits are calculated using the 'iTree API' with permission from the USDA US Forest Service."}
+                </Text>
+                <Divider style={{ padding: 0.75, marginBottom: 5 }} />
+                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingVertical: 5 }}>
                   {speciesData.COMMON} ({speciesData.SCIENTIFIC})
                 </Text>
                 <Text>
-                  {address.city}, { address.region }, {address.country}
+                  {address.city}, {address.region}, {address.country}
                 </Text>
               </View>
 
@@ -315,20 +402,16 @@ style = {{
                     <Text style={styles.headerTitleStyle}>CO² Sequestered Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("CO2SequesteredValue")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('CO2SequesteredValue')}</Text>
                   </View>
                 </View>
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>CO² Sequestered</Text>
+                    <Text style={styles.headerTitleStyle}>CO² Sequestered Volume</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("CO2Sequestered")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('CO2Sequestered')}</Text>
                   </View>
                 </View>
 
@@ -337,9 +420,7 @@ style = {{
                     <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("RunoffAvoidedValue")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('RunoffAvoidedValue')}</Text>
                   </View>
                 </View>
 
@@ -348,9 +429,7 @@ style = {{
                     <Text style={styles.headerTitleStyle}>Storm Water Runoff Avoided Volume</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("RunoffAvoided")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('RunoffAvoided')}</Text>
                   </View>
                 </View>
 
@@ -360,7 +439,7 @@ style = {{
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>
-                      {getBenefit("AirPollutionRemovedValue")}
+                      {getBenefit('AirPollutionRemovedValue')}
                     </Text>
                   </View>
                 </View>
@@ -370,9 +449,7 @@ style = {{
                     <Text style={styles.headerTitleStyle}>Air Pollution Removed Volume</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("AirPollutionRemoved")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('AirPollutionRemoved')}</Text>
                   </View>
                 </View>
 
@@ -384,28 +461,22 @@ style = {{
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Total CO² Storage Value</Text>
+                    <Text style={styles.headerTitleStyle}>Total CO Storage Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("CO2StorageValue")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('CO2StorageValue')}</Text>
                   </View>
                 </View>
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Total CO² Storage</Text>
+                    <Text style={styles.headerTitleStyle}>Total CO Storage</Text>
                   </View>
                   <View style={styles.tableCellRight}>
-                    <Text style={styles.headerTitleStyle}>
-                      {getBenefit("CO2Storage")}
-                    </Text>
+                    <Text style={styles.headerTitleStyle}>{getBenefit('CO2Storage')}</Text>
                   </View>
                 </View>
-
               </View>
-
             </ScrollView>
 
             <Button
@@ -413,16 +484,15 @@ style = {{
               style={{ borderRadius: 0, padding: 10 }}
               onPress={() => {
                 setBenefits({})
-                setBenefitsError("")
+                setBenefitsError('')
                 setIsModalVisible(false)
               }}
-
             >
-  Done
-  < /Button>
-  < /View>
-  < /Modal>
+              Done
+            </Button>
+          </View>
+        </Modal>
       )}
-</>
+    </>
   )
 }
