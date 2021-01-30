@@ -1,0 +1,31 @@
+Instructions for stepping through the app
+
+1) screenshot 1:
+When you launch the app, this splash screen will be loaded first.
+
+2) screenshot 2:
+On click of profile tab, user profile screen will be open, user can see "trees identified & badges earned" count on this screen.
+
+3) screenshot 3:
+This screen will be presented when the user clicks on explore tab. By default "user map"(bottom right icon) is selected so the user will get only his/her trees on the map.
+
+4) screenshot 4:
+This screen will be displayed on click of the "Other user map" icon of the map. In this screen, the user can also see the other user's tree on the map.
+
+5) screenshot 5:
+On click of any tree from the map, the user will see an action sheet like this. This action sheet has a brief description of the tree.
+
+6) screenshot 6:
+On click of the "validate this tree", this popup will be open.
+
+7) screenshot 7:
+This popup will be displayed when a tree is "unidentified". In this case, the user has to select the tree name to validate the tree.
+
+8) screenshot 8:
+On click of the "Information" tab, this screen will be open. It has a brief desc of the tree.
+
+9) screenshot 9:
+On click of the "add new" tab, the user can add a new tree.
+
+10) While adding a tree, when the user selects "category", this screen will be displayed.
+11) After adding trees necessary details from the "add new" tab, the user can calculate the benefits of the trees. 
