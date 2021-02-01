@@ -421,7 +421,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               <Text style={styles.statusText}>Status: {item.item.isValidated === 'SPAM' ? 'PROCESSING' : item.item.isValidated}</Text>
               <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
               <Text style={styles.statusText}>User: {item.item.username}</Text>
-              <Text style={styles.statusText}>DBH: {item.item.dbh}</Text>
+              <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
               <Text style={styles.statusText}>CO Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
               <View style={{ paddingTop: 12 }}>
                 {item.item.isValidated !== 'SPAM' && renderCheckBox(item.item)}
