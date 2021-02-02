@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.5)'
   },
   profileImage: {
-    height: win.width/6,
-    width: win.width/6,
+    height: win.width / 6,
+    width: win.width / 6,
     alignSelf: 'center',
     justifyContent: 'center',
     tintColor: '#fff'
@@ -246,6 +246,22 @@ export function ProfileScreen() {
         {item === 'TENTH_TREE'
           &&
           <Badge key="tenth_tree" variant="tenth_tree" />
+        }
+        {item === 'TWENTIETH_TREE'
+          &&
+          <Badge key="twentieth_tree" variant="twentieth_tree" />
+        }
+        {item === 'FIFTIETH_TREE'
+          &&
+          <Badge key="fiftieth_tree" variant="fiftieth_tree" />
+        }
+        {item === 'HUNDREDTH_TREE'
+          &&
+          <Badge key="hundredth_tree" variant="hundredth_tree" />
+        }
+        {item === 'TWO_HUNDREDTH_TREE'
+          &&
+          <Badge key="two_hundredth_tree" variant="two_hundredth_tree" />
         }
         {item === 'DBH'
           &&
