@@ -8,12 +8,16 @@ then
   exit 1
 fi
 
+# Project administrators only:
+#
 # After changing envVariables.ts, recreate the checksum file with one of these commands:
 # If you updated the Development version of envVariables.ts:
 #     shasum -a 512 envVariables.ts > checksum-dev.txt
 # If you updated the Production version of envVariables.ts:
 #     shasum -a 512 envVariables.ts > checksum-prod.txt
 # Commit the updated checksums-dev.txt or checksums-prod.txt to git. Do not commit envVariables.ts.
+#
+# If you are not the project admin, do not touch checksums-dev.txt or checksums-prod.txt. Do not run shasum yourself.
 
 if shasum -s -a 512 --check checksum-dev.txt; then
     echo "You are building with the Development version of $CONFIG_FILE."
