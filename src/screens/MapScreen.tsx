@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, {useContext, useRef} from 'react'
 
 import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity, ActivityIndicator, Modal, FlatList, TouchableHighlight } from 'react-native'
 import MapView, { Marker, Region, Callout, CalloutSubview } from 'react-native-maps'
@@ -15,6 +15,7 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CheckBox from 'react-native-check-box'
 import { suggestedTrees } from '../../data/suggestedTrees'
 import RBSheet from "react-native-raw-bottom-sheet";
+import {LocationContext} from "../LocationContext";
 
 const treeConifer = require('../../assets/tree_Conifer3X-01.png');
 const treeDeciduous = require('../../assets/tree_Deciduous3X-01.png');
@@ -31,7 +32,7 @@ const win = Dimensions.get('window');
 type MapScreenNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
 export function MapScreen(props: { navigation: MapScreenNavigation }) {
-  const [currentCoords, setCurrentCoords] = React.useState<null | Coords>(null)
+  //const [currentCoords, setCurrentCoords] = React.useState<null | Coords>(null)
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
   const [trees, setTrees] = React.useState<any[]>([]);
   const [isChecked, setisChecked] = React.useState<null | Boolean>(false)
@@ -46,31 +47,33 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   let calloutref = useRef(null); // Create callout refrence
   let RBSheetref = useRef(null); // Create RBSheet refrence
 
-  async function getCurrentLocation() {
-    try {
-      const { status } = await Location.requestPermissionsAsync()
-
-      if (status !== Location.PermissionStatus.GRANTED) {
-        setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
-        return null
-      } else {
-        const location = await Location.getCurrentPositionAsync()
-
-        console.log('location', location)
-        setCurrentCoords({
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
-        })
-      }
-    } catch (error) {
-      if (__DEV__) {
-        console.log(error)
-      }
-
-      setErrorMessage('There was an unexpected error (MapScreen::getCurrentLocation). Please try again later.')
-    }
-  }
-
+  // async function getCurrentLocation() {
+  //   try {
+  //     const { status } = await Location.requestPermissionsAsync()
+  //
+  //     if (status !== Location.PermissionStatus.GRANTED) {
+  //       setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
+  //       return null
+  //     } else {
+  //       const location = await Location.getCurrentPositionAsync()
+  //
+  //       console.log('location', location)
+  //       setCurrentCoords({
+  //         latitude: location.coords.latitude,
+  //         longitude: location.coords.longitude,
+  //       })
+  //     }
+  //   } catch (error) {
+  //     if (__DEV__) {
+  //       console.log(error)
+  //     }
+  //
+  //     setErrorMessage('There was an unexpected error (MapScreen::getCurrentLocation). Please try again later.')
+  //   }
+  // }
+  // getting location from
+  const value = useContext(LocationContext)
+  const currentCoords = value.currentCoords
   React.useEffect(() => {
     if (!errorMessage) {
       return
@@ -110,36 +113,36 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     return dist
   }
 
-  React.useEffect(() => {
-    props.navigation.addListener('focus', getCurrentLocation);
-    // console.log('props', props);
-    const authUser = getCurrentAuthUser();
-    if (!authUser) {
-      throw Error('User is not authenticated')
-    }
-    // const trees = await getTree(authUser.uid);
-    const TREES_COLLECTION = 'trees'
-    firestore()
-      .collection(TREES_COLLECTION)
-      .where('userId', '==', authUser.uid)
-      .get()
-      .then(data => {
-        let trees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          trees.push(appObj)
-        });
-        // return trees;
-        setTrees(trees);
-        // setDataLoaded(true);
-        // console.log('tree3', trees);
-      })
-
-    return () => {
-      props.navigation.removeListener('focus', getCurrentLocation)
-    }
-  }, [])
+  // React.useEffect(() => {
+  //   //props.navigation.addListener('focus', getCurrentLocation);
+  //   // console.log('props', props);
+  //   const authUser = getCurrentAuthUser();
+  //   if (!authUser) {
+  //     throw Error('User is not authenticated')
+  //   }
+  //   // const trees = await getTree(authUser.uid);
+  //   const TREES_COLLECTION = 'trees'
+  //   firestore()
+  //     .collection(TREES_COLLECTION)
+  //     .where('userId', '==', authUser.uid)
+  //     .get()
+  //     .then(data => {
+  //       let trees: any = [];
+  //       data.forEach((doc) => {
+  //         let currentID = doc.id
+  //         let appObj = { ...doc.data(), ['id']: currentID }
+  //         trees.push(appObj)
+  //       });
+  //       // return trees;
+  //       setTrees(trees);
+  //       // setDataLoaded(true);
+  //       // console.log('tree3', trees);
+  //     })
+  //
+  //   // return () => {
+  //   //   props.navigation.removeListener('focus', getCurrentLocation)
+  //   // }
+  // }, [currentCoords])
 
   // set current user tree data
   async function setOwnmap() {
