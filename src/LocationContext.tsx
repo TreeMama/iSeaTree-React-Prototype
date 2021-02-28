@@ -46,7 +46,7 @@ export const LocationProvider = (props) =>{
      (async () => {
        let { status } = await Location.requestPermissionsAsync();
        if (status !== 'granted') {
-         setErrorMsg('Permission to access location was denied');
+         setErrorMessage('Permission to access location was denied');
          return;
        }
        // will update the location
@@ -71,7 +71,7 @@ export const LocationProvider = (props) =>{
     })();
   }, [currentCoords]);
   return(
-    <LocationContext.Provider value={{address: address, currentCoords:currentCoords} }>
+    <LocationContext.Provider value={{address: address, currentCoords:currentCoords, errorMessage: errorMessage} }>
       {props.children}
     </LocationContext.Provider>
   );

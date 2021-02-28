@@ -47,33 +47,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   let calloutref = useRef(null); // Create callout refrence
   let RBSheetref = useRef(null); // Create RBSheet refrence
 
-  // async function getCurrentLocation() {
-  //   try {
-  //     const { status } = await Location.requestPermissionsAsync()
-  //
-  //     if (status !== Location.PermissionStatus.GRANTED) {
-  //       setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
-  //       return null
-  //     } else {
-  //       const location = await Location.getCurrentPositionAsync()
-  //
-  //       console.log('location', location)
-  //       setCurrentCoords({
-  //         latitude: location.coords.latitude,
-  //         longitude: location.coords.longitude,
-  //       })
-  //     }
-  //   } catch (error) {
-  //     if (__DEV__) {
-  //       console.log(error)
-  //     }
-  //
-  //     setErrorMessage('There was an unexpected error (MapScreen::getCurrentLocation). Please try again later.')
-  //   }
-  // }
-  // getting location from
+//get values coords
   const value = useContext(LocationContext)
   const currentCoords = value.currentCoords
+  //get errormessages form location quary
+  setErrorMessage(value.errorMessage)
+  //get own trees
+  setOwnmap()
   React.useEffect(() => {
     if (!errorMessage) {
       return
