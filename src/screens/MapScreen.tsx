@@ -37,7 +37,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const [trees, setTrees] = React.useState<any[]>([]);
   const [isChecked, setisChecked] = React.useState<null | Boolean>(false)
   const [isActiveown, setActiveown] = React.useState<null | Boolean>(true) // show current active map on screen
-  const [isDataLoaded, setDataLoaded] = React.useState<null | Boolean>(false) // show load data indicator
+  const [isDataLoaded, setDataLoaded] = React.useState<null | Boolean>(true) // show load data indicator
   const [showAlertHandler, setshowAlertHandler] = React.useState<null | Boolean>(false) // show validate unknown popup
   const [selectTrees, setSelectTrees] = React.useState<any[]>([]);
   const [speciesName, setSpeciesName] = React.useState<undefined | string>("Please identify this species");
@@ -49,16 +49,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
 //get values coords
   const value = useContext(LocationContext)
-  const currentCoords = value.currentCoords
-  //get errormessages form location quary
-  setErrorMessage(value.errorMessage)
-  //get own trees
-  setOwnmap()
+  const currentCoords = value.currentCoords;
+
   React.useEffect(() => {
     if (!errorMessage) {
       return
     }
-
     Alert.alert('', errorMessage, [
       {
         text: 'Ok',
@@ -70,6 +66,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }, [errorMessage])
 
   React.useEffect(() => {
+    //if(!trees) return
     if (mapref !== null && trees.length > 0 && currentCoords !== null) {
       onfitToSuppliedMarkers()
       setDataLoaded(true)
@@ -93,36 +90,36 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     return dist
   }
 
-  // React.useEffect(() => {
-  //   //props.navigation.addListener('focus', getCurrentLocation);
-  //   // console.log('props', props);
-  //   const authUser = getCurrentAuthUser();
-  //   if (!authUser) {
-  //     throw Error('User is not authenticated')
-  //   }
-  //   // const trees = await getTree(authUser.uid);
-  //   const TREES_COLLECTION = 'trees'
-  //   firestore()
-  //     .collection(TREES_COLLECTION)
-  //     .where('userId', '==', authUser.uid)
-  //     .get()
-  //     .then(data => {
-  //       let trees: any = [];
-  //       data.forEach((doc) => {
-  //         let currentID = doc.id
-  //         let appObj = { ...doc.data(), ['id']: currentID }
-  //         trees.push(appObj)
-  //       });
-  //       // return trees;
-  //       setTrees(trees);
-  //       // setDataLoaded(true);
-  //       // console.log('tree3', trees);
-  //     })
-  //
-  //   // return () => {
-  //   //   props.navigation.removeListener('focus', getCurrentLocation)
-  //   // }
-  // }, [currentCoords])
+  React.useEffect(() => {
+    //props.navigation.addListener('focus', getCurrentLocation);
+    // console.log('props', props);
+    const authUser = getCurrentAuthUser();
+    if (!authUser) {
+      throw Error('User is not authenticated')
+    }
+    // const trees = await getTree(authUser.uid);
+    const TREES_COLLECTION = 'trees'
+    firestore()
+      .collection(TREES_COLLECTION)
+      .where('userId', '==', authUser.uid)
+      .get()
+      .then(data => {
+        let trees: any = [];
+        data.forEach((doc) => {
+          let currentID = doc.id
+          let appObj = { ...doc.data(), ['id']: currentID }
+          trees.push(appObj)
+        });
+        // return trees;
+        setTrees(trees);
+         setDataLoaded(true);
+        // console.log('tree3', trees);
+      })
+
+    // return () => {
+    //   props.navigation.removeListener('focus', getCurrentLocation)
+    // }
+  }, [currentCoords])
 
   // set current user tree data
   async function setOwnmap() {
@@ -146,7 +143,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           trees.push(appObj)
         });
         setTrees(trees);
-        // setDataLoaded(true);
+        setDataLoaded(true);
       })
   }
 
@@ -177,7 +174,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         });
         trees = sortarray.slice(0, 10)
         setTrees(alltrees);
-        // setDataLoaded(true);
+         setDataLoaded(true);
       })
   }
 

@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef, createContext} from 'react';
 import {AppState} from 'react-native';
-import * as Premmissions from 'expo-premmissions';
 import * as Location from 'expo-location';
 
 interface Coords {
