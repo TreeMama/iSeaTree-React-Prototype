@@ -16,6 +16,7 @@ import CheckBox from 'react-native-check-box'
 import { suggestedTrees } from '../../data/suggestedTrees'
 import RBSheet from "react-native-raw-bottom-sheet";
 import {LocationContext} from "../LocationContext";
+import {Simulate} from "react-dom/test-utils";
 
 const treeConifer = require('../../assets/tree_Conifer3X-01.png');
 const treeDeciduous = require('../../assets/tree_Deciduous3X-01.png');
@@ -98,28 +99,31 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       throw Error('User is not authenticated')
     }
     // const trees = await getTree(authUser.uid);
-    const TREES_COLLECTION = 'trees'
-    firestore()
-      .collection(TREES_COLLECTION)
-      .where('userId', '==', authUser.uid)
-      .get()
-      .then(data => {
-        let trees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          trees.push(appObj)
-        });
-        // return trees;
-        setTrees(trees);
-         setDataLoaded(true);
-        // console.log('tree3', trees);
+    try{
+      const TREES_COLLECTION = 'trees'
+      const subscriber = firestore()
+          .collection(TREES_COLLECTION)
+          .where('userId', '==', authUser.uid)
+          .onSnapshot(data => {
+            let trees: any = [];
+            data.forEach((doc) => {
+              let currentID = doc.id
+              let appObj = {...doc.data(), ['id']: currentID}
+              trees.push(appObj)
+            });
+            // return trees;
+            setTrees(trees);
+            setDataLoaded(true);
       })
+      return()=>subscriber()
+    }catch (error) {
+      console.log("something went wrong")
+      setErrorMessage("There was an unexpected error getting data")
+    }
 
-    // return () => {
-    //   props.navigation.removeListener('focus', getCurrentLocation)
-    // }
-  }, [currentCoords])
+    // Stop listening for updates when no longer required
+
+      },[])
 
   // set current user tree data
   async function setOwnmap() {

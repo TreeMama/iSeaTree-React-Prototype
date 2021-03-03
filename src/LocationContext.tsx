@@ -43,20 +43,30 @@ export const LocationProvider = (props) =>{
   useEffect(() => {
     if(appStateVisible === 'active'){
      (async () => {
-       let { status } = await Location.requestPermissionsAsync();
-       if (status !== 'granted') {
-         setErrorMessage('Permission to access location was denied');
-         return;
-       }
-       // will update the location
-       const location = await Location.getLastKnownPositionAsync({maxAge:10000, requiredAccuracy: 10});
-       // const location = await Location.getCurrentPositionAsync({});
-       //if there is a location and it has changed
-       setLocation(location)
-       setCurrentCoords({
-         latitude: location.coords.latitude,
-         longitude: location.coords.longitude,
-       });
+       try {
+         const {status} = await Location.requestPermissionsAsync()
+         if (status !== Location.PermissionStatus.GRANTED) {
+           setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
+           return
+         } else {
+           // will update the location
+           const location = await Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 10});
+           // const location = await Location.getCurrentPositionAsync({});
+           //if there is a location and it has changed
+           setLocation(location)
+           setCurrentCoords({
+             latitude: location.coords.latitude,
+             longitude: location.coords.longitude,
+           });
+         }
+       }catch (error) {
+           if (__DEV__) {
+             console.log(error)
+           }
+           setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
+         console.log("error for location context when getting apps location")
+           return
+         }
      })();
    }
    }, [appStateVisible]);
