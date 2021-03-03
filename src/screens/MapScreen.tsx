@@ -101,85 +101,64 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     // const trees = await getTree(authUser.uid);
     try{
       const TREES_COLLECTION = 'trees'
-      const subscriber = firestore()
-          .collection(TREES_COLLECTION)
-          .where('userId', '==', authUser.uid)
-          .onSnapshot(data => {
-            let trees: any = [];
-            data.forEach((doc) => {
-              let currentID = doc.id
-              let appObj = {...doc.data(), ['id']: currentID}
-              trees.push(appObj)
-            });
-            // return trees;
-            setTrees(trees);
-            setDataLoaded(true);
-      })
-      return()=>subscriber()
+      if(isActiveown) {
+        const subscriber = firestore()
+            .collection(TREES_COLLECTION)
+            .where('userId', '==', authUser.uid)
+            .onSnapshot(data => {
+              let trees: any = [];
+              data.forEach((doc) => {
+                let currentID = doc.id
+                let appObj = {...doc.data(), ['id']: currentID}
+                trees.push(appObj)
+              });
+              // return trees;
+              setTrees(trees);
+              setDataLoaded(true);
+            })
+        return ()=>subscriber()
+      }else{
+        setActiveown(false);
+        setTrees([]);
+        setDataLoaded(false);
+        const subscriber = firestore()
+            .collection(TREES_COLLECTION)
+            .onSnapshot(async data => {
+              let trees: any = [];
+              let alltrees: any = [];
+              data.forEach((doc) => {
+                let currentID = doc.id
+                let appObj = { ...doc.data(), ['id']: currentID }
+                alltrees.push(appObj)
+              });
+              alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
+              for (let i = 0; i < alltrees.length; i++) {
+                alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+              }
+              let sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
+                return a.distance - b.distance;
+              });
+              trees = sortarray.slice(0, 10)
+              setTrees(alltrees);
+              setDataLoaded(true);
+            })
+        return()=>subscriber()
+      }
+
     }catch (error) {
       console.log("something went wrong")
       setErrorMessage("There was an unexpected error getting data")
     }
-
-    // Stop listening for updates when no longer required
-
-      },[])
+      },[isActiveown])
 
   // set current user tree data
   async function setOwnmap() {
     setActiveown(true);
-    setTrees([]);
-    setDataLoaded(false);
-    const authUser = getCurrentAuthUser();
-    if (!authUser) {
-      throw Error('User is not authenticated')
-    }
-    const TREES_COLLECTION = 'trees'
-    firestore()
-      .collection(TREES_COLLECTION)
-      .where('userId', '==', authUser.uid)
-      .get()
-      .then(data => {
-        let trees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          trees.push(appObj)
-        });
-        setTrees(trees);
-        setDataLoaded(true);
-      })
   }
 
   // show trees that are closest to user current location
   async function setPublicmap() {
-    const TREES_COLLECTION = 'trees'
-
-    setActiveown(false);
-    setTrees([]);
-    setDataLoaded(false);
-    firestore()
-      .collection(TREES_COLLECTION)
-      .get()
-      .then(async data => {
-        let trees: any = [];
-        let alltrees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          alltrees.push(appObj)
-        });
-        alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
-        for (let i = 0; i < alltrees.length; i++) {
-          alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
-        }
-        let sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
-          return a.distance - b.distance;
-        });
-        trees = sortarray.slice(0, 10)
-        setTrees(alltrees);
-         setDataLoaded(true);
-      })
+    setActiveown(false)
   }
 
   function timeConverter(UNIX_timestamp) {
