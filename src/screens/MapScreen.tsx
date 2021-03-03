@@ -16,6 +16,7 @@ import CheckBox from 'react-native-check-box'
 import { suggestedTrees } from '../../data/suggestedTrees'
 import RBSheet from "react-native-raw-bottom-sheet";
 import {LocationContext} from "../LocationContext";
+import {Simulate} from "react-dom/test-utils";
 
 const treeConifer = require('../../assets/tree_Conifer3X-01.png');
 const treeDeciduous = require('../../assets/tree_Deciduous3X-01.png');
@@ -93,89 +94,86 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   React.useEffect(() => {
     //props.navigation.addListener('focus', getCurrentLocation);
     // console.log('props', props);
+    if(!isActiveown) return;
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
     }
     // const trees = await getTree(authUser.uid);
-    const TREES_COLLECTION = 'trees'
-    firestore()
-      .collection(TREES_COLLECTION)
-      .where('userId', '==', authUser.uid)
-      .get()
-      .then(data => {
-        let trees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          trees.push(appObj)
-        });
-        // return trees;
-        setTrees(trees);
-         setDataLoaded(true);
-        // console.log('tree3', trees);
-      })
+    try{
+      const TREES_COLLECTION = 'trees'
+        const subscriber = firestore()
+            .collection(TREES_COLLECTION)
+            .where('userId', '==', authUser.uid)
+            .onSnapshot(data => {
+              let trees: any = [];
+              data.forEach((doc) => {
+                let currentID = doc.id
+                let appObj = {...doc.data(), ['id']: currentID}
+                trees.push(appObj)
+              });
+              // return trees;
+              setTrees(trees);
+              setDataLoaded(true);
+            })
+        return ()=>subscriber()
+    }catch (error) {
+      console.log("something went wrong")
+      setErrorMessage("There was an unexpected error getting data")
+    }
+      },[isActiveown])
 
-    // return () => {
-    //   props.navigation.removeListener('focus', getCurrentLocation)
-    // }
-  }, [currentCoords])
-
-  // set current user tree data
-  async function setOwnmap() {
-    setActiveown(true);
-    setTrees([]);
-    setDataLoaded(false);
+  React.useEffect(() => {
+    //props.navigation.addListener('focus', getCurrentLocation);
+    // console.log('props', props);
+    if(isActiveown) return
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
     }
-    const TREES_COLLECTION = 'trees'
-    firestore()
-      .collection(TREES_COLLECTION)
-      .where('userId', '==', authUser.uid)
-      .get()
-      .then(data => {
-        let trees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          trees.push(appObj)
-        });
-        setTrees(trees);
-        setDataLoaded(true);
-      })
+    // const trees = await getTree(authUser.uid);
+    try{
+      const TREES_COLLECTION = 'trees'
+      setActiveown(false);
+      setTrees([]);
+      setDataLoaded(false);
+      const subscriber = firestore()
+          .collection(TREES_COLLECTION)
+          .onSnapshot(async data => {
+            let trees: any = [];
+            let alltrees: any = [];
+            data.forEach((doc) => {
+              let currentID = doc.id
+              let appObj = { ...doc.data(), ['id']: currentID }
+              alltrees.push(appObj)
+            });
+            alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
+            for (let i = 0; i < alltrees.length; i++) {
+              alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+            }
+            let sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
+              return a.distance - b.distance;
+            });
+            trees = sortarray.slice(0, 10)
+            setTrees(alltrees);
+            setDataLoaded(true);
+          })
+      return()=>subscriber()
+    }catch (error) {
+      console.log("something went wrong public map")
+      setErrorMessage("There was an unexpected error getting data")
+    }
+  },[isActiveown])
+
+
+  // set current user tree data
+  async function setOwnmap() {
+    setActiveown(true);
   }
 
   // show trees that are closest to user current location
   async function setPublicmap() {
-    const TREES_COLLECTION = 'trees'
-
-    setActiveown(false);
-    setTrees([]);
-    setDataLoaded(false);
-    firestore()
-      .collection(TREES_COLLECTION)
-      .get()
-      .then(async data => {
-        let trees: any = [];
-        let alltrees: any = [];
-        data.forEach((doc) => {
-          let currentID = doc.id
-          let appObj = { ...doc.data(), ['id']: currentID }
-          alltrees.push(appObj)
-        });
-        alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
-        for (let i = 0; i < alltrees.length; i++) {
-          alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
-        }
-        let sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
-          return a.distance - b.distance;
-        });
-        trees = sortarray.slice(0, 10)
-        setTrees(alltrees);
-         setDataLoaded(true);
-      })
+    setActiveown(false)
   }
 
   function timeConverter(UNIX_timestamp) {

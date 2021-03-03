@@ -66,13 +66,11 @@ export interface TreeData {
 const TREES_COLLECTION = 'trees'
 
 export function addTree(treeData: TreeData) {
-  console.log("fire store time stamp  "+firestore.FieldValue.serverTimestamp())
+
   firestore()
     .collection(TREES_COLLECTION)
     .add({
       ...treeData,
-      //chcnged form firestore.FieldValue.serverTimestamp
-      created_at: Date.now(),
-      // created_at: firestore.FieldValue.serverTimestamp(),
+      created_at: firestore.FieldValue.serverTimestamp(),
     })
 }
