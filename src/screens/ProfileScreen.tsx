@@ -12,9 +12,9 @@ import {
   Linking,
   Text,
   TouchableOpacity,
-  Platform
+  Platform,
 } from 'react-native'
-import Constants from 'expo-constants';
+import Constants from 'expo-constants'
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
 import {
@@ -26,12 +26,13 @@ import {
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 
-const win = Dimensions.get('window');
-const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
-const imageReward = require('../../assets/profile/reward_icon.png');
-const imageTree = require('../../assets/profile/tree_icon.png');
-const informationIcon = require('../../assets/profile/information.png');
-const logoutIcon = require('../../assets/profile/logout.png');
+const win = Dimensions.get('window')
+const imagePlaceholder = require('../../assets/profile/image_placeholder.png')
+const imageReward = require('../../assets/profile/reward_icon.png')
+const imageTree = require('../../assets/profile/tree_icon.png')
+const compassIcon = require('../../assets/profile/compass.png')
+const informationIcon = require('../../assets/profile/information.png')
+const logoutIcon = require('../../assets/profile/logout.png')
 
 const styles = StyleSheet.create({
   container: {
@@ -44,12 +45,12 @@ const styles = StyleSheet.create({
   },
   helpSectionLink: {
     fontSize: 12,
-    paddingVertical: 5
+    paddingVertical: 5,
   },
   linkColor: {
     color: '#87CEEB',
     fontSize: 12,
-    textDecorationLine: "underline"
+    textDecorationLine: 'underline',
   },
   profileContainer: {
     width: '100%',
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: win.height / 2.6,
     backgroundColor: colors.gray[600],
-    paddingTop: 40
+    paddingTop: 40,
   },
   profileImageContainer: {
     height: win.width / 3,
@@ -68,19 +69,19 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#fff',
     overflow: 'hidden',
-    backgroundColor: 'rgba(255,255,255,0.5)'
+    backgroundColor: 'rgba(255,255,255,0.5)',
   },
   profileImage: {
     height: win.width / 6,
     width: win.width / 6,
     alignSelf: 'center',
     justifyContent: 'center',
-    tintColor: '#fff'
+    tintColor: '#fff',
   },
   profiledetailContainer: {
     marginTop: 10,
     alignContent: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   userNameText: {
     fontSize: 28,
@@ -94,18 +95,23 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     color: '#fff',
-    lineHeight: 25
+    lineHeight: 25,
+  },
+  profileLeftMenuContainer: {
+    left: 15,
+    top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
+    position: 'absolute',
   },
   profileRightMenuContainer: {
     right: 15,
     top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
-    position: 'absolute'
+    position: 'absolute',
   },
   menuIcon: {
     height: 30,
     width: 30,
     resizeMode: 'contain',
-    tintColor: '#fff'
+    tintColor: '#fff',
   },
   statusCell: {
     height: Platform.OS === 'ios' ? win.height / 6 : win.height / 5,
@@ -113,25 +119,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.gray[600]
+    borderBottomColor: colors.gray[600],
   },
   statuscellImage: {
     height: 40,
     width: 40,
     alignSelf: 'center',
     justifyContent: 'center',
-    tintColor: colors.gray[600]
+    tintColor: colors.gray[600],
   },
   statusCellValueText: {
     fontSize: 24,
     fontWeight: '700',
     textAlign: 'center',
-    color: colors.gray[700]
+    color: colors.gray[700],
   },
   statusCellTitleText: {
     fontSize: 14,
     textAlign: 'center',
-    color: colors.gray[600]
+    color: colors.gray[600],
   },
   badgeViewContainer: {
     flex: 1,
@@ -143,9 +149,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 12
-  }
-
+    margin: 12,
+  },
 })
 
 export function ProfileScreen() {
@@ -154,7 +159,7 @@ export function ProfileScreen() {
   const [statusData, setStatusData] = React.useState<any[]>([
     { id: 1, title: 'Trees Identified', value: 0, imgSrc: imageTree },
     { id: 2, title: 'Badges Earned', value: 0, imgSrc: imageReward },
-  ]);
+  ])
 
   const authUser = getCurrentAuthUser()
 
@@ -168,27 +173,34 @@ export function ProfileScreen() {
         return
       }
 
-      const treecount = addTreeCount(userData);
-      let badgeLength: number;
+      const treecount = addTreeCount(userData)
+      let badgeLength: number
       if (userData?.badges !== undefined) {
-        badgeLength = userData?.badges.length;
+        badgeLength = userData?.badges.length
       } else {
-        badgeLength = 0;
+        badgeLength = 0
       }
 
       setStatusData(
-        statusData.map(item =>
+        statusData.map((item) =>
           item.id === 1
             ? { ...item, value: treecount }
-            : item.id === 2 ? { ...item, value: badgeLength } : item
-        ))
-      setUserData(userData);
+            : item.id === 2
+            ? { ...item, value: badgeLength }
+            : item,
+        ),
+      )
+      setUserData(userData)
     })
 
     return () => {
       unsubscribe()
     }
   }, [authUser?.email])
+
+  function handleTutorial() {
+    // TODO
+  }
 
   function handleSignout() {
     signOutUser()
@@ -202,15 +214,19 @@ export function ProfileScreen() {
   function addTreeCount(data) {
     if (data?.treesCount == undefined) {
       // return 'You haven\'t added any trees yet.'
-      return 0;
+      return 0
     }
-    return data?.treesCount;
-
+    return data?.treesCount
   }
 
   function renderStatusList({ item, index }) {
     return (
-      <View style={[styles.statusCell, index % 2 !== 0 && { borderLeftWidth: 0.5, borderLeftColor: colors.gray[600] }]}>
+      <View
+        style={[
+          styles.statusCell,
+          index % 2 !== 0 && { borderLeftWidth: 0.5, borderLeftColor: colors.gray[600] },
+        ]}
+      >
         <Image source={item.imgSrc} style={styles.statuscellImage} resizeMode="contain" />
         <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 15 }}>
           <Text style={styles.statusCellValueText}>{item.value}</Text>
@@ -223,50 +239,21 @@ export function ProfileScreen() {
   function renderBadgeList({ item, index }) {
     return (
       <View style={styles.badgeCell}>
-        {item === 'SEEDLING'
-          &&
-          <Badge key="seedling" variant="seedling" />
-        }
-        {item === 'SAPLING'
-          &&
-          <Badge key="sapling" variant="sapling" />
-        }
-        {item === 'OLD_GROWTH_EXPERT'
-          &&
+        {item === 'SEEDLING' && <Badge key="seedling" variant="seedling" />}
+        {item === 'SAPLING' && <Badge key="sapling" variant="sapling" />}
+        {item === 'OLD_GROWTH_EXPERT' && (
           <Badge key="old_growth_expert" variant="old_growth_expert" />
-        }
-        {item === 'FIRST_TREE'
-          &&
-          <Badge key="first_tree" variant="first_tree" />
-        }
-        {item === 'FIFTH_TREE'
-          &&
-          <Badge key="fifth_tree" variant="fifth_tree" />
-        }
-        {item === 'TENTH_TREE'
-          &&
-          <Badge key="tenth_tree" variant="tenth_tree" />
-        }
-        {item === 'TWENTIETH_TREE'
-          &&
-          <Badge key="twentieth_tree" variant="twentieth_tree" />
-        }
-        {item === 'FIFTIETH_TREE'
-          &&
-          <Badge key="fiftieth_tree" variant="fiftieth_tree" />
-        }
-        {item === 'HUNDREDTH_TREE'
-          &&
-          <Badge key="hundredth_tree" variant="hundredth_tree" />
-        }
-        {item === 'TWO_HUNDREDTH_TREE'
-          &&
+        )}
+        {item === 'FIRST_TREE' && <Badge key="first_tree" variant="first_tree" />}
+        {item === 'FIFTH_TREE' && <Badge key="fifth_tree" variant="fifth_tree" />}
+        {item === 'TENTH_TREE' && <Badge key="tenth_tree" variant="tenth_tree" />}
+        {item === 'TWENTIETH_TREE' && <Badge key="twentieth_tree" variant="twentieth_tree" />}
+        {item === 'FIFTIETH_TREE' && <Badge key="fiftieth_tree" variant="fiftieth_tree" />}
+        {item === 'HUNDREDTH_TREE' && <Badge key="hundredth_tree" variant="hundredth_tree" />}
+        {item === 'TWO_HUNDREDTH_TREE' && (
           <Badge key="two_hundredth_tree" variant="two_hundredth_tree" />
-        }
-        {item === 'DBH'
-          &&
-          <Badge key="dbh" variant="dbh" />
-        }
+        )}
+        {item === 'DBH' && <Badge key="dbh" variant="dbh" />}
       </View>
     )
   }
@@ -277,10 +264,18 @@ export function ProfileScreen() {
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
           <View style={styles.container}>
             <View style={styles.profileContainer}>
+              <View style={styles.profileLeftMenuContainer}>
+                <TouchableOpacity onPress={handleTutorial}>
+                  {/* TODO: handleTutorial */}
+                  <Image source={compassIcon} style={styles.menuIcon} />
+                </TouchableOpacity>
+              </View>
               <View style={styles.profileRightMenuContainer}>
-                <TouchableOpacity onPress={() => {
-                  Linking.openURL('https://treemama.org/forum');
-                }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    Linking.openURL('https://treemama.org/forum')
+                  }}
+                >
                   <Image source={informationIcon} style={styles.menuIcon} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleSignout}>
@@ -301,22 +296,21 @@ export function ProfileScreen() {
               <FlatList
                 data={statusData}
                 style={styles.container}
-                renderItem={object => renderStatusList(object)}
-                numColumns={2} />
+                renderItem={(object) => renderStatusList(object)}
+                numColumns={2}
+              />
             </View>
 
-            {userData?.badges !== undefined
-              &&
+            {userData?.badges !== undefined && (
               <View style={styles.container}>
                 <FlatList
                   data={userData?.badges}
                   style={styles.badgeViewContainer}
-                  renderItem={object => renderBadgeList(object)}
-                  numColumns={2} />
+                  renderItem={(object) => renderBadgeList(object)}
+                  numColumns={2}
+                />
               </View>
-            }
-
-
+            )}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
