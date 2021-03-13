@@ -30,6 +30,7 @@ const win = Dimensions.get('window')
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png')
 const imageReward = require('../../assets/profile/reward_icon.png')
 const imageTree = require('../../assets/profile/tree_icon.png')
+const compassIcon = require('../../assets/profile/compass.png')
 const informationIcon = require('../../assets/profile/information.png')
 const logoutIcon = require('../../assets/profile/logout.png')
 
@@ -95,6 +96,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     lineHeight: 25,
+  },
+  profileLeftMenuContainer: {
+    left: 15,
+    top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
+    position: 'absolute',
   },
   profileRightMenuContainer: {
     right: 15,
@@ -192,6 +198,10 @@ export function ProfileScreen() {
     }
   }, [authUser?.email])
 
+  function handleTutorial() {
+    // TODO
+  }
+
   function handleSignout() {
     signOutUser()
     setIsMenuVisible(false)
@@ -254,6 +264,12 @@ export function ProfileScreen() {
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
           <View style={styles.container}>
             <View style={styles.profileContainer}>
+              <View style={styles.profileLeftMenuContainer}>
+                <TouchableOpacity onPress={handleTutorial}>
+                  {/* TODO: handleTutorial */}
+                  <Image source={compassIcon} style={styles.menuIcon} />
+                </TouchableOpacity>
+              </View>
               <View style={styles.profileRightMenuContainer}>
                 <TouchableOpacity
                   onPress={() => {
