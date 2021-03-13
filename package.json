@@ -30,6 +30,7 @@
     "react-native-check-box": "^2.1.7",
     "react-native-gesture-handler": "~1.6.0",
     "react-native-maps": "0.26.1",
+    "react-native-onboarding-swiper": "^1.1.4",
     "react-native-paper": "^3.6.0",
     "react-native-picker-select": "^6.6.0",
     "react-native-raw-bottom-sheet": "^2.2.0",
