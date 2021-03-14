@@ -5,7 +5,7 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import { registerRootComponent, SplashScreen } from 'expo'
 import { Provider as PaperProvider } from 'react-native-paper'
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -22,7 +22,7 @@ import { usePrevious } from './hooks/usePrevious'
 import { LocationProvider } from './LocationContext'
 
 initializeFirebase()
-console.disableYellowBox = true;
+console.disableYellowBox = true
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
@@ -72,27 +72,27 @@ export function App() {
     <PaperProvider theme={theme}>
       <StatusBar barStyle="dark-content" />
       <LocationProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
-          {isUserLogged ? (
-            <>
-              <Stack.Screen
-                name={ScreenNames.loggedTabNavigator}
-                component={LoggedTabNavigator}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={ScreenNames.showImage}
-                component={ShowImage}
-                options={{ headerShown: false }}
-              />
-               <Stack.Screen
-                name={ScreenNames.identifySpecies}
-                component={IdentifySpecies}
-                options={{ headerShown: false }}
-              />
-            </>
-          ) : (
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
+            {isUserLogged ? (
+              <>
+                <Stack.Screen
+                  name={ScreenNames.loggedTabNavigator}
+                  component={LoggedTabNavigator}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={ScreenNames.showImage}
+                  component={ShowImage}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={ScreenNames.identifySpecies}
+                  component={IdentifySpecies}
+                  options={{ headerShown: false }}
+                />
+              </>
+            ) : (
               <>
                 <Stack.Screen
                   name={ScreenNames.login}
@@ -111,8 +111,8 @@ export function App() {
                 />
               </>
             )}
-        </Stack.Navigator>
-      </NavigationContainer>
+          </Stack.Navigator>
+        </NavigationContainer>
       </LocationProvider>
     </PaperProvider>
   )
