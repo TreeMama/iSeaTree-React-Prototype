@@ -1,7 +1,8 @@
 import React, {useContext, useRef} from 'react'
 
 import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity, ActivityIndicator, Modal, FlatList, TouchableHighlight } from 'react-native'
-import MapView, { Marker, Region, Callout, CalloutSubview } from 'react-native-maps'
+import { Marker, Region, Callout, CalloutSubview } from 'react-native-maps'
+import MapView from 'react-native-map-clustering'
 import Constants from 'expo-constants'
 import * as Location from 'expo-location'
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs'
@@ -36,14 +37,14 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   //const [currentCoords, setCurrentCoords] = React.useState<null | Coords>(null)
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
   const [trees, setTrees] = React.useState<any[]>([]);
-  const [isChecked, setisChecked] = React.useState<null | Boolean>(false)
-  const [isActiveown, setActiveown] = React.useState<null | Boolean>(true) // show current active map on screen
-  const [isDataLoaded, setDataLoaded] = React.useState<null | Boolean>(true) // show load data indicator
-  const [showAlertHandler, setshowAlertHandler] = React.useState<null | Boolean>(false) // show validate unknown popup
+  const [isChecked, setisChecked] = React.useState<null | boolean>(false)
+  const [isActiveown, setActiveown] = React.useState<null | boolean>(true) // show current active map on screen
+  const [isDataLoaded, setDataLoaded] = React.useState<null | boolean>(true) // show load data indicator
+  const [showAlertHandler, setshowAlertHandler] = React.useState<null | boolean>(false) // show validate unknown popup
   const [selectTrees, setSelectTrees] = React.useState<any[]>([]);
   const [speciesName, setSpeciesName] = React.useState<undefined | string>("Please identify this species");
   const [speciesData, setSpeciesData] = React.useState<any[]>([]);
-  let markerref = useRef([]); // Create map marker refrence
+  const markerref = useRef([]); // Create map marker refrence
   let mapref = useRef(null); // Create map refrence
   let calloutref = useRef(null); // Create callout refrence
   let RBSheetref = useRef(null); // Create RBSheet refrence
@@ -76,12 +77,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   // calculate distance based on latitude and longitude
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number, unit: string | number) => {
-    let radlat1 = Math.PI * lat1 / 180
-    let radlat2 = Math.PI * lat2 / 180
-    let radlon1 = Math.PI * lon1 / 180
-    let radlon2 = Math.PI * lon2 / 180
-    let theta = lon1 - lon2
-    let radtheta = Math.PI * theta / 180
+    const radlat1 = Math.PI * lat1 / 180
+    const radlat2 = Math.PI * lat2 / 180
+    const radlon1 = Math.PI * lon1 / 180
+    const radlon2 = Math.PI * lon2 / 180
+    const theta = lon1 - lon2
+    const radtheta = Math.PI * theta / 180
     let dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
     dist = Math.acos(dist)
     dist = dist * 180 / Math.PI
@@ -106,10 +107,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             .collection(TREES_COLLECTION)
             .where('userId', '==', authUser.uid)
             .onSnapshot(data => {
-              let trees: any = [];
+              const trees: any = [];
               data.forEach((doc) => {
-                let currentID = doc.id
-                let appObj = {...doc.data(), ['id']: currentID}
+                const currentID = doc.id
+                const appObj = {...doc.data(), ['id']: currentID}
                 trees.push(appObj)
               });
               // return trees;
@@ -143,15 +144,15 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             let trees: any = [];
             let alltrees: any = [];
             data.forEach((doc) => {
-              let currentID = doc.id
-              let appObj = { ...doc.data(), ['id']: currentID }
+              const currentID = doc.id
+              const appObj = { ...doc.data(), ['id']: currentID }
               alltrees.push(appObj)
             });
             alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
             for (let i = 0; i < alltrees.length; i++) {
               alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
             }
-            let sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
+            const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
               return a.distance - b.distance;
             });
             trees = sortarray.slice(0, 10)
@@ -177,26 +178,27 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }
 
   function timeConverter(UNIX_timestamp) {
-    let a = new Date(UNIX_timestamp * 1000);
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let hour = a.getHours();
-    let min = a.getMinutes();
-    let sec = a.getSeconds();
+    const a = new Date(UNIX_timestamp * 1000);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const year = a.getFullYear();
+    const month = months[a.getMonth()];
+    const date = a.getDate();
+    const hour = a.getHours();
+    const min = a.getMinutes();
+    const sec = a.getSeconds();
     // let time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    let time = date + ' ' + month + ' ' + year;
+    const time = date + ' ' + month + ' ' + year;
     return time;
   }
-
+  const {width, height } = Dimensions.get('window')
+  const ASPECT_RRATIO = width / height
   const currentRegion: undefined | Region = !currentCoords
     ? undefined
     : {
       latitude: currentCoords.latitude,
       longitude: currentCoords.longitude,
       latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
+      longitudeDelta: 0.1 * ASPECT_RRATIO,
     }
 
   // validate the tree
@@ -274,7 +276,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   // set check box to vilidate tree
   const renderCheckBox = (item) => {
-    let rightText = item.isValidated === 'VALIDATED' ? 'VALIDATED' : 'VALIDATE THIS TREE!';
+    const rightText = item.isValidated === 'VALIDATED' ? 'VALIDATED' : 'VALIDATE THIS TREE!';
     return (
       <CheckBox
         style={{ flex: 1, padding: 8 }}
@@ -430,15 +432,17 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     const m1 = { latitude: currentCoords?.latitude, longitude: currentCoords?.longitude }
     const m2 = { latitude: trees[trees.length - 1]["coords"]["U"], longitude: trees[trees.length - 1]["coords"]["k"] }
     const m3 = [m1, m2]
-    mapref.fitToCoordinates(m3, {
-      edgePadding:
-      {
-        top: Platform.OS === 'ios' ? 150 : 200,
-        right: Platform.OS === 'ios' ? 150 : 200,
-        bottom: Platform.OS === 'ios' ? 150 : 200,
-        left: Platform.OS === 'ios' ? 150 : 200
-      }
-    })
+    console.log("m1: "+m1+"m2: "+"m3: "+m3[0].latitude + " " + m3[0].longitude+m3[1].latitude + " " + m3[1].longitude);
+    // todo set zoom level when user zooms to group map
+    // mapref.fitToCoordinates(m3, {
+    //   edgePadding:
+    //   {
+    //     top: Platform.OS === 'ios' ? 150 : 200,
+    //     right: Platform.OS === 'ios' ? 150 : 200,
+    //     bottom: Platform.OS === 'ios' ? 150 : 200,
+    //     left: Platform.OS === 'ios' ? 150 : 200
+    //   }
+    // })
   }
 
   const onOpenSheet = (item) => {
@@ -520,13 +524,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       <MapView
         style={styles.mapStyle}
         ref={el => mapref = el}
-        initialRegion={{
-          latitude: 47.649019,
-          longitude: -122.347977,
-          latitudeDelta: 1,
-          longitudeDelta: 1,
-        }}
-        // region={currentRegion}
+        // initialRegion={{
+        //   latitude: 47.649019,
+        //   longitude: -122.347977,
+        //   latitudeDelta: 1,
+        //   longitudeDelta: 1,
+        // }}
+        initialRegion={currentRegion}
         showsUserLocation
         showsScale={true}
 
@@ -551,7 +555,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               treeImg = treeDeciduous;
           }
           // { console.log('trees in treeImg', treeImg) }
-          let calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
+          const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
           return (<Marker key={index} coordinate={coords} ref={el => markerref.current[index] = el} onPress={() => Platform.OS === 'android' && onOpenSheet(item)} >
             <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} ref={el => calloutref = el} />
             {Platform.OS === 'ios'
