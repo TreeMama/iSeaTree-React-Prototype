@@ -7,7 +7,7 @@ import {
   Image,
   KeyboardAvoidingView,
   SafeAreaView,
-} from 'react-native'
+} from "react-native"
 import { Text, Badge, Title, useTheme } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'

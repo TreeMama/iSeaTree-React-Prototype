@@ -20,3 +20,5 @@ envVariables.ts
 
 # webStorm ide
 .idea/*
+# Jest Test Coverage
+coverage/\*\*/*
