@@ -113,7 +113,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               setTrees(trees);
               setDataLoaded(true);
             })
-        return ()=>subscriber()
+      return ()=>subscriber()
     }catch (error) {
       console.log("something went wrong")
       setErrorMessage("There was an unexpected error getting data")
@@ -146,7 +146,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             });
             alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
             for (let i = 0; i < alltrees.length; i++) {
-              alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+             try{
+                alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+              }catch(e){
+                // delete item that is the problem
+               alltrees.splice(i, 1)
+               console.log(e)
+              }
             }
             const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
               return a.distance - b.distance;
@@ -160,6 +166,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       console.log("something went wrong public map")
       setErrorMessage("There was an unexpected error getting data")
     }
+
   },[isActiveown])
 
 
@@ -424,6 +431,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   // zoomout map to show all trees located on map
   const onfitToSuppliedMarkers = () => {
+
     const m1 = { latitude: currentCoords?.latitude, longitude: currentCoords?.longitude }
     const m2 = { latitude: trees[trees.length - 1]["coords"]["U"], longitude: trees[trees.length - 1]["coords"]["k"] }
     const m3 = [m1, m2]

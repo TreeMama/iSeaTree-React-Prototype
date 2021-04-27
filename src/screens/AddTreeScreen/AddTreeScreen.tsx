@@ -10,7 +10,8 @@ import {
   Image,
   Alert,
   ScrollView,
-} from 'react-native'
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, TextInput, Text, Subheading, useTheme, } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
@@ -24,7 +25,7 @@ import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
-import { submitTreeData } from './lib/submitTreeData'
+import { submitTreeData, removeBenefitVal} from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
@@ -71,12 +72,13 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 
   return errors
 }
+
 export function AddTreeScreen() {
   const theme = useTheme()
   const refTreeTypeSelect = React.useRef(null);
 
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
-
+  console.log("Loading AddTree screen")
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
       { text: 'Cancel' },
@@ -85,6 +87,7 @@ export function AddTreeScreen() {
         onPress: () => {
           refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
           formik.resetForm()
+          removeBenefitVal()//.then().catch()
         },
       },
     ])
@@ -104,7 +107,6 @@ export function AddTreeScreen() {
       },
     ])
   }
-
   // function handleAddTreeSuccess(formValues: FormValues) {
   //   const authUser = getCurrentAuthUser()
   //   if (!authUser) {
@@ -277,6 +279,7 @@ export function AddTreeScreen() {
 
               <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 40, width: 120 }} labelStyle={{ color: 'green' }}
                 onPress={() => {
+                  // todo fix clear
                   console.log('clear')
                   formik.setFieldValue('speciesType', TreeTypes.NULL)
                   formik.setFieldValue('treeType', TreeTypes.NULL)
