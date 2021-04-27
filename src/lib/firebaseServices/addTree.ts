@@ -66,7 +66,7 @@ export interface TreeData {
 const TREES_COLLECTION = 'trees'
 
 export function addTree(treeData: TreeData) {
-
+console.log("Addtree cakked")
   firestore()
     .collection(TREES_COLLECTION)
     .add({
