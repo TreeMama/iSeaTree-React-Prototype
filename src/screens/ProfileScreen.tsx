@@ -284,7 +284,7 @@ export function ProfileScreen() {
   return (
     <>
       <Slider dismissSlider={sliderDismissHanlder} />
-      <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
+      <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1, position: 'absolute', width: '100%' }}>
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
           <View style={styles.container}>
             <View style={styles.profileContainer}>

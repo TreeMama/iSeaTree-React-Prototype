@@ -72,9 +72,9 @@ export default class Slider extends React.Component<{ dismissSlider: () => void 
 
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', position: 'absolute' }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', zIndex: '100' }}>
                 <StatusBar translucent backgroundColor="transparent" />
-                <View style={{ width: '80%', height: '70%' }}>
+                <View style={{ width: '90%', height: '80%' }}>
                     <AppIntroSlider
                         style={{ height: '70%', width: 'auto' }}
                         keyExtractor={this._keyExtractor}
