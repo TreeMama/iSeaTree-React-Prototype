@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button } from 'react-native-paper'
 
 import {
   StyleSheet,
@@ -15,6 +14,8 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native'
+
+import { Button } from 'react-native-paper'
 import Constants from 'expo-constants';
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
@@ -27,7 +28,6 @@ import {
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
-
 const win = Dimensions.get('window');
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
 const imageReward = require('../../assets/profile/reward_icon.png');
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 12
   }
+
 })
 
 export function ProfileScreen() {
@@ -156,7 +157,7 @@ export function ProfileScreen() {
     { id: 1, title: 'Trees Identified', value: 0, imgSrc: imageTree },
     { id: 2, title: 'Badges Earned', value: 0, imgSrc: imageReward },
   ]);
-  const [isTutorialVisible, setIsTutorialVisible] = React.useState<boolean>(false);
+  const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser()
 
@@ -274,17 +275,17 @@ export function ProfileScreen() {
   }
 
   function goToSliderHandler() {
-    setIsTutorialVisible(true);
+    setIsSliderVisible(true);
   }
 
   function sliderDismissHanlder() {
-    setIsTutorialVisible(false);
+    setIsSliderVisible(false);
   }
 
   return (
     <>
-      <Slider dismissSlider={sliderDismissHanlder} />
-      <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1, position: 'absolute', width: '100%' }}>
+      {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
+      <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
           <View style={styles.container}>
             <View style={styles.profileContainer}>
@@ -327,64 +328,14 @@ export function ProfileScreen() {
               </View>
             }
 
-            <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler} >
-              Click here for a walkthrough!
-          </Button>
-
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-
-      {/* <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View style={styles.container}>
-            <View style={styles.profileContainer}>
-              <View style={styles.profileRightMenuContainer}>
-                <TouchableOpacity onPress={() => {
-                  Linking.openURL('https://treemama.org/forum');
-                }}>
-                  <Image source={informationIcon} style={styles.menuIcon} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleSignout}>
-                  <Image source={logoutIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.profileImageContainer}>
-                <Image source={imagePlaceholder} style={styles.profileImage} />
-              </View>
-
-              <View style={styles.profiledetailContainer}>
-                <Text style={styles.userNameText}>{userData?.username}</Text>
-                <Text style={styles.userakaNameText}>{userData?.email}</Text>
-              </View>
-            </View>
-
-            <View style={{ flex: 1, backgroundColor: '#ff0' }}>
-              <FlatList
-                data={statusData}
-                style={styles.container}
-                renderItem={object => renderStatusList(object)}
-                numColumns={2} />
-            </View>
-
-            {userData?.badges !== undefined
-              &&
-              <View style={styles.container}>
-                <FlatList
-                  data={userData?.badges}
-                  style={styles.badgeViewContainer}
-                  renderItem={object => renderBadgeList(object)}
-                  numColumns={2} />
-              </View>
-            }
-
-            <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler} >
+            <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler}>
               Click here for a walkthrough!
             </Button>
 
           </View>
         </ScrollView>
-      </KeyboardAvoidingView> */}
+      </KeyboardAvoidingView>
+      { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null}
     </>
   )
 }
