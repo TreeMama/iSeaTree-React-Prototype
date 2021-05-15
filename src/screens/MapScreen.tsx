@@ -1,8 +1,8 @@
-import React, {useContext, useRef} from 'react'
+import React, { useContext, useRef } from 'react'
 
 import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity, ActivityIndicator, Modal, FlatList, TouchableHighlight } from 'react-native'
 import MapView from 'react-native-map-clustering'
-import { Marker, Region, Callout, CalloutSubview } from 'react-native-maps'
+import { Marker, Region, Callout, CalloutSubview, Polyline, Geojson } from 'react-native-maps'
 import Constants from 'expo-constants'
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs'
 import { getCurrentAuthUser, getUser } from '../lib/firebaseServices'
@@ -13,13 +13,17 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CheckBox from 'react-native-check-box'
 import { suggestedTrees } from '../../data/suggestedTrees'
 import RBSheet from "react-native-raw-bottom-sheet";
-import {LocationContext} from "../LocationContext";
+import { LocationContext } from "../LocationContext";
+
+
 
 const treeConifer = require('../../assets/tree_Conifer3X-01.png');
 const treeDeciduous = require('../../assets/tree_Deciduous3X-01.png');
 const emptyCheckbox = require('../../assets/hexagon.png');
 const fillCheckbox = require('../../assets/fill_hexagon.png');
 const othersMap = require('../../assets/group.png');
+const waterData = require('../../data/Watersheds_V2.json');
+
 
 interface Coords {
   latitude: number
@@ -45,7 +49,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   let calloutref = useRef(null); // Create callout refrence
   let RBSheetref = useRef(null); // Create RBSheet refrence
 
-//get values coords
+  //get values coords
   const value = useContext(LocationContext)
   const currentCoords = value.currentCoords;
 
@@ -91,83 +95,83 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   React.useEffect(() => {
     //props.navigation.addListener('focus', getCurrentLocation);
     // console.log('props', props);
-    if(!isActiveown) return;
+    if (!isActiveown) return;
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
     }
     // const trees = await getTree(authUser.uid);
-    try{
+    try {
       const TREES_COLLECTION = 'trees'
-        const subscriber = firestore()
-            .collection(TREES_COLLECTION)
-            .where('userId', '==', authUser.uid)
-            .onSnapshot(data => {
-              const trees: any = [];
-              data.forEach((doc) => {
-                const currentID = doc.id
-                const appObj = {...doc.data(), ['id']: currentID}
-                trees.push(appObj)
-              });
-              // return trees;
-              setTrees(trees);
-              setDataLoaded(true);
-            })
-      return ()=>subscriber()
-    }catch (error) {
+      const subscriber = firestore()
+        .collection(TREES_COLLECTION)
+        .where('userId', '==', authUser.uid)
+        .onSnapshot(data => {
+          const trees: any = [];
+          data.forEach((doc) => {
+            const currentID = doc.id
+            const appObj = { ...doc.data(), ['id']: currentID }
+            trees.push(appObj)
+          });
+          // return trees;
+          setTrees(trees);
+          setDataLoaded(true);
+        })
+      return () => subscriber()
+    } catch (error) {
       console.log("something went wrong")
       setErrorMessage("There was an unexpected error getting data")
     }
-      },[isActiveown])
+  }, [isActiveown])
 
   React.useEffect(() => {
     //props.navigation.addListener('focus', getCurrentLocation);
     // console.log('props', props);
-    if(isActiveown) return
+    if (isActiveown) return
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
     }
     // const trees = await getTree(authUser.uid);
-    try{
+    try {
       const TREES_COLLECTION = 'trees'
       setActiveown(false);
       setTrees([]);
       setDataLoaded(false);
       const subscriber = firestore()
-          .collection(TREES_COLLECTION)
-          .onSnapshot(async data => {
-            let trees: any = [];
-            let alltrees: any = [];
-            data.forEach((doc) => {
-              const currentID = doc.id
-              const appObj = { ...doc.data(), ['id']: currentID }
-              alltrees.push(appObj)
-            });
-            alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
-            for (let i = 0; i < alltrees.length; i++) {
-             try{
-                alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
-              }catch(e){
-                // delete item that is the problem
-               alltrees.splice(i, 1)
-               console.log(e)
-              }
+        .collection(TREES_COLLECTION)
+        .onSnapshot(async data => {
+          let trees: any = [];
+          let alltrees: any = [];
+          data.forEach((doc) => {
+            const currentID = doc.id
+            const appObj = { ...doc.data(), ['id']: currentID }
+            alltrees.push(appObj)
+          });
+          alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
+          for (let i = 0; i < alltrees.length; i++) {
+            try {
+              alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+            } catch (e) {
+              // delete item that is the problem
+              alltrees.splice(i, 1)
+              console.log(e)
             }
-            const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
-              return a.distance - b.distance;
-            });
-            trees = sortarray.slice(0, 10)
-            setTrees(alltrees);
-            setDataLoaded(true);
-          })
-      return()=>subscriber()
-    }catch (error) {
+          }
+          const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
+            return a.distance - b.distance;
+          });
+          trees = sortarray.slice(0, 10)
+          setTrees(alltrees);
+          setDataLoaded(true);
+        })
+      return () => subscriber()
+    } catch (error) {
       console.log("something went wrong public map")
       setErrorMessage("There was an unexpected error getting data")
     }
 
-  },[isActiveown])
+  }, [isActiveown])
 
 
   // set current user tree data
@@ -514,6 +518,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     </View>
   )
 
+  var exteriorStyle = {
+    "color": "#ffffff",
+    "weight": 0,
+    "fillOpacity": .75
+  };
+
+
   return (
     <View style={styles.container}>
       <StatusBar />
@@ -538,6 +549,19 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         // // zoomTapEnabled={true}
         zoomControlEnabled={true}
       >
+
+
+
+        <Geojson geojson={waterData} fillColor="rgba(58, 143, 183, 0.2)"
+
+          strokeColor="rgba(43, 95, 117, 0.5)"
+          strokeWidth={2}
+        >
+
+        </Geojson>
+
+
+
         {!!currentCoords && <Marker coordinate={currentCoords} />}
         {/* {console.log('trees in render', trees)} */}
         {trees && trees.length > 0 && trees.map((item, index) => {
@@ -546,6 +570,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             latitude: item.coords.U || 0,
             longitude: item.coords.k || 0,
           };
+
+
 
           let treeImg = '';
           switch (item.treeType) {
@@ -556,6 +582,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               treeImg = treeDeciduous;
           }
           // { console.log('trees in treeImg', treeImg) }
+
+
           const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
           return (<Marker key={index} coordinate={coords} ref={el => markerref.current[index] = el} onPress={() => Platform.OS === 'android' && onOpenSheet(item)} >
             <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} ref={el => calloutref = el} />
@@ -566,6 +594,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               </Callout>
             }
           </Marker>)
+
+
         })}
 
       </MapView>
