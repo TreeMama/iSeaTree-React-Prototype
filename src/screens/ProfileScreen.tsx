@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-native-paper'
 
 import {
   StyleSheet,
@@ -316,6 +317,9 @@ export function ProfileScreen() {
               </View>
             }
 
+            <Button style={{ marginTop: 20, marginBottom: 20 }} >
+              Click here for a walkthrough!
+            </Button>
 
           </View>
         </ScrollView>
