@@ -14,6 +14,8 @@ import {
   TouchableOpacity,
   Platform
 } from 'react-native'
+
+import { Button } from 'react-native-paper'
 import Constants from 'expo-constants';
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
@@ -25,7 +27,7 @@ import {
   getCurrentAuthUser,
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
-
+import Slider from './SliderScreen'
 const win = Dimensions.get('window');
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
 const imageReward = require('../../assets/profile/reward_icon.png');
@@ -155,6 +157,7 @@ export function ProfileScreen() {
     { id: 1, title: 'Trees Identified', value: 0, imgSrc: imageTree },
     { id: 2, title: 'Badges Earned', value: 0, imgSrc: imageReward },
   ]);
+  const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser()
 
@@ -271,8 +274,17 @@ export function ProfileScreen() {
     )
   }
 
+  function goToSliderHandler() {
+    setIsSliderVisible(true);
+  }
+
+  function sliderDismissHanlder() {
+    setIsSliderVisible(false);
+  }
+
   return (
     <>
+      {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
       <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
           <View style={styles.container}>
@@ -316,10 +328,14 @@ export function ProfileScreen() {
               </View>
             }
 
+            <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler}>
+              Click here for a walkthrough!
+            </Button>
 
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
+      { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null}
     </>
   )
 }
