@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-6166825590",
+  "dataObjectVersionID": 6743425,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:30:02.000Z",
+  "modified": "2018-10-20T02:50:19.000Z",
+  "title": "Acer platanoides (4808' N 1627' E)",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+  "license_id": 4,
+  "rightsHolder": "HermannFalkner/sokol",
+  "source": "https://www.flickr.com/photos/hermannherbarium/6166825590/",
+  "mediaURL": "https://farm7.staticflickr.com/6154/6166825590_347d674b44_o.jpg",
+  "description": "2011-04-02 Vienna XI. district - bordering on Lower Austria, district Schwechat; brownlands (170 msm Quadrant 7864/4).German name: Spitz-Ahorn",
+  "eolMediaURL": "https://content.eol.org/data/media/80/89/a3/542.6166825590.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/80/89/a3/542.6166825590.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/40826335@N05'>HermannFalkner/sokol</a>",
+      "homepage": "http://www.flickr.com/photos/40826335@N05",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

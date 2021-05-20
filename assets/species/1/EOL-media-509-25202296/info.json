@@ -1,0 +1,38 @@
+{
+  "identifier": "EOL-media-509-25202296",
+  "dataObjectVersionID": 8129465,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:11:49.000Z",
+  "modified": "2018-10-24T13:31:16.000Z",
+  "title": "Abies amabilis range map 4.png",
+  "license": "http://creativecommons.org/licenses/publicdomain/",
+  "license_id": 6,
+  "source": "https://commons.wikimedia.org/wiki/File:Abies_amabilis_range_map_4.png",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/8/80/Abies_amabilis_range_map_4.png",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  English: Distribution map of <i><a href=\"https://commons.wikimedia.org/wiki/Abies_amabilis\" title=\"Abies amabilis\">Abies amabilis</a></i> (Douglas ex Loudon) Douglas ex Forbes (Pacific Silver Fir)    Date between 1966 and 1978   Source <a href=\"http://esp.cr.usgs.gov/data/little/\">USGS Geosciences and Environmental Change Science Center, Digital Representations of Tree Species Range Maps from \"Atlas of United States Trees\" by Elbert L. Little, Jr. (and other publications)</a>   Author Elbert L. Little, Jr., U.S. Department of Agriculture, Forest Service, and others  ",
+  "eolMediaURL": "https://content.eol.org/data/media/58/6b/31/509.25202296.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/58/6b/31/509.25202296.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='https://commons.wikimedia.org/wiki/User:SteinsplitterBot'>SteinsplitterBot</a>",
+      "homepage": "https://commons.wikimedia.org/wiki/User:SteinsplitterBot",
+      "role": "source"
+    },
+    {
+      "full_name": "<a href='https://commons.wikimedia.org/wiki/User:SteinsplitterBot'>SteinsplitterBot</a>",
+      "homepage": "https://commons.wikimedia.org/wiki/User:SteinsplitterBot",
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

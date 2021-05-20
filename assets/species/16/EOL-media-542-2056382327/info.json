@@ -1,0 +1,33 @@
+{
+  "identifier": "EOL-media-542-2056382327",
+  "dataObjectVersionID": 6743419,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:30:02.000Z",
+  "modified": "2018-10-20T02:50:19.000Z",
+  "title": "autumn colours14",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+  "license_id": 4,
+  "rightsHolder": "Antnio Pena",
+  "source": "https://www.flickr.com/photos/anpena/2056382327/",
+  "mediaURL": "https://farm3.staticflickr.com/2227/2056382327_3415aba73d_o.jpg",
+  "eolMediaURL": "https://content.eol.org/data/media/7e/d4/db/542.2056382327.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7e/d4/db/542.2056382327.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/8358282@N02'>Antnio Pena</a>",
+      "homepage": "http://www.flickr.com/photos/8358282@N02",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

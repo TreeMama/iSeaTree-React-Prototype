@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-3959890258",
+  "dataObjectVersionID": 6743423,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:30:02.000Z",
+  "modified": "2018-10-20T02:50:19.000Z",
+  "title": "Acer platanoides L. subsp. platanoides /  Arce real",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+  "license_id": 4,
+  "rightsHolder": "Jos Mara Escolano",
+  "source": "https://www.flickr.com/photos/valdelobos/3959890258/",
+  "mediaURL": "https://farm3.staticflickr.com/2620/3959890258_8a257470d2_o.jpg",
+  "description": "Pirineos aragoneses   (valle de Tena)Familia: ACERACEAEDistribucin: En Europa se encuentra por todo el continente, salvo en el extremo N, extremo W y las islas; en la Pennsula Ibrica se sita en el Pirineo y Montseny y en Aragn desde Benasque hasta Canfranc. Puntualmente se cita del Maestrazgo, en Cantavieja, seguramente en calidad de asilvestrado.Biologa y fenologa  Hbitat:  Salpica los bosques de caducifolios en ambiente hmedo; a menor altitud busca refugio en los fondos de barranco.Preferencia edfica:  Indiferente.  Con frecuencia crece en suelos eutrofizados.Rango altitudinal: ( 700 ) 1080- 1720 ( 1800 ) mFloracin:  Marzo - MayoFructificacin:  Mayo - JulioForma Biolgica:  Macrofanerfito caducifolioExtractado del Atlas de la Flora de Aragn (Herbario de Jaca)",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/c8/48/542.3959890258.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/c8/48/542.3959890258.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/42786943@N07'>Jos Mara Escolano</a>",
+      "homepage": "http://www.flickr.com/photos/42786943@N07",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

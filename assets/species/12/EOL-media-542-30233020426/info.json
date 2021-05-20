@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-30233020426",
+  "dataObjectVersionID": 6700159,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:22:30.000Z",
+  "modified": "2018-10-20T02:41:52.000Z",
+  "title": "J20161006-0017Acer macrophyllumRPBG",
+  "license": "http://creativecommons.org/licenses/by/2.0/",
+  "license_id": 3,
+  "rightsHolder": "John Rusk",
+  "source": "https://www.flickr.com/photos/john_d_rusk/30233020426/",
+  "mediaURL": "https://farm6.staticflickr.com/5577/30233020426_6a97c85328_o.jpg",
+  "description": "Acer macrophyllumbigleaf maple.  California does not possess the large areas of hardwood forests that cover much of the eastern United States.  Displays of fall colors are localized and limited for the most part to understory shrubs and trees.  There are, of course, the glorious aspens as well as several species of maples.  Bigleaf maple is simply glorious when the sun backlights the leaves.  Photographed at Regional Parks Botanic Garden located in Tilden Regional Park near Berkeley, CA.",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/3f/a9/542.30233020426.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/3f/a9/542.30233020426.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/12303842@N00'>John Rusk</a>",
+      "homepage": "http://www.flickr.com/photos/12303842@N00",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

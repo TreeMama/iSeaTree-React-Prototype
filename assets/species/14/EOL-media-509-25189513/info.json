@@ -1,0 +1,28 @@
+{
+  "identifier": "EOL-media-509-25189513",
+  "dataObjectVersionID": 8141832,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:12:55.000Z",
+  "modified": "2018-10-24T13:31:47.000Z",
+  "title": "Acer nigrum NRCS-3.png",
+  "license": "http://creativecommons.org/licenses/publicdomain/",
+  "license_id": 6,
+  "source": "https://commons.wikimedia.org/wiki/File:Acer_nigrum_NRCS-3.png",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/7/71/Acer_nigrum_NRCS-3.png",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  English: <i>Acer nigrum</i> Michx.f. - black maple    Date date not provided   Source <a href=\"http://plants.usda.gov/java/largeImage?imageID=acni5_004_avp.tif\">USDA-NRCS PLANTS Database</a> Provided by National Agricultural Library. Originally from US Forest Service. United States, PA.   Author W. D. Brush, U.S. Forest Service  ",
+  "eolMediaURL": "https://content.eol.org/data/media/5d/6a/77/509.25189513.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/5d/6a/77/509.25189513.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

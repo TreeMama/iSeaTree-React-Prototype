@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-20996650981",
+  "dataObjectVersionID": 6700157,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:22:30.000Z",
+  "modified": "2018-10-20T02:41:52.000Z",
+  "title": "2015-08-29-14.12.05 ZS PMax Acer macrophyllum-1",
+  "license": "http://creativecommons.org/licenses/by/2.0/",
+  "license_id": 3,
+  "rightsHolder": "John Rusk",
+  "source": "https://www.flickr.com/photos/john_d_rusk/20996650981/",
+  "mediaURL": "https://farm6.staticflickr.com/5816/20996650981_942bb17309_o.jpg",
+  "description": "Acer macrophyllumbig leaf maple. Nearly ripe samaras that measure about 1 1/2 inches long . There are a few aphids shown in the photo. The tree that bore these seeds is at Regional Parks Botanic Garden located in Tilden Regional Park near Berkeley, CA.",
+  "eolMediaURL": "https://content.eol.org/data/media/7e/d8/15/542.20996650981.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7e/d8/15/542.20996650981.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/12303842@N00'>John Rusk</a>",
+      "homepage": "http://www.flickr.com/photos/12303842@N00",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

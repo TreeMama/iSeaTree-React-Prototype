@@ -1,0 +1,36 @@
+{
+  "identifier": "EOL-media-509-10859598",
+  "dataObjectVersionID": 7108722,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "height": 3168,
+  "width": 4752,
+  "created": "2018-04-05T09:36:26.000Z",
+  "modified": "2019-07-13T07:36:57.000Z",
+  "title": "Abies granids trunk 3.JPG",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "Crusier",
+  "source": "https://commons.wikimedia.org/wiki/File:Abies_granids_trunk_3.JPG",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Abies_granids_trunk_3.JPG",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  English: Grand Fir (<i><a href=\"https://commons.wikimedia.org/wiki/Abies_grandis\" title=\"Abies grandis\">Abies grandis</a></i>) trunk in <a href=\"https://commons.wikimedia.org/wiki/Rog%C3%B3w_Arboretum\" title=\"RogÃ³w Arboretum\">RogÃ³w Arboretum</a>, Poland Polski: PieÅ jodÅy olbrzymiej (<i><a href=\"https://commons.wikimedia.org/wiki/Abies_grandis\" title=\"Abies grandis\">Abies grandis</a></i>) w <a href=\"https://commons.wikimedia.org/wiki/Arboretum_w_Rogowie\" title=\"Arboretum w Rogowie\">Arboretum w Rogowie</a>    Date 5 June 2010   Source Own work   Author <a href=\"https://commons.wikimedia.org/wiki/User:Crusier\" title=\"User:Crusier\">Crusier</a>  ",
+  "eolMediaURL": "https://content.eol.org/data/media/55/61/2b/509.10859598.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/55/61/2b/509.10859598.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Crusier",
+      "homepage": "https://commons.wikimedia.org/wiki/User:Crusier",
+      "role": "creator"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-509-2939864",
+  "dataObjectVersionID": 8129469,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:11:49.000Z",
+  "modified": "2019-05-11T16:11:50.000Z",
+  "title": "Abies amabilis 27684.JPG",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "Walter Siegmund",
+  "source": "https://commons.wikimedia.org/wiki/File:Abies_amabilis_27684.JPG",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Abies_amabilis_27684.JPG",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>] <i>Abies amabilis</i>   DescriptionAPI <i><a href=\"https://commons.wikimedia.org/wiki/Abies_amabilis\" title=\"Abies amabilis\">Abies amabilis</a></i> English: Pacific Silver Fir    Date <a href=\"https://en.wikipedia.org/wiki/ISO_8601\" title=\"en:ISO 8601\">2007:10:14T13:19:15-7.00</a>   Source Own work   Author <a href=\"https://en.wikipedia.org/wiki/User_talk:Wsiegmund\" title=\"en:User talk:Wsiegmund\">Walter Siegmund</a>     Camera location <a href=\"http://tools.wmflabs.org/geohack/geohack.php?pagename=API&amp;params=047.539400_N_-121.118900_E_globe:Earth_type:camera_type:forest_region:US&amp;language=en\">47Â° 32â² 21.84â³ N, 121Â° 07â² 08.04â³ W</a> <a href=\"https://commons.wikimedia.org/wiki/Special:Map/13/47.5394/-121.1189\"></a> View all coordinates using: <a href=\"http://tools.wmflabs.org/wiwosm/osm-on-ol/commons-on-osm.php?zoom=16&amp;lat=047.539400&amp;lon=-121.118900\">OpenStreetMap</a> - <a href=\"http://tools.wmflabs.org/geocommons/earth.kml?latdegdec=047.539400&amp;londegdec=-121.118900&amp;scale=10000&amp;commons=1\">Google Earth</a> <a href=\"https://commons.wikimedia.org/wiki/Commons:Geocoding\" title=\"Commons:Geocoding\"></a> 47.539400; -121.118900   <a href=\"https://en.wikipedia.org/wiki/World_Geodetic_System\" title=\"en:World Geodetic System\">Location Datum</a>: WGS84 Identification by: <a href=\"https://commons.wikimedia.org/wiki/User_talk:MPF\" title=\"User talk:MPF\">MPF</a> who comments, \"it is two aborted cones (probably caught by a late frost), the bracts develop before the seed scales in early spring.\" Viewpoint location: Cathedral Pass Trail 1345 <a href=\"https://commons.wikimedia.org/wiki/Alpine_Lakes_Wilderness\" title=\"Alpine Lakes Wilderness\">Alpine Lakes Wilderness</a> Viewpoint elevation: 1567 <a href=\"https://en.wikipedia.org/wiki/meter\" title=\"en:meter\">meter</a> (5140 ft) Camera: Panasonic DMC-FZ5 Exposure Time: 1/400 F Number: f/4.0 Focal Length: 6.0 Focal Length In 35mm Film: 36 ISO Speed Rating: 80 Â©2007 Walter Siegmund Licensing[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=2\" title=\"Edit section: Licensing\">edit</a>]    I, the copyright holder of this work, hereby publish it under the following licenses:    Permission is granted to copy, distribute and/or modify this document under the terms of the <a href=\"https://en.wikipedia.org/wiki/en:GNU_Free_Documentation_License\" title=\"w:en:GNU Free Documentation License\">GNU Free Documentation License</a>, Version 1.2 or any later version published by the <a href=\"https://en.wikipedia.org/wiki/en:Free_Software_Foundation\" title=\"w:en:Free Software Foundation\">Free Software Foundation</a>; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled <i><a href=\"https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2\" title=\"Commons:GNU Free Documentation License, version 1.2\">GNU Free Documentation License</a></i>.http://www.gnu.org/copyleft/fdl.htmlGFDLGNU Free Documentation Licensetruetrue     <br>  This file is licensed under the <a href=\"https://en.wikipedia.org/wiki/en:Creative_Commons\" title=\"w:en:Creative Commons\">Creative Commons</a> <a href=\"http://creativecommons.org/licenses/by-sa/3.0/deed.en\">Attribution-Share Alike 3.0 Unported</a> license.           This licensing tag was added to this file as part of the GFDL <a href=\"https://meta.wikimedia.org/wiki/Licensing_update\" title=\"meta:Licensing update\">licensing update</a>.http://creativecommons.org/licenses/by-sa/3.0/CC-BY-SA-3.0Creative Commons Attribution-Share Alike 3.0truetrue     <br>  This file is licensed under the <a href=\"https://en.wikipedia.org/wiki/en:Creative_Commons\" title=\"w:en:Creative Commons\">Creative Commons</a> <a href=\"http://creativecommons.org/licenses/by/2.5/deed.en\">Attribution 2.5 Generic</a> license.        You are free: to share â to copy, distribute and transmit the work to remix â to adapt the work Under the following conditions: attribution â You must attribute the work in the manner specified by the author or licensor (but not in any way that suggests that they endorse you or your use of the work). http://creativecommons.org/licenses/by/2.5 CC BY 2.5 Creative Commons Attribution 2.5 truetrue    <i>You may select the license of your choice.</i>   ",
+  "eolMediaURL": "https://content.eol.org/data/media/59/37/6a/509.2939864.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/59/37/6a/509.2939864.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Walter Siegmund",
+      "homepage": "https://en.wikipedia.org/wiki/User_talk:Wsiegmund",
+      "role": "creator"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

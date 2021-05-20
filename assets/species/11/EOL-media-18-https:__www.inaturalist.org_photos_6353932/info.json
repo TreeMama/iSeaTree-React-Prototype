@@ -1,0 +1,27 @@
+{
+  "identifier": "EOL-media-18-https://www.inaturalist.org/photos/6353932",
+  "dataObjectVersionID": 2827281,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-03-15T09:06:44.000Z",
+  "modified": "2018-10-19T16:04:23.000Z",
+  "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+  "license_id": 7,
+  "rightsHolder": "Frank Izaguirre",
+  "source": "https://www.inaturalist.org/photos/6353932",
+  "mediaURL": "https://static.inaturalist.org/photos/6353932/original.jpeg?1487801179",
+  "eolMediaURL": "https://content.eol.org/data/media/47/ef/8c/18.https___www_inaturalist_org_photos_6353932.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/47/ef/8c/18.https___www_inaturalist_org_photos_6353932.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "iNaturalist",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "identifier": "EOL-media-7-CalPhotos:0024 3291 2013 0119",
+  "dataObjectVersionID": 8800973,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-06-05T11:35:51.000Z",
+  "modified": "2018-10-20T11:59:04.000Z",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/",
+  "license_id": 5,
+  "rightsHolder": "2000 California Academy of Sciences",
+  "source": "http://calphotos.berkeley.edu/cgi/img_query?seq_num=24789&one=T",
+  "mediaURL": "http://calphotos.berkeley.edu/imgs/512x768/0024_3291/2013/0119.jpeg",
+  "description": "rain forest",
+  "eolMediaURL": "https://content.eol.org/data/media/87/c8/ca/7.CalPhotos_0024_3291_2013_0119.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/87/c8/ca/7.CalPhotos_0024_3291_2013_0119.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://calphotos.berkeley.edu/cgi/photographer_query?where-name_full=Sherry+Ballard&one=T'>Sherry Ballard</a>",
+      "homepage": "http://calphotos.berkeley.edu/cgi/photographer_query?where-name_full=Sherry+Ballard&one=T",
+      "role": "photographer"
+    },
+    {
+      "full_name": "CalPhotos",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

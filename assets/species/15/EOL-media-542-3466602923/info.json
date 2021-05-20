@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-3466602923",
+  "dataObjectVersionID": 6683717,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:19:21.000Z",
+  "modified": "2018-10-20T02:38:02.000Z",
+  "title": "Japanese Maple 'Beni Kawa'",
+  "license": "http://creativecommons.org/licenses/by/2.0/",
+  "license_id": 3,
+  "rightsHolder": "Drew Avery",
+  "source": "https://www.flickr.com/photos/33590535@N06/3466602923/",
+  "mediaURL": "https://farm4.staticflickr.com/3655/3466602923_b2d2dbef24_o.jpg",
+  "description": "Norfolk Botanical Garden",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/87/dd/542.3466602923.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/87/dd/542.3466602923.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/33590535@N06'>Drew Avery</a>",
+      "homepage": "http://www.flickr.com/photos/33590535@N06",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

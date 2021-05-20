@@ -1,0 +1,28 @@
+{
+  "identifier": "EOL-media-509-29401862",
+  "dataObjectVersionID": 8141833,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:12:55.000Z",
+  "modified": "2018-10-24T13:31:47.000Z",
+  "title": "110.DullesCorner.HerndonVA.28October2012 (8141422558).jpg",
+  "license": "http://creativecommons.org/licenses/by/3.0/",
+  "license_id": 11,
+  "source": "https://commons.wikimedia.org/wiki/File:110.DullesCorner.HerndonVA.28October2012_(8141422558).jpg",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/8/8f/110.DullesCorner.HerndonVA.28October2012_(8141422558).jpg",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  Dulles Corner Park in 13000 block of Sunrise Valley Drive near Coppermine Road in Herndon VA on Sunday morning, 28 October 2012 by Elvert Barnes Photography    Date 28 October 2012, 09:49   Source <a href=\"http://www.flickr.com/photos/perspective/8141422558/\">110.DullesCorner.HerndonVA.28October2012</a>   Author <a href=\"http://www.flickr.com/people/95413346@N00\">Elvert Barnes</a> from Hyattsville MD, USA     Camera location <a href=\"http://tools.wmflabs.org/geohack/geohack.php?pagename=API&amp;params=038.954853_N_-077.426598_E_globe:Earth_type:camera_source:Flickr&amp;language=en\">38Â° 57â² 17.47â³ N, 77Â° 25â² 35.75â³ W</a> <a href=\"https://commons.wikimedia.org/wiki/Special:Map/13/38.954853/-77.426598\"></a> View all coordinates using: <a href=\"http://tools.wmflabs.org/wiwosm/osm-on-ol/commons-on-osm.php?zoom=16&amp;lat=038.954853&amp;lon=-077.426598\">OpenStreetMap</a> - <a href=\"http://tools.wmflabs.org/geocommons/earth.kml?latdegdec=038.954853&amp;londegdec=-077.426598&amp;scale=10000&amp;commons=1\">Google Earth</a> <a href=\"https://commons.wikimedia.org/wiki/Commons:Geocoding\" title=\"Commons:Geocoding\"></a> 38.954853; -77.426598  ",
+  "eolMediaURL": "https://content.eol.org/data/media/5e/38/b5/509.29401862.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/5e/38/b5/509.29401862.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

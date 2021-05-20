@@ -1,0 +1,33 @@
+{
+  "identifier": "EOL-media-542-4090474957",
+  "dataObjectVersionID": 6683720,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:19:21.000Z",
+  "modified": "2018-10-20T02:38:02.000Z",
+  "title": "maple seed",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+  "license_id": 4,
+  "rightsHolder": "pharamound",
+  "source": "https://www.flickr.com/photos/ivannanto/4090474957/",
+  "mediaURL": "https://farm3.staticflickr.com/2528/4090474957_45759a51e2_o.jpg",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/d7/4d/542.4090474957.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/d7/4d/542.4090474957.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/44325219@N00'>pharamound</a>",
+      "homepage": "http://www.flickr.com/photos/44325219@N00",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

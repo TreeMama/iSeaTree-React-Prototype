@@ -1,0 +1,33 @@
+{
+  "identifier": "EOL-media-549-BI-image-18477",
+  "dataObjectVersionID": 9077081,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-07-03T19:03:43.000Z",
+  "modified": "2018-10-20T13:22:10.000Z",
+  "title": "Young leaves",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/",
+  "license_id": 5,
+  "source": "http://www.bioimages.org.uk/html/../image.php?id=18477",
+  "mediaURL": "http://www.discoverlife.org/mp/20p?img=I_MWS18477&res=mx",
+  "description": "Longitude (deg): -0.8. Latitude (deg): 51.4. Longitude (deg/min): 0ÃÂ° 50' W. Latitude (deg/min): 51ÃÂ° 30' N. Vice county name: Berks. Vice county no.: 22. Country: England. Stage: Plant. Identified by: Malcolm Storey. Category: standard photograph or close-up. Photographic equipment used: Nikon Coolpix 950. ",
+  "eolMediaURL": "https://content.eol.org/data/media/89/92/82/549.BI-image-18477.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/89/92/82/549.BI-image-18477.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Malcolm Storey",
+      "homepage": null,
+      "role": "compiler"
+    },
+    {
+      "full_name": "BioImages, the virtual fieldguide, UK",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

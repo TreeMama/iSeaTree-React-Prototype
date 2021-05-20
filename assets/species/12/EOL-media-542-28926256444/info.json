@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-28926256444",
+  "dataObjectVersionID": 6700158,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:22:30.000Z",
+  "modified": "2018-10-24T12:37:51.000Z",
+  "title": "E20160907-0002Acer macrophyllumRPBG",
+  "license": "http://creativecommons.org/licenses/by/2.0/",
+  "license_id": 3,
+  "rightsHolder": "John Rusk",
+  "source": "https://www.flickr.com/photos/john_d_rusk/28926256444/",
+  "mediaURL": "https://farm9.staticflickr.com/8492/28926256444_ac40a4f292_o.jpg",
+  "description": "Acer macrophyllumbigleaf maple. Grows from the Alaskan panhandle to near the border with Mexico. The range includes the western slopes of the Sierra Nevada.  One of the few commercially valuable hardwood species growing on the west coast of North America.  For information see the \"Biogeography of Acer macrophyllum\"  <a href=\"http://online.sfsu.edu/bholzman/courses/Fall01%20projects/acermac.htm\">online.sfsu.edu/bholzman/courses/Fall01%20projects/acerma...</a> and the entry in U. S. Forest Service, \"The Silvics of North America\"  <a href=\"http://www.na.fs.fed.us/spfo/pubs/silvics_manual/volume_2/acer/macrophyllum.htm\">www.na.fs.fed.us/spfo/pubs/silvics_manual/volume_2/acer/m...</a>. The leaf is from a sapling growing in Regional Parks Botanic Garden located in Tilden Regional Park near Berkeley, CA.",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/29/64/542.28926256444.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/29/64/542.28926256444.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/12303842@N00'>John Rusk</a>",
+      "homepage": "http://www.flickr.com/photos/12303842@N00",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

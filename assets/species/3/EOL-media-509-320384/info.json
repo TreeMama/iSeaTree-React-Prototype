@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-509-320384",
+  "dataObjectVersionID": 6983069,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T09:20:21.000Z",
+  "modified": "2019-08-20T09:40:31.000Z",
+  "title": "Abies-procera-needles.JPG",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "Sten Porse",
+  "source": "https://commons.wikimedia.org/wiki/File:Abies-procera-needles.JPG",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Abies-procera-needles.JPG",
+  "description": "DescriptionAPI  <i><a href=\"https://commons.wikimedia.org/wiki/Abies_procera\" title=\"Abies procera\">Abies procera</a></i>: Needles.    Date    Source Own work   Author <a href=\"https://commons.wikimedia.org/wiki/User:Sten\" title=\"User:Sten\">Sten Porse</a>      I, the copyright holder of this work, hereby publish it under the following licenses:    Permission is granted to copy, distribute and/or modify this document under the terms of the <a href=\"https://en.wikipedia.org/wiki/en:GNU_Free_Documentation_License\" title=\"w:en:GNU Free Documentation License\">GNU Free Documentation License</a>, Version 1.2 or any later version published by the <a href=\"https://en.wikipedia.org/wiki/en:Free_Software_Foundation\" title=\"w:en:Free Software Foundation\">Free Software Foundation</a>; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled <i><a href=\"https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2\" title=\"Commons:GNU Free Documentation License, version 1.2\">GNU Free Documentation License</a></i>.http://www.gnu.org/copyleft/fdl.htmlGFDLGNU Free Documentation Licensetruetrue     <br>  This file is licensed under the <a href=\"https://en.wikipedia.org/wiki/en:Creative_Commons\" title=\"w:en:Creative Commons\">Creative Commons</a> <a href=\"http://creativecommons.org/licenses/by-sa/3.0/deed.en\">Attribution-Share Alike 3.0 Unported</a> license.           This licensing tag was added to this file as part of the GFDL <a href=\"https://meta.wikimedia.org/wiki/Licensing_update\" title=\"meta:Licensing update\">licensing update</a>.http://creativecommons.org/licenses/by-sa/3.0/CC-BY-SA-3.0Creative Commons Attribution-Share Alike 3.0truetrue   <i>You may select the license of your choice.</i>   ",
+  "eolMediaURL": "https://content.eol.org/data/media/59/af/58/509.320384.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/59/af/58/509.320384.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Sten Porse",
+      "homepage": "https://commons.wikimedia.org/wiki/User:Sten",
+      "role": "creator"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

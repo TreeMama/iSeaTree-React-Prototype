@@ -1,0 +1,28 @@
+{
+  "identifier": "EOL-media-509-19814597",
+  "dataObjectVersionID": 8141830,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:12:55.000Z",
+  "modified": "2018-10-24T13:31:47.000Z",
+  "title": "Acer nigrum leaves.png",
+  "license": "http://creativecommons.org/licenses/publicdomain/",
+  "license_id": 6,
+  "source": "https://commons.wikimedia.org/wiki/File:Acer_nigrum_leaves.png",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Acer_nigrum_leaves.png",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  English: <i>Acer nigrum</i> Michx. f. (black maple)    Date 8 June 2012   Source <a href=\"http://plants.usda.gov/java/profile?symbol=acni5\">USDA-NRCS PLANTS Database: <i>Acer nigrum</i> Michx. f. (black maple)</a>   Author W.D. Brush. Provided by National Agricultural Library. Originally from US Forest Service. United States, DC, Washington.   Permission<br> (<a href=\"https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia\" title=\"Commons:Reusing content outside Wikimedia\">Reusing this file</a>)  This image is not copyrighted and may be freely used for any purpose. Please credit the artist, original publication if applicable, and the USDA-NRCS PLANTS Database. The following format is suggested and will be appreciated: W.D. Brush @ USDA-NRCS PLANTS Database   ",
+  "eolMediaURL": "https://content.eol.org/data/media/5c/3d/15/509.19814597.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/5c/3d/15/509.19814597.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-6332736514",
+  "dataObjectVersionID": 6650025,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:13:28.000Z",
+  "modified": "2018-10-20T02:31:43.000Z",
+  "title": "Acer campestre mixed forest (4805' N 1637' E)",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+  "license_id": 4,
+  "rightsHolder": "HermannFalkner/sokol",
+  "source": "https://www.flickr.com/photos/hermannherbarium/6332736514/",
+  "mediaURL": "https://farm7.staticflickr.com/6103/6332736514_b7f38ecb0e_o.jpg",
+  "description": "2009-11-08 Lower Austria, district Bruck/Leitha (240 msm Quadrant 7965/2).Forest mainly consisting of Acer campestre (Feld-Ahorn); the rest is made up mainly of ash and oak.",
+  "eolMediaURL": "https://content.eol.org/data/media/80/99/25/542.6332736514.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/80/99/25/542.6332736514.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/40826335@N05'>HermannFalkner/sokol</a>",
+      "homepage": "http://www.flickr.com/photos/40826335@N05",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

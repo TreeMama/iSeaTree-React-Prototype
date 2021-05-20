@@ -1,0 +1,41 @@
+{
+  "identifier": "EOL-media-509-10049875",
+  "dataObjectVersionID": 7909904,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "height": 3264,
+  "width": 2448,
+  "created": "2018-04-05T11:43:20.000Z",
+  "modified": "2019-05-09T20:05:32.000Z",
+  "title": "Acer macrophyllum flowers Olympia WA.jpg",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "Jason Taellious",
+  "source": "https://commons.wikimedia.org/wiki/File:Acer_macrophyllum_flowers_Olympia_WA.jpg",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Acer_macrophyllum_flowers_Olympia_WA.jpg",
+  "description": "DescriptionAPI  <i><a href=\"https://commons.wikimedia.org/wiki/Acer_macrophyllum\" title=\"Acer macrophyllum\">Acer macrophyllum</a></i> flowers. Olympia, Washington, USA.    Date 26 March 2010, 05:54   Source <a href=\"http://www.flickr.com/photos/30473274@N00/4467181452/\">why Spring</a>   Author <a href=\"http://www.flickr.com/people/30473274@N00\">Jason Taellious</a> from Olympia, USA  ",
+  "eolMediaURL": "https://content.eol.org/data/media/55/2d/94/509.10049875.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/55/2d/94/509.10049875.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Jason Taellious",
+      "homepage": "http://www.flickr.com/people/30473274@N00",
+      "role": "creator"
+    },
+    {
+      "full_name": "Jason Taellious (30473274@N00)",
+      "homepage": "http://www.flickr.com/photos/30473274@N00/4467181452/",
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

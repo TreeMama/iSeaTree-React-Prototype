@@ -1,0 +1,29 @@
+{
+  "identifier": "EOL-media-18-https://www.inaturalist.org/photos/3095158",
+  "dataObjectVersionID": 2827280,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "height": 1152,
+  "width": 2048,
+  "created": "2018-03-15T09:06:44.000Z",
+  "modified": "2018-10-19T16:04:23.000Z",
+  "license": "http://creativecommons.org/licenses/by-nc/4.0/",
+  "license_id": 7,
+  "rightsHolder": "annaleighbaremore",
+  "source": "https://www.inaturalist.org/photos/3095158",
+  "mediaURL": "https://static.inaturalist.org/photos/3095158/original.jpeg?1457036101",
+  "eolMediaURL": "https://content.eol.org/data/media/34/a3/a9/18.https___www_inaturalist_org_photos_3095158.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/34/a3/a9/18.https___www_inaturalist_org_photos_3095158.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "iNaturalist",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

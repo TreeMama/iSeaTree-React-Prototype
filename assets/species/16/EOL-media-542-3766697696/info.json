@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-3766697696",
+  "dataObjectVersionID": 6743422,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:30:02.000Z",
+  "modified": "2018-10-20T02:50:19.000Z",
+  "title": "Acer platanoides (4811' N 1625' E)",
+  "license": "http://creativecommons.org/licenses/by-nc/2.0/",
+  "license_id": 16,
+  "rightsHolder": "HermannFalkner/sokol",
+  "source": "https://www.flickr.com/photos/hermannherbarium/3766697696/",
+  "mediaURL": "https://farm4.staticflickr.com/3500/3766697696_3d74c4913e_o.jpg",
+  "description": "2008.10.17: Austria, Vienna II. district, 158 m AMSL, park: leaf.Flowering in april (or march/may).Quite common.German names: Spitz-Ahorn, Lein-Ahorn.",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/b1/bf/542.3766697696.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/b1/bf/542.3766697696.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/40826335@N05'>HermannFalkner/sokol</a>",
+      "homepage": "http://www.flickr.com/photos/40826335@N05",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

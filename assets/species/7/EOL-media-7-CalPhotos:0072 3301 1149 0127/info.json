@@ -1,0 +1,33 @@
+{
+  "identifier": "EOL-media-7-CalPhotos:0072 3301 1149 0127",
+  "dataObjectVersionID": 8800978,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-06-05T11:35:51.000Z",
+  "modified": "2018-10-20T11:59:04.000Z",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/",
+  "license_id": 5,
+  "rightsHolder": "2001 California Academy of Sciences",
+  "source": "http://calphotos.berkeley.edu/cgi/img_query?seq_num=30059&one=T",
+  "mediaURL": "http://calphotos.berkeley.edu/imgs/512x768/0072_3301/1149/0127.jpeg",
+  "description": "fall",
+  "eolMediaURL": "https://content.eol.org/data/media/87/ca/da/7.CalPhotos_0072_3301_1149_0127.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/87/ca/da/7.CalPhotos_0072_3301_1149_0127.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://calphotos.berkeley.edu/cgi/photographer_query?where-name_full=Dr.+G+Dallas+and+Margaret+Hanna&one=T'>Dr. G Dallas and Margaret Hanna</a>",
+      "homepage": "http://calphotos.berkeley.edu/cgi/photographer_query?where-name_full=Dr.+G+Dallas+and+Margaret+Hanna&one=T",
+      "role": "photographer"
+    },
+    {
+      "full_name": "CalPhotos",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

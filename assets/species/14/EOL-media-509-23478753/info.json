@@ -1,0 +1,28 @@
+{
+  "identifier": "EOL-media-509-23478753",
+  "dataObjectVersionID": 8141831,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:12:55.000Z",
+  "modified": "2018-10-24T13:31:47.000Z",
+  "title": "Acer nigrum - University of Kentucky Arboretum - DSC09326.JPG",
+  "license": "http://creativecommons.org/licenses/publicdomain/",
+  "license_id": 6,
+  "source": "https://commons.wikimedia.org/wiki/File:Acer_nigrum_-_University_of_Kentucky_Arboretum_-_DSC09326.JPG",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Acer_nigrum_-_University_of_Kentucky_Arboretum_-_DSC09326.JPG",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  English: Botanical specimen in the University of Kentucky Arboretum, Lexington, Kentucky, USA.    Date 9 October 2012, 14:15:32   Source Daderot   Author Daderot   Permission<br> (<a href=\"https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia\" title=\"Commons:Reusing content outside Wikimedia\">Reusing this file</a>)      This file is made available under the <a href=\"https://en.wikipedia.org/wiki/en:Creative_Commons\" title=\"w:en:Creative Commons\">Creative Commons</a> <a href=\"http://creativecommons.org/publicdomain/zero/1.0/deed.en\">CC0 1.0 Universal Public Domain Dedication</a>.   The person who associated a work with this deed has dedicated the work to the <a href=\"https://en.wikipedia.org/wiki/en:public_domain\" title=\"w:en:public domain\">public domain</a> by waiving all of his or her rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law. You can copy, modify, distribute and perform the work, even for commercial purposes, all without asking permission. http://creativecommons.org/publicdomain/zero/1.0/deed.enCC0Creative Commons Zero, Public Domain Dedicationfalsefalse      ",
+  "eolMediaURL": "https://content.eol.org/data/media/5d/0c/4d/509.23478753.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/5d/0c/4d/509.23478753.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

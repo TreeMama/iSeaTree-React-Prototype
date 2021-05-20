@@ -1,0 +1,38 @@
+{
+  "identifier": "EOL-media-607-http://bioimages.vanderbilt.edu/baskauf/67488",
+  "dataObjectVersionID": 9278844,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-10-02T15:02:00.000Z",
+  "modified": "2018-10-20T13:50:42.000Z",
+  "title": "Acer macrophyllum (Aceraceae) - fruit - as borne on the plant",
+  "license": "http://creativecommons.org/licenses/by/4.0/",
+  "license_id": 10,
+  "rightsHolder": "Steven J. Baskauf",
+  "source": "http://bioimages.vanderbilt.edu/baskauf/67488",
+  "mediaURL": "http://bioimages.vanderbilt.edu/gq/baskauf/g67488.jpg",
+  "eolMediaURL": "https://content.eol.org/data/media/8f/26/14/607.http___bioimages_vanderbilt_edu_baskauf_67488.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/8f/26/14/607.http___bioimages_vanderbilt_edu_baskauf_67488.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Steven J. Baskauf",
+      "homepage": null,
+      "role": "photographer"
+    },
+    {
+      "full_name": "Malcolm Storey",
+      "homepage": null,
+      "role": "compiler"
+    },
+    {
+      "full_name": "Bioimages Vanderbilt DwCA",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "identifier": "EOL-media-509-25226311",
+  "dataObjectVersionID": 8129466,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T12:11:49.000Z",
+  "modified": "2019-05-11T16:11:30.000Z",
+  "title": "Abies amabilis Crystal Peak Trail.jpg",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "brewbooks",
+  "source": "https://commons.wikimedia.org/wiki/File:Abies_amabilis_Crystal_Peak_Trail.jpg",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/8/81/Abies_amabilis_Crystal_Peak_Trail.jpg",
+  "description": "DescriptionAPI  Pacific Silver Fir <i><a href=\"https://commons.wikimedia.org/wiki/Abies_amabilis\" title=\"Abies amabilis\">Abies amabilis</a></i> with immature cones, Crystal Peak Trail, Mount Rainier National Park, Washington, USA. Down far below is the White River which flows about 121 km (75 miles) from its source, the Emmons Glacier on Mount Rainier, to join the Puyallup River at Sumner.    Date 20 August 2011, 14:10   Source <a href=\"http://www.flickr.com/photos/brewbooks/6115071396/\">Silver Fir - Crystal Peak Trail</a>   Author <a href=\"http://www.flickr.com/people/93452909@N00\">brewbooks</a> from near Seattle, USA     Camera location <a href=\"http://tools.wmflabs.org/geohack/geohack.php?pagename=API&amp;params=046.902694_N_-121.519947_E_globe:Earth_type:camera_source:Flickr&amp;language=en\">46Â° 54â² 09.7â³ N, 121Â° 31â² 11.81â³ W</a> <a href=\"https://commons.wikimedia.org/wiki/Special:Map/13/46.902694/-121.519947\"></a> View all coordinates using: <a href=\"http://tools.wmflabs.org/wiwosm/osm-on-ol/commons-on-osm.php?zoom=16&amp;lat=046.902694&amp;lon=-121.519947\">OpenStreetMap</a> - <a href=\"http://tools.wmflabs.org/geocommons/earth.kml?latdegdec=046.902694&amp;londegdec=-121.519947&amp;scale=10000&amp;commons=1\">Google Earth</a> <a href=\"https://commons.wikimedia.org/wiki/Commons:Geocoding\" title=\"Commons:Geocoding\"></a> 46.902694; -121.519947  ",
+  "eolMediaURL": "https://content.eol.org/data/media/58/70/8f/509.25226311.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/58/70/8f/509.25226311.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "brewbooks",
+      "homepage": "http://www.flickr.com/people/93452909@N00",
+      "role": "creator"
+    },
+    {
+      "full_name": "Flickr user ID brewbooks",
+      "homepage": "https://www.flickr.com/photos/brewbooks/27662471994/",
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

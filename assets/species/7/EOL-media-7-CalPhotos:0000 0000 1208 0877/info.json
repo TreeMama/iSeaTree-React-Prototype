@@ -1,0 +1,32 @@
+{
+  "identifier": "EOL-media-7-CalPhotos:0000 0000 1208 0877",
+  "dataObjectVersionID": 8800970,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-06-05T11:35:51.000Z",
+  "modified": "2018-10-20T11:59:04.000Z",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/3.0/",
+  "license_id": 5,
+  "rightsHolder": "2008 Keir Morse",
+  "source": "http://calphotos.berkeley.edu/cgi/img_query?seq_num=267411&one=T",
+  "mediaURL": "http://calphotos.berkeley.edu/imgs/512x768/0000_0000/1208/0877.jpeg",
+  "eolMediaURL": "https://content.eol.org/data/media/87/57/f5/7.CalPhotos_0000_0000_1208_0877.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/87/57/f5/7.CalPhotos_0000_0000_1208_0877.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://calphotos.berkeley.edu/cgi/photographer_query?where-name_full=Keir+Morse&one=T'>Keir Morse</a>",
+      "homepage": "http://calphotos.berkeley.edu/cgi/photographer_query?where-name_full=Keir+Morse&one=T",
+      "role": "photographer"
+    },
+    {
+      "full_name": "CalPhotos",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

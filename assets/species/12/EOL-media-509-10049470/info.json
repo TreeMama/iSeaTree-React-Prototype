@@ -1,0 +1,41 @@
+{
+  "identifier": "EOL-media-509-10049470",
+  "dataObjectVersionID": 7909903,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "height": 3000,
+  "width": 4000,
+  "created": "2018-04-05T11:43:20.000Z",
+  "modified": "2019-05-09T20:05:23.000Z",
+  "title": "Acer macrophyllum flowers.jpg",
+  "license": "http://creativecommons.org/licenses/by/3.0/",
+  "license_id": 11,
+  "rightsHolder": "Peter Stevens",
+  "source": "https://commons.wikimedia.org/wiki/File:Acer_macrophyllum_flowers.jpg",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/d/de/Acer_macrophyllum_flowers.jpg",
+  "description": "DescriptionAPI  <a href=\"https://commons.wikimedia.org/wiki/Acer_macrophyllum\" title=\"Acer macrophyllum\">Bigleaf Maple</a> flower raceme. Seattle.    Date 8 April 2010, 14:32   Source <a href=\"http://www.flickr.com/photos/28435100@N00/4503817087/\">Maple catkin</a>   Author <a href=\"http://www.flickr.com/people/28435100@N00\">Peter Stevens</a> from Seattle  ",
+  "eolMediaURL": "https://content.eol.org/data/media/55/2d/8d/509.10049470.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/55/2d/8d/509.10049470.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Peter Stevens",
+      "homepage": "http://www.flickr.com/photos/28435100@N00",
+      "role": "creator"
+    },
+    {
+      "full_name": "Peter Stevens (28435100@N00)",
+      "homepage": "http://www.flickr.com/photos/28435100@N00/4336465454/",
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

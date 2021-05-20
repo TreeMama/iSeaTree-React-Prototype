@@ -1,0 +1,38 @@
+{
+  "identifier": "EOL-media-509-27507297",
+  "dataObjectVersionID": 6983065,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T09:20:21.000Z",
+  "modified": "2018-10-24T12:43:39.000Z",
+  "title": "Abies procera Washington.tif",
+  "license": "http://creativecommons.org/licenses/publicdomain/",
+  "license_id": 6,
+  "source": "https://commons.wikimedia.org/wiki/File:Abies_procera_Washington.tif",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/6/65/Abies_procera_Washington.tif",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  English: Abies procera old growth forest Washington    Date 31 July 2013, 16:42:37   Source USDA forest service   Author USDA  ",
+  "eolMediaURL": "https://content.eol.org/data/media/58/e6/50/509.27507297.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/58/e6/50/509.27507297.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "USDA",
+      "homepage": null,
+      "role": "creator"
+    },
+    {
+      "full_name": "USDA forest service",
+      "homepage": null,
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

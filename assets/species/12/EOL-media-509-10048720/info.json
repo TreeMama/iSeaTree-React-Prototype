@@ -1,0 +1,41 @@
+{
+  "identifier": "EOL-media-509-10048720",
+  "dataObjectVersionID": 7909902,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "height": 2592,
+  "width": 3872,
+  "created": "2018-04-05T11:43:20.000Z",
+  "modified": "2019-05-09T20:06:37.000Z",
+  "title": "Acer macrophyllum at Coal Creek.jpg",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "David Baron",
+  "source": "https://commons.wikimedia.org/wiki/File:Acer_macrophyllum_at_Coal_Creek.jpg",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/d/df/Acer_macrophyllum_at_Coal_Creek.jpg",
+  "description": "DescriptionAPI  <i><a href=\"https://commons.wikimedia.org/wiki/Acer_macrophyllum\" title=\"Acer macrophyllum\">Acer macrophyllum</a></i> â at Coal Creek Open Space Preserve, Santa Cruz Mountains, California.    Date 16 August 2009, 22:39   Source <a href=\"http://www.flickr.com/photos/14869313@N00/3830957510/\">Maples</a>   Author <a href=\"http://www.flickr.com/people/14869313@N00\">David Baron</a> from Palo Alto, California, USA   Permission<br> (<a href=\"https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia\" title=\"Commons:Reusing content outside Wikimedia\">Reusing this file</a>)    <br>  This file is licensed under the <a href=\"https://en.wikipedia.org/wiki/en:Creative_Commons\" title=\"w:en:Creative Commons\">Creative Commons</a> <a href=\"http://creativecommons.org/licenses/by-sa/2.0/deed.en\">Attribution-Share Alike 2.0 Generic</a> license.        https://creativecommons.org/licenses/by-sa/2.0 CC BY-SA 2.0 Creative Commons Attribution-Share Alike 2.0 truetrue       This image, originally posted to <a href=\"https://commons.wikimedia.org/wiki/Commons:Flickr\" title=\"Commons:Flickr\">Flickr</a>, was reviewed on 19 April 2010 by the <a href=\"https://commons.wikimedia.org/wiki/Commons:A\" title=\"Commons:A\">administrator</a> or <a href=\"https://commons.wikimedia.org/wiki/Commons:License_review\" title=\"Commons:License review\">reviewer</a> <a href=\"https://commons.wikimedia.org/wiki/User:MPF\" title=\"User:MPF\">MPF</a>, who confirmed that it was available on Flickr under the stated license on that date.        Camera location <a href=\"http://tools.wmflabs.org/geohack/geohack.php?pagename=API&amp;params=037.326693_N_-122.195117_E_globe:Earth_type:camera_&amp;language=en\">37Â° 19â² 36.09â³ N, 122Â° 11â² 42.42â³ W</a> <a href=\"https://commons.wikimedia.org/wiki/Special:Map/13/37.326693/-122.195117\"></a> View all coordinates using: <a href=\"http://tools.wmflabs.org/wiwosm/osm-on-ol/commons-on-osm.php?zoom=16&amp;lat=037.326693&amp;lon=-122.195117\">OpenStreetMap</a> - <a href=\"http://tools.wmflabs.org/geocommons/earth.kml?latdegdec=037.326693&amp;londegdec=-122.195117&amp;scale=10000&amp;commons=1\">Google Earth</a> <a href=\"https://commons.wikimedia.org/wiki/Commons:Geocoding\" title=\"Commons:Geocoding\"></a> 37.326693; -122.195117  ",
+  "eolMediaURL": "https://content.eol.org/data/media/55/2d/80/509.10048720.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/55/2d/80/509.10048720.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "David Baron",
+      "homepage": "http://www.flickr.com/people/14869313@N00",
+      "role": "creator"
+    },
+    {
+      "full_name": "David Baron (14869313@N00)",
+      "homepage": "http://www.flickr.com/photos/14869313@N00/3830957510/",
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

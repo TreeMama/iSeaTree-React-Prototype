@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-4118977975",
+  "dataObjectVersionID": 6650019,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:13:27.000Z",
+  "modified": "2018-10-20T02:31:43.000Z",
+  "title": "Acer campestre L. arce campestre.",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/2.0/",
+  "license_id": 4,
+  "rightsHolder": "Jos Mara Escolano",
+  "source": "https://www.flickr.com/photos/valdelobos/4118977975/",
+  "mediaURL": "https://farm3.staticflickr.com/2627/4118977975_faa4744348_o.jpg",
+  "description": "Sant Quirze Safaja: Catalunya  (Espaa)Familia:ACERACEAEDistribucin:  En Europa se distribuye por casi todo el continente; en la Pennsula Ibrica se cita de los Montes Cantbricos, Pirineos y Sistema Ibrico; en Aragn por el Pirineo (raro en el Alto Pirineo), roza la Depresin por el NW y NE y se da por el E y SW del Sistema Ibrico.Hbitat: Salpica orlas y claros de pinar silvestre, quejigares, carrascales, bosques mixtos y sotos; crece en ambientes hmedos y en las reas ms elevadas se refugia en los fondos de barranco.Preferencia edfica: Indiferente. Habitual en suelos hmedos y eutrficos.Rango altitudinal: ( 275 ) 610- 1500 ( 1650 ) mFloracin: Abril - JunioFructificacin: Septiembre - OctubreForma Biolgica: Macrofanerfito caducifolioExtractado del  Atlas de la Flora de Aragn (Herbario de Jaca)",
+  "eolMediaURL": "https://content.eol.org/data/media/7f/da/95/542.4118977975.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7f/da/95/542.4118977975.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/42786943@N07'>Jos Mara Escolano</a>",
+      "homepage": "http://www.flickr.com/photos/42786943@N07",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

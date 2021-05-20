@@ -1,0 +1,34 @@
+{
+  "identifier": "EOL-media-542-21680716346",
+  "dataObjectVersionID": 6743421,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-05-23T13:30:02.000Z",
+  "modified": "2018-10-24T12:38:21.000Z",
+  "title": "Acer platanoides 2",
+  "license": "http://creativecommons.org/licenses/by/2.0/",
+  "license_id": 3,
+  "rightsHolder": "Azchael",
+  "source": "https://www.flickr.com/photos/azchael/21680716346/",
+  "mediaURL": "https://farm1.staticflickr.com/633/21680716346_e194c7076b_o.jpg",
+  "description": "Thanks a lot to <a href=\"/photos/10770266@N04/\">Bárbol</a> for identifying the plant.",
+  "eolMediaURL": "https://content.eol.org/data/media/7e/dc/91/542.21680716346.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/7e/dc/91/542.21680716346.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "<a href='http://www.flickr.com/photos/34003965@N00'>Azchael</a>",
+      "homepage": "http://www.flickr.com/photos/34003965@N00",
+      "role": "photographer"
+    },
+    {
+      "full_name": "Flickr Group",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}

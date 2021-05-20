@@ -1,0 +1,39 @@
+{
+  "identifier": "EOL-media-509-3078412",
+  "dataObjectVersionID": 6983068,
+  "dataType": "http://purl.org/dc/dcmitype/StillImage",
+  "dataSubtype": "jpg",
+  "vettedStatus": "Trusted",
+  "dataRatings": [],
+  "mediumType": "image",
+  "dataRating": "2.5",
+  "mimeType": "image/jpeg",
+  "created": "2018-04-05T09:20:21.000Z",
+  "modified": "2019-08-20T09:40:22.000Z",
+  "title": "2007-04-07Abies procera glauca01.jpg",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "license_id": 12,
+  "rightsHolder": "Wildfeuer",
+  "source": "https://commons.wikimedia.org/wiki/File:2007-04-07Abies_procera_glauca01.jpg",
+  "mediaURL": "https://upload.wikimedia.org/wikipedia/commons/b/ba/2007-04-07Abies_procera_glauca01.jpg",
+  "description": "Summary[<a href=\"https://commons.wikimedia.org/w/index.php?title=API&amp;action=edit&amp;section=1\" title=\"Edit section: Summary\">edit</a>]   DescriptionAPI  <a href=\"https://commons.wikimedia.org/wiki/Abies_procera\" title=\"Abies procera\">Abies procera</a> glauca Deutsch: Blautanne    Date 7 April 2007   Source Own work (own photo)   Author <a href=\"https://commons.wikimedia.org/wiki/User:Wildfeuer\" title=\"User:Wildfeuer\">Wildfeuer</a>  ",
+  "eolMediaURL": "https://content.eol.org/data/media/59/73/3c/509.3078412.jpg",
+  "eolThumbnailURL": "https://content.eol.org/data/media/59/73/3c/509.3078412.98x68.jpg",
+  "agents": [
+    {
+      "full_name": "Wildfeuer",
+      "homepage": "https://commons.wikimedia.org/wiki/User:Wildfeuer",
+      "role": "creator"
+    },
+    {
+      "full_name": "Own work (own photo)",
+      "homepage": null,
+      "role": "source"
+    },
+    {
+      "full_name": "Wikimedia Commons",
+      "homepage": null,
+      "role": "provider"
+    }
+  ]
+}
