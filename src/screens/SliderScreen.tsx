@@ -72,7 +72,7 @@ export default class Slider extends React.Component<{ dismissSlider: () => void 
 
     render() {
         return (
-            <View style={{ alignItems: 'center', justifyContent: 'center', zIndex: '100' }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', zIndex: 100 }}>
                 <StatusBar translucent backgroundColor="transparent" />
                 <View style={{ width: '90%', height: '95%' }}>
                     <AppIntroSlider
