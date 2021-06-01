@@ -10,7 +10,7 @@ import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm'
 import { OutputInformation, RootObject } from './TreeBenefitResponse'
 import { convertRegion } from './geoHelper'
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 1 Cubic meter (m3) is equal to 264.172052 US gallons
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
@@ -84,7 +84,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     parseInt(dbh) !== 0 &&
     treeConditionCategory
   )
-
+  console.log("loading treeBenefits ")
   //gets Location form Location useContext
   const value = useContext(LocationContext)
   const address = value.address
