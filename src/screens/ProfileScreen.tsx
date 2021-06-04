@@ -28,12 +28,15 @@ import {
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
+import AppIntroScreen from './AppIntroScreen';
+
 const win = Dimensions.get('window');
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
 const imageReward = require('../../assets/profile/reward_icon.png');
 const imageTree = require('../../assets/profile/tree_icon.png');
 const informationIcon = require('../../assets/profile/information.png');
 const logoutIcon = require('../../assets/profile/logout.png');
+const compassIcon = require('../../assets/profile/compass.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -150,7 +153,7 @@ const styles = StyleSheet.create({
 
 })
 
-export function ProfileScreen() {
+export function ProfileScreen(props) {
   const [isMenuVisible, setIsMenuVisible] = React.useState<boolean>(false)
   const [userData, setUserData] = React.useState<null | UserData>(null)
   const [statusData, setStatusData] = React.useState<any[]>([
@@ -285,57 +288,66 @@ export function ProfileScreen() {
   return (
     <>
       {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
-      <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
-          <View style={styles.container}>
-            <View style={styles.profileContainer}>
-              <View style={styles.profileRightMenuContainer}>
-                <TouchableOpacity onPress={() => {
-                  Linking.openURL('https://treemama.org/forum');
-                }}>
-                  <Image source={informationIcon} style={styles.menuIcon} />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handleSignout}>
-                  <Image source={logoutIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
-                </TouchableOpacity>
-              </View>
-              <View style={styles.profileImageContainer}>
-                <Image source={imagePlaceholder} style={styles.profileImage} />
-              </View>
-
-              <View style={styles.profiledetailContainer}>
-                <Text style={styles.userNameText}>{userData?.username}</Text>
-                <Text style={styles.userakaNameText}>{userData?.email}</Text>
-              </View>
-            </View>
-
-            <View style={{ flex: 1, backgroundColor: '#ff0' }}>
-              <FlatList
-                data={statusData}
-                style={styles.container}
-                renderItem={object => renderStatusList(object)}
-                numColumns={2} />
-            </View>
-
-            {userData?.badges !== undefined
-              &&
+      { isSliderVisible ?
+        <AppIntroScreen dismissSlider={sliderDismissHanlder} />
+        :
+        <>
+          <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
+            <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
               <View style={styles.container}>
-                <FlatList
-                  data={userData?.badges}
-                  style={styles.badgeViewContainer}
-                  renderItem={object => renderBadgeList(object)}
-                  numColumns={2} />
+                <View style={styles.profileContainer}>
+                  <View style={styles.profileRightMenuContainer}>
+                    <TouchableOpacity onPress={() => {
+                      Linking.openURL('https://treemama.org/forum');
+                    }}>
+                      <Image source={informationIcon} style={styles.menuIcon} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={handleSignout}>
+                      <Image source={logoutIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setIsSliderVisible(true)}>
+                      <Image source={compassIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.profileImageContainer}>
+                    <Image source={imagePlaceholder} style={styles.profileImage} />
+                  </View>
+
+                  <View style={styles.profiledetailContainer}>
+                    <Text style={styles.userNameText}>{userData?.username}</Text>
+                    <Text style={styles.userakaNameText}>{userData?.email}</Text>
+                  </View>
+                </View>
+
+                <View style={{ flex: 1, backgroundColor: '#ff0' }}>
+                  <FlatList
+                    data={statusData}
+                    style={styles.container}
+                    renderItem={object => renderStatusList(object)}
+                    numColumns={2} />
+                </View>
+
+                {userData?.badges !== undefined
+                  &&
+                  <View style={styles.container}>
+                    <FlatList
+                      data={userData?.badges}
+                      style={styles.badgeViewContainer}
+                      renderItem={object => renderBadgeList(object)}
+                      numColumns={2} />
+                  </View>
+                }
+
+                {/* <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler}>
+                  Click here for a walkthrough!
+          </Button> */}
+
               </View>
-            }
-
-            <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler}>
-              Click here for a walkthrough!
-            </Button>
-
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-      { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null}
+            </ScrollView>
+          </KeyboardAvoidingView>
+          {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
+        </>
+      }
     </>
   )
 }

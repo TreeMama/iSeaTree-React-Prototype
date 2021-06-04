@@ -20,6 +20,8 @@ import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPassword
 import { LoggedTabNavigator } from './LoggedTabNavigator'
 import { usePrevious } from './hooks/usePrevious'
 import { LocationProvider } from './LocationContext'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
 
 initializeFirebase()
 console.disableYellowBox = true;
@@ -61,8 +63,44 @@ function useManageSplashScreen(isUserLogged: null | boolean) {
 const Stack = createStackNavigator()
 
 export function App() {
-  const { isUserLogged } = useAuthStateChange()
+  const { isUserLogged } = useAuthStateChange();
+  const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
+
+
   useManageSplashScreen(isUserLogged)
+
+  async function versionChanged(savedVersion, currentVersion) {
+    if(savedVersion === currentVersion) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  async function checkIntro() {
+    const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP');
+    const savedAppversion = await AsyncStorage.getItem('APP_VERSION');
+    const parseisShowIntro = JSON.parse(isShowIntro);
+    const parsesavedAppversion = JSON.parse(savedAppversion);
+
+    const isVersionChanged = await versionChanged(parsesavedAppversion, Constants.manifest.version)
+
+    // console.log(parseisShowIntro);
+    // console.log(parsesavedAppversion)
+    if (parseisShowIntro) {
+      if(isVersionChanged) {
+        setisShowIntro(true)
+      } else {
+        setisShowIntro(false)
+      }
+    } else {
+      setisShowIntro(true)
+    }
+  }
+
+  React.useEffect(() => {
+    checkIntro()
+  }, [])
 
   if (isUserLogged === null) {
     return null
@@ -72,32 +110,33 @@ export function App() {
     <PaperProvider theme={theme}>
       <StatusBar barStyle="dark-content" />
       <LocationProvider>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
-          {isUserLogged ? (
-            <>
-              <Stack.Screen
-                name={ScreenNames.loggedTabNavigator}
-                component={LoggedTabNavigator}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name={ScreenNames.showImage}
-                component={ShowImage}
-                options={{ headerShown: false }}
-              />
-               <Stack.Screen
-                name={ScreenNames.identifySpecies}
-                component={IdentifySpecies}
-                options={{ headerShown: false }}
-              />
-            </>
-          ) : (
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
+            {isUserLogged ? (
+              <>
+                <Stack.Screen
+                  name={ScreenNames.loggedTabNavigator}
+                  component={LoggedTabNavigator}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={ScreenNames.showImage}
+                  component={ShowImage}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name={ScreenNames.identifySpecies}
+                  component={IdentifySpecies}
+                  options={{ headerShown: false }}
+                />
+              </>
+            ) : (
               <>
                 <Stack.Screen
                   name={ScreenNames.login}
                   component={LoginScreen}
                   options={{ headerShown: false }}
+                  initialParams={{ isShowIntro }}
                 />
                 <Stack.Screen
                   name={ScreenNames.register}
@@ -111,8 +150,8 @@ export function App() {
                 />
               </>
             )}
-        </Stack.Navigator>
-      </NavigationContainer>
+          </Stack.Navigator>
+        </NavigationContainer>
       </LocationProvider>
     </PaperProvider>
   )

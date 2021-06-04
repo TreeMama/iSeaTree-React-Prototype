@@ -332,7 +332,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
             <Text style={styles.statusText}>User: {item.item.username}</Text>
             <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
-            <Text style={styles.statusText}>Carbon Storage (to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
+            <Text style={styles.statusText}>CO2 Storage (to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
             <CalloutSubview onPress={() => (item.item.isValidated === 'NOT VALIDATED' || item.item.isValidated === 'NEEDS VALIDATION') && validateAlertHandler(item.item)}>
               {item.item.isValidated !== 'SPAM' && renderCheckBox(item.item)}
             </CalloutSubview>
@@ -404,7 +404,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
               <Text style={styles.statusText}>User: {item.item.username}</Text>
               <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
-              <Text style={styles.statusText}>Carbon Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
+              <Text style={styles.statusText}>CO2 Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
               <View style={{ paddingTop: 12 }}>
                 {item.item.isValidated !== 'SPAM' && renderCheckBox(item.item)}
               </View>

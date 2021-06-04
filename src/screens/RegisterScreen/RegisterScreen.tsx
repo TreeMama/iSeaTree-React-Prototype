@@ -95,7 +95,7 @@ export function RegisterScreen() {
         </Button>
 
         <Paragraph>
-          <Text style={{ fontWeight: 'bold' }}>iSeaTree</Text> v.1 is a prototype application
+          <Text style={{ fontWeight: 'bold' }}>iSeaTree</Text> is a prototype application
           designed by{' '}
           <Text
             style={{ fontWeight: 'bold', textDecorationLine: 'underline' }}
