@@ -66,11 +66,10 @@ export function App() {
   const { isUserLogged } = useAuthStateChange();
   const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
 
-
   useManageSplashScreen(isUserLogged)
 
   async function versionChanged(savedVersion, currentVersion) {
-    if(savedVersion === currentVersion) {
+    if (savedVersion === currentVersion) {
       return false
     } else {
       return true
@@ -85,10 +84,8 @@ export function App() {
 
     const isVersionChanged = await versionChanged(parsesavedAppversion, Constants.manifest.version)
 
-    // console.log(parseisShowIntro);
-    // console.log(parsesavedAppversion)
     if (parseisShowIntro) {
-      if(isVersionChanged) {
+      if (isVersionChanged) {
         setisShowIntro(true)
       } else {
         setisShowIntro(false)
@@ -100,7 +97,7 @@ export function App() {
 
   React.useEffect(() => {
     checkIntro()
-  }, [])
+  }, [isUserLogged])
 
   if (isUserLogged === null) {
     return null
@@ -136,7 +133,7 @@ export function App() {
                   name={ScreenNames.login}
                   component={LoginScreen}
                   options={{ headerShown: false }}
-                  initialParams={{ isShowIntro }}
+                  initialParams={{ isShowIntro: isShowIntro }}
                 />
                 <Stack.Screen
                   name={ScreenNames.register}

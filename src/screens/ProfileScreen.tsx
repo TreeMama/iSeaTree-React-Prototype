@@ -29,6 +29,7 @@ import {
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
 import AppIntroScreen from './AppIntroScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const win = Dimensions.get('window');
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
@@ -162,7 +163,39 @@ export function ProfileScreen(props) {
   ]);
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
-  const authUser = getCurrentAuthUser()
+  const authUser = getCurrentAuthUser();
+
+  async function versionChanged(savedVersion, currentVersion) {
+    if(savedVersion === currentVersion) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+
+  async function checkIntro() {
+    const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP');
+    const savedAppversion = await AsyncStorage.getItem('APP_VERSION');
+    const parseisShowIntro = JSON.parse(isShowIntro);
+    const parsesavedAppversion = JSON.parse(savedAppversion);
+
+    const isVersionChanged = await versionChanged(parsesavedAppversion, Constants.manifest.version)
+
+      if (parseisShowIntro) {
+        if (isVersionChanged) {
+          setIsSliderVisible(true)
+        } else {
+          setIsSliderVisible(false)
+        }
+      } else {
+        setIsSliderVisible(true)
+      }
+  }
+
+  React.useEffect(() => {
+    checkIntro()
+  }, [])
 
   React.useEffect(() => {
     if (!authUser) {

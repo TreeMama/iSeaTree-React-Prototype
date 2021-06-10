@@ -37,15 +37,21 @@ const data = [
     },
     {
         key: 6,
-        text: `The "Add new" page is where you load new tree data.`,
+        text: `The 'Add new' page is where you load new tree data.`,
         image: require('../../../assets/TutorialPics/9.png'),
         backgroundColor: '#993520',
     },
     {
         key: 7,
-        text: `After you add new tree data to the "Add new" page you will be able to calculate the 'Tree Benefits" of your data entry for others to learn about!`,
+        text: `After you add new tree data to the 'Add new' page you will be able to calculate the 'Tree Benefits' of your data entry for others to learn about!`,
         image: require('../../../assets/TutorialPics/11v2.png'),
         backgroundColor: '#28666E',
+    },
+    {
+        key: 8,
+        text: `Find & replay this tutorial using this icon!`,
+        image: require('../../../assets/TutorialPics/12.png'),
+        backgroundColor: '#13292A',
     }
 
 ];
