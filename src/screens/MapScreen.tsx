@@ -1,4 +1,4 @@
-import React, {useContext, useRef} from 'react'
+import React, { useContext, useRef } from 'react'
 
 import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity, ActivityIndicator, Modal, FlatList, TouchableHighlight } from 'react-native'
 import MapView from 'react-native-map-clustering'
@@ -13,13 +13,16 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CheckBox from 'react-native-check-box'
 import { suggestedTrees } from '../../data/suggestedTrees'
 import RBSheet from "react-native-raw-bottom-sheet";
-import {LocationContext} from "../LocationContext";
+import { LocationContext } from "../LocationContext";
+import { getItreeData } from '../lib/iTreeAPIServices';
+import { convertRegion } from './AddTreeScreen/geoHelper'
 
 const treeConifer = require('../../assets/tree_Conifer3X-01.png');
 const treeDeciduous = require('../../assets/tree_Deciduous3X-01.png');
 const emptyCheckbox = require('../../assets/hexagon.png');
 const fillCheckbox = require('../../assets/fill_hexagon.png');
 const othersMap = require('../../assets/group.png');
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? Constants.statusBarHeight : 0
 
 interface Coords {
   latitude: number
@@ -35,7 +38,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const [trees, setTrees] = React.useState<any[]>([]);
   const [isChecked, setisChecked] = React.useState<null | boolean>(false)
   const [isActiveown, setActiveown] = React.useState<null | boolean>(true) // show current active map on screen
-  const [isDataLoaded, setDataLoaded] = React.useState<null | boolean>(true) // show load data indicator
+  const [isDataLoaded, setDataLoaded] = React.useState<null | boolean>(false) // show load data indicator
   const [showAlertHandler, setshowAlertHandler] = React.useState<null | boolean>(false) // show validate unknown popup
   const [selectTrees, setSelectTrees] = React.useState<any[]>([]);
   const [speciesName, setSpeciesName] = React.useState<undefined | string>("Please identify this species");
@@ -45,7 +48,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   let calloutref = useRef(null); // Create callout refrence
   let RBSheetref = useRef(null); // Create RBSheet refrence
 
-//get values coords
+  //get values coords
   const value = useContext(LocationContext)
   const currentCoords = value.currentCoords;
 
@@ -69,7 +72,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       onfitToSuppliedMarkers()
       setDataLoaded(true)
     }
-  }, [currentCoords, trees])
+  }, [currentCoords, isDataLoaded])
 
   // calculate distance based on latitude and longitude
   const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number, unit: string | number) => {
@@ -91,83 +94,83 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   React.useEffect(() => {
     //props.navigation.addListener('focus', getCurrentLocation);
     // console.log('props', props);
-    if(!isActiveown) return;
+    if (!isActiveown) return;
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
     }
     // const trees = await getTree(authUser.uid);
-    try{
+    try {
       const TREES_COLLECTION = 'trees'
-        const subscriber = firestore()
-            .collection(TREES_COLLECTION)
-            .where('userId', '==', authUser.uid)
-            .onSnapshot(data => {
-              const trees: any = [];
-              data.forEach((doc) => {
-                const currentID = doc.id
-                const appObj = {...doc.data(), ['id']: currentID}
-                trees.push(appObj)
-              });
-              // return trees;
-              setTrees(trees);
-              setDataLoaded(true);
-            })
-      return ()=>subscriber()
-    }catch (error) {
+      const subscriber = firestore()
+        .collection(TREES_COLLECTION)
+        .where('userId', '==', authUser.uid)
+        .onSnapshot(data => {
+          const trees: any = [];
+          data.forEach((doc) => {
+            const currentID = doc.id
+            const appObj = { ...doc.data(), ['id']: currentID }
+            trees.push(appObj)
+          });
+          // return trees;
+          setTrees(trees);
+          setDataLoaded(true);
+        })
+      return () => subscriber()
+    } catch (error) {
       console.log("something went wrong")
       setErrorMessage("There was an unexpected error getting data")
     }
-      },[isActiveown])
+  }, [isActiveown])
 
   React.useEffect(() => {
     //props.navigation.addListener('focus', getCurrentLocation);
     // console.log('props', props);
-    if(isActiveown) return
+    if (isActiveown) return
     const authUser = getCurrentAuthUser();
     if (!authUser) {
       throw Error('User is not authenticated')
     }
     // const trees = await getTree(authUser.uid);
-    try{
+    try {
       const TREES_COLLECTION = 'trees'
       setActiveown(false);
       setTrees([]);
       setDataLoaded(false);
       const subscriber = firestore()
-          .collection(TREES_COLLECTION)
-          .onSnapshot(async data => {
-            let trees: any = [];
-            let alltrees: any = [];
-            data.forEach((doc) => {
-              const currentID = doc.id
-              const appObj = { ...doc.data(), ['id']: currentID }
-              alltrees.push(appObj)
-            });
-            alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
-            for (let i = 0; i < alltrees.length; i++) {
-             try{
-                alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
-              }catch(e){
-                // delete item that is the problem
-               alltrees.splice(i, 1)
-               console.log(e)
-              }
+        .collection(TREES_COLLECTION)
+        .onSnapshot(async data => {
+          let trees: any = [];
+          let alltrees: any = [];
+          data.forEach((doc) => {
+            const currentID = doc.id
+            const appObj = { ...doc.data(), ['id']: currentID }
+            alltrees.push(appObj)
+          });
+          alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
+          for (let i = 0; i < alltrees.length; i++) {
+            try {
+              alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+            } catch (e) {
+              // delete item that is the problem
+              alltrees.splice(i, 1)
+              console.log(e)
             }
-            const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
-              return a.distance - b.distance;
-            });
-            trees = sortarray.slice(0, 10)
-            setTrees(alltrees);
-            setDataLoaded(true);
-          })
-      return()=>subscriber()
-    }catch (error) {
+          }
+          const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
+            return a.distance - b.distance;
+          });
+          trees = sortarray.slice(0, 10)
+          setTrees(alltrees);
+          setDataLoaded(true);
+        })
+      return () => subscriber()
+    } catch (error) {
       console.log("something went wrong public map")
       setErrorMessage("There was an unexpected error getting data")
     }
 
-  },[isActiveown])
+  }, [isActiveown])
 
 
   // set current user tree data
@@ -234,37 +237,86 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   }
 
-  const Validatewithspecies = (selectedItem) => {
+
+  const callITreeAPI = async (selectedItem: { crownLightExposureCategory: any; dbh: any; treeConditionCategory: any }, speciesName: string | undefined, speciesData: any[]) => {
+    const { crownLightExposureCategory, dbh, treeConditionCategory } = selectedItem
+
+    const canCalculateBenefits = !!(
+      speciesData &&
+      speciesData.TYPE.toLowerCase() !== 'unknown' &&
+      crownLightExposureCategory !== null &&
+      dbh &&
+      parseInt(dbh) !== 0 &&
+      treeConditionCategory
+    )
+
+    const address = value.address;
+    if (!address) return null;
+    let state = address.region
+    //checks to see fit the state name needs to be abbrevated
+    if (state.length > 2) {
+      state = convertRegion(address.region, 2)
+    }
+    if (canCalculateBenefits) {
+      const data = {
+        crownLightExposureCategory,
+        dbh,
+        treeConditionCategory,
+        speciesData,
+        address,
+        state
+      }
+      const resultData = await getItreeData(data);
+
+      return resultData;
+    } else {
+      return null
+    }
+  }
+
+  const Validatewithspecies = async (selectedItem) => {
     try {
-      firestore()
-        .collection('trees')
-        .doc(selectedItem.id)
-        .update({
-          isValidated: 'VALIDATED',
-          speciesNameCommon: speciesName?.trim(),
-          speciesNameScientific: String(speciesData.SCIENTIFIC).trim(),
-          treeType: String(speciesData.TYPE).trim()
-        })
-        .then(() => {
-          console.log('Trees status updated!');
-          setisChecked(!isChecked)
-          setTrees(
-            trees.map(item =>
-              item.id === selectedItem.id
-                ? { ...item, isValidated: 'VALIDATED' }
-                : item
-            ))
-          if (Platform.OS === 'android') {
-            const updatedItem = { ...selectedItem, isValidated: 'VALIDATED', speciesNameCommon: speciesName?.trim() }
-            setSelectTrees(updatedItem);
-          }
-          setshowAlertHandler(false);
-          setSpeciesName('Please identify this species');
-        });
+      const iTreeResponse = await callITreeAPI(selectedItem, speciesName, speciesData);
+      const treeValidationResponse = {
+        isValidated: 'VALIDATED',
+        speciesNameCommon: speciesName?.trim(),
+        speciesNameScientific: String(speciesData.SCIENTIFIC).trim(),
+        treeType: String(speciesData.TYPE).trim()
+      }
+      if (iTreeResponse === null) {
+        firestore()
+          .collection('trees')
+          .doc(selectedItem.id)
+          .update(treeValidationResponse)
+          .then(() => {
+            console.log('Trees status updated!');
+            setisChecked(!isChecked)
+            if (Platform.OS === 'android') {
+              const updatedItem = { ...selectedItem, isValidated: 'VALIDATED' }
+              setSelectTrees(updatedItem);
+            }
+            setshowAlertHandler(false);
+            setSpeciesName('Please identify this species');
+          });
+      } else {
+        firestore()
+          .collection('trees')
+          .doc(selectedItem.id)
+          .update({ ...iTreeResponse, ...treeValidationResponse })
+          .then(() => {
+            console.log('Trees status updated!');
+            setisChecked(!isChecked)
+            if (Platform.OS === 'android') {
+              const updatedItem = { ...selectedItem, isValidated: 'VALIDATED' }
+              setSelectTrees(updatedItem);
+            }
+            setshowAlertHandler(false);
+            setSpeciesName('Please identify this species');
+          });
+      }
     } catch (error) {
       console.log('update trees status error ', error)
     }
-
   }
 
   const validateAlertHandler = (selectedItem: any) => {
@@ -321,7 +373,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     return (
       <View style={[styles.calloutContainer, { zIndex: 999 }]} >
         <View style={[styles.horizontalContainer, { paddingBottom: 4 }]}>
-          <Text style={styles.calloutTitle}>{item.item.speciesNameCommon}</Text>
+          <Text style={styles.calloutTitle}>{speciesName === 'Please identify this species' ? item.item.speciesNameCommon : speciesName}</Text>
           <CalloutSubview onPress={() => markerref.current[item.index].hideCallout()}>
             <MaterialIcons name="close" size={18} style={{ lineHeight: 20, textAlign: 'center', color: colors.gray[700] }} />
           </CalloutSubview>
@@ -393,7 +445,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       <>
         <View style={{ flexGrow: 1, width: '100%', padding: 8, paddingBottom: item.item.isValidated !== 'SPAM' ? 8 : 0 }} >
           <View style={{ paddingBottom: 4, flexDirection: 'row' }}>
-            <Text style={styles.calloutTitle}>{item.item.speciesNameCommon}</Text>
+          <Text style={styles.calloutTitle}>{speciesName === 'Please identify this species' ? item.item.speciesNameCommon : speciesName}</Text>
             <TouchableOpacity onPress={() => RBSheetref.close()} >
               <MaterialIcons name="close" size={18} style={{ lineHeight: 30, width: 40, textAlign: 'center', color: colors.gray[700] }} />
             </TouchableOpacity>
@@ -488,6 +540,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         <TouchableOpacity style={{ ...styles.actions, backgroundColor: "#db2828" }}
           onPress={() => {
             console.log('No Pressed')
+            setSpeciesName('Please identify this species');
             setshowAlertHandler(false);
           }}>
           <Text style={styles.actionText}>No</Text>
@@ -521,6 +574,15 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         {renderMaker('conifer', 'Conifer')}
         {renderMaker('broadleaf', 'Broadleaf')}
       </View> */}
+
+      {(trees.length <= 0 && isActiveown && isDataLoaded)
+        &&
+        <View style={styles.emptyMapInfo}>
+          <MaterialIcons name="info-outline" size={30} />
+          <Text style={styles.emptyMapInfoText}>Welcome! When you enter your first tree, it will show up on the map.</Text>
+        </View>
+      }
+
 
       <MapView
         style={styles.mapStyle}
@@ -778,4 +840,23 @@ const styles = StyleSheet.create({
   actionText: {
     color: "#fff"
   },
+  emptyMapInfo: {
+    width: '95%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 5,
+    backgroundColor: '#FBE7C6',
+    position: 'absolute',
+    top: STATUSBAR_HEIGHT + 30,
+    left: 10,
+    zIndex: 5000,
+    paddingVertical: 5
+  },
+
+  emptyMapInfoText: {
+    flex: 1,
+    paddingLeft: 8,
+    fontSize: 15,
+    fontWeight: '500'
+  }
 })

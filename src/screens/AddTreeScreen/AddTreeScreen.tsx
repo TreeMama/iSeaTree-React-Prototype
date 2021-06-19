@@ -10,6 +10,9 @@ import {
   Image,
   Alert,
   ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  TextInput as RNTextInput
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, TextInput, Text, Subheading, useTheme, } from 'react-native-paper'
@@ -25,18 +28,83 @@ import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
-import { submitTreeData, removeBenefitVal} from './lib/submitTreeData'
+import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
 import { TreeConditionSelect } from './TreeConditionSelect'
 import { CrownLightExposureSelect } from './CrownLightExposureSelect'
 
+const win = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
   },
+  dbhInputValue: {
+    fontSize: 15,
+    alignItems: 'center'
+  },
+  modal: {
+    backgroundColor: "#00000099",
+    // flex:1,
+    height: win.height,
+    width: win.width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 99,
+  },
+  modalInsetContainer: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: win.height,
+    width: win.width,
+    position: 'absolute',
+    backgroundColor: '#00000099'
+  },
+  modalContainer: {
+    backgroundColor: "#f9fafb",
+    width: "80%",
+    padding: 10,
+    borderRadius: 5,
+    // bottom: 30
+  },
+  modalHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: '500',
+    flex: 1
+  },
+  modalBodyContainer: {
+    marginVertical: 8
+  },
+  optionButtonContainer: {
+    height: 50,
+    width: '100%',
+    borderRadius: 5,
+    backgroundColor: colors.gray[300],
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    marginVertical: 5
+  },
+  modalTextInput: {
+    height: 50,
+    flex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#000',
+    fontSize: 15,
+  },
+  rowContainer: {
+    flexDirection: 'row'
+  }
+
 })
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
@@ -76,6 +144,27 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 export function AddTreeScreen() {
   const theme = useTheme()
   const refTreeTypeSelect = React.useRef(null);
+  const [isDBHSelected, setDBHSelected] = React.useState<null | boolean>(false)
+  const [isDBHSelected0, setDBHSelected0] = React.useState<null | boolean>(false)
+  const [isDBHSelected1, setDBHSelected1] = React.useState<null | boolean>(false)
+  const [isDBHSelected2, setDBHSelected2] = React.useState<null | boolean>(false)
+  const [DBHSelected0Input, setDBHSelected0Input] = React.useState('');
+  const [DBHFeetInput, setDBHFeetInput] = React.useState('');
+  const [DBHInchInput, setDBHInchInput] = React.useState('');
+  const [DBHCalculation, setDBHCalculation] = React.useState('')
+
+  React.useEffect(() => {
+    //if(!trees) return
+    if (isDBHSelected1 && DBHFeetInput !== '' && DBHInchInput !== '') {
+      const result = ((DBHFeetInput * 12) + parseInt(DBHInchInput)) / 3.14;
+      const decimal = parseFloat(result)
+      let display = decimal.toFixed(2)
+      setDBHCalculation(String(display));
+    } else if (isDBHSelected2 && DBHFeetInput !== '' && DBHInchInput !== '') {
+      const result = ((DBHFeetInput * 12) + parseInt(DBHInchInput));
+      setDBHCalculation(String(result));
+    }
+  }, [DBHFeetInput, DBHInchInput])
 
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
   console.log("Loading AddTree screen")
@@ -125,7 +214,7 @@ export function AddTreeScreen() {
   function handleAddTreeError() {
     formik.setSubmitting(false)
 
-    Alert.alert('Error', 'There was an unexpected error (AddTreeScreen::handleAddTree). Please try again later.', [
+    Alert.alert('Error', "Oops - looks like you are not logged in. Please go to the (note show the second icon from the right) on the Profile screen and login or create an account.", [
       {
         text: 'Ok',
       },
@@ -189,6 +278,232 @@ export function AddTreeScreen() {
     },
   })
 
+  const onOptionButton = (index) => {
+    setDBHSelected(false);
+    switch (index) {
+      case 0: setDBHSelected0(true);
+        break;
+      case 1: setDBHSelected1(true);
+        break;
+      case 2: setDBHSelected2(true);
+        break;
+    }
+  }
+
+  const DBHModal = (
+    <View style={styles.modalContainer}>
+      <View style={styles.modalHeaderContainer}>
+        <Text style={styles.headerTitle}>What do you want to do?</Text>
+        <TouchableOpacity onPress={() => setDBHSelected(false)}>
+          <MaterialCommunityIcons name="window-close" size={22} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.modalBodyContainer}>
+        <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
+           borderColor: theme.colors.backdrop,
+           backgroundColor: theme.colors.background,
+           borderRadius: theme.roundness,
+        }]} onPress={() => onOptionButton(0)}>
+          <Text>Enter the DBH in inches</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
+           borderColor: theme.colors.backdrop,
+           backgroundColor: theme.colors.background,
+           borderRadius: theme.roundness,
+        }]} onPress={() => onOptionButton(1)}>
+          <Text>Calculate DBH from circumference</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
+           borderColor: theme.colors.backdrop,
+           backgroundColor: theme.colors.background,
+           borderRadius: theme.roundness,
+           marginBottom: -5
+        }]} onPress={() => onOptionButton(2)}>
+          <Text>Convert feet & inches to inches</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+
+  const DBHModal0 = (
+    <View style={styles.modalContainer}>
+      <View style={styles.modalHeaderContainer}>
+        <Text style={styles.headerTitle}>DBH (inches)</Text>
+        <TouchableOpacity onPress={() => setDBHSelected0(false)}>
+          <MaterialCommunityIcons name="window-close" size={22} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.rowContainer}>
+        <RNTextInput
+          placeholder="DBH in inches"
+          style={styles.modalTextInput}
+          keyboardType='numeric'
+          value={DBHSelected0Input}
+          onChangeText={(value) => {
+            setDBHSelected0Input(value)
+          }}
+        ></RNTextInput>
+
+        <Button
+          style={{ alignSelf: 'flex-end', marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary }}
+          onPress={() => {
+            formik.setFieldValue('dbh', DBHSelected0Input)
+            setDBHSelected0(false)
+          }}
+        >
+          Enter
+        </Button>
+      </View>
+    </View>
+  )
+
+  const onModalCancel = (index) => {
+    setDBHFeetInput('');
+    setDBHInchInput('');
+    setDBHCalculation('');
+
+    if (index === 1) {
+      setDBHSelected1(false)
+    } else {
+      setDBHSelected2(false)
+    }
+  }
+
+  const DBHModal1 = (
+    <View style={styles.modalContainer}>
+      <View style={styles.modalHeaderContainer}>
+        <Text style={styles.headerTitle}>Calculate DBH from circumference</Text>
+        <TouchableOpacity onPress={() => onModalCancel(1)}>
+          <MaterialCommunityIcons name="window-close" size={22} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={[styles.rowContainer, { alignItems: 'flex-end' }]}>
+        <RNTextInput
+          placeholder="1.0"
+          style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
+          value={DBHFeetInput}
+          keyboardType='numeric'
+          onChangeText={(value) => {
+            setDBHFeetInput(value)
+          }}
+        ></RNTextInput>
+        <Text style={{ fontSize: 20, marginHorizontal: 3 }}>Feet</Text>
+        <RNTextInput
+          placeholder="12"
+          style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
+          keyboardType='numeric'
+          value={DBHInchInput}
+          onChangeText={(value) => {
+            setDBHInchInput(value)
+          }}
+        ></RNTextInput>
+        <Text style={{ fontSize: 20, marginHorizontal: 3 }}>inches</Text>
+
+      </View>
+
+      <View style={[styles.rowContainer, { marginTop: 8 }]}>
+        <View style={[styles.rowContainer, { flex: 1, alignItems: 'center', justifyContent: 'center' }]}>
+          <MaterialCommunityIcons name="division" size={22} style={{ flex: 1, textAlign: 'center' }} />
+          <MaterialCommunityIcons name="pi" size={22} style={{ flex: 1, textAlign: 'center' }} />
+          <MaterialCommunityIcons name="equal" size={22} style={{ flex: 1, textAlign: 'center' }} />
+        </View>
+        <View style={[styles.rowContainer, { flex: 1 }]}>
+          <RNTextInput
+            placeholder="12"
+            style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
+            value={DBHCalculation}
+            editable={false}
+          ></RNTextInput>
+          <Button
+            style={{ alignSelf: 'flex-end', marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary }}
+            onPress={() => {
+              formik.setFieldValue('dbh', DBHCalculation)
+              onModalCancel(1)
+            }}
+          >
+            Enter
+          </Button>
+        </View>
+      </View>
+
+    </View>
+  )
+
+  const DBHModal2 = (
+    <View style={styles.modalContainer}>
+      <View style={styles.modalHeaderContainer}>
+        <Text style={styles.headerTitle}>Convert feet & inches to inches</Text>
+        <TouchableOpacity onPress={() => onModalCancel(2)}>
+          <MaterialCommunityIcons name="window-close" size={22} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={[styles.rowContainer, { alignItems: 'flex-end' }]}>
+        <RNTextInput
+          placeholder="1.0"
+          style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
+          value={DBHFeetInput}
+          keyboardType='numeric'
+          onChangeText={(value) => {
+            setDBHFeetInput(value.replace(/[^0-9]/g, ''))
+          }}
+        ></RNTextInput>
+        <Text style={{ fontSize: 20, marginHorizontal: 3 }}>Feet</Text>
+        <RNTextInput
+          placeholder="12"
+          style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
+          value={DBHInchInput}
+          keyboardType='numeric'
+          onChangeText={(value) => {
+            setDBHInchInput(value.replace(/[^0-9]/g, ''))
+          }}
+        ></RNTextInput>
+        <Text style={{ fontSize: 20, marginHorizontal: 3 }}>inches</Text>
+
+      </View>
+
+      <View style={{ height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 8 }}>
+        <MaterialCommunityIcons name="equal" size={28} style={{ alignSelf: 'center', textAlign: 'center' }} />
+      </View>
+
+      <View style={[styles.rowContainer, { marginTop: -10 }]}>
+        <View style={[styles.rowContainer, { flex: 1 }]}>
+          <RNTextInput
+            placeholder="12"
+            editable={false}
+            style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
+            value={DBHCalculation}
+            onChangeText={(value) => {
+              formik.setFieldValue('dbh', value)
+            }}
+          ></RNTextInput>
+          <Text style={{ fontSize: 20, marginHorizontal: 3 }}>inches</Text>
+        </View>
+      </View>
+
+      <View style={[styles.rowContainer, { marginTop: 8 }]}>
+        <View style={[styles.rowContainer, { flex: 1 }]}>
+          <View style={{ flex: 1 }}></View>
+          <Button
+            style={{ alignSelf: 'flex-end', marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary }}
+            onPress={() => {
+              formik.setFieldValue('dbh', DBHCalculation)
+              onModalCancel(2)
+            }}
+          >
+            Enter
+          </Button>
+        </View>
+      </View>
+
+    </View>
+  )
+
   const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
 
   return (
@@ -203,7 +518,7 @@ export function AddTreeScreen() {
             onPress={handleClear}
           >
             Clear
-        </Button>
+          </Button>
 
           <View>
             <View
@@ -235,7 +550,7 @@ export function AddTreeScreen() {
               style={{ borderRadius: 0 }}
             >
               Add photo
-          </Button>
+            </Button>
           </View>
 
           {!!formik.errors.photo && !!formik.touched.photo && (
@@ -275,7 +590,7 @@ export function AddTreeScreen() {
 
               }} />
             </View>
-            <View style={{ position: 'absolute',top:5, right: 30 }}>
+            <View style={{ position: 'absolute', top: 5, right: 30 }}>
 
               <Button mode="outlined" uppercase={true} style={{ backgroundColor: 'white', height: 40, width: 120 }} labelStyle={{ color: 'green' }}
                 onPress={() => {
@@ -288,7 +603,7 @@ export function AddTreeScreen() {
                   formik.setFieldValue('speciesData', null)
                 }}>
                 Clear
-               </Button>
+              </Button>
             </View>
             {!!formik.errors.treeType && !!formik.touched.treeType && (
               <Text style={{ color: theme.colors.error, marginTop: 5 }}>
@@ -334,6 +649,30 @@ export function AddTreeScreen() {
 
           </View>
 
+          <Modal visible={isDBHSelected} transparent={true} onRequestClose={() => setDBHSelected(false)}>
+            <View style={styles.modalInsetContainer}>
+              {DBHModal}
+            </View>
+          </Modal>
+
+          <Modal visible={isDBHSelected0} transparent={true} onRequestClose={() => setDBHSelected0(false)}>
+            <View style={styles.modalInsetContainer}>
+              {DBHModal0}
+            </View>
+          </Modal>
+
+          <Modal visible={isDBHSelected1} transparent={true} onRequestClose={() => setDBHSelected1(false)}>
+            <View style={styles.modalInsetContainer}>
+              {DBHModal1}
+            </View>
+          </Modal>
+
+          <Modal visible={isDBHSelected2} transparent={true} onRequestClose={() => setDBHSelected2(false)}>
+            <View style={styles.modalInsetContainer}>
+              {DBHModal2}
+            </View>
+          </Modal>
+
           <View style={{ marginTop: 15, paddingHorizontal: 15 }}>
             <View style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
               <Subheading>DBH (in)</Subheading>
@@ -365,16 +704,30 @@ export function AddTreeScreen() {
               </View>
             </View>
 
-            <TextInput
+            {/* <TextInput
               placeholder="Diameter at breast height"
               mode="outlined"
               keyboardType="numeric"
               value={formik.values.dbh}
+              // onFocus={() => setDBHSelected(true)}
               onChangeText={(value) => {
                 formik.setFieldValue('dbh', value)
               }}
               returnKeyType="next"
-            />
+            /> */}
+            <TouchableOpacity style={{
+              height: 58,
+              borderWidth: 1,
+              borderColor: theme.colors.backdrop,
+              backgroundColor: theme.colors.background,
+              paddingHorizontal: 15,
+              fontSize: 15,
+              marginTop: 5,
+              borderRadius: theme.roundness,
+              justifyContent: 'center'
+            }} onPress={() => setDBHSelected(true)}>
+              <Text style={[styles.dbhInputValue, { color: formik.values.dbh === '' ? theme.colors.backdrop : '#000' }]}>{formik.values.dbh === '' ? `Diameter at breast height` : formik.values.dbh}</Text>
+            </TouchableOpacity>
 
             {!!formik.errors.dbh && !!formik.touched.dbh && (
               <Text style={{ color: theme.colors.error, marginTop: 5 }}>{formik.errors.dbh}</Text>
@@ -396,7 +749,7 @@ export function AddTreeScreen() {
               </Text>
             )}
           </View>
- 
+
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
             <Subheading style={{ marginBottom: 5 }}>Tree Condition</Subheading>
             <TreeConditionSelect
@@ -412,7 +765,7 @@ export function AddTreeScreen() {
               </Text>
             )}
           </View>
- 
+
           <View style={{ marginTop: 20, paddingHorizontal: 15 }}>
             <Subheading style={{ marginBottom: 5 }}>Crown Light Exposure (CLE)</Subheading>
             <CrownLightExposureSelect
@@ -489,7 +842,7 @@ export function AddTreeScreen() {
               }
               loading={formik.isSubmitting}>
               Save
-          </Button>
+            </Button>
           </View>
 
           <Modal visible={isCameraVisible} animationType="slide">

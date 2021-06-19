@@ -4,7 +4,7 @@
 		"slug": "iSeaTree",
 		"privacy": "public",
 		"platforms": [ "ios", "android" ],
-		"version": "2.0.2",
+		"version": "2.0.3",
 		"orientation": "default",
 		"icon": "./assets/icon.png",
 		"splash": {

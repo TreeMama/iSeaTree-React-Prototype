@@ -32,36 +32,70 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
 
   const userData = await getUser(authUser.uid)
 
-  const NationFullName = await getItem('NationFullName')
-  const StateAbbr= await getItem('StateAbbr')
-  const CountyName= await getItem('CountyName')
-  const CityName = await getItem('CityName')
-  const CalculatedHeightMeter = await getItem('CalculatedHeightMeter')
-  const CalculatedCrownHeightMeter = await getItem('CalculatedCrownHeightMeter')
-  const CalculatedCrownWidthMeter = await getItem('CalculatedCrownWidthMeter')
-  const RunoffAvoided = await getItem('RunoffAvoided')
-  const RunoffAvoidedValue = await getItem('RunoffAvoidedValue')
-  const Interception = await getItem('Interception')
-  const PotentialEvaporation = await getItem('PotentialEvaporation')
-  const PotentialEvapotranspiration = await getItem('PotentialEvapotranspiration')
-  const Evaporation = await getItem('Evaporation')
-  const Transpiration = await getItem('Transpiration')
-  const CORemoved = await getItem('CORemoved')
-  const CORemovedValue = await getItem('CORemovedValue')
-  const NO2Removed = await getItem('NO2Removed')
-  const NO2RemovedValue = await getItem('NO2RemovedValue')
-  const SO2Removed = await getItem('SO2Removed')
-  const SO2RemovedValue = await getItem('SO2RemovedValue')
-  const O3Removed = await getItem('O3Removed')
-  const O3RemovedValue = await getItem('O3RemovedValue')
-  const PM25Removed = await getItem('PM25Removed')
-  const PM25RemovedValue = await getItem('PM25RemovedValue')
-  const CO2Sequestered = await getItem('CO2Sequestered')
-  const CO2SequesteredValue = await getItem('CO2SequesteredValue')
-  const CarbonStorage = await getItem('CarbonStorage')
-  const CarbonDioxideStorage = await getItem('CarbonDioxideStorage')
-  const CarbonDioxideStorageValue = await getItem('CarbonDioxideStorageValue')
-  const DryWeight = await getItem('DryWeight')
+  let NationFullName = "NULL"
+  let StateAbbr = "NULL"
+  let CountyName = "NULL"
+  let CityName = "NULL"
+  let CalculatedHeightMeter = "NULL"
+  let CalculatedCrownHeightMeter = "NULL"
+  let CalculatedCrownWidthMeter = "NULL"
+  let RunoffAvoided = "NULL"
+  let RunoffAvoidedValue = "NULL"
+  let Interception = "NULL"
+  let PotentialEvaporation = "NULL"
+  let PotentialEvapotranspiration = "NULL"
+  let Evaporation = "NULL"
+  let Transpiration = "NULL"
+  let CORemoved = "NULL"
+  let CORemovedValue = "NULL"
+  let NO2Removed = "NULL"
+  let NO2RemovedValue = "NULL"
+  let SO2Removed = "NULL"
+  let SO2RemovedValue = "NULL"
+  let O3Removed = "NULL"
+  let O3RemovedValue = "NULL"
+  let PM25Removed = "NULL"
+  let PM25RemovedValue = "NULL"
+  let CO2Sequestered = "NULL"
+  let CO2SequesteredValue = "NULL"
+  let CarbonStorage = "NULL"
+  let CarbonDioxideStorage = "NULL"
+  let CarbonDioxideStorageValue = "NULL"
+  let DryWeight = "NULL"
+
+  if (formValues.speciesData.COMMON !== "Unknown") {
+    NationFullName = await getItem('NationFullName')
+    StateAbbr = await getItem('StateAbbr')
+    CountyName = await getItem('CountyName')
+    CityName = await getItem('CityName')
+    CalculatedHeightMeter = await getItem('CalculatedHeightMeter')
+    CalculatedCrownHeightMeter = await getItem('CalculatedCrownHeightMeter')
+    CalculatedCrownWidthMeter = await getItem('CalculatedCrownWidthMeter')
+    RunoffAvoided = await getItem('RunoffAvoided')
+    RunoffAvoidedValue = await getItem('RunoffAvoidedValue')
+    Interception = await getItem('Interception')
+    PotentialEvaporation = await getItem('PotentialEvaporation')
+    PotentialEvapotranspiration = await getItem('PotentialEvapotranspiration')
+    Evaporation = await getItem('Evaporation')
+    Transpiration = await getItem('Transpiration')
+    CORemoved = await getItem('CORemoved')
+    CORemovedValue = await getItem('CORemovedValue')
+    NO2Removed = await getItem('NO2Removed')
+    NO2RemovedValue = await getItem('NO2RemovedValue')
+    SO2Removed = await getItem('SO2Removed')
+    SO2RemovedValue = await getItem('SO2RemovedValue')
+    O3Removed = await getItem('O3Removed')
+    O3RemovedValue = await getItem('O3RemovedValue')
+    PM25Removed = await getItem('PM25Removed')
+    PM25RemovedValue = await getItem('PM25RemovedValue')
+    CO2Sequestered = await getItem('CO2Sequestered')
+    CO2SequesteredValue = await getItem('CO2SequesteredValue')
+    CarbonStorage = await getItem('CarbonStorage')
+    CarbonDioxideStorage = await getItem('CarbonDioxideStorage')
+    CarbonDioxideStorageValue = await getItem('CarbonDioxideStorageValue')
+    DryWeight = await getItem('DryWeight')
+  }
+
 
   if (
     !formValues.photo ||
@@ -78,8 +112,10 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
 
   const imageDownloadUrl = await uploadTreeImage(formValues.photo.uri)
   const decimals = 1000000
-  const roundedLatitude = Math.round(formValues.coords.latitude * decimals) / decimals
-  const roundedLongitude = Math.round(formValues.coords.longitude * decimals) / decimals
+  // const roundedLatitude = Math.round(formValues.coords.latitude * decimals) / decimals
+  // const roundedLongitude = Math.round(formValues.coords.longitude * decimals) / decimals
+  const roundedLatitude = Math.round(21.967757595410784 * decimals) / decimals
+  const roundedLongitude = Math.round(71.5776363254773 * decimals) / decimals
   const treeCoords = new firebase.firestore.GeoPoint(
     roundedLatitude,
     roundedLongitude
@@ -188,13 +224,13 @@ export const removeBenefitVal = async () => {
     'CarbonDioxideStorageValue',
     'DryWeight'
   ]
-    try {
-      await AsyncStorage.multiRemove(keys).then(()=>{
-        console.log("making sure that values are deleted")
-      })
-    } catch(e) {
-      // remove error
-      console.log(e)
-    }
-    console.log('Done remove values Async storage')
+  try {
+    await AsyncStorage.multiRemove(keys).then(() => {
+      console.log("making sure that values are deleted")
+    })
+  } catch (e) {
+    // remove error
+    console.log(e)
   }
+  console.log('Done remove values Async storage')
+}
