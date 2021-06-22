@@ -414,7 +414,7 @@ export function AddTreeScreen() {
         </View>
         <View style={[styles.rowContainer, { flex: 1 }]}>
           <RNTextInput
-            placeholder="12"
+            placeholder="7.64"
             style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
             value={DBHCalculation}
             editable={false}
@@ -474,7 +474,7 @@ export function AddTreeScreen() {
       <View style={[styles.rowContainer, { marginTop: -10 }]}>
         <View style={[styles.rowContainer, { flex: 1 }]}>
           <RNTextInput
-            placeholder="12"
+            placeholder="24"
             editable={false}
             style={[styles.modalTextInput, { height: 40, paddingHorizontal: 3 }]}
             value={DBHCalculation}
