@@ -112,10 +112,8 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
 
   const imageDownloadUrl = await uploadTreeImage(formValues.photo.uri)
   const decimals = 1000000
-  // const roundedLatitude = Math.round(formValues.coords.latitude * decimals) / decimals
-  // const roundedLongitude = Math.round(formValues.coords.longitude * decimals) / decimals
-  const roundedLatitude = Math.round(21.967757595410784 * decimals) / decimals
-  const roundedLongitude = Math.round(71.5776363254773 * decimals) / decimals
+  const roundedLatitude = Math.round(formValues.coords.latitude * decimals) / decimals
+  const roundedLongitude = Math.round(formValues.coords.longitude * decimals) / decimals
   const treeCoords = new firebase.firestore.GeoPoint(
     roundedLatitude,
     roundedLongitude
