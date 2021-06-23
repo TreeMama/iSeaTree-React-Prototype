@@ -461,7 +461,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Total CO2 Storage Value</Text>
+                    <Text style={styles.headerTitleStyle}>Total CO² Storage Value</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>{getBenefit('CO2StorageValue')}</Text>
@@ -470,7 +470,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
                 <View style={[styles.tableRow, styles.tableRowHeader]}>
                   <View style={styles.tableCell}>
-                    <Text style={styles.headerTitleStyle}>Total CO2 Storage</Text>
+                    <Text style={styles.headerTitleStyle}>Total CO² Storage</Text>
                   </View>
                   <View style={styles.tableCellRight}>
                     <Text style={styles.headerTitleStyle}>{getBenefit('CO2Storage')}</Text>
