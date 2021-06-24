@@ -358,7 +358,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     </View>
   }
 
-  // navigate to suggestedTrees screen to show MORE TREE INFO 
+  // navigate to suggestedTrees screen to show MORE TREE INFO
   const onSuggestedTree = async (treename) => {
     const extractTreeName = (treename).split('(')[0];
     const index = await suggestedTrees.findIndex(x => (x.name).split('(')[0] === extractTreeName);
@@ -588,8 +588,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         style={styles.mapStyle}
         ref={mapref}
         initialRegion={{
-          latitude: 47.649019,
-          longitude: -122.347977,
+          latitude: currentCoords.latitude,
+          longitude: currentCoords.longitude,
           latitudeDelta: 1,
           longitudeDelta: 1,
         }}
