@@ -50,8 +50,13 @@ export const LocationProvider = (props) =>{
            return
          } else {
            // will update the location
-           const location = await Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 10});
-           // const location = await Location.getCurrentPositionAsync({});
+           let location;
+           try {
+            location = await Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 10});
+           } catch (error) {
+             location = await Location.getCurrentPositionAsync({maxAge: 10000, requiredAccuracy: 10});
+           }
+            
            //if there is a location and it has changed
            setLocation(location)
            setCurrentCoords({
