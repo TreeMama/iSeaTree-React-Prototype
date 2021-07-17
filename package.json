@@ -68,8 +68,8 @@
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-react": "^7.19.0",
-    "jest-expo": "^38.0.0",
-    "react-test-renderer": "^16.11.0",
+    "jest-expo": "^42.0.1",
+    "react-test-renderer": "^17.0.2",
     "typescript": "~3.9.5"
   },
   "private": true
