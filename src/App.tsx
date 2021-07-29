@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'
 
 import React from 'react'
 
-import { StatusBar } from 'react-native'
+import {LogBox, StatusBar} from 'react-native'
 import { registerRootComponent, SplashScreen } from 'expo'
 import { Provider as PaperProvider } from 'react-native-paper'
 import * as firebase from 'firebase'
@@ -24,7 +24,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 
 initializeFirebase()
-console.disableYellowBox = true;
+//console.disableYellowBox = true;
+LogBox.ignoreAllLogs(true)
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
@@ -46,27 +47,43 @@ function useAuthStateChange(): { isUserLogged: boolean | null } {
   return { isUserLogged }
 }
 
-function useManageSplashScreen(isUserLogged: null | boolean) {
-  React.useEffect(() => {
-    SplashScreen.preventAutoHide()
-  }, [])
-
-  const prevIsUserLogged = usePrevious(isUserLogged)
-
-  React.useEffect(() => {
-    if (prevIsUserLogged === null && isUserLogged !== null) {
-      SplashScreen.hide()
-    }
-  }, [isUserLogged])
-}
+// function useManageSplashScreen(isUserLogged: null | boolean) {
+//   React.useEffect(() => {
+//
+//     SplashScreen.preventAutoHide()
+//   }, [])
+//
+//   const prevIsUserLogged = usePrevious(isUserLogged)
+//
+//   React.useEffect(() => {
+//     if (prevIsUserLogged === null && isUserLogged !== null) {
+//       SplashScreen.hide()
+//     }
+//   }, [isUserLogged])
+// }
 
 const Stack = createStackNavigator()
 
 export function App() {
   const { isUserLogged } = useAuthStateChange();
   const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
+  const [appIsReady, setAppIsReady] = React.useState(false)
 
-  useManageSplashScreen(isUserLogged)
+  //checks to make sure the app has loaded
+  React.useEffect(()=>{
+    async function prepare(){
+      try{
+        await SplashScreen.preventAutoHideAsync();
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }catch(e){
+        console.warn(e)
+      }finally{
+        setAppIsReady(true)
+      }
+    }
+  })
+
+  //useManageSplashScreen(isUserLogged)
 
   async function versionChanged(savedVersion, currentVersion) {
     if (savedVersion === currentVersion) {
