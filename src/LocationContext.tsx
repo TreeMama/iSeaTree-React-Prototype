@@ -44,7 +44,7 @@ export const LocationProvider = (props) =>{
     if(appStateVisible === 'active'){
      (async () => {
        try {
-         const {status} = await Location.requestPermissionsAsync()
+         const {status} = await Location.requestBackgroundPermissionsAsync()
          if (status !== Location.PermissionStatus.GRANTED) {
            setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
            return
@@ -54,7 +54,7 @@ export const LocationProvider = (props) =>{
            try {
             location = await Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 10});
            } catch (error) {
-             location = await Location.getCurrentPositionAsync({maxAge: 10000, requiredAccuracy: 10});
+             location = await Location.getCurrentPositionAsync({timeInterval: 10000, accuracy: 6});
            }
             
            //if there is a location and it has changed

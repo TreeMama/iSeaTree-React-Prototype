@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler'
 
-import React from 'react'
+import React, {useCallback} from 'react'
 
-import {LogBox, StatusBar} from 'react-native'
+import {LogBox, StatusBar, View} from 'react-native'
 import { registerRootComponent, SplashScreen } from 'expo'
 import { Provider as PaperProvider } from 'react-native-paper'
 import * as firebase from 'firebase'
@@ -31,36 +31,35 @@ function useAuthStateChange(): { isUserLogged: boolean | null } {
 
   React.useEffect(() => {
     firebase
-      .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-          if (!!user) {
-            setIsUserLogged(true)
-          } else {
-            setIsUserLogged(false)
-          }
+        .auth()
+        .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+        .then(() => {
+          firebase.auth().onAuthStateChanged((user) => {
+            if (!!user) {
+              setIsUserLogged(true)
+            } else {
+              setIsUserLogged(false)
+            }
+          })
         })
-      })
   }, [])
 
   return { isUserLogged }
 }
 
-// function useManageSplashScreen(isUserLogged: null | boolean) {
-//   React.useEffect(() => {
-//
-//     SplashScreen.preventAutoHide()
-//   }, [])
-//
-//   const prevIsUserLogged = usePrevious(isUserLogged)
-//
-//   React.useEffect(() => {
-//     if (prevIsUserLogged === null && isUserLogged !== null) {
-//       SplashScreen.hide()
-//     }
-//   }, [isUserLogged])
-// }
+function useManageSplashScreen(isUserLogged: null | boolean) {
+  // React.useEffect(() => {
+  //   SplashScreen.preventAutoHide()
+  // }, [])
+
+  const prevIsUserLogged = usePrevious(isUserLogged)
+
+  React.useEffect(() => {
+    if (prevIsUserLogged === null && isUserLogged !== null) {
+      SplashScreen.hideAsync()
+    }
+  }, [isUserLogged])
+}
 
 const Stack = createStackNavigator()
 
@@ -81,9 +80,16 @@ export function App() {
         setAppIsReady(true)
       }
     }
-  })
+    prepare()
+  }, [])
 
-  //useManageSplashScreen(isUserLogged)
+  const onLayoutRootView = useCallback(async () =>{
+    if(appIsReady){
+      await SplashScreen.hideAsync()
+    }
+  }, [appIsReady])
+
+  useManageSplashScreen(isUserLogged)
 
   async function versionChanged(savedVersion, currentVersion) {
     if (savedVersion === currentVersion) {
@@ -121,7 +127,8 @@ export function App() {
   }
 
   return (
-    <PaperProvider theme={theme}>
+      <View onLayout={onLayoutRootView}>
+    <PaperProvider theme={theme} >
       <StatusBar barStyle="dark-content" />
       <LocationProvider>
         <NavigationContainer>
@@ -168,6 +175,7 @@ export function App() {
         </NavigationContainer>
       </LocationProvider>
     </PaperProvider>
+      </View>
   )
 }
 
