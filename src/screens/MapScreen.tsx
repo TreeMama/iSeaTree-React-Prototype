@@ -68,10 +68,15 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   React.useEffect(() => {
     //if(!trees) return
-    if (mapref !== null && trees.length > 0 && currentCoords !== null) {
-      onfitToSuppliedMarkers()
-      setDataLoaded(true)
+    try {
+      if (mapref !== null && trees.length > 0 && currentCoords !== null) {
+        onfitToSuppliedMarkers()
+        setDataLoaded(true)
+      }
+    } catch (error) {
+      console.log(error)
     }
+
   }, [currentCoords, isDataLoaded])
 
   // calculate distance based on latitude and longitude
@@ -381,7 +386,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         <View style={styles.horizontalContainer}>
           <View style={styles.container}>
             <Text style={styles.statusText}>Status: {item.item.isValidated === 'SPAM' ? 'PROCESSING' : item.item.isValidated}</Text>
-            <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
+            {/* "these changes as for build 2.1" */}
+            <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at == null ? Math.floor(Date.now() / 1000) : item.item.created_at.seconds)}</Text>
             <Text style={styles.statusText}>User: {item.item.username}</Text>
             <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
             <Text style={styles.statusText}>CO2 Storage (to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
@@ -445,7 +451,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       <>
         <View style={{ flexGrow: 1, width: '100%', padding: 8, paddingBottom: item.item.isValidated !== 'SPAM' ? 8 : 0 }} >
           <View style={{ paddingBottom: 4, flexDirection: 'row' }}>
-          <Text style={styles.calloutTitle}>{speciesName === 'Please identify this species' ? item.item.speciesNameCommon : speciesName}</Text>
+            <Text style={styles.calloutTitle}>{speciesName === 'Please identify this species' ? item.item.speciesNameCommon : speciesName}</Text>
             <TouchableOpacity onPress={() => RBSheetref.close()} >
               <MaterialIcons name="close" size={18} style={{ lineHeight: 30, width: 40, textAlign: 'center', color: colors.gray[700] }} />
             </TouchableOpacity>
@@ -453,7 +459,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           <View style={styles.horizontalContainerAndroid}>
             <View style={styles.container}>
               <Text style={styles.statusText}>Status: {item.item.isValidated === 'SPAM' ? 'PROCESSING' : item.item.isValidated}</Text>
-              <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at.seconds)}</Text>
+              {/* "these changes as for build 2.1" */}
+              <Text style={styles.statusText}>Date Entered: {timeConverter(item.item.created_at == null ? Math.floor(Date.now() / 1000) : item.item.created_at.seconds)}</Text>
               <Text style={styles.statusText}>User: {item.item.username}</Text>
               <Text style={styles.statusText}>DBH (in.): {item.item.dbh}</Text>
               <Text style={styles.statusText}>CO2 Storage (lbs. to date): {isCarbonDioxideStorage ? item.item.CarbonDioxideStorage : 'Unreported'}</Text>
@@ -618,8 +625,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               treeImg = treeDeciduous;
           }
           // { console.log('trees in treeImg', treeImg) }
-          const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
-          return (<Marker key={index} coordinate={coords} ref={el => markerref.current[index] = el} onPress={() => Platform.OS === 'android' && onOpenSheet(item)} >
+          // const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
+          return (<Marker key={index} coordinate={coords}
+            pointerEvents="auto" // "these changes as for build 2.1"
+            ref={el => markerref.current[index] = el} onPress={() => Platform.OS === 'android' && onOpenSheet(item)} >
             <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} ref={el => calloutref = el} />
             {Platform.OS === 'ios'
               &&
