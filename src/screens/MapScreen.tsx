@@ -632,7 +632,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
             <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} ref={el => calloutref = el} />
             {Platform.OS === 'ios'
               &&
-              <Callout alphaHitTest style={{ minWidth: 200, backgroundColor: '#FFF', padding: 5 }}  >
+              <Callout pointerEvents="auto" // "these changes as for build 2.1"
+                alphaHitTest style={{ minWidth: 200, backgroundColor: '#FFF', padding: 5 }}  >
                 <CalloutComponentIos item={item} index={index} />
               </Callout>
             }
