@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react'
 
 import { Platform, StyleSheet, View, Dimensions, Alert, Text, Image, TouchableOpacity, ActivityIndicator, Modal, FlatList, TouchableHighlight } from 'react-native'
 import MapView from 'react-native-map-clustering'
-import { Marker, Region, Callout, CalloutSubview } from 'react-native-maps'
+import { Marker, Region, Callout, CalloutSubview, Polyline } from 'react-native-maps'
 import Constants from 'expo-constants'
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs'
 import { getCurrentAuthUser, getUser } from '../lib/firebaseServices'
@@ -491,8 +491,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   // zoomout map to show all trees located on map
   const onfitToSuppliedMarkers = () => {
 
-    const m1 = { latitude: currentCoords?.latitude, longitude: currentCoords?.longitude }
+    // const m1 = { latitude: currentCoords?.latitude, longitude: currentCoords?.longitude }
+    const m1 = { latitude: trees[0]["coords"]["U"], longitude: trees[0]["coords"]["k"] }
     const m2 = { latitude: trees[trees.length - 1]["coords"]["U"], longitude: trees[trees.length - 1]["coords"]["k"] }
+
     const m3 = [m1, m2]
     mapref.current.fitToCoordinates(m3, {
       edgePadding:
@@ -604,17 +606,35 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         showsUserLocation
         showsScale={true}
 
-        // // zoomTapEnabled={true}
-        zoomControlEnabled={true}
+      // // zoomTapEnabled={true}
+      zoomControlEnabled={true}
       >
         {!!currentCoords && <Marker coordinate={currentCoords} />}
         {/* {console.log('trees in render', trees)} */}
+        {/* {trees && trees.length > 0 &&
+
+          <Polyline
+            coordinates={trees.map(item => {
+              return {
+                latitude: item.coords.x_ || 0,
+                longitude: item.coords.N_ || 0
+              };
+            })}
+            strokeColor={'#000'}
+            strokeWidth={3}
+            lineDashPattern={[1]}
+          />
+
+        } */}
         {trees && trees.length > 0 && trees.map((item, index) => {
           // console.log('item1', item.coords.U);
           const coords: Coords = {
             latitude: item.coords.U || 0,
             longitude: item.coords.k || 0,
           };
+
+          // console.log(`------ tree ${index} -----`);
+          // console.log(coords);
 
           let treeImg = '';
           switch (item.treeType) {

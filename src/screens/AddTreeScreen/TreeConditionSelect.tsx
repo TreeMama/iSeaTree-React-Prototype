@@ -42,6 +42,7 @@ export function TreeConditionSelect(props: TreeConditionCategorySelectProps) {
         modalViewBottom: { backgroundColor: '#fff' },
         chevronContainer: { display: 'none' },
         done: { color: theme.colors.primary },
+        inputAndroid: { color: 'black' },
         iconContainer: {
           height: '100%',
           justifyContent: 'center',

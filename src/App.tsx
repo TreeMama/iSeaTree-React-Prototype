@@ -3,7 +3,8 @@ import 'react-native-gesture-handler'
 import React from 'react'
 
 import { StatusBar } from 'react-native'
-import { registerRootComponent, SplashScreen } from 'expo'
+import { registerRootComponent } from 'expo'
+import * as SplashScreen from 'expo-splash-screen';
 import { Provider as PaperProvider } from 'react-native-paper'
 import * as firebase from 'firebase'
 import { NavigationContainer } from '@react-navigation/native'
@@ -48,14 +49,16 @@ function useAuthStateChange(): { isUserLogged: boolean | null } {
 
 function useManageSplashScreen(isUserLogged: null | boolean) {
   React.useEffect(() => {
-    SplashScreen.preventAutoHide()
+    // SplashScreen.preventAutoHide()
+    SplashScreen.preventAutoHideAsync()
   }, [])
 
   const prevIsUserLogged = usePrevious(isUserLogged)
 
   React.useEffect(() => {
     if (prevIsUserLogged === null && isUserLogged !== null) {
-      SplashScreen.hide()
+      // SplashScreen.hide()
+      SplashScreen.hideAsync()
     }
   }, [isUserLogged])
 }

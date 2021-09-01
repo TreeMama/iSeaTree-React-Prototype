@@ -43,6 +43,7 @@ export function LocationTypeSelect(props: LocationTypeSelectProps) {
         modalViewBottom: { backgroundColor: '#fff' },
         chevronContainer: { display: 'none' },
         done: { color: theme.colors.primary },
+        inputAndroid: { color: 'black' },
         iconContainer: {
           height: '100%',
           justifyContent: 'center',
