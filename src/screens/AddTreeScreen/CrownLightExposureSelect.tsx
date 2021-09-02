@@ -38,6 +38,7 @@ export function CrownLightExposureSelect(props: CrownLightExposureCategorySelect
         modalViewBottom: { backgroundColor: '#fff' },
         chevronContainer: { display: 'none' },
         done: { color: theme.colors.primary },
+        inputAndroid: { color: 'black' },
         iconContainer: {
           height: '100%',
           justifyContent: 'center',

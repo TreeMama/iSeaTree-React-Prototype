@@ -17,7 +17,7 @@
 		},
 		"assetBundlePatterns": [ "**/*" ],
 		"android": {
-			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA" ],
+			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "FOREGROUND_SERVICE" ],
 			"package": "com.treemama.iseatree",
 			"versionCode": 48,
 			"config": {

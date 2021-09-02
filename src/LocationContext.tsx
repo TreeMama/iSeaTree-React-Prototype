@@ -1,5 +1,5 @@
-import React, {useState, useEffect, useRef, createContext} from 'react';
-import {AppState} from 'react-native';
+import React, { useState, useEffect, useRef, createContext } from 'react';
+import { AppState } from 'react-native';
 import * as Location from 'expo-location';
 
 interface Coords {
@@ -10,7 +10,7 @@ interface Coords {
 
 export const LocationContext = createContext();
 
-export const LocationProvider = (props) =>{
+export const LocationProvider = (props) => {
 
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null);
   const [location, setLocation] = React.useState<Object>(null);
@@ -19,7 +19,7 @@ export const LocationProvider = (props) =>{
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
-//checks to see if the app is put in background
+  //checks to see if the app is put in background
   const _handleAppStateChange = (nextAppState) => {
     if (
       appState.current.match(/inactive|background/) &&
@@ -41,41 +41,41 @@ export const LocationProvider = (props) =>{
   })
   // gets location and listens if the app go to background
   useEffect(() => {
-    if(appStateVisible === 'active'){
-     (async () => {
-       try {
-         const {status} = await Location.requestPermissionsAsync()
-         if (status !== Location.PermissionStatus.GRANTED) {
-           setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
-           return
-         } else {
-           // will update the location
-           let location;
-           try {
-            location = await Location.getLastKnownPositionAsync({maxAge: 10000, requiredAccuracy: 10});
-           } catch (error) {
-             location = await Location.getCurrentPositionAsync({maxAge: 10000, requiredAccuracy: 10});
-           }
-            
-           //if there is a location and it has changed
-           setLocation(location)
-           setCurrentCoords({
-             latitude: location.coords.latitude,
-             longitude: location.coords.longitude,
-           });
-         }
-       }catch (error) {
-           if (__DEV__) {
-             console.log(error)
-           }
-           setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
-         console.log("error for location context when getting apps location")
-           return
-         }
-     })();
-   }
-   }, [appStateVisible]);
-   //gets a address for a given location listens if coords change
+    if (appStateVisible === 'active') {
+      (async () => {
+        try {
+          const { status } = await Location.requestPermissionsAsync()
+          if (status !== Location.PermissionStatus.GRANTED) {
+            setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
+            return
+          } else {
+            // will update the location
+            let location;
+            try {
+              location = await Location.getCurrentPositionAsync({ maxAge: 10000, requiredAccuracy: 10 });
+            } catch (error) {
+              location = await Location.getLastKnownPositionAsync({ maxAge: 10000, requiredAccuracy: 10 });
+            }
+
+            //if there is a location and it has changed
+            setLocation(location)
+            setCurrentCoords({
+              latitude: location.coords.latitude,
+              longitude: location.coords.longitude,
+            });
+          }
+        } catch (error) {
+          if (__DEV__) {
+            console.log(error)
+          }
+          setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
+          console.log("error for location context when getting apps location")
+          return
+        }
+      })();
+    }
+  }, [appStateVisible]);
+  //gets a address for a given location listens if coords change
   useEffect(() => {
     if (!currentCoords) return
     (async () => {
@@ -84,8 +84,8 @@ export const LocationProvider = (props) =>{
       setAddress(readOnlyAddress[0]);
     })();
   }, [currentCoords]);
-  return(
-    <LocationContext.Provider value={{address: address, currentCoords:currentCoords, errorMessage: errorMessage} }>
+  return (
+    <LocationContext.Provider value={{ address: address, currentCoords: currentCoords, errorMessage: errorMessage }}>
       {props.children}
     </LocationContext.Provider>
   );
