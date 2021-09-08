@@ -4,7 +4,7 @@
 		"slug": "iSeaTree",
 		"privacy": "public",
 		"platforms": [ "ios", "android" ],
-		"version": "2.1",
+		"version": "2.0.3",
 		"orientation": "default",
 		"icon": "./assets/icon.png",
 		"splash": {
@@ -17,12 +17,12 @@
 		},
 		"assetBundlePatterns": [ "**/*" ],
 		"android": {
-			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA", "FOREGROUND_SERVICE" ],
+			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA" ],
 			"package": "com.treemama.iseatree",
 			"versionCode": 49,
 			"config": {
 				"googleMaps": {
-					"apiKey": "---------------------------"
+					"apiKey": "AIzaSyBX3P9YwFGxd8Pm966O8qtB43YdzGydj9Y"
 				}
 			},
 			"icon": "./assets/icon.png",

@@ -49,8 +49,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   let RBSheetref = useRef(null); // Create RBSheet refrence
 
   //get values coords
-  const value = useContext(LocationContext)
-  const currentCoords = value.currentCoords;
+  let value = useContext(LocationContext)
+  let currentCoords = value.currentCoords;
 
   React.useEffect(() => {
     if (!errorMessage) {
@@ -592,26 +592,27 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         </View>
       }
 
+      {currentCoords != null
+        &&
+        <MapView
+          style={styles.mapStyle}
+          ref={mapref}
+          initialRegion={{
+            latitude: currentCoords.latitude,
+            longitude: currentCoords.longitude,
+            latitudeDelta: 1,
+            longitudeDelta: 1,
+          }}
+          // region={currentRegion}
+          showsUserLocation
+          showsScale={true}
 
-      <MapView
-        style={styles.mapStyle}
-        ref={mapref}
-        initialRegion={{
-          latitude: currentCoords.latitude,
-          longitude: currentCoords.longitude,
-          latitudeDelta: 1,
-          longitudeDelta: 1,
-        }}
-        // region={currentRegion}
-        showsUserLocation
-        showsScale={true}
-
-      // // zoomTapEnabled={true}
-      zoomControlEnabled={true}
-      >
-        {!!currentCoords && <Marker coordinate={currentCoords} />}
-        {/* {console.log('trees in render', trees)} */}
-        {/* {trees && trees.length > 0 &&
+          // // zoomTapEnabled={true}
+          zoomControlEnabled={true}
+        >
+          {!!currentCoords && <Marker coordinate={currentCoords} />}
+          {/* {console.log('trees in render', trees)} */}
+          {/* {trees && trees.length > 0 &&
 
           <Polyline
             coordinates={trees.map(item => {
@@ -626,41 +627,42 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           />
 
         } */}
-        {trees && trees.length > 0 && trees.map((item, index) => {
-          // console.log('item1', item.coords.U);
-          const coords: Coords = {
-            latitude: item.coords.U || 0,
-            longitude: item.coords.k || 0,
-          };
+          {trees && trees.length > 0 && trees.map((item, index) => {
+            // console.log('item1', item.coords.U);
+            const coords: Coords = {
+              latitude: item.coords.U || 0,
+              longitude: item.coords.k || 0,
+            };
 
-          // console.log(`------ tree ${index} -----`);
-          // console.log(coords);
+            // console.log(`------ tree ${index} -----`);
+            // console.log(coords);
 
-          let treeImg = '';
-          switch (item.treeType) {
-            case 'conifer':
-              treeImg = treeConifer;
-              break;
-            case 'broadleaf':
-              treeImg = treeDeciduous;
-          }
-          // { console.log('trees in treeImg', treeImg) }
-          // const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
-          return (<Marker key={index} coordinate={coords}
-            pointerEvents="auto" // "these changes as for build 2.1"
-            ref={el => markerref.current[index] = el} onPress={() => Platform.OS === 'android' && onOpenSheet(item)} >
-            <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} ref={el => calloutref = el} />
-            {Platform.OS === 'ios'
-              &&
-              <Callout pointerEvents="auto" // "these changes as for build 2.1"
-                alphaHitTest style={{ minWidth: 200, backgroundColor: '#FFF', padding: 5 }}  >
-                <CalloutComponentIos item={item} index={index} />
-              </Callout>
+            let treeImg = '';
+            switch (item.treeType) {
+              case 'conifer':
+                treeImg = treeConifer;
+                break;
+              case 'broadleaf':
+                treeImg = treeDeciduous;
             }
-          </Marker>)
-        })}
+            // { console.log('trees in treeImg', treeImg) }
+            // const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
+            return (<Marker key={index} coordinate={coords}
+              pointerEvents="auto" // "these changes as for build 2.1"
+              ref={el => markerref.current[index] = el} onPress={() => Platform.OS === 'android' && onOpenSheet(item)} >
+              <Image source={treeImg} style={{ width: 100, height: 100, resizeMode: 'contain' }} ref={el => calloutref = el} />
+              {Platform.OS === 'ios'
+                &&
+                <Callout pointerEvents="auto" // "these changes as for build 2.1"
+                  alphaHitTest style={{ minWidth: 200, backgroundColor: '#FFF', padding: 5 }}  >
+                  <CalloutComponentIos item={item} index={index} />
+                </Callout>
+              }
+            </Marker>)
+          })}
 
-      </MapView>
+        </MapView>
+      }
       <View>
         <RBSheet
           ref={el => RBSheetref = el}
@@ -683,7 +685,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         </View>
       </Modal>
 
-      {!isDataLoaded
+      {!isDataLoaded || currentCoords == null
         &&
         <View style={styles.loaderContainer}>
           <View style={styles.loaderstyle}>
