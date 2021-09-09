@@ -39,40 +39,40 @@ export const LocationProvider = (props) => {
       AppState.removeEventListener('change', _handleAppStateChange)
     }
   })
+
+  const getLocationAsync = async () => {
+    try {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== Location.PermissionStatus.GRANTED) {
+        setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
+        return
+      } else {
+        let location;
+        try {
+          location = await Location.getCurrentPositionAsync();
+        } catch (error) {
+          location = await Location.getLastKnownPositionAsync();
+        }
+
+        setLocation(location)
+        setCurrentCoords({
+          latitude: location.coords.latitude,
+          longitude: location.coords.longitude,
+        });
+      }
+    } catch (error) {
+      if (__DEV__) {
+        console.log(error)
+      }
+      setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
+      console.log("error for location context when getting apps location")
+      return
+    }
+  }
   // gets location and listens if the app go to background
   useEffect(() => {
     if (appStateVisible === 'active') {
-      (async () => {
-        try {
-          const { status } = await Location.requestPermissionsAsync()
-          if (status !== Location.PermissionStatus.GRANTED) {
-            setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
-            return
-          } else {
-            // will update the location
-            let location;
-            try {
-              location = await Location.getCurrentPositionAsync({ maxAge: 10000, requiredAccuracy: 10 });
-            } catch (error) {
-              location = await Location.getLastKnownPositionAsync({ maxAge: 10000, requiredAccuracy: 10 });
-            }
-
-            //if there is a location and it has changed
-            setLocation(location)
-            setCurrentCoords({
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-            });
-          }
-        } catch (error) {
-          if (__DEV__) {
-            console.log(error)
-          }
-          setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
-          console.log("error for location context when getting apps location")
-          return
-        }
-      })();
+      getLocationAsync()
     }
   }, [appStateVisible]);
   //gets a address for a given location listens if coords change
