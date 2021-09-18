@@ -597,20 +597,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         <MapView
           style={styles.mapStyle}
           ref={mapref}
-          initialRegion={{
-            latitude: currentCoords.latitude,
-            longitude: currentCoords.longitude,
-            latitudeDelta: 1,
-            longitudeDelta: 1,
-          }}
-          // region={currentRegion}
-          showsUserLocation
+          initialRegion={currentRegion}
           showsScale={true}
-
-          // // zoomTapEnabled={true}
           zoomControlEnabled={true}
+          showsUserLocation={true}
         >
-          {!!currentCoords && <Marker coordinate={currentCoords} />}
+           {/*{!!currentCoords && <Marker coordinate={currentCoords} />}*/}
           {/* {console.log('trees in render', trees)} */}
           {/* {trees && trees.length > 0 &&
 
