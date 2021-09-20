@@ -19,7 +19,7 @@
 		"android": {
 			"permissions": [ "ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION", "CAMERA" ],
 			"package": "com.treemama.iseatree",
-			"versionCode": 50,
+			"versionCode": 51,
 			"config": {
 				"googleMaps": {
 					"apiKey": "AIzaSyBX3P9YwFGxd8Pm966O8qtB43YdzGydj9Y"
@@ -43,7 +43,7 @@
 		"ios": {
 			"icon": "./assets/icon.png",
 			"bundleIdentifier": "com.treemama.iseatree",
-			"buildNumber": "50",
+			"buildNumber": "51",
 			"supportsTablet": true,
 			"infoPlist": {
 				"NSCameraUsageDescription": "We use the camera to allow you to take a photo and submit it with your iSeaTree reports.",
