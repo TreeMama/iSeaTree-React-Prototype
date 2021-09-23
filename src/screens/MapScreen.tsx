@@ -608,32 +608,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           zoomControlEnabled={true}
           showsUserLocation={true}
         >
-          {!!currentCoords && <Marker coordinate={currentCoords} />}
-          {/* {console.log('trees in render', trees)} */}
-          {/* {trees && trees.length > 0 &&
 
-          <Polyline
-            coordinates={trees.map(item => {
-              return {
-                latitude: item.coords.x_ || 0,
-                longitude: item.coords.N_ || 0
-              };
-            })}
-            strokeColor={'#000'}
-            strokeWidth={3}
-            lineDashPattern={[1]}
-          />
-
-        } */}
           {trees && trees.length > 0 && trees.map((item, index) => {
             // console.log('item1', item.coords.U);
             const coords: Coords = {
               latitude: item.coords._latitude || 0,
               longitude: item.coords._longitude || 0,
             };
-
-            // console.log(`------ tree ${index} -----`);
-            // console.log(trees);
 
             let treeImg = '';
             switch (item.treeType) {

@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { View, Image, Alert, Platform } from 'react-native'
-import { Camera as ExpoCamera } from 'expo-camera'
+import { View, Image, Alert, Platform, PermissionsAndroid } from 'react-native'
+import { RNCamera } from 'react-native-camera';
 import { Text, Button } from 'react-native-paper'
 import * as ImageManipulator from 'expo-image-manipulator'
 
@@ -25,12 +25,21 @@ export function Camera(props: CameraProps) {
   const [hasCameraPermission, setHasCameraPermission] = React.useState<null | boolean>(null)
   const [selectedPhotoUri, setSelectedPhotoUri] = React.useState<null | string>(null)
 
-  const cameraRef = React.useRef<ExpoCamera>(null)
+  const cameraRef = React.useRef<RNCamera>(null);
+
+  const checkPermission = async () => {
+    if (Platform.OS === 'android') {
+      const result = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
+      if (result === PermissionsAndroid.RESULTS.GRANTED || result === true) {
+        setHasCameraPermission(true)
+      }
+    } else {
+      setHasCameraPermission(true)
+    }
+  }
 
   React.useEffect(() => {
-    ExpoCamera.requestPermissionsAsync().then(({ status }) => {
-      setHasCameraPermission(status === 'granted')
-    })
+    checkPermission()
   }, [])
 
   if (hasCameraPermission === null) {
@@ -46,17 +55,7 @@ export function Camera(props: CameraProps) {
 
     cameraRefObj.takePictureAsync({ exif: true, quality: 0.6 }).then((photo) => {
       cameraRefObj.pausePreview()
-      if (Platform.OS === 'android' && photo.exif.Orientation === 6) {
-        console.log('Image is rotated. Fixing.')
-        ImageManipulator.manipulateAsync(photo.uri, [{ rotate: -90 }], {
-          compress: 1,
-          format: ImageManipulator.SaveFormat.JPEG,
-        }).then((fixedPhoto) => {
-          props.onTakePicture(fixedPhoto)
-        })
-      } else {
-        props.onTakePicture(photo)
-      }
+      props.onTakePicture(photo)
     })
   }
 
@@ -90,7 +89,8 @@ export function Camera(props: CameraProps) {
       )}
 
       {!selectedPhotoUri && hasCameraPermission && (
-        <ExpoCamera style={{ flex: 1 }} type={ExpoCamera.Constants.Type.back} ref={cameraRef}>
+        <RNCamera style={{ flex: 1 }} type={RNCamera.Constants.Type.back}
+          ref={cameraRef}>
           <View
             style={{
               flex: 1,
@@ -111,7 +111,7 @@ export function Camera(props: CameraProps) {
               <MaterialCommunityIcons name="camera-iris" size={80} color="white" />
             </Button>
           </View>
-        </ExpoCamera>
+        </RNCamera>
       )}
 
     </View>
