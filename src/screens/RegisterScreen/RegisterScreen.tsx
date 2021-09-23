@@ -2,8 +2,7 @@ import React from 'react'
 
 import { StyleSheet, View, ScrollView, Linking } from 'react-native'
 import { Banner, Button, Paragraph, Text } from 'react-native-paper'
-import * as firebase from 'firebase'
-
+import auth from '@react-native-firebase/auth';
 import { StatusBar } from '../../components/StatusBar'
 import { useNavigationActions } from '../../lib/navigation'
 import { setUser } from '../../lib/firebaseServices'
@@ -39,8 +38,7 @@ export function RegisterScreen() {
     setIsLoading(true)
     setErrorMessage(null)
 
-    firebase
-      .auth()
+    auth()
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         setIsLoading(false)

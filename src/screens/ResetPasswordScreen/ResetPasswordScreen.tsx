@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StyleSheet, View } from 'react-native'
 import { Banner } from 'react-native-paper'
-import * as firebase from 'firebase'
+import auth from '@react-native-firebase/auth';
 
 import { ResetPasswordForm } from './ResetPasswordForm'
 import { useNavigationActions } from '../../lib/navigation'
@@ -34,8 +34,8 @@ export function ResetPasswordScreen(props) {
     setIsLoading(true)
     setErrorMessage(null)
 
-    firebase
-      .auth()
+    
+    auth()
       .sendPasswordResetEmail(email)
       .then(() => {
         setIsLoading(false)

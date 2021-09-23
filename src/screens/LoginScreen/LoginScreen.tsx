@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { Banner, Button } from 'react-native-paper'
-import * as firebase from 'firebase'
-
+import auth from '@react-native-firebase/auth';
 import { LoginForm } from './LoginForm'
 import { useNavigationActions } from '../../lib/navigation'
 
@@ -38,8 +37,7 @@ export function LoginScreen(props) {
     setIsLoading(true)
     setErrorMessage(null)
 
-    firebase
-      .auth()
+    auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         setIsLoading(false)
@@ -56,11 +54,11 @@ export function LoginScreen(props) {
 
   return (
     <>
-      { isSliderVisible ?
+      {isSliderVisible ?
         <AppIntroScreen dismissSlider={sliderDismissHanlder} />
         :
         <View style={styles.container}>
-      <StatusBar />
+          <StatusBar />
 
           <ScrollView>
             <Banner

@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, StatusBar, SafeAreaView, TouchableOpacit
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from 'react-native-device-info';
 
 const data = [
     {
@@ -139,14 +140,15 @@ export default class AppIntroScreen extends React.Component {
 
     dismissIntroSlider = async () => {
         // console.log('on dismissIntroSlider')
+        const currentVersionNum = DeviceInfo.getVersion();
         await AsyncStorage.setItem('FIRST_TIME_OPEN_APP', JSON.stringify(true));
-        await AsyncStorage.setItem('APP_VERSION', JSON.stringify(Constants.manifest.version));
+        await AsyncStorage.setItem('APP_VERSION', JSON.stringify(currentVersionNum));
         this.props.dismissSlider();
     }
 
     onSkipIntro = () => {
         this.introRef.goToSlide(data.length - 1)
-        this.setState({ isShowCompass: true  })
+        this.setState({ isShowCompass: true })
     }
 
     onSlideChangeValue = (index: number, lastIndex: any) => {

@@ -30,6 +30,7 @@ import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
 import AppIntroScreen from './AppIntroScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DeviceInfo from 'react-native-device-info';
 
 const win = Dimensions.get('window');
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
@@ -179,8 +180,9 @@ export function ProfileScreen(props) {
     const savedAppversion = await AsyncStorage.getItem('APP_VERSION');
     const parseisShowIntro = JSON.parse(isShowIntro);
     const parsesavedAppversion = JSON.parse(savedAppversion);
+    const currentVersionNum = DeviceInfo.getVersion();
 
-    const isVersionChanged = await versionChanged(parsesavedAppversion, Constants.manifest.version)
+    const isVersionChanged = await versionChanged(parsesavedAppversion, currentVersionNum)
 
       if (parseisShowIntro) {
         if (isVersionChanged) {

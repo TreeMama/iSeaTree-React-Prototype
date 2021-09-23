@@ -1,4 +1,6 @@
-import * as firebase from 'firebase'
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 
 export interface UserData {
   email: string
@@ -12,7 +14,7 @@ export const firebaseImagePath = {
 }
 
 export function signOutUser(): void {
-  firebase.auth().signOut()
+    auth().signOut()
 }
 
 const USERS_COLLECTION = 'users'
@@ -21,18 +23,20 @@ export function userDataListener(
   uid: string,
   onUserDataChange: (user: UserData | undefined) => void,
 ): () => void {
-  return firebase
-    .firestore()
+  return firestore()
     .collection(USERS_COLLECTION)
     .doc(uid)
     .onSnapshot((doc) => {
-      onUserDataChange(doc.data() as UserData | undefined)
+      try {
+        onUserDataChange(doc.data() as UserData | undefined)
+      } catch (error) {
+
+      }
     })
 }
 
 export function getUser(uid: string): Promise<UserData | undefined> {
-  return firebase
-    .firestore()
+  return firestore()
     .collection(USERS_COLLECTION)
     .doc(uid)
     .get()
@@ -49,10 +53,10 @@ export function getUser(uid: string): Promise<UserData | undefined> {
 }
 
 export function setUser(user: { username: string; uid: string; email: string }): void {
-  firebase.firestore().collection(USERS_COLLECTION).doc(user.uid).set({
+  firestore().collection(USERS_COLLECTION).doc(user.uid).set({
     username: user.username,
     email: user.email,
-    created_at: firebase.firestore.FieldValue.serverTimestamp(),
+    created_at: firestore.FieldValue.serverTimestamp(),
   })
 }
 
@@ -61,7 +65,7 @@ export function updateBadges(
   badges: Array<string>,
   treesCount: number,
 ): Promise<void> {
-  return firebase.firestore().collection(USERS_COLLECTION).doc(uid).update({
+  return firestore().collection(USERS_COLLECTION).doc(uid).update({
     badges: badges,
     treesCount: treesCount,
   })
@@ -71,23 +75,22 @@ export type ImageDownloadUrl = string
 
 export function uploadImage(
   firebaseStoragePath: string,
-  imageBlob: Blob,
+  imageUri: string,
 ): Promise<ImageDownloadUrl> {
-  const storageRef = firebase.storage().ref()
-  const imageRef = storageRef.child(firebaseStoragePath)
-
-  const uploadTask = imageRef.put(imageBlob)
+  const imageRef = storage().ref(firebaseStoragePath);
+  const uploadTask = imageRef.putFile(imageUri);
 
   return new Promise((resolve, reject) => {
-    uploadTask
-      .then((snapshot) => snapshot.ref.getDownloadURL())
-      .then((url: string) => resolve(url))
-      .catch(() => {
-        reject()
-      })
+    uploadTask.then(() => {
+      imageRef
+        .getDownloadURL()
+        .then(async (url) => {
+          resolve(url)
+        });
+    }).catch((e) => reject());
   })
 }
 
 export function getCurrentAuthUser() {
-  return firebase.auth().currentUser
+  return auth().currentUser
 }
