@@ -66,6 +66,7 @@ export const LocationProvider = (props) => {
       if (__DEV__) {
         console.log(error)
       }
+      getLocationAsync()
       setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
       console.log("error for location context when getting apps location")
       return
