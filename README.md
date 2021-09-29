@@ -48,23 +48,24 @@ that update `version`, `versionCode`, and `bundleNumber`. Merge all other change
 
 ## Development toolkit
 
-This project uses [Expo](https://expo.io). Here is a guide how to [get
+This project uses [react-native-cli]. Here is a guide how to [get
 started with
-expo](https://docs.expo.io/versions/latest/get-started/installation). Expo
-is a development tool that runs interpreted JavaScript on your mobile device,
-in debug mode. It can also submit builds to a Fastlane remote compiler
-instance, to create native builds suitable for standalone installation
-or for submission to the Android or Apple app store.
+react-native-cli](https://reactnative.dev/docs/environment-setup). react-native-cli
+is contains the actual React Native framework code and is installed locally into your project,
+react-native-cli project is said to be a pure React Native app, since none of the native code is hidden away from the developer.
+a development tool that runs interpreted JavaScript on your mobile device,
+in debug mode. react-native-cli project has native code for android and iOS,
+so, you can perform any release related operation for android and iOS, by using androidSudio and Xcode relatively.
 
-You do not need Xcode or Android Studio to work on this project.
+You need Xcode or Android Studio to work on this project.
 
 ### Tookit prerequisites
 
 - Nodejs v12.16.1 or later. You can download a prebuilt Nodejs installer from [https://nodejs.org/](https://nodejs.org/en/).
 - [yarn v1.19.1](https://yarnpkg.com). Install Yarn with `npm install --global yarn`, or perhaps `sudo npm install --global yarn`.
-- [expo-cli v3.16](https://www.npmjs.com/package/expo-cli). Install Expo with `npm install --global expo-cli`, or perhaps `sudo npm install --global expo-cli`.
+- [react-native-cli](https://www.npmjs.com/package/react-native-cli). Install react-native-cli with `npm install –g react-native-cli`, or perhaps `sudo npm install –g react-native-cli`.
 
-This is a one-time setup for each computer you'll do Yarn/Expo development on.
+This is a one-time setup for each computer you'll do Yarn/react-native-cli development on.
 
 ### Installation
 
@@ -72,12 +73,6 @@ From the project's root directory run:
 
 ```bash
 yarn install
-```
-
-Resolved "react-native-raw-bottom-sheet" dependency by running yarn install 
-```bash
-Step 1:  npm uninstall react-native-raw-bottom-sheet
-Step 2:  yarn add react-native-raw-bottom-sheet
 ```
 
 This sets up Yarn for the iSeaTree project directory.
@@ -103,18 +98,24 @@ For project administrators: when you update `envVariables.ts`
 * If it's the production version, execute the command `shasum -a 512 envVariables.ts > checksum-prod.txt` and commit `checksum-prod.txt` to the repository.
 * If it's the development version, execute the command `shasum -a 512 envVariables.ts > checksum-dev.txt` and commit `checksum-dev.txt` to the repository.
 
+for google map functionality we have to add "google api key" in the below file
+* AndroidManifest.xml
+    - Path: app/src/main/AndroidManifest.xml
+    - Desc: Please add google api key in "com.google.android.geo.API_KEY" meta tag.
+
 ### Running
 
 ```bash
-yarn start
+- ios:
+    - cd ios
+    - pod install
+    - cd ..
+    - npx react-native run-ios
+- android:
+    - npx react-native run-android
 ```
 
-This command launches a webserver on your computer and loads the source code for the project. Then you'll scan the displayed 
-QR code with your iOS or Android device, which will load an interpreted version of the project from the local 
-webserver into the Expo app on your device. 
-
-If you have Android Studio or Xcode installed on your computer, You can also use the `a` or `i` commands within Yarn
-to load iSeaTree into an emulator.
+This command launches a metroServer on your computer and loads the source code for the project.
 
 ## Linting
 
@@ -122,26 +123,35 @@ This project has configured [Eslint](https://eslint.org/) with recommended types
 
 ## Interacting with the iOS Simulator
 
-When Expo commands touch the iOS Simulator, the commands will work with the most
-recently launched instance, even if that's not the instance you last
-used yourself.
+when you run `npx react-native run-ios` it launchs the default simulator of you PC.
 
-`expo-cli client:install:ios` installs the Expo client to the
-Simulator. If another app is running, that app won't be disturbed, but
-you'll see the Expo icon on your home screen if you look for it. Log
-in to your Expo account and you'll see any Expo projects you've built,
-hopefully including iSeaTree. iPad
-simulators show the app in full-screen mode. This is misleading,
-because the native build comes up in 1x letterboxed mode.
+To obtain a standalone native build, we have iOS folder that contain native code for our application,
+by open it on Xcode, we can make archive of the application and directly upload it to appStore. 
+we can also change version and build number from Xcode 
 
-To obtain a standalone native build for the Simulator, use `expo build:ios` (you'll first need to establish a free Expo account). At the
-prompt, select "simulator". This will launch a build in the Expo
-build queue, and eventually return the URL of a downloadtable .tar
-file. Expand the .tar file and you'll see the iSeaTree app, marked as
-unlaunchable. Drag that app onto your simulator's screen (it will
-appear on the second page of the Home screen, which you'll have to
-page to see). Building the
-native app takes a while, but launching iSeaTree in multiple
-simulators (which is necessary for making screenshots) is faster this
-way.
+## Interacting with the Android Simulator
 
+when you run `npx react-native run-android` it run the application on all devices which enabled debug mode.
+
+To obtain a standalone native build, we have android folder that contain native code for our application,
+by open it on Android Studio, we can make signed apk. 
+we can also change versionCode or versionName at android/app/build.gradle
+
+# dependency Changes for Migrate Project:
+
+- replace `firebase` dependency with `@react-native-firebase`
+- replace `expo-camera` dependency with `react-native-camera`
+- add `react-native-unimodules`
+
+## why change `firebase` dependency with `@react-native-firebase`?
+
+- well as per the new flow `firebase` is not recognised by the react-native
+- and it's make project future proof
+
+## why change `expo-camera` dependency with `react-native-camera`?
+
+- to fix rotation image issue
+
+## why add `react-native-unimodules`?
+
+- This dependency allows us to use most of the expo dependency if require.
