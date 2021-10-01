@@ -4,6 +4,16 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
+pod 'Firebase/Auth'
+pod 'Firebase/Firestore'
+pod 'Firebase/Installations'
+pod 'Firebase/Performance'
+pod 'Firebase/Installations'
+pod 'Firebase/RemoteConfig'
+pod 'Firebase/Messaging'
+pod 'Firebase/Functions'
+pod 'Firebase/Storage'
+
 target 'iSeaTree' do
   use_unimodules!
   config = use_native_modules!
