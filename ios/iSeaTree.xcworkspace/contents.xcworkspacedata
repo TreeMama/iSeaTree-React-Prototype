@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/hal/DevelopmentSandbox/iSeaTree-React-Prototype/ios/iSeaTree/iSeaTree.entitlements">
+   </FileRef>
+   <FileRef
       location = "group:iSeaTree.xcodeproj">
    </FileRef>
    <FileRef
