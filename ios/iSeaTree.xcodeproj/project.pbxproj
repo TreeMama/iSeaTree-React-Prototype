@@ -163,7 +163,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = TW8SJXYFP5;
 						LastSwiftMigration = 1120;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -356,10 +356,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = iSeaTree/iseatree.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TW8SJXYFP5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -376,7 +376,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.treemama.iseatree;
 				PRODUCT_NAME = iseatree;
-				PROVISIONING_PROFILE_SPECIFIER = "*[expo] com.treemama.iseatree AppStore 2020-05-15T18:03:23.223Z";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iSeaTree/iSeaTree-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -392,10 +392,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = iSeaTree/iseatree.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TW8SJXYFP5;
+				DEVELOPMENT_TEAM = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = iSeaTree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -407,7 +407,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.treemama.iseatree;
 				PRODUCT_NAME = iseatree;
-				PROVISIONING_PROFILE_SPECIFIER = "*[expo] com.treemama.iseatree AppStore 2020-05-15T18:03:23.223Z";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iSeaTree/iSeaTree-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
