@@ -1,4 +1,5 @@
 import { DefaultTheme, Theme } from 'react-native-paper'
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 // https://tailwindcss.com/docs/customizing-colors#default-color-palette
 export const colors = {
@@ -20,6 +21,8 @@ export const colors = {
     700: '#4A5568',
   },
 }
+
+export const StatusBarHeight = getStatusBarHeight();
 
 export const theme: Theme = {
   ...DefaultTheme,

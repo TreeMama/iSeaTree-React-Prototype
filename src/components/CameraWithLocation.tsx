@@ -36,9 +36,12 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
         setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
         return null
       } else {
-        const location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.BestForNavigation,
-        })
+        let location;
+        try {
+          location = await Location.getCurrentPositionAsync();
+        } catch (error) {
+          location = await Location.getLastKnownPositionAsync();
+        }
 
         const decimals = 1000000
         const roundedLatitude = Math.round(location.coords.latitude * decimals) / decimals

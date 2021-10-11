@@ -9,5 +9,5 @@ export async function uploadTreeImage(imageUri: string): Promise<ImageDownloadUr
   const fileName: string = uuidV4()
   const firebaseStoragePath = firebaseImagePath.trees(`${fileName}.jpg`)
 
-  return uploadImage(firebaseStoragePath, blob)
+  return uploadImage(firebaseStoragePath, imageUri)
 }

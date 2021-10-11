@@ -7,7 +7,8 @@ import Constants from 'expo-constants'
 import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs'
 import { getCurrentAuthUser, getUser } from '../lib/firebaseServices'
 import { StatusBar } from '../components/StatusBar'
-import { firestore } from 'firebase';
+// import { firestore } from 'firebase';
+import firestore from '@react-native-firebase/firestore';
 import { colors } from '../styles/theme'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
 import CheckBox from 'react-native-check-box'
@@ -112,11 +113,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         .where('userId', '==', authUser.uid)
         .onSnapshot(data => {
           const trees: any = [];
-          data.forEach((doc) => {
-            const currentID = doc.id
-            const appObj = { ...doc.data(), ['id']: currentID }
-            trees.push(appObj)
-          });
+          try {
+            data.forEach((doc) => {
+              const currentID = doc.id
+              const appObj = { ...doc.data(), ['id']: currentID }
+              trees.push(appObj)
+            });
+          } catch (error) {}
           // return trees;
           setTrees(trees);
           setDataLoaded(true);
@@ -147,15 +150,18 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         .onSnapshot(async data => {
           let trees: any = [];
           let alltrees: any = [];
-          data.forEach((doc) => {
-            const currentID = doc.id
-            const appObj = { ...doc.data(), ['id']: currentID }
-            alltrees.push(appObj)
-          });
+          try {
+            data.forEach((doc) => {
+              const currentID = doc.id
+              const appObj = { ...doc.data(), ['id']: currentID }
+              alltrees.push(appObj)
+            });
+          } catch (error) {}
+
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== "SPAM");
           for (let i = 0; i < alltrees.length; i++) {
             try {
-              alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["U"], alltrees[i]["coords"]["k"], "K");
+              alltrees[i]["distance"] = await calculateDistance(currentCoords?.latitude, currentCoords?.longitude, alltrees[i]["coords"]["_latitude"], alltrees[i]["coords"]["_longitude"], "K");
             } catch (e) {
               // delete item that is the problem
               alltrees.splice(i, 1)
@@ -492,8 +498,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const onfitToSuppliedMarkers = () => {
 
     // const m1 = { latitude: currentCoords?.latitude, longitude: currentCoords?.longitude }
-    const m1 = { latitude: trees[0]["coords"]["U"], longitude: trees[0]["coords"]["k"] }
-    const m2 = { latitude: trees[trees.length - 1]["coords"]["U"], longitude: trees[trees.length - 1]["coords"]["k"] }
+    const m1 = { latitude: trees[0]["coords"]["_latitude"], longitude: trees[0]["coords"]["_longitude"] }
+    const m2 = { latitude: trees[trees.length - 1]["coords"]["_latitude"], longitude: trees[trees.length - 1]["coords"]["_longitude"] }
 
     const m3 = [m1, m2]
     mapref.current.fitToCoordinates(m3, {
@@ -606,8 +612,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           {trees && trees.length > 0 && trees.map((item, index) => {
             // console.log('item1', item.coords.U);
             const coords: Coords = {
-              latitude: item.coords.U || 0,
-              longitude: item.coords.k || 0,
+              latitude: item.coords._latitude || 0,
+              longitude: item.coords._longitude || 0,
             };
 
             let treeImg = '';

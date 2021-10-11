@@ -22,7 +22,7 @@
 			"versionCode": 51,
 			"config": {
 				"googleMaps": {
-					"apiKey": "AIzaSyBX3P9YwFGxd8Pm966O8qtB43YdzGydj9Y"
+					"apiKey": ""
 				}
 			},
 			"icon": "./assets/icon.png",

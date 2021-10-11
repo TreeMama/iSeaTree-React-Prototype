@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import * as firebase from 'firebase'
+import firestore from '@react-native-firebase/firestore';
 import * as Device from 'expo-device'
 import * as Application from 'expo-application'
 import { uploadTreeImage } from './uploadTreeImage'
@@ -114,7 +114,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
   const decimals = 1000000
   const roundedLatitude = Math.round(formValues.coords.latitude * decimals) / decimals
   const roundedLongitude = Math.round(formValues.coords.longitude * decimals) / decimals
-  const treeCoords = new firebase.firestore.GeoPoint(
+  const treeCoords = new firestore.GeoPoint(
     roundedLatitude,
     roundedLongitude
   )

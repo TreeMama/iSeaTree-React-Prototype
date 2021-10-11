@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, createContext } from 'react';
-import { AppState } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import * as Location from 'expo-location';
 
 interface Coords {
@@ -28,7 +28,9 @@ export const LocationProvider = (props) => {
       console.log("App has come to the foreground!");
     }
 
-    appState.current = nextAppState;
+    if(Platform.OS === 'ios') {
+      appState.current = nextAppState;
+    }
     setAppStateVisible(appState.current);
     console.log("AppState", appState.current);
   };
@@ -64,6 +66,7 @@ export const LocationProvider = (props) => {
       if (__DEV__) {
         console.log(error)
       }
+      getLocationAsync()
       setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
       console.log("error for location context when getting apps location")
       return

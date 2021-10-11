@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Platform, StatusBar as RNStatusBar, View } from 'react-native'
 import Constants from 'expo-constants'
+import theme from '../styles/theme';
 
 interface StatusBarProps {
   backgroundColor: string

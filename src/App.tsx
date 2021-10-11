@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native'
 import { registerRootComponent } from 'expo'
 import * as SplashScreen from 'expo-splash-screen';
 import { Provider as PaperProvider } from 'react-native-paper'
-import * as firebase from 'firebase'
+import auth from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -14,7 +14,6 @@ import { RegisterScreen } from './screens/RegisterScreen'
 import { LoginScreen } from './screens/LoginScreen'
 import { ShowImage } from './screens/ShowImage'
 import { IdentifySpecies } from './screens/IdentifySpecies'
-import { initializeFirebase } from './config/initializeFirebase'
 import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
 import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPasswordScreen'
@@ -23,25 +22,20 @@ import { usePrevious } from './hooks/usePrevious'
 import { LocationProvider } from './LocationContext'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
+import DeviceInfo from 'react-native-device-info';
 
-initializeFirebase()
 console.disableYellowBox = true;
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
   React.useEffect(() => {
-    firebase
-      .auth()
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-          if (!!user) {
-            setIsUserLogged(true)
-          } else {
-            setIsUserLogged(false)
-          }
-        })
-      })
+    auth().onAuthStateChanged((user) => {
+      if (!!user) {
+        setIsUserLogged(true)
+      } else {
+        setIsUserLogged(false)
+      }
+    })
   }, [])
 
   return { isUserLogged }
@@ -65,7 +59,7 @@ function useManageSplashScreen(isUserLogged: null | boolean) {
 
 const Stack = createStackNavigator()
 
-export function App() {
+export default function App() {
   const { isUserLogged } = useAuthStateChange();
   const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
 
@@ -84,8 +78,9 @@ export function App() {
     const savedAppversion = await AsyncStorage.getItem('APP_VERSION');
     const parseisShowIntro = JSON.parse(isShowIntro);
     const parsesavedAppversion = JSON.parse(savedAppversion);
+    const currentVersionNum = DeviceInfo.getVersion();
 
-    const isVersionChanged = await versionChanged(parsesavedAppversion, Constants.manifest.version)
+    const isVersionChanged = await versionChanged(parsesavedAppversion, currentVersionNum)
 
     if (parseisShowIntro) {
       if (isVersionChanged) {
@@ -102,7 +97,7 @@ export function App() {
     checkIntro()
   }, [isUserLogged])
 
-  if (isUserLogged === null) {
+  if (isUserLogged == null || isShowIntro == null) {
     return null
   }
 
@@ -159,4 +154,4 @@ export function App() {
 
 // default export is required by expo
 // eslint-disable-next-line import/no-default-export
-export default registerRootComponent(App)
+// export default registerRootComponent(App)

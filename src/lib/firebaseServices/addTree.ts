@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { TreeTypes, TreeValidationTypes } from './../treeData'
-import { firestore } from 'firebase'
+import firestore from '@react-native-firebase/firestore';
 
 interface TreePhoto {
   width: number
