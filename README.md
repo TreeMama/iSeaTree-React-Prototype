@@ -137,21 +137,58 @@ To obtain a standalone native build, we have android folder that contain native 
 by open it on Android Studio, we can make signed apk. 
 we can also change versionCode or versionName at android/app/build.gradle
 
-# dependency Changes for Migrate Project:
+# Dependency Changes for Migrate Project:
 
 - replace `firebase` dependency with `@react-native-firebase`
 - replace `expo-camera` dependency with `react-native-camera`
 - add `react-native-unimodules`
 
-## why change `firebase` dependency with `@react-native-firebase`?
+## Why change `firebase` dependency with `@react-native-firebase`?
 
 - well as per the new flow `firebase` is not recognised by the react-native
 - and it's make project future proof
 
-## why change `expo-camera` dependency with `react-native-camera`?
+## Why change `expo-camera` dependency with `react-native-camera`?
 
 - to fix rotation image issue
 
-## why add `react-native-unimodules`?
+## Why add `react-native-unimodules`?
 
 - This dependency allows us to use most of the expo dependency if require.
+
+## Troubleshooting for interacting with the iOS Simulator
+
+- First check wether cocoapod is installed in your pc or not with below command:
+
+```bash
+pod --version
+```
+
+- If it dosn't show any verion, install it by below command:
+
+```bash
+brew install cocoapods
+```
+
+- If Cocoapod is already installed in your PC then try below steps to install pod:
+1. Delete "Podfile.lock" file at "/ios/Podfile.lock"
+2. Install pod
+
+```bash
+- cd ios
+- pod install
+- cd ..
+- npx react-native run-ios
+```
+
+- `npx react-native run-ios` this command will launch iPhone 11 simulator by default, if this simulator is not available then, try below command to check available simulator:
+
+```bash
+- xcrun simctl list devices
+```
+
+- Select any available device and use with below commad:
+
+```bash
+- npx react-native run-ios --simulator="YOUR SIMULATOR NAME"
+```
