@@ -13,7 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2BA6B8482706884200E9C9E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BA6B8472706884200E9C9E1 /* GoogleService-Info.plist */; };
-		2BE7AAB72717B8AF008D8EA5 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */; };
+		2BE7AAB72717B8AF008D8EA5 /* AppStore.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */; };
 		2BE7AAB82717B8AF008D8EA5 /* Develop.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */; };
 		2BE7AABA2717BCF5008D8EA5 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
@@ -33,7 +33,7 @@
 		1B5DEC0246754CE2A9E56EE8 /* iSeaTree-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "iSeaTree-Bridging-Header.h"; path = "iSeaTree/iSeaTree-Bridging-Header.h"; sourceTree = "<group>"; };
 		2848C122C77E8D2AB2838BCC /* Pods-iSeaTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iSeaTree.debug.xcconfig"; path = "Target Support Files/Pods-iSeaTree/Pods-iSeaTree.debug.xcconfig"; sourceTree = "<group>"; };
 		2BA6B8472706884200E9C9E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "iSeaTree/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppStore.xcconfig; sourceTree = "<group>"; };
 		2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Develop.xcconfig; sourceTree = "<group>"; };
 		2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		2BE7AAD52717C604008D8EA5 /* iSeaTree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iSeaTree.entitlements; path = iSeaTree/iSeaTree.entitlements; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 			children = (
 				2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */,
 				2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */,
-				2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */,
+				2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */,
 			);
 			name = "Build Configurations";
 			path = "iSeaTree/Build Configurations";
@@ -209,7 +209,7 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				2BE7AAB82717B8AF008D8EA5 /* Develop.xcconfig in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				2BE7AAB72717B8AF008D8EA5 /* Release.xcconfig in Resources */,
+				2BE7AAB72717B8AF008D8EA5 /* AppStore.xcconfig in Resources */,
 				2BE7AABA2717BCF5008D8EA5 /* Debug.xcconfig in Resources */,
 				2BA6B8482706884200E9C9E1 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
@@ -374,11 +374,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = iSeaTree/iseatree.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = iSeaTree/iSeaTree.entitlements;
+				CODE_SIGN_IDENTITY = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -409,15 +409,15 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = iSeaTree/iseatree.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_ENTITLEMENTS = iSeaTree/iSeaTree.entitlements;
+				CODE_SIGN_IDENTITY = "$(inherited)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = "$(inherited)";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = iSeaTree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -440,9 +440,9 @@
 			};
 			name = Release;
 		};
-		83CBBA201A601CBA00E9B192 /* Debug */ = {
+		2B4288CF2717CF28005E5A29 /* App Store */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -469,7 +469,98 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = iSeaTree/iseatree.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iSeaTree/iSeaTree.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
+					"$(inherited)",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "App Store";
+		};
+		2B4288D02717CF28005E5A29 /* App Store */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = iSeaTree/iSeaTree.entitlements;
+				CODE_SIGN_IDENTITY = "$(inherited)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "$(inherited)";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
+				INFOPLIST_FILE = iSeaTree/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.treemama.iseatree;
+				PRODUCT_NAME = iseatree;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "iSeaTree/iSeaTree-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = "App Store";
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = iSeaTree/iSeaTree.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -507,7 +598,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -534,7 +625,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = iSeaTree/iseatree.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iSeaTree/iSeaTree.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -571,6 +662,7 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				2B4288D02717CF28005E5A29 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -580,6 +672,7 @@
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				2B4288CF2717CF28005E5A29 /* App Store */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
