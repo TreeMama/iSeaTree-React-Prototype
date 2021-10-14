@@ -11,3 +11,4 @@
 #include "../../Pods/Target Support Files/Pods-iSeaTree/Pods-iSeaTree.appstore.xcconfig"
 PRODUCT_BUNDLE_IDENTIFIER = com.treemama.iseatree;
 DEVELOPMENT_TEAM = TW8SJXYFP5;
+PRODUCT_DISPLAY_NAME = iSeaTree;
