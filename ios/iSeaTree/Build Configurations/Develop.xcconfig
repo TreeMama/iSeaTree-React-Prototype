@@ -10,4 +10,4 @@
 
 #include "../../Pods/Target Support Files/Pods-iSeaTree/Pods-iSeaTree.release.xcconfig"
 PRODUCT_BUNDLE_IDENTIFIER = com.treemama.iseatree-local;
-PRODUCT_DISPLAY_NAME = "α iSeaTree";
+PRODUCT_DISPLAY_NAME = α iSeaTree;
