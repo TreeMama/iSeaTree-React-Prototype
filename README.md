@@ -24,10 +24,10 @@ All feature and bugfix work is done in feature branches, branching from `develop
 Code reviews are not required, but pull requests _are_ required. You can approve your own PR, or you can tag another team
 member to review it if you like.
 
- The `master` branch is where all releases are built from. __You will not touch the `master` branch at all unless you are deploying a release
+ The `release` branch is where all releases are built from. __You will not touch the `release` branch at all unless you are deploying a release
 to an app store.__ Update the version number and build number directly
-in the `master` branch, just before release. Do not commit directly to `master`, except for edits of `app.json`
-that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `master` from `develop`.
+in the `release` branch, just before release. Do not commit directly to `release`, except for edits of `app.json`
+that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `release` from `develop`.
 
 ### To add a feature or fix a bug:
 * `git checkout develop`
