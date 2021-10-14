@@ -91,8 +91,7 @@ Development `envVariables.ts` from an iSeaTree project administrator.
 ```
 will check to see whether you have `envVariables.ts` in the right
 place, and whether it is the current production or development version
-or something else. A `prestart` script also verifies this file before Expo
-launches your development build.
+or something else. 
 
 For project administrators: when you update `envVariables.ts`
 * If it's the production version, execute the command `shasum -a 512 envVariables.ts > checksum-prod.txt` and commit `checksum-prod.txt` to the repository.
@@ -100,7 +99,7 @@ For project administrators: when you update `envVariables.ts`
 
 for google map functionality we have to add "google api key" in the below file
 * AndroidManifest.xml
-    - Path: app/src/main/AndroidManifest.xml
+    - Path: `app/src/main/AndroidManifest.xml`
     - Desc: Please add google api key in "com.google.android.geo.API_KEY" meta tag.
 
 ### Running
@@ -108,7 +107,6 @@ for google map functionality we have to add "google api key" in the below file
 ```bash
 - ios:
     - cd ios
-    - pod install
     - cd ..
     - npx react-native run-ios
 - android:
