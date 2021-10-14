@@ -32,7 +32,6 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = iSeaTree/main.m; sourceTree = "<group>"; };
 		1B5DEC0246754CE2A9E56EE8 /* iSeaTree-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "iSeaTree-Bridging-Header.h"; path = "iSeaTree/iSeaTree-Bridging-Header.h"; sourceTree = "<group>"; };
 		2848C122C77E8D2AB2838BCC /* Pods-iSeaTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iSeaTree.debug.xcconfig"; path = "Target Support Files/Pods-iSeaTree/Pods-iSeaTree.debug.xcconfig"; sourceTree = "<group>"; };
-		2B4288D12717D98D005E5A29 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = iSeaTree/Images.xcassets; sourceTree = "<group>"; };
 		2BA6B8472706884200E9C9E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "iSeaTree/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2BE7AAB52717B8AF008D8EA5 /* AppStore.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = AppStore.xcconfig; sourceTree = "<group>"; };
 		2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Develop.xcconfig; sourceTree = "<group>"; };
@@ -74,7 +73,6 @@
 				692111026AD345D78B1F35A5 /* noop-file.swift */,
 				2BE7AAD52717C604008D8EA5 /* iSeaTree.entitlements */,
 				1B5DEC0246754CE2A9E56EE8 /* iSeaTree-Bridging-Header.h */,
-				2B4288D12717D98D005E5A29 /* Images.xcassets */,
 			);
 			name = iSeaTree;
 			sourceTree = "<group>";
