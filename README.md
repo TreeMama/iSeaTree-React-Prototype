@@ -29,8 +29,8 @@ descriptively, so that another human can look at the branch name and understand 
 
  The `release` branch is where all releases are built from. __You will not touch the `release` branch at all unless you are deploying a release
 to an app store.__ Update the version number and build number directly
-in the `release` branch, just before release. Do not commit directly to `release`, except for edits of `app.json`
-that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `release` from `develop`.
+in the `release` branch, just before release. Do not commit directly to `release`, except for edits of of the files that control the version number and build number.
+Merge all other changes to `release` from `develop`.
 
 ### To add a feature or fix a bug:
 * `git checkout develop`
@@ -48,6 +48,13 @@ that update `version`, `versionCode`, and `bundleNumber`. Merge all other change
     - Merge your pull request, or tag someone for a code review.
     - After your pull request has been merged, you can delete your
     feature branch, both on the Github server and in your local repository.
+
+### To update the version or build number:
+Please keep these in sync for Android and iOS.
+
+Android version and build number are controlled by `android/app/release/output-metadata.json`.
+
+iOS version and build number are controlled by `ios/iSeaTree/Info.plist`. `Info.plist` is an XML file. You can edit it with a text editor, no need for Xcode.
 
 ## Development toolkit
 

@@ -13,3 +13,23 @@ Use the `iSeaTree` scheme for building to device or simulator, and uses a differ
 
 This section is for people who aren't usually iOS developers, and want to stick to JavaScript work, without tripping over the Apple details.
 
+Bundle ID
+Signing certificate
+Certificate trust
+Team name
+
+Bundle identifier (`com.treemama.iSeaTree`) determines identity.
+
+Can't use a bundle identifier that's been registered with Apple unless you own it.
+
+We use a modified bundle identifier to sign for personal devices.
+
+Where to run?
+* iOS Simulator
+* signed with registered credentials, on developer device
+* signed with locally created credentials
+* signed and verified by apple (testflight, app store)
+
+Can't use camera on iOS Simulator, so we have to sign the build somehow.
+
+
