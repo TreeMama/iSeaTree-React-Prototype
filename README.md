@@ -129,6 +129,8 @@ This project has configured [Eslint](https://eslint.org/) with recommended types
 
 ## Interacting with the iOS Simulator
 
+See also  [Building for iOS](documentation/Apple_Local_Dev.md)
+
 when you run `npx react-native run-ios` it launchs the default iOS simulator on your Mac.
 
 To obtain a standalone native build, we have an iOS folder that contain native code for our application.
