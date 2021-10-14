@@ -13,6 +13,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2BA6B8482706884200E9C9E1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BA6B8472706884200E9C9E1 /* GoogleService-Info.plist */; };
+		2BE7AAB72717B8AF008D8EA5 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */; };
+		2BE7AAB82717B8AF008D8EA5 /* Develop.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */; };
+		2BE7AABA2717BCF5008D8EA5 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		8B1B2F708DF449A2B2F85594 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692111026AD345D78B1F35A5 /* noop-file.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -30,6 +33,10 @@
 		1B5DEC0246754CE2A9E56EE8 /* iSeaTree-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "iSeaTree-Bridging-Header.h"; path = "iSeaTree/iSeaTree-Bridging-Header.h"; sourceTree = "<group>"; };
 		2848C122C77E8D2AB2838BCC /* Pods-iSeaTree.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iSeaTree.debug.xcconfig"; path = "Target Support Files/Pods-iSeaTree/Pods-iSeaTree.debug.xcconfig"; sourceTree = "<group>"; };
 		2BA6B8472706884200E9C9E1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "iSeaTree/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Develop.xcconfig; sourceTree = "<group>"; };
+		2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		2BE7AAD52717C604008D8EA5 /* iSeaTree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = iSeaTree.entitlements; path = iSeaTree/iSeaTree.entitlements; sourceTree = "<group>"; };
 		692111026AD345D78B1F35A5 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "iSeaTree/noop-file.swift"; sourceTree = "<group>"; };
 		8AE8AFD0FD8FB9A37EB740BA /* libPods-iSeaTree.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iSeaTree.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = iSeaTree/SplashScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				BB2F792B24A3F905000567C9 /* Supporting */,
+				2BE7AAB42717B8AF008D8EA5 /* Build Configurations */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -62,9 +70,21 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
 				692111026AD345D78B1F35A5 /* noop-file.swift */,
+				2BE7AAD52717C604008D8EA5 /* iSeaTree.entitlements */,
 				1B5DEC0246754CE2A9E56EE8 /* iSeaTree-Bridging-Header.h */,
 			);
 			name = iSeaTree;
+			sourceTree = "<group>";
+		};
+		2BE7AAB42717B8AF008D8EA5 /* Build Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */,
+				2BE7AAB62717B8AF008D8EA5 /* Develop.xcconfig */,
+				2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */,
+			);
+			name = "Build Configurations";
+			path = "iSeaTree/Build Configurations";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -187,7 +207,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
+				2BE7AAB82717B8AF008D8EA5 /* Develop.xcconfig in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2BE7AAB72717B8AF008D8EA5 /* Release.xcconfig in Resources */,
+				2BE7AABA2717BCF5008D8EA5 /* Debug.xcconfig in Resources */,
 				2BA6B8482706884200E9C9E1 /* GoogleService-Info.plist in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
@@ -347,7 +370,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2848C122C77E8D2AB2838BCC /* Pods-iSeaTree.debug.xcconfig */;
+			baseConfigurationReference = 2BE7AAB92717BCF5008D8EA5 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -386,7 +409,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 032D5841ECF1D0C51BB9F3CA /* Pods-iSeaTree.release.xcconfig */;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -419,6 +442,7 @@
 		};
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -483,6 +507,7 @@
 		};
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2BE7AAB52717B8AF008D8EA5 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
