@@ -5,12 +5,12 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
 * [Git repository branching guidelines for contributors](#Git-repository-branching-guidelines-for-contributors)
 * [Setting up your development environment](#Development) 
 * [Interacting with the iOS Simulator](#Interacting-with-the-iOS-Simulator)
+* [Building for iOS](documentation/Apple_Local_Dev.md)
 * [App store release instructions](documentation/Release_Instructions.md)
 * [iSeaTree community forum](https://treemama.org/forum/)
 * [iSeaTree data dashboard](https://treemama.org/365-days-of-trees/dashboard/)
 * One-time setup items:
     - [Firebase](documentation/Firebase_Setup.md)
-    - [Apple App Store](documentation/Apple_App_Store_Setup.md)
 
 ## Git repository branching guidelines for contributors
 
@@ -23,6 +23,9 @@ feature branches instead.
 All feature and bugfix work is done in feature branches, branching from `develop`, and named with the pattern `feature/<short descriptive name>`. 
 Code reviews are not required, but pull requests _are_ required. You can approve your own PR, or you can tag another team
 member to review it if you like.
+
+Use descriptive names for feature branches. You can use the `#234` syntax to link to a particular issue or pull request. But please name your branches 
+descriptively, so that another human can look at the branch name and understand what it's about.
 
  The `release` branch is where all releases are built from. __You will not touch the `release` branch at all unless you are deploying a release
 to an app store.__ Update the version number and build number directly
