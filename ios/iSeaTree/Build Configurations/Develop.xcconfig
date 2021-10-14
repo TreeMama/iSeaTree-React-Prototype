@@ -1,0 +1,13 @@
+//
+//  Develop.xcconfig
+//  iSeaTree
+//
+//  Created by Hal Mueller on 10/12/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "../../Pods/Target Support Files/Pods-iSeaTree/Pods-iSeaTree.release.xcconfig"
+PRODUCT_BUNDLE_IDENTIFIER = com.treemama.iseatree-local;
+PRODUCT_DISPLAY_NAME = α iSeaTree;

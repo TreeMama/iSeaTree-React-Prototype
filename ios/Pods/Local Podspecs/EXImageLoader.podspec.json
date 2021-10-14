@@ -4,7 +4,9 @@
   "summary": "Image loader",
   "description": "Image loader",
   "license": "MIT",
-  "authors": "650 Industries, Inc.",
+  "authors": {
+    "name": "650 Industries, Inc."
+  },
   "homepage": "https://github.com/expo/expo/tree/master/packages/expo-image-loader",
   "platforms": {
     "ios": "10.0"
