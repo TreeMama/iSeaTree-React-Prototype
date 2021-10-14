@@ -91,25 +91,21 @@ Development `envVariables.ts` from an iSeaTree project administrator.
 ```
 will check to see whether you have `envVariables.ts` in the right
 place, and whether it is the current production or development version
-or something else. A `prestart` script also verifies this file before Expo
-launches your development build.
+or something else. 
 
 For project administrators: when you update `envVariables.ts`
 * If it's the production version, execute the command `shasum -a 512 envVariables.ts > checksum-prod.txt` and commit `checksum-prod.txt` to the repository.
 * If it's the development version, execute the command `shasum -a 512 envVariables.ts > checksum-dev.txt` and commit `checksum-dev.txt` to the repository.
 
-for google map functionality we have to add "google api key" in the below file
+For Google map functionality we have to add "google api key" in the below file
 * AndroidManifest.xml
-    - Path: app/src/main/AndroidManifest.xml
-    - Desc: Please add google api key in "com.google.android.geo.API_KEY" meta tag.
+    - Path: `app/src/main/AndroidManifest.xml`
+    - Desc: Please add Google API key in `com.google.android.geo.API_KEY` meta tag.
 
 ### Running
 
 ```bash
 - ios:
-    - cd ios
-    - pod install
-    - cd ..
     - npx react-native run-ios
 - android:
     - npx react-native run-android
@@ -123,35 +119,43 @@ This project has configured [Eslint](https://eslint.org/) with recommended types
 
 ## Interacting with the iOS Simulator
 
-when you run `npx react-native run-ios` it launchs the default simulator of you PC.
+when you run `npx react-native run-ios` it launchs the default iOS simulator on your Mac.
 
-To obtain a standalone native build, we have iOS folder that contain native code for our application,
-by open it on Xcode, we can make archive of the application and directly upload it to appStore. 
-we can also change version and build number from Xcode 
+To obtain a standalone native build, we have an iOS folder that contain native code for our application.
+By opening it in Xcode, we can make an archive of the application for upload to Apple's iOS App Store.  
+We can also make locally-signed builds that you can run on your own iPhone or iPad.
+
+Do not change version or build number yourself. Follow the procedures documented in the [App store release instructions](documentation/Release_Instructions.md).
+Version and build numbers *_must_* be changed simultaneoiusly for the Android and iOS versions. The version update is a single commit,
+performed in the `release` branch, and is the _only_ operation in that commit.
 
 ## Interacting with the Android Simulator
 
 when you run `npx react-native run-android` it run the application on all devices which enabled debug mode.
 
 To obtain a standalone native build, we have android folder that contain native code for our application,
-by open it on Android Studio, we can make signed apk. 
-we can also change versionCode or versionName at android/app/build.gradle
+by open it on Android Studio, we can make signed APKx. 
+Version and build numbers the `versionCode` and `versionName` in `android/app/build.gradle`.
 
-# dependency Changes for Migrate Project:
+Do not change version or build number yourself. Follow the procedures documented in the [App store release instructions](documentation/Release_Instructions.md).
+Version and build numbers *_must_* be changed simultaneoiusly for the Android and iOS versions. The version update is a single commit,
+performed in the `release` branch, and is the _only_ operation in that commit.
+
+# Dependency Changes for Migrate Project:
 
 - replace `firebase` dependency with `@react-native-firebase`
 - replace `expo-camera` dependency with `react-native-camera`
 - add `react-native-unimodules`
 
-## why change `firebase` dependency with `@react-native-firebase`?
+## Why change `firebase` dependency with `@react-native-firebase`?
 
 - well as per the new flow `firebase` is not recognised by the react-native
 - and it's make project future proof
 
-## why change `expo-camera` dependency with `react-native-camera`?
+## Why change `expo-camera` dependency with `react-native-camera`?
 
 - to fix rotation image issue
 
-## why add `react-native-unimodules`?
+## Why add `react-native-unimodules`?
 
 - This dependency allows us to use most of the expo dependency if require.
