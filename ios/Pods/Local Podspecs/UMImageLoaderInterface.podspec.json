@@ -4,7 +4,9 @@
   "summary": "Interface for ImageLoader",
   "description": "Interface for ImageLoader",
   "license": "MIT",
-  "authors": "650 Industries, Inc.",
+  "authors": {
+    "name": "650 Industries, Inc."
+  },
   "homepage": "https://github.com/expo/expo/tree/master/packages/unimodules-image-loader-interface",
   "platforms": {
     "ios": "10.0"
