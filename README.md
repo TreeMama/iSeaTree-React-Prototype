@@ -5,12 +5,12 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
 * [Git repository branching guidelines for contributors](#Git-repository-branching-guidelines-for-contributors)
 * [Setting up your development environment](#Development) 
 * [Interacting with the iOS Simulator](#Interacting-with-the-iOS-Simulator)
+* [Building for iOS](documentation/Apple_Local_Dev.md)
 * [App store release instructions](documentation/Release_Instructions.md)
 * [iSeaTree community forum](https://treemama.org/forum/)
 * [iSeaTree data dashboard](https://treemama.org/365-days-of-trees/dashboard/)
 * One-time setup items:
     - [Firebase](documentation/Firebase_Setup.md)
-    - [Apple App Store](documentation/Apple_App_Store_Setup.md)
 
 ## Git repository branching guidelines for contributors
 
@@ -24,10 +24,13 @@ All feature and bugfix work is done in feature branches, branching from `develop
 Code reviews are not required, but pull requests _are_ required. You can approve your own PR, or you can tag another team
 member to review it if you like.
 
- The `master` branch is where all releases are built from. __You will not touch the `master` branch at all unless you are deploying a release
+Use descriptive names for feature branches. You can use the `#234` syntax to link to a particular issue or pull request. But please name your branches 
+descriptively, so that another human can look at the branch name and understand what it's about.
+
+ The `release` branch is where all releases are built from. __You will not touch the `release` branch at all unless you are deploying a release
 to an app store.__ Update the version number and build number directly
-in the `master` branch, just before release. Do not commit directly to `master`, except for edits of `app.json`
-that update `version`, `versionCode`, and `bundleNumber`. Merge all other changes to `master` from `develop`.
+in the `release` branch, just before release. Do not commit directly to `release`, except for edits of of the files that control the version number and build number.
+Merge all other changes to `release` from `develop`.
 
 ### To add a feature or fix a bug:
 * `git checkout develop`
@@ -45,6 +48,13 @@ that update `version`, `versionCode`, and `bundleNumber`. Merge all other change
     - Merge your pull request, or tag someone for a code review.
     - After your pull request has been merged, you can delete your
     feature branch, both on the Github server and in your local repository.
+
+### To update the version or build number:
+Please keep these in sync for Android and iOS.
+
+Android version and build number are controlled by `android/app/release/output-metadata.json`.
+
+iOS version and build number are controlled by `ios/iSeaTree/Info.plist`. `Info.plist` is an XML file. You can edit it with a text editor, no need for Xcode.
 
 ## Development toolkit
 
