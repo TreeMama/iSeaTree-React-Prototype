@@ -55,11 +55,11 @@ Here are the steps you need to follow to let your iPhone trust the software you 
 ![](img/personalAccount.png)
 ![](img/settingsCertificates.png)
 ![](img/signingEnabled.png)
+![](img/untrustedDeveloper.png)
 ![]i(mg/trustThemOrNote.png)
 ![](img/trustedDeveloper.png)
-![](img/twoVersions.jpeg)
-![](img/untrustedDeveloper.png)
 ![](img/wrongTeamName.png)
+![](img/twoVersions.jpeg)
 
 Bundle ID
 Signing certificate
