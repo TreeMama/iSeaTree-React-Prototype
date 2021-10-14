@@ -47,6 +47,7 @@ Here are the steps you need to follow to let your iPhone trust the software you 
 * When the popup challenge appears, allow Xcode to read your Keycahin ("Allow Always"). ![keychain permission](img/keychainPermission.png)
 * Choose the `iSeaTree` scheme. Connect your iPhone to your Mac. Select your iPhone as the build device. Build and run the app. The building will take several minutes. Launching the app on your phone will fail the first time.
 * Open the Settings app on your iPhone. Choose General, then VPN & Device Management. Choose to trust the certificate (that you generated), to allow apps that you've built to run on your phone.
+* Build the iSeaTree scheme, which uses the bundle ID of  `com.treemama.iSeaTree-local`.
 
 ![](img/addAccount.png)
 ![](img/devicesAndSimulatorsMenu.png)
@@ -67,16 +68,14 @@ Certificate trust
 Team name
 
 
-Can't use a bundle identifier that's been registered with Apple unless you own it.
+Can't use camera on iOS Simulator, so we have to sign the build somehow if we want to test camera components.
 
-We use a modified bundle identifier to sign for personal devices.
+Can't use a bundle identifier that's been registered with Apple unless you own it. So we use a modified bundle identifier to sign for personal devices.
 
 Where to run?
-* iOS Simulator
-* signed with registered credentials, on developer device
-* signed with locally created credentials
-* signed and verified by apple (testflight, app store)
-
-Can't use camera on iOS Simulator, so we have to sign the build somehow.
+* iOS Simulator (no signing needed)
+* signed with registered credentials, on developer device (paid account required)
+* signed with locally created credentials (unpaid account required)
+* signed and verified by Apple (testflight, app store) (paid account, registered app identity, and Apple review required).
 
 
