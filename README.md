@@ -26,7 +26,7 @@ All feature and bugfix work is done in feature branches, branching from `develop
 Code reviews are not required, but pull requests _are_ required. You can approve your own PR, or you can tag another team
 member to review it if you like.
 
-Use descriptive names for feature branches. You can use the `#234` syntax to link to a particular issue or pull request. But please name your branches 
+Use descriptive names for feature branches. You can use the `#234` syntax in the comments to link to a particular issue or pull request. But please name your branches 
 descriptively, so that another human can look at the branch name and understand what it's about.
 
  The `release` branch is where all releases are built from. __You will not touch the `release` branch at all unless you are deploying a release
@@ -66,10 +66,12 @@ react-native-cli](https://reactnative.dev/docs/environment-setup). react-native-
 is contains the actual React Native framework code and is installed locally into your project,
 react-native-cli project is said to be a pure React Native app, since none of the native code is hidden away from the developer.
 a development tool that runs interpreted JavaScript on your mobile device,
-in debug mode. react-native-cli project has native code for android and iOS,
-so, you can perform any release related operation for android and iOS, by using androidSudio and Xcode relatively.
+in debug mode. react-native-cli project has native code for Android and iOS,
+so, you can perform any release related operation for Android and iOS, by using Android Studio and Xcode respectively.
 
-You need [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) or [Android Studio](https://developer.android.com/studio) to work on this project. It doesn't matter which one you use. You'll be working on the JavaScript code in whatever text editor you like (many of us use [VSCode](https://code.visualstudio.com)). The IDE is used only to wrap the JavaScript and package it for Android or iOS devices.
+You need [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) or [Android Studio](https://developer.android.com/studio) to work on this 
+project. It doesn't matter which one you use. You'll be working on the JavaScript code in whatever text editor you like (many of us 
+use [VSCode](https://code.visualstudio.com)). The IDE is used only to wrap the JavaScript and package it for Android or iOS devices.
 
 ### Tookit prerequisites
 
@@ -78,6 +80,8 @@ You need [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) or [Andr
 - [react-native-cli](https://www.npmjs.com/package/react-native-cli). Install react-native-cli with `npm install –g react-native-cli`, or perhaps `sudo npm install –g react-native-cli`.
 
 This is a one-time setup for each computer you'll do Yarn/react-native-cli development on.
+
+Although we no longer use the Expo platform, there are still some Expo-prefixed node modules in use. This is not an oversight.
 
 ### Installation
 
@@ -114,40 +118,55 @@ For Google map functionality we have to add "google api key" in the below file
     - Path: `app/src/main/AndroidManifest.xml`
     - Desc: Please add Google API key in `com.google.android.geo.API_KEY` meta tag.
 
-### Running
+### Running in a simulator
 
-```bash
+In your terminal window, change directories to the project root. Then
+
 - iOS:
-    - cd ios
-    - npx react-native run-ios
-- android:
-    - npx react-native run-android
+```
+    open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app
+    npx react-native run-ios
+```
+- Android:
+```
+    npx react-native run-android
 ```
 
-This command launches a metroServer on your computer and loads the source code for the project.
+This command launches a `metroServer` on your computer and loads the JavaScript source code for the project.
 
-## Linting
+Possible failure modess:
+- The iOS Simulator must already be running and have finished booting. If not, you'll see
+```
+error Failed to launch the app on simulator, An error was encountered processing the command (domain=com.apple.CoreSimulator.SimError, code=405):
+```
+To fix it, launch the iOS Simulator, choose `File -> New Simulator` from the menu bar, wait for it to finish booting, and then run the `npx` command again.
+- If your simulator shows a red box at the top with lots of console spew, the most likely cause is that communication with the `metroServer` has failed. Kill the `metroServer`
+and run the `npx` command again.
 
-This project has configured [Eslint](https://eslint.org/) with recommended typescript and react rules.
 
-## Interacting with the iOS Simulator
+### Running on a real mobile device
 
-See also  [Building for iOS](documentation/Apple_Local_Dev.md)
+You'll want to use a real mobile device if you're doing anything with the camera.
+- [Android](documentation/Android_Local_Dev.md)
+- [iOS](documentation/Apple_Local_Dev.md) You'll be using Xcode. You can also use Xcode to run the project on the Simulator, if you prefer that instead of the command line.
 
-When you run `npx react-native run-ios` it launches the default iOS simulator on your Mac.
-
-To obtain a standalone native build, we have an iOS folder that contain native code for our application.
-By opening it in Xcode, we can make an archive of the application for upload to Apple's iOS App Store.  
-We can also make locally-signed builds that you can run on your own iPhone or iPad.
-
-Do not change version or build number yourself. Follow the procedures documented in the [App store release instructions](documentation/Release_Instructions.md).
-Version and build numbers *_must_* be changed simultaneoiusly for the Android and iOS versions. The version update must be a single commit,
-performed in the `release` branch, and is the _only_ operation in that commit. 
+To create a standalone native build that we can submit to the iOS App Store, we need to create a cryptographically signed `.xcarchive` file using Xcode. That procedure
+is described in the [iOS](documentation/Apple_Local_Dev.md) document too.
 
 ## Interacting with the Android Simulator
 
 when you run `npx react-native run-android` it run the application on all devices which enabled debug mode.
 
-To obtain a standalone native build, we have android folder that contain native code for our application,
+To obtain a standalone native build, we have `android` folder that contain native code for our application,
 by open it on Android Studio, we can make signed APK. 
+
+## Linting
+
+This project has configured [Eslint](https://eslint.org/) with recommended typescript and react rules.
+
+## Production builds 
+
+Do not change version or build number yourself. Follow the procedures documented in the [App store release instructions](documentation/Release_Instructions.md).
+Version and build numbers *_must_* be changed simultaneously for the Android and iOS versions. The version update must be a single commit,
+performed in the `release` branch, and is the _only_ operation in that commit. 
 
