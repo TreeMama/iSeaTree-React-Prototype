@@ -12,7 +12,7 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
 * One-time setup items:
     - [Firebase](documentation/Firebase_Setup.md)
     - [Apple App Store](documentation/Apple_App_Store_Setup.md)
-    - [Migration From Expo](documentation/ExpoEjection.md)
+    - [Migration From Expo](documentation/Expo_Ejection.md)
 
 ## Git repository branching guidelines for contributors
 
