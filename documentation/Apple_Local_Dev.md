@@ -44,8 +44,9 @@ the iPhone to trust that certificate. A certificate is tied to a development tea
 Here are the steps you need to follow to let your iPhone trust the software you will build.
 
 * Launch Xcode, and open (command-O) `ios/iSeaTree.xcworkspace`. Make sure you open the `.xcworkspace` file, not the `.xcodeproj` file.
-* Register your Apple ID with Xcode. Open Xcode preferences (command-,), click Accounts, and add your Apple ID. ![add account](img/addAccount.png)
-* Select the iSeaTree target in the Xcode project browser. Change the team name to match your own name (listed in the popup as Individual Developer). ![](img/personalAccount.png)
+* Register your Apple ID with Xcode. Open Xcode preferences (command-,), click Accounts, and add your Apple ID. ![add account](img/addAccount.png)  ![](img/personalAccount.png)
+* Select the iSeaTree target in the Xcode project browser. Change the team name in the *Signing (Debug and Release)* section to match your own name (listed in the popup as Individual Developer).![](img/unknownTeamName.png) ![](img/teamPicker.png)
+* You have selected your personal account for signing. ![](img/correctTeamName.png)
 * Choose the `iSeaTree` scheme. Connect your iPhone to your Mac. Select your iPhone as the build device. Build and run the app. The iSeaTree scheme uses  bundle ID `com.treemama.iSeaTree-local`.
 ![](img/schemesButton.png)
 ![](img/schemeSelection.png)
@@ -58,6 +59,9 @@ Here are the steps you need to follow to let your iPhone trust the software you 
 
 ### Images
 
+![](img/correctTeamName.png)
+![](img/teamPicker.png)
+![](img/unknownTeamName.png)
 ![](img/addAccount.png)
 ![](img/devicesAndSimulatorsMenu.png)
 ![]i(mg/keychainPermission.png)
