@@ -16,6 +16,7 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
   - [Interacting with the Android Simulator](#interacting-with-the-android-simulator)
   - [Linting](#linting)
   - [Production builds](#production-builds)
+  - [General architecture/history/backstory](#general-architecturehistorybackstory)
 
 
 ## What’s the project about?
@@ -184,3 +185,6 @@ Do not change version or build number yourself. Follow the procedures documented
 Version and build numbers *_must_* be changed simultaneously for the Android and iOS versions. The version update must be a single commit,
 performed in the `release` branch, and is the _only_ operation in that commit. 
 
+## General architecture/history/backstory
+
+Prior to September 2021, the project used [expo-cli](https://docs.expo.dev/workflow/expo-cli/) package. In order to add certain features, including our [AR-tool](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/219) and the Jest [test framework](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/249) we removed expo with the work done in [Issue #299](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/229). This made the project react-native only (and fundamentally changed how we build and test our source code).
