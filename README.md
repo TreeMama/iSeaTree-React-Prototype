@@ -195,7 +195,6 @@ Prior to September 2021, the project used [expo-cli](https://docs.expo.dev/workf
 
 ## Key dependency changes are: # dependency Changes for Migrate Project:
 ​
-
 - replace `firebase` dependency with `@react-native-firebase`
 - replace `expo-camera` dependency with `react-native-camera`
 - add `react-native-unimodules`
@@ -204,14 +203,11 @@ Prior to September 2021, the project used [expo-cli](https://docs.expo.dev/workf
 ​
 - well as per the new flow `firebase` is not recognised by the react-native
 - and it's make project future proof
-​
 
 ## why change `expo-camera` dependency with `react-native-camera`?
 
-​
 - to fix rotation image issue
 ​
-
 ## why add `react-native-unimodules`?
 ​
 - This dependency allows us to use most of the expo dependency if require."
