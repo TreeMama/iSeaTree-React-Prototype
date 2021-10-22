@@ -17,6 +17,10 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
   - [Linting](#linting)
   - [Production builds](#production-builds)
   - [General architecture/history/backstory](#general-architecturehistorybackstory)
+  - [Key dependency changes are: # dependency Changes for Migrate Project:](#key-dependency-changes-are--dependency-changes-for-migrate-project)
+  - [why change `firebase` dependency with `@react-native-firebase`?](#why-change-firebase-dependency-with-react-native-firebase)
+  - [why change `expo-camera` dependency with `react-native-camera`?](#why-change-expo-camera-dependency-with-react-native-camera)
+  - [why add `react-native-unimodules`?](#why-add-react-native-unimodules)
 
 
 ## What’s the project about?
@@ -188,3 +192,26 @@ performed in the `release` branch, and is the _only_ operation in that commit.
 ## General architecture/history/backstory
 
 Prior to September 2021, the project used [expo-cli](https://docs.expo.dev/workflow/expo-cli/) package. In order to add certain features, including our [AR-tool](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/219) and the Jest [test framework](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/249) we removed expo with the work done in [Issue #299](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/229). This made the project react-native only (and fundamentally changed how we build and test our source code).
+
+## Key dependency changes are: # dependency Changes for Migrate Project:
+​
+
+- replace `firebase` dependency with `@react-native-firebase`
+- replace `expo-camera` dependency with `react-native-camera`
+- add `react-native-unimodules`
+​
+## why change `firebase` dependency with `@react-native-firebase`?
+​
+- well as per the new flow `firebase` is not recognised by the react-native
+- and it's make project future proof
+​
+
+## why change `expo-camera` dependency with `react-native-camera`?
+
+​
+- to fix rotation image issue
+​
+
+## why add `react-native-unimodules`?
+​
+- This dependency allows us to use most of the expo dependency if require."
