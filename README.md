@@ -2,17 +2,19 @@
 
 This is the repository for iSeaTree, a mobile app which observers can use to collect data for the iSeaTree project.
 
-* [Git repository branching guidelines for contributors](#git-repository-branching-guidelines-for-contributors)
-* [Setting up your development environment](#development) 
-* [Interacting with the iOS Simulator](#interacting-with-the-ios-simulator)
-* [Building for iOS](documentation/Apple_Local_Dev.md)
-* [App store release instructions](documentation/Release_Instructions.md)
-* [iSeaTree community forum](https://treemama.org/forum/)
-* [iSeaTree data dashboard](https://treemama.org/365-days-of-trees/dashboard/)
-* One-time setup items:
-    - [Firebase](documentation/Firebase_Setup.md)
-    - [Apple App Store](documentation/Apple_App_Store_Setup.md)
-    - [Migration From Expo](documentation/Expo_Ejection.md)
+- [iSeaTree-React-Prototype](#iseatree-react-prototype)
+  - [Git repository branching guidelines for contributors](#git-repository-branching-guidelines-for-contributors)
+    - [To add a feature or fix a bug:](#to-add-a-feature-or-fix-a-bug)
+    - [To update the version or build number:](#to-update-the-version-or-build-number)
+  - [Development toolkit](#development-toolkit)
+    - [Tookit prerequisites](#tookit-prerequisites)
+    - [Installation](#installation)
+    - [Source Code Secrets](#source-code-secrets)
+    - [Running in a simulator](#running-in-a-simulator)
+    - [Running on a real mobile device](#running-on-a-real-mobile-device)
+  - [Interacting with the Android Simulator](#interacting-with-the-android-simulator)
+  - [Linting](#linting)
+  - [Production builds](#production-builds)
 
 ## Git repository branching guidelines for contributors
 
