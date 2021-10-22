@@ -3,6 +3,7 @@
 This is the repository for iSeaTree, a mobile app which observers can use to collect data for the iSeaTree project.
 
 - [iSeaTree-React-Prototype](#iseatree-react-prototype)
+  - [What’s the project about?](#whats-the-project-about)
   - [Git repository branching guidelines for contributors](#git-repository-branching-guidelines-for-contributors)
     - [To add a feature or fix a bug:](#to-add-a-feature-or-fix-a-bug)
     - [To update the version or build number:](#to-update-the-version-or-build-number)
@@ -15,6 +16,15 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
   - [Interacting with the Android Simulator](#interacting-with-the-android-simulator)
   - [Linting](#linting)
   - [Production builds](#production-builds)
+
+
+## What’s the project about?
+
+The iSeaTree project is an open source project for building the react-native iSeaTree app (available in iOS and Android.  Links to our current releases can be found on our [TreeMama.org webpage](https://treemama.org/the-tech-treehouse/iseatree). This project utilizes [the USDA's US Forest Service iTree API](https://www.itreetools.org/) to calculate the individual CO2/Stormwater tree benefits of trees. iSeaTree is an educational tool, and was founded by Treemama.org with the belief that "kids can do more for then environment then just study it - they can participate in conserving it!
+
+[Current Release Page](https://treemama.org/the-tech-treehouse/iseatree/)
+[iSeaTree users / Treemama.org Community Forums](https://treemama.org/forum/)
+[iSeaTree Dashboard](https://treemama.org/tree-census/dashboard/)
 
 ## Git repository branching guidelines for contributors
 
