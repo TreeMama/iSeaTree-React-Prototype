@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { xml2js, xml2json } from 'xml-js'
-import { Modal, View, ScrollView, StyleSheet, AppState } from 'react-native'
+import { Modal, View, ScrollView, StyleSheet, AppState, ActivityIndicator } from 'react-native'
 import { LocationContext } from '../../LocationContext'
+import { useTheme } from 'react-native-paper'
 
 import { Text, Headline, Button, Divider } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
@@ -52,6 +53,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: -10,
   },
+  modalBackground: {
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    backgroundColor: '#00000040'
+  },
+  activityIndicatorWrapper: {
+    backgroundColor: '#FFFFFF',
+    height: 100,
+    width: 100,
+    borderRadius: 10,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  }
 })
 
 async function setItem(key: string, stringValue: string, unit: string) {
@@ -71,6 +88,9 @@ async function setItem(key: string, stringValue: string, unit: string) {
 
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
+  const [isCalculatorloader, setIsCalculatorloader] = React.useState<boolean>(false)
+  const theme = useTheme()
+
   const [benefits, setBenefits] = React.useState<OutputInformation>()
   const [benefitsError, setBenefitsError] = React.useState('')
   const [, setFormattedResponse] = React.useState('')
@@ -101,6 +121,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
       }
 
       if (canCalculateBenefits) {
+        setIsCalculatorloader(true);
         const url =
           `${CONFIG.API_TREE_BENEFIT}?` +
           `key=${CONFIG.ITREE_KEY}&` +
@@ -257,6 +278,8 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
               setBenefits(root.Result.OutputInformation)
             }
+            setIsCalculatorloader(false);
+
             setIsModalVisible(true)
             setFormattedResponse(formattedResponse)
           }
@@ -347,6 +370,21 @@ export function TreeBenefits(props: TreeBenefitsProps) {
       >
         Calculate Tree Benefits
       </Button>
+
+      <Modal
+        transparent={true}
+        animationType={'none'}
+        visible={isCalculatorloader}
+        onRequestClose={() => { console.log('close modal') }}>
+        <View style={styles.modalBackground}>
+          <View style={styles.activityIndicatorWrapper}>
+            <ActivityIndicator
+              color={theme.colors.primary}
+              size="large"
+              animating={isCalculatorloader} />
+          </View>
+        </View>
+      </Modal>
 
       {!!speciesData && (benefits || benefitsError.length !== 0) && (
         <Modal
