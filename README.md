@@ -5,8 +5,8 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
 - [iSeaTree-React-Prototype](#iseatree-react-prototype)
   - [What’s the project about?](#whats-the-project-about)
   - [Git repository branching guidelines for contributors](#git-repository-branching-guidelines-for-contributors)
-    - [To add a feature or fix a bug:](#to-add-a-feature-or-fix-a-bug)
-    - [To update the version or build number:](#to-update-the-version-or-build-number)
+  - [To add a feature or fix a bug:](#to-add-a-feature-or-fix-a-bug)
+  - [To update the version or build number:](#to-update-the-version-or-build-number)
   - [Development toolkit](#development-toolkit)
     - [Tookit prerequisites](#tookit-prerequisites)
     - [Installation](#installation)
@@ -17,10 +17,10 @@ This is the repository for iSeaTree, a mobile app which observers can use to col
   - [Linting](#linting)
   - [Production builds](#production-builds)
   - [General architecture/history/backstory](#general-architecturehistorybackstory)
-  - [Key dependency changes are: # dependency Changes for Migrate Project:](#key-dependency-changes-are--dependency-changes-for-migrate-project)
-  - [why change `firebase` dependency with `@react-native-firebase`?](#why-change-firebase-dependency-with-react-native-firebase)
-  - [why change `expo-camera` dependency with `react-native-camera`?](#why-change-expo-camera-dependency-with-react-native-camera)
-  - [why add `react-native-unimodules`?](#why-add-react-native-unimodules)
+    - [Key dependency changes](#key-dependency-changes)
+    - [why change `firebase` dependency with `@react-native-firebase`?](#why-change-firebase-dependency-with-react-native-firebase)
+    - [why change `expo-camera` dependency with `react-native-camera`?](#why-change-expo-camera-dependency-with-react-native-camera)
+    - [why add `react-native-unimodules`?](#why-add-react-native-unimodules)
 
 
 ## What’s the project about?
@@ -53,7 +53,7 @@ to an app store.__ Update the version number and build number directly
 in the `release` branch, just before release. Do not commit directly to `release`, except for edits of of the files that control the version number and build number.
 Merge all other changes to `release` from `develop`.
 
-### To add a feature or fix a bug:
+## To add a feature or fix a bug:
 * `git checkout develop`
 * `git pull` (to make sure you're starting with the newest code).
 * `git checkout -b feature/frobishizer-bug` (just an example, we don't have a frobishizer in this project...yet).
@@ -70,7 +70,7 @@ Merge all other changes to `release` from `develop`.
     - After your pull request has been merged, you can delete your
     feature branch, both on the Github server and in your local repository.
 
-### To update the version or build number:
+## To update the version or build number:
 Please keep these in sync for Android and iOS.
 
 Android version and build number are controlled by `android/app/release/output-metadata.json`.
@@ -193,21 +193,22 @@ performed in the `release` branch, and is the _only_ operation in that commit.
 
 Prior to September 2021, the project used [expo-cli](https://docs.expo.dev/workflow/expo-cli/) package. In order to add certain features, including our [AR-tool](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/219) and the Jest [test framework](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/249) we removed expo with the work done in [Issue #299](https://github.com/TreeMama/iSeaTree-React-Prototype/issues/229). This made the project react-native only (and fundamentally changed how we build and test our source code).
 
-## Key dependency changes are: # dependency Changes for Migrate Project:
-​
+### Key dependency changes
+
 - replace `firebase` dependency with `@react-native-firebase`
 - replace `expo-camera` dependency with `react-native-camera`
 - add `react-native-unimodules`
 ​
-## why change `firebase` dependency with `@react-native-firebase`?
+### why change `firebase` dependency with `@react-native-firebase`?
 ​
 - well as per the new flow `firebase` is not recognised by the react-native
 - and it's make project future proof
 
-## why change `expo-camera` dependency with `react-native-camera`?
+### why change `expo-camera` dependency with `react-native-camera`?
 
 - to fix rotation image issue
 ​
-## why add `react-native-unimodules`?
+### why add `react-native-unimodules`?
 ​
 - This dependency allows us to use most of the expo dependency if require."
+
