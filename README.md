@@ -1,4 +1,4 @@
-# iSeaTree-React-Prototype
+    # iSeaTree-React-Prototype
 
 This is the repository for iSeaTree, a mobile app which observers can use to collect data for the iSeaTree project.
 
