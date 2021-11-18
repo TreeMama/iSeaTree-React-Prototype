@@ -135,7 +135,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           `CLE=${crownLightExposureCategory}&` +
           `TreeHeightMeter=-1&` +
           `TreeCrownWidthMeter=-1&` +
-          `TreeCrownHeightMeter=-1&`
+          `TreeCrownHeightMeter=-1&`;
 
         const response = await axios.get(url)
         if (response.data) {
@@ -364,7 +364,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     <>
       <Button
         mode="outlined"
-        onPress={loadBenefits}
+        onPress={() => loadBenefits()}
         disabled={!canCalculateBenefits}
         icon="calculator"
       >
