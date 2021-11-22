@@ -1,38 +1,38 @@
 {
   "project_info": {
-    "project_number": "135495017909",
-    "firebase_url": "https://iseatree-dev.firebaseio.com",
-    "project_id": "iseatree-dev",
-    "storage_bucket": "iseatree-dev.appspot.com"
+    "project_number": "851760547478",
+    "firebase_url": "https://iseatree.firebaseio.com",
+    "project_id": "iseatree",
+    "storage_bucket": "iseatree.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:135495017909:android:314c9b55394e2f911ba5fc",
+        "mobilesdk_app_id": "1:851760547478:android:d6107a19ea7fa0c6bb64b7",
         "android_client_info": {
           "package_name": "com.treemama.iseatree"
         }
       },
       "oauth_client": [
         {
-          "client_id": "135495017909-g5sacu4avvpq2p4q45bfaqjt3v7en9dm.apps.googleusercontent.com",
+          "client_id": "851760547478-4onban7n80h72g5qv1nqubhero9vj7gs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDNMBMdH_Z_jPhvLQnX0zE861HjIaiRG-M"
+          "current_key": "AIzaSyDXUgQFAUNeCgc8o7rmbChz8TKSnjnwUmI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "135495017909-g5sacu4avvpq2p4q45bfaqjt3v7en9dm.apps.googleusercontent.com",
+              "client_id": "851760547478-4onban7n80h72g5qv1nqubhero9vj7gs.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "135495017909-l87gcj62upj595dmdi5nqp6s3d6u1scj.apps.googleusercontent.com",
+              "client_id": "851760547478-gk460pd0g2oqakfubhs3k57fjh2gm08g.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.treemama.iseatree"
