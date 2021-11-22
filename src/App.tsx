@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native'
 import { registerRootComponent } from 'expo'
 import * as SplashScreen from 'expo-splash-screen';
 import { Provider as PaperProvider } from 'react-native-paper'
-import auth from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth';
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -63,7 +63,13 @@ export default function App() {
   const { isUserLogged } = useAuthStateChange();
   const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
 
-  useManageSplashScreen(isUserLogged)
+  useManageSplashScreen(isUserLogged);
+
+  const apps = firebase.apps;
+  apps.forEach(app => {
+    console.log('app name +++', app);
+  })
+
 
   async function versionChanged(savedVersion, currentVersion) {
     if (savedVersion === currentVersion) {

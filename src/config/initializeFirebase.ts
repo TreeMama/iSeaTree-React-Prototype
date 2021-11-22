@@ -1,5 +1,5 @@
-import * as firebase from 'firebase'
-import 'firebase/firestore'
+import firebase from '@react-native-firebase/app'
+import '@react-native-firebase/firestore'
 
 import { envVariables } from '../../envVariables'
 
