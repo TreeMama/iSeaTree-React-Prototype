@@ -2,25 +2,24 @@
 
 This is the repository for iSeaTree, a mobile app which observers can use to collect data for the iSeaTree project.
 
-- [iSeaTree-React-Prototype](#iseatree-react-prototype)
-  - [What’s the project about?](#whats-the-project-about)
-  - [Git repository branching guidelines for contributors](#git-repository-branching-guidelines-for-contributors)
-  - [To add a feature or fix a bug:](#to-add-a-feature-or-fix-a-bug)
-  - [To update the version or build number:](#to-update-the-version-or-build-number)
-  - [Development toolkit](#development-toolkit)
-    - [Tookit prerequisites](#tookit-prerequisites)
-    - [Installation](#installation)
-    - [Source Code Secrets](#source-code-secrets)
-    - [Running in a simulator](#running-in-a-simulator)
-    - [Running on a real mobile device](#running-on-a-real-mobile-device)
-  - [Interacting with the Android Simulator](#interacting-with-the-android-simulator)
-  - [Linting](#linting)
-  - [Production builds](#production-builds)
-  - [General architecture/history/backstory](#general-architecturehistorybackstory)
-    - [Key dependency changes](#key-dependency-changes)
-    - [why change `firebase` dependency with `@react-native-firebase`?](#why-change-firebase-dependency-with-react-native-firebase)
-    - [why change `expo-camera` dependency with `react-native-camera`?](#why-change-expo-camera-dependency-with-react-native-camera)
-    - [why add `react-native-unimodules`?](#why-add-react-native-unimodules)
+- [What’s the project about?](#whats-the-project-about)
+- [Git repository branching guidelines for contributors](#git-repository-branching-guidelines-for-contributors)
+- [To add a feature or fix a bug:](#to-add-a-feature-or-fix-a-bug)
+- [To update the version or build number:](#to-update-the-version-or-build-number)
+- [Development toolkit](#development-toolkit)
+  - [Tookit prerequisites](#tookit-prerequisites)
+  - [Installation](#installation)
+  - [Source Code Secrets](#source-code-secrets)
+  - [Running in a simulator](#running-in-a-simulator)
+  - [Running on a real mobile device](#running-on-a-real-mobile-device)
+- [Interacting with the Android Simulator](#interacting-with-the-android-simulator)
+- [Linting](#linting)
+- [Production builds](#production-builds)
+- [General architecture/history/backstory](#general-architecturehistorybackstory)
+  - [Key dependency changes](#key-dependency-changes)
+  - [why change `firebase` dependency with `@react-native-firebase`?](#why-change-firebase-dependency-with-react-native-firebase)
+  - [why change `expo-camera` dependency with `react-native-camera`?](#why-change-expo-camera-dependency-with-react-native-camera)
+  - [why add `react-native-unimodules`?](#why-add-react-native-unimodules)
 
 
 ## What’s the project about?
@@ -31,7 +30,6 @@ The iSeaTree project is an open source project for building the react-native iSe
 
 - [iSeaTree users / Treemama.org Community Forums](https://treemama.org/forum/)
 
-- [iSeaTree Dashboard](https://treemama.org/tree-census/dashboard/)
 
 ## Git repository branching guidelines for contributors
 
@@ -116,10 +114,15 @@ Note: you'll probably have to run `yarn install` after a git pull, if the update
 
 ### Source Code Secrets
 
-`envVariables.ts` file holds all secret keys (api keys etc) associated with the iSeaTree project. It should
-never be commited to a Git repository. Before launching iSeaTree
-for the first time in your development environment, get a copy of the
-Development `envVariables.ts` from an iSeaTree project administrator.
+There are 3 critical files NOT CHECKED in that you will need (as a developer) to interact with the iTree API & the backend firebase database(s). 
+
+To get these files - contact an iSeaTree project administrator.
+
+The 3 files are:
+
+- `envVariables.ts` file holds all secret keys (api keys etc) associated with the iTree API. It is located in the project root level (same as this README) 
+- `\ios\iSeaTree\GoogleService-Info.plist` file (for ios developers. Add this to your '\ios\iSeaTree\' folder).
+- `\android\app\google-services.json` file (for android developers. Add this to your '\android\app\' folder).
 
 ```bash
 ./verify-checksums.sh

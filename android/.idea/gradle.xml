@@ -8,6 +8,54 @@
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/../node_modules/@react-native-async-storage/async-storage/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@react-native-community/masked-view/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@react-native-firebase/app/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@react-native-firebase/auth/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@react-native-firebase/firestore/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@react-native-firebase/storage/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@unimodules/core/android" />
+            <option value="$PROJECT_DIR$/../node_modules/@unimodules/react-native-adapter/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-application/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-constants/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-device/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-error-recovery/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-file-system/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-font/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-image-loader/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-image-manipulator/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-keep-awake/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-linear-gradient/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-location/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-permissions/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-splash-screen/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-sqlite/android" />
+            <option value="$PROJECT_DIR$/../node_modules/expo-updates/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-camera/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-device-info/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-gesture-handler/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-maps/lib/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-reanimated/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-safe-area-context/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-screens/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-vector-icons/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-app-loader/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-barcode-scanner-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-camera-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-constants-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-face-detector-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-file-system-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-font-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-image-loader-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-permissions-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-sensors-interface/android" />
+            <option value="$PROJECT_DIR$/../node_modules/unimodules-task-manager-interface/android" />
+          </set>
+        </option>
         <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
