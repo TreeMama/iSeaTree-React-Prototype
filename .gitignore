@@ -18,6 +18,10 @@ envVariables.ts
 .vscode/launch.json
 .vscode/.react/src%5CApp.tsx.bundle
 
+# auth files
+android/app/google-services.json
+ios/iSeaTree/GoogleService-Info.plist
+
 # webStorm ide
 .idea/*
 # Jest Test Coverage
