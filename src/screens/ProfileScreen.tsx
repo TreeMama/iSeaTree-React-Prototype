@@ -12,7 +12,8 @@ import {
   Linking,
   Text,
   TouchableOpacity,
-  Platform
+  Platform,
+  Alert
 } from 'react-native'
 
 import { Button } from 'react-native-paper'
@@ -25,6 +26,7 @@ import {
   userDataListener,
   signOutUser,
   getCurrentAuthUser,
+  updateTreeAndDeleteAccount
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
@@ -39,6 +41,7 @@ const imageTree = require('../../assets/profile/tree_icon.png');
 const informationIcon = require('../../assets/profile/information.png');
 const logoutIcon = require('../../assets/profile/logout.png');
 const compassIcon = require('../../assets/profile/compass.png');
+const deleteIcon = require('../../assets/profile/delete.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -152,7 +155,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 12
   }
-
 })
 
 export function ProfileScreen(props) {
@@ -166,14 +168,33 @@ export function ProfileScreen(props) {
 
   const authUser = getCurrentAuthUser();
 
-  async function versionChanged(savedVersion, currentVersion) {
-    if(savedVersion === currentVersion) {
+  async function versionChanged(savedVersion: any, currentVersion: string) {
+    if (savedVersion === currentVersion) {
       return false
     } else {
       return true
     }
   }
 
+  const deleteAccount = () =>
+    Alert.alert(
+      "Confirmation",
+      "Do you want to delete an account? Then, your all data is impossible to restore in the future.",
+      [
+        {
+          text: "OK", onPress: () => {
+            console.log("ok pressed +++", authUser?.uid);
+            updateTreeAndDeleteAccount(authUser?.uid);
+          }
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("cancel button pressed +++"),
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
 
   async function checkIntro() {
     const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP');
@@ -184,15 +205,15 @@ export function ProfileScreen(props) {
 
     const isVersionChanged = await versionChanged(parsesavedAppversion, currentVersionNum)
 
-      if (parseisShowIntro) {
-        if (isVersionChanged) {
-          setIsSliderVisible(true)
-        } else {
-          setIsSliderVisible(false)
-        }
-      } else {
+    if (parseisShowIntro) {
+      if (isVersionChanged) {
         setIsSliderVisible(true)
+      } else {
+        setIsSliderVisible(false)
       }
+    } else {
+      setIsSliderVisible(true)
+    }
   }
 
   React.useEffect(() => {
@@ -323,7 +344,7 @@ export function ProfileScreen(props) {
   return (
     <>
       {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
-      { isSliderVisible ?
+      {isSliderVisible ?
         <AppIntroScreen dismissSlider={sliderDismissHanlder} />
         :
         <>
@@ -342,6 +363,9 @@ export function ProfileScreen(props) {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setIsSliderVisible(true)}>
                       <Image source={compassIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => deleteAccount()}>
+                      <Image source={deleteIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
                   </View>
                   <View style={styles.profileImageContainer}>
