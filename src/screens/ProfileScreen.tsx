@@ -179,7 +179,7 @@ export function ProfileScreen(props) {
   const deleteAccount = () =>
     Alert.alert(
       "Confirmation",
-      "Do you want to delete an account? Then, your all data is impossible to restore in the future.",
+      `Do you want to delete your account? If you select "OK" all user data will be impossible to restore in the future.`,
       [
         {
           text: "OK", onPress: () => {
@@ -253,9 +253,29 @@ export function ProfileScreen(props) {
   }, [authUser?.email])
 
   function handleSignout() {
-    signOutUser()
-    setIsMenuVisible(false)
+    setIsMenuVisible(false);
+    signOutUser();
   }
+
+  const redirectToSignIn = () =>
+    Alert.alert(
+      "Confirmation",
+      "This will log you out and take you to the login screen. Ok?",
+      [
+        {
+          text: "OK", onPress: () => {
+            console.log("ok pressed +++", authUser?.uid);
+            handleSignout();
+          }
+        },
+        {
+          text: "Cancel",
+          onPress: () => console.log("cancel button pressed +++"),
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
 
   if (!authUser) {
     return null
@@ -358,7 +378,7 @@ export function ProfileScreen(props) {
                     }}>
                       <Image source={informationIcon} style={styles.menuIcon} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={handleSignout}>
+                    <TouchableOpacity onPress={() => redirectToSignIn()}>
                       <Image source={logoutIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setIsSliderVisible(true)}>
