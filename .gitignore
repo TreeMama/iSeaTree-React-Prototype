@@ -19,8 +19,8 @@ envVariables.ts
 .vscode/.react/src%5CApp.tsx.bundle
 
 # auth files
-android/app/google-services.json
-ios/iSeaTree/GoogleService-Info.plist
+google-services.json
+GoogleService-Info.plist
 
 # webStorm ide
 .idea/*
