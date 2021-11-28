@@ -6,8 +6,9 @@
 * `git checkout master`
 * `git pull` (to make sure you're starting with the newest code in the `master` branch)
 * `git merge develop`
-* Edit `app.json`. Increment `version`, `versionCode`, and `bundleNumber`. Keep `versionCode` (the Android store build number) and `bundleNumber` (the Apple store build number) set to the same incremented value.
-* Commit your changes to `app.json` (`git add app.json`, `git commit 'updating build number and version number'`, `git push`.
+* Edit `app.json` and `iOS/iSeaTree/Info.plist`. In `app.json`, increment `version`, `versionCode`, and `bundleNumber`. Keep `versionCode` (the Android store build number) and `bundleNumber` (the Apple store build number) set to the same incremented value. In `iOS/iSeaTree/Info.plist`, the `CFBundleShortVersionString` must match `version` from `app.json`, and `CFBundleVersion` must match `bundleNumber`.
+* Commit your changes to `app.json` (`git add app.json iOS/iSeaTree/Info.plist``, `git commit 'updating build number and version number'`, `git push`.
+* Tag your release using the version and build number. For version 2.2, build number 54, the tag is 2.2.54. `git tag 2.2.54`, `git push --tags`.
 * Build your archive and post it to the relevant store.
     - For iOS, start the build using `expo build:ios`. Choose "archive". When the `.ipa` file is ready on Fastlane, submit it to the App Store using Apple's "Transporter" app.
     - For Android, .... (instructions needed here)
