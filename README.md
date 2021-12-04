@@ -139,6 +139,7 @@ For Google map functionality we have to add "google api key" in the below file
 * AndroidManifest.xml
     - Path: `app/src/main/AndroidManifest.xml`
     - Desc: Please add Google API key in `com.google.android.geo.API_KEY` meta tag.
+    - Desc: You will need our google maps key. Please contact project admin for this key.
 
 ### Running in a simulator
 
