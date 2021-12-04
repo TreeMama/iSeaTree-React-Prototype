@@ -59,3 +59,17 @@ xcuserdata/
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
+android/.gradle/6.9/executionHistory/executionHistory.bin
+android/.gradle/6.9/executionHistory/executionHistory.lock
+android/.gradle/6.9/fileHashes/fileHashes.bin
+android/.gradle/6.9/fileHashes/fileHashes.lock
+android/.gradle/6.9/fileHashes/resourceHashesCache.bin
+android/.gradle/6.9/javaCompile/classAnalysis.bin
+android/.gradle/6.9/javaCompile/jarAnalysis.bin
+android/.gradle/6.9/javaCompile/javaCompile.lock
+android/.gradle/6.9/javaCompile/taskHistory.bin
+android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+android/.gradle/buildOutputCleanup/outputFiles.bin
+android/.gradle/checksums/checksums.lock
+android/.gradle/checksums/md5-checksums.bin
+android/.gradle/checksums/sha1-checksums.bin
