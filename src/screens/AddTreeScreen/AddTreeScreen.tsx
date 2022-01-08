@@ -214,7 +214,7 @@ export function AddTreeScreen() {
   function handleAddTreeError() {
     formik.setSubmitting(false)
 
-    Alert.alert('Error', "Oops - looks like you are not logged in. Please go to the on the Profile screen and login or create an account.", [
+    Alert.alert('Error', "Oops - looks like you are not logged in. Please go to the Profile screen and login or create an account.", [
       {
         text: 'Ok',
       },
