@@ -214,7 +214,7 @@ export function AddTreeScreen() {
   function handleAddTreeError() {
     formik.setSubmitting(false)
 
-    Alert.alert('Error', "Oops - looks like you are not logged in. Please go to the (note show the second icon from the right) on the Profile screen and login or create an account.", [
+    Alert.alert('Error', "Oops - looks like you are not logged in. Please go to the on the Profile screen and login or create an account.", [
       {
         text: 'Ok',
       },
@@ -301,26 +301,26 @@ export function AddTreeScreen() {
 
       <View style={styles.modalBodyContainer}>
         <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
-           borderColor: theme.colors.backdrop,
-           backgroundColor: theme.colors.background,
-           borderRadius: theme.roundness,
+          borderColor: theme.colors.backdrop,
+          backgroundColor: theme.colors.background,
+          borderRadius: theme.roundness,
         }]} onPress={() => onOptionButton(0)}>
           <Text>Enter the DBH in inches</Text>
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
-           borderColor: theme.colors.backdrop,
-           backgroundColor: theme.colors.background,
-           borderRadius: theme.roundness,
+          borderColor: theme.colors.backdrop,
+          backgroundColor: theme.colors.background,
+          borderRadius: theme.roundness,
         }]} onPress={() => onOptionButton(1)}>
           <Text>Calculate DBH from circumference</Text>
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
-           borderColor: theme.colors.backdrop,
-           backgroundColor: theme.colors.background,
-           borderRadius: theme.roundness,
-           marginBottom: -5
+          borderColor: theme.colors.backdrop,
+          backgroundColor: theme.colors.background,
+          borderRadius: theme.roundness,
+          marginBottom: -5
         }]} onPress={() => onOptionButton(2)}>
           <Text>Convert feet & inches to inches</Text>
         </TouchableOpacity>
