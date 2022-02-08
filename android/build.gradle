@@ -6,14 +6,10 @@ buildscript {
         minSdkVersion = 21
         compileSdkVersion = 29
         targetSdkVersion = 30
-        // Read these values from a pair of files that is also read by iOS.
-        // Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
-        // Mony: 26th, Jan 2022. When I try to build using buildNumber from BuildNumber.txt, it doesn't build the android project successfully.
-        // https://github.com/TreeMama/iSeaTree-React-Prototype/issues/280
-        versionCode = 57
-        versionName = "2.2.2"
-        // versionCode = file('../BuildNumber.txt').text.trim()
-        // versionName = file('../VersionString.txt').text.trim()
+// Read these values from a pair of files that is also read by iOS.
+// Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
+        versionCode = = file('../../BuildNumber.txt').text.trim()
+        versionName = file('../../VersionString.txt').text.trim()
     }
     repositories {
         google()
