@@ -4,7 +4,9 @@
   "summary": "Load fonts at runtime and use them in React Native components.",
   "description": "Load fonts at runtime and use them in React Native components.",
   "license": "MIT",
-  "authors": "650 Industries, Inc.",
+  "authors": {
+    "name": "650 Industries, Inc."
+  },
   "homepage": "https://docs.expo.io/versions/latest/sdk/font/",
   "platforms": {
     "ios": "10.0"
