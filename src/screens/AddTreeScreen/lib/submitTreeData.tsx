@@ -128,6 +128,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     speciesNameScientific: formValues.speciesData.SCIENTIFIC,
     dbh: formValues.dbh,
     estmated_dbh: formValues.estimate,
+    CameraMeasured: formValues.CameraMeasured,
     treeType: formValues.treeType,
     landUseCategory: formValues.landUseCategory,
     treeConditionCategory: formValues.treeConditionCategory,

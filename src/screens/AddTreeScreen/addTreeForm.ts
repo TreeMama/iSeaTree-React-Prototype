@@ -18,4 +18,5 @@ export interface FormValues {
   crownLightExposureCategory: string | null
   locationType: string | null
   estimate: boolean
+  CameraMeasured: boolean
 }
