@@ -104,7 +104,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     parseInt(dbh) !== 0 &&
     treeConditionCategory
   )
-  console.log("loading treeBenefits ")
+  // console.log("loading treeBenefits ")
   //gets Location form Location useContext
   const value = useContext(LocationContext)
   const address = value.address

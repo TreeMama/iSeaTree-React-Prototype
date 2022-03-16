@@ -23,6 +23,7 @@ import { LocationProvider } from './LocationContext'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import DeviceInfo from 'react-native-device-info';
+import TipProvider from "react-native-tip";
 
 console.disableYellowBox = true;
 function useAuthStateChange(): { isUserLogged: boolean | null } {
@@ -59,6 +60,7 @@ function useManageSplashScreen(isUserLogged: null | boolean) {
 
 const Stack = createStackNavigator()
 
+// eslint-disable-next-line import/no-default-export
 export default function App() {
   const { isUserLogged } = useAuthStateChange();
   const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
@@ -153,6 +155,28 @@ export default function App() {
             )}
           </Stack.Navigator>
         </NavigationContainer>
+        <TipProvider
+          overlayOpacity={0.5}
+          titleStyle={{
+            fontWeight: 'bold',
+            fontSize: 13,
+            marginBottom: 10
+          }}
+          bodyStyle={{
+            fontSize: 13
+          }}
+          tipContainerStyle={{
+            padding: 15,
+            borderRadius: 15,
+            maxWidth: 350,
+            elevation: 5
+          }}
+          // darkMode={isDarkMode}
+          prevNextTextStyle={{
+          }}
+          prevNextButtonStyle={{
+          }}
+        />
       </LocationProvider>
     </PaperProvider>
   )

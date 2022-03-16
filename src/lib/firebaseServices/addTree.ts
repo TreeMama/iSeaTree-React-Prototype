@@ -17,6 +17,7 @@ export interface TreeData {
   speciesNameCommon: string
   dbh?: string
   estmated_dbh: boolean
+  CameraMeasured: boolean
   treeType: TreeTypes
   landUseCategory: string
   treeConditionCategory: string

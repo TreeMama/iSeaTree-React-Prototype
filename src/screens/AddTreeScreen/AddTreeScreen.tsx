@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, { useState } from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import {
   KeyboardAvoidingView,
@@ -9,10 +8,12 @@ import {
   Modal,
   Image,
   Alert,
-  ScrollView,
   Dimensions,
   TouchableOpacity,
-  TextInput as RNTextInput
+  TextInput as RNTextInput,
+  ScrollView,
+  useColorScheme,
+  LogBox
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, TextInput, Text, Subheading, useTheme, } from 'react-native-paper'
@@ -34,6 +35,12 @@ import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
 import { TreeConditionSelect } from './TreeConditionSelect'
 import { CrownLightExposureSelect } from './CrownLightExposureSelect'
+
+import { setUpdateIntervalForType, SensorTypes, accelerometer } from 'react-native-sensors';
+import { RNCamera } from 'react-native-camera';
+import { useCamera } from 'react-native-camera-hooks';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Tip } from "react-native-tip";
 
 const win = Dimensions.get('window');
 
@@ -142,51 +149,45 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 }
 
 export function AddTreeScreen() {
-  const theme = useTheme()
+  const theme = useTheme();
   const refTreeTypeSelect = React.useRef(null);
-  const [isDBHSelected, setDBHSelected] = React.useState<null | boolean>(false)
-  const [isDBHSelected0, setDBHSelected0] = React.useState<null | boolean>(false)
-  const [isDBHSelected1, setDBHSelected1] = React.useState<null | boolean>(false)
-  const [isDBHSelected2, setDBHSelected2] = React.useState<null | boolean>(false)
+  const [isDBHSelected, setDBHSelected] = React.useState<null | boolean>(false);
+  const [isDBHSelected0, setDBHSelected0] = React.useState<null | boolean>(false);
+  const [isDBHSelected1, setDBHSelected1] = React.useState<null | boolean>(false);
+  const [isDBHSelected2, setDBHSelected2] = React.useState<null | boolean>(false);
   const [DBHSelected0Input, setDBHSelected0Input] = React.useState('');
   const [DBHFeetInput, setDBHFeetInput] = React.useState('');
   const [DBHInchInput, setDBHInchInput] = React.useState('');
-  const [DBHCalculation, setDBHCalculation] = React.useState('')
+  const [DBHCalculation, setDBHCalculation] = React.useState('');
 
-  React.useEffect(() => {
-    //if(!trees) return
-    if (isDBHSelected1 && DBHFeetInput !== '' && DBHInchInput !== '') {
-      const result = ((DBHFeetInput * 12) + parseInt(DBHInchInput)) / 3.14;
-      const decimal = parseFloat(result)
-      let display = decimal.toFixed(2)
-      setDBHCalculation(String(display));
-    } else if (isDBHSelected2 && DBHFeetInput !== '' && DBHInchInput !== '') {
-      const result = ((DBHFeetInput * 12) + parseInt(DBHInchInput));
-      setDBHCalculation(String(result));
-    }
-  }, [DBHFeetInput, DBHInchInput])
+  const formik = useFormik<FormValues>({
+    initialValues: {
+      photo: null,
+      coords: null,
+      speciesType: TreeTypes.NULL,
+      speciesData: null,
+      dbh: '',
+      notes: '',
+      treeType: TreeTypes.NULL,
+      landUseCategory: null,
+      treeConditionCategory: null,
+      crownLightExposureCategory: null,
+      locationType: null,
+      estimate: false,
+      CameraMeasured: false
+    },
+    validate: validateForm,
+    onSubmit: (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
+    },
+  });
 
-  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
-  console.log("Loading AddTree screen")
-  function handleClear() {
-    Alert.alert('', 'Are you sure?', [
-      { text: 'Cancel' },
-      {
-        text: 'Yes, clear all',
-        onPress: () => {
-          refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
-          formik.resetForm()
-          removeBenefitVal()//.then().catch()
-        },
-      },
-    ])
-  }
-
-  function handleAddTreeSuccess(formValues: FormValues) {
-    refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
+  function handleAddTreeSuccess(_formValues: FormValues) {
+    refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
     formik.resetForm()
     formik.setSubmitting(false)
-
     Alert.alert('Success', 'You have added new tree successfully', [
       {
         text: 'Great',
@@ -196,20 +197,113 @@ export function AddTreeScreen() {
       },
     ])
   }
-  // function handleAddTreeSuccess(formValues: FormValues) {
-  //   const authUser = getCurrentAuthUser()
-  //   if (!authUser) {
-  //     handleUpdateUserError()
-  //     return
-  //   }
-  //   getUser(authUser.uid).then((user) => {
-  //     if (!user) {
-  //       return
-  //     }
-  //     const {badgesAwarded, promise} = updateBadgesAfterAddingTree(formValues, user, authUser.uid)
-  //     promise.then(() => handleUpdateUserSuccess(badgesAwarded)).catch(handleUpdateUserError)
-  //   })
-  // }
+
+  LogBox.ignoreLogs(['Warning: ...']);
+  LogBox.ignoreAllLogs();
+
+  //---------------------------- measure with camera
+  let both = 0;
+  const [{ cameraRef }, { takePicture }] = useCamera();
+  // const [checked, setChecked] = useState(false);
+
+  const [xaxis, setX] = useState(0);
+  const [yaxis, setY] = useState(0);
+  const [zaxis, setZ] = useState(0);
+  //const [angle2, setangle2] = useState();
+
+  const [fianl, setfinal] = useState('N/A');
+
+  setUpdateIntervalForType(SensorTypes.accelerometer, 1000);
+
+  const subscription = accelerometer.subscribe(
+    ({ x, y, z, timestamp }) => setX(x) & setY(y) & setZ(z)
+  );
+
+  const toRadians = (angle: any) => {
+    return angle * (Math.PI / 180);
+  }
+
+  const toDegrees = (angle: any) => {
+    return angle * (180 / Math.PI);
+  }
+
+  const calculateDBH = () => {
+    let number = 0;
+    const angle = (180 * zaxis) / 20;
+    const angle2 = 90 - angle + 20;
+    const inCm = 1.37 * Math.tan(toRadians(angle2)) * Math.tan(toRadians((180 * 0.8) / 20)) * 2;
+    const toIn = inCm * 39.3701;
+
+    if (toIn >= 0) {
+      formik.setFieldValue('both', formik.values.both + toIn)
+    }
+    number = parseFloat(toIn.toString().substr(0, 4));
+    setfinal(parseFloat(toIn.toString().substr(0, 4)));
+    if (number <= 0) {
+      formik.setFieldValue('number', 0);
+      Alert.alert('', 'Calibration error! Please try again.');
+    } else {
+      formik.setFieldValue('number', number);
+    }
+  };
+
+  const done = () => {
+    both = both.toString().substr(0, 4);
+    setDone(true);
+    formik.setFieldValue('both', formik.values.both.toString().substr(0, 4))
+  }
+
+  const another = () => {
+    setTest(false);
+    formik.setFieldValue('number', 0)
+  };
+
+  const reset = () => {
+    both = 0;
+    setTest(false);
+    setDone(false);
+    formik.setFieldValue('both', 0)
+    formik.setFieldValue('number', 0)
+  };
+
+
+  React.useEffect(() => {
+
+    formik.setFieldValue('number', 0)
+    formik.setFieldValue('both', 0)
+
+    if (isDBHSelected1 && DBHFeetInput !== '' && DBHInchInput !== '') {
+      const result = ((parseFloat(DBHFeetInput) * 12) + parseInt(DBHInchInput)) / 3.14;
+      const decimal = result;
+      const display = decimal.toFixed(2)
+      setDBHCalculation(String(display));
+    } else if (isDBHSelected2 && DBHFeetInput !== '' && DBHInchInput !== '') {
+      const result = ((parseFloat(DBHFeetInput) * 12) + parseInt(DBHInchInput));
+      setDBHCalculation(String(result));
+    }
+  }, [DBHFeetInput, DBHInchInput]);
+
+  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
+  const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
+
+  const [isDone, setDone] = React.useState<boolean>(false)
+
+  const [test, setTest] = React.useState<boolean>(false);
+
+  //console.log("Loading AddTree screen")
+  function handleClear() {
+    Alert.alert('', 'Are you sure?', [
+      { text: 'Cancel' },
+      {
+        text: 'Yes, clear all',
+        onPress: () => {
+          refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL);
+          formik.resetForm();
+          removeBenefitVal();
+        },
+      },
+    ])
+  }
 
   function handleAddTreeError() {
     formik.setSubmitting(false)
@@ -256,29 +350,7 @@ export function AddTreeScreen() {
     ])
   }
 
-  const formik = useFormik<FormValues>({
-    initialValues: {
-      photo: null,
-      coords: null,
-      speciesType: TreeTypes.NULL,
-      speciesData: null,
-      dbh: '',
-      notes: '',
-      treeType: TreeTypes.NULL,
-      landUseCategory: null,
-      treeConditionCategory: null,
-      crownLightExposureCategory: null,
-      locationType: null,
-      estimate: false
-    },
-    validate: validateForm,
-    onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
-    },
-  })
-
-  const onOptionButton = (index) => {
+  const onOptionButton = (index: any) => {
     setDBHSelected(false);
     switch (index) {
       case 0: setDBHSelected0(true);
@@ -289,6 +361,7 @@ export function AddTreeScreen() {
         break;
     }
   }
+
 
   const DBHModal = (
     <View style={styles.modalContainer}>
@@ -314,6 +387,16 @@ export function AddTreeScreen() {
           borderRadius: theme.roundness,
         }]} onPress={() => onOptionButton(1)}>
           <Text>Calculate DBH from circumference</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
+          borderColor: theme.colors.backdrop,
+          backgroundColor: theme.colors.background,
+          borderRadius: theme.roundness,
+        }]} onPress={() => setIsMeasureWithCamera(true) & formik.setFieldValue('both', 0) & formik.setFieldValue('number', 0) & setTest(false)}>
+          <View style={{ flexDirection: "row" }}><View style={{ right: 15, backgroundColor: '#A9A9A9', padding: 2, paddingHorizontal: 5, borderRadius: 4, }} ><Text style={{ color: 'white', fontSize: 11, fontWeight: "bold" }}>beta</Text></View>
+            <Text>Measure with camera</Text>
+          </View>
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.7} style={[styles.optionButtonContainer, {
@@ -725,7 +808,7 @@ export function AddTreeScreen() {
               marginTop: 5,
               borderRadius: theme.roundness,
               justifyContent: 'center'
-            }} onPress={() => setDBHSelected(true)}>
+            }} onPress={() => { setDBHSelected(true); formik.setFieldValue('CameraMeasured', false); }}>
               <Text style={[styles.dbhInputValue, { color: formik.values.dbh === '' ? theme.colors.backdrop : '#000' }]}>{formik.values.dbh === '' ? `Diameter at breast height` : formik.values.dbh}</Text>
             </TouchableOpacity>
 
@@ -827,7 +910,7 @@ export function AddTreeScreen() {
 
             <Button mode="contained"
               onPress={() => {
-                formik.handleSubmit()
+                formik.handleSubmit();
                 formik.values.speciesData?.COMMON === 'Unknown' && formik.values.speciesType === TreeTypes.NULL && (
                   Alert.alert('', 'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.', [
                     {
@@ -863,6 +946,260 @@ export function AddTreeScreen() {
                 }}
               />
             </SafeAreaView>
+          </Modal>
+          <Modal visible={isMeasureWithCamera} animationType="slide">
+            <RNCamera
+              ref={cameraRef}
+              defaultTouchToFocus
+              mirrorImage={false}
+              captureAudio={false}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+              }}>
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 85,
+                  left: 10,
+                }}>
+                <Text style={{ color: 'white', fontSize: 12, fontWeight: 'bold' }}>Accelerometer: </Text>
+                <Text style={{ color: 'white', fontSize: 12, fontWeight: 'bold' }}>(in Gs where 1 G = 9.81 m s^-2)</Text>
+                <Text style={{ color: 'white', fontSize: 12, fontWeight: 'bold' }}>x: {xaxis}</Text>
+                <Text style={{ color: 'white', fontSize: 12, fontWeight: 'bold' }}>y: {yaxis}</Text>
+                <Text style={{ color: 'white', fontSize: 12, fontWeight: 'bold' }}>z: {zaxis}</Text>
+              </View>
+
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 27,
+                  right: 10,
+                }}>
+                <View style={{ padding: 10 }}>
+                  <TouchableOpacity>
+                    <Tip
+                      id="multiTrunksHelp"
+                      title="Multiple Trunks Calculate"
+                      body="Multiple Trunks: For each individual trunk, fit the width of the trunk at breast height (4.5 ft) between the two lines. Select -Enter Another- to add the next trunk."
+                    >
+                      <MaterialCommunityIcons name="help-circle" color="white" size={30} />
+                    </Tip>
+                  </TouchableOpacity>
+                </View>
+              </View>
+
+              <View
+                style={{
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                {test ? (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 200,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>Center the line at the bottom of the tree, </Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold' }}>then touch the camera icon</Text>
+                  </View>
+                ) : (
+                  <View
+                    style={{
+                      position: 'absolute',
+                      top: 135,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14 }}>Fit the tree trunk at breast height (4.5 ft) </Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14 }}>between the two lines, then hit the check icon.</Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14 }}>For multiple trunks, select the question mark </Text>
+                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 14 }}>at bottom of the screen.</Text>
+                  </View>
+                )}
+              </View>
+
+              <View
+                style={{
+                  position: 'absolute',
+                  left: 30,
+                  top: 15,
+
+                }}>
+                <TouchableOpacity style={{ flexDirection: 'row', }}
+                  onPress={() => setIsMeasureWithCamera(false)}>
+                  <Icon name="chevron-back" type="Ionicons" color="white" size={23} />
+                  <Text
+                    style={{
+                      fontSize: 20,
+                      textDecorationLine: 'underline',
+                      color: 'white',
+                      paddingLeft: 5,
+                    }}>
+                    Back
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 120,
+                height: 90,
+                backgroundColor: 'rgba(0,0,0,0.3)',
+                position: 'absolute',
+                top: 40,
+                borderRadius: 20,
+              }}>
+                <Text style={{ fontWeight: 'bold', fontSize: 25, color: 'white' }}>{formik.values.number} in</Text>
+              </View>
+              {test ? (
+                <View style={{
+                  position: 'absolute',
+                  top: 100,
+                  flexDirection: 'row',
+                }}>
+                  <View
+                    style={{
+                      height: 300,
+                      width: 3,
+                      backgroundColor: '#d2544c',
+                      margin: 100,
+                      transform: [{ rotate: '90deg' }],
+                    }}
+                  />
+                </View>
+              ) : (
+                <View style={{
+                  position: 'absolute',
+                  top: 100,
+                  flexDirection: 'row',
+                }}>
+                  <View
+                    style={{
+                      height: 400,
+                      width: 3,
+                      backgroundColor: '#d2544c',
+                      margin: 100,
+                    }}
+                  />
+                  <View
+                    style={{
+                      height: 400,
+                      width: 3,
+                      backgroundColor: '#d2544c',
+                      margin: 100,
+                    }}
+                  />
+                </View>
+              )}
+              <View style={{ position: 'absolute', right: 70, bottom: 20 }}>
+                <View style={{ padding: 10 }}>
+                  <Button
+                    style={{
+                      alignSelf: 'flex-end', backgroundColor: theme.colors.backdrop, marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary,
+                      width: 100
+                    }}
+                    onPress={() => {
+                      done()
+                    }}
+                  >
+                    <Text style={{ color: 'white', fontSize: 11 }}>Done!</Text>
+                  </Button>
+                </View>
+              </View>
+
+              <View style={{ position: 'absolute', left: 10, bottom: 20 }}>
+                <View style={{ padding: 10 }}>
+                  <Button
+                    style={{
+                      backgroundColor: theme.colors.backdrop, marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary,
+                      width: 140
+                    }}
+                    onPress={() => {
+                      another()
+                    }}
+                  >
+                    <Text style={{ color: 'white', fontSize: 11 }}>Enter</Text>
+                    <Text style={{ color: 'white', fontSize: 11 }}> Another</Text>
+                  </Button>
+                </View>
+              </View>
+
+              {test ? (
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    bottom: 70,
+                  }}
+                  onPress={() => calculateDBH()}>
+                  <Icon name="camera" type="Feather" color="white" size={70} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  style={{
+                    position: 'absolute',
+                    bottom: 70,
+                  }}
+                  onPress={() => setTest(true)
+                  }>
+                  <Icon name="checkmark" type="Ionicons" color="white" size={70} />
+                </TouchableOpacity>
+              )}
+            </RNCamera>
+          </Modal>
+          <Modal visible={isDone} animationType="slide">
+            <View style={{ flex: 1, backgroundColor: '#3B3B3B', alignItems: 'center' }}>
+              <View
+                style={{
+                  position: 'absolute',
+                  top: 80,
+                  alignItems: 'center',
+                }}>
+                <MaterialCommunityIcons
+                  style={{ padding: 8 }}
+                  name="pine-tree"
+                  color="white"
+                  size={80}
+                />
+                <Text style={{ padding: 8, fontSize: 20, color: 'white' }}>Your measurement :</Text>
+                <Text style={{ padding: 8, fontSize: 30, fontWeight: 'bold', color: 'white' }}>
+                  {parseFloat(formik.values.both)} in
+                </Text>
+              </View>
+              <View
+                style={{
+                  position: 'absolute',
+                  bottom: 50,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <View style={{ padding: 20 }}>
+                  <Button
+                    style={{ alignSelf: 'flex-end', marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary }}
+                    onPress={() => {
+                      reset()
+                    }}
+                  >
+                    Try measuring again...
+                  </Button>
+                </View>
+                <View style={{ padding: 20 }}>
+                  <Button
+                    style={{ alignSelf: 'flex-end', marginVertical: 5, marginLeft: 5, borderWidth: 1, borderColor: theme.colors.primary }}
+                    onPress={() => {
+                      setDone(false) & setIsMeasureWithCamera(false) & setDBHSelected(false) &
+                        formik.setFieldValue('dbh', parseFloat(formik.values.both)) & setTest(false) & formik.setFieldValue('estimate', true)
+                        & formik.setFieldValue('CameraMeasured', true)
+                    }}
+                  >
+                    Confirm
+                  </Button>
+                </View>
+              </View>
+            </View>
           </Modal>
         </ScrollView>
       </SafeAreaView>
