@@ -104,7 +104,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     parseInt(dbh) !== 0 &&
     treeConditionCategory
   )
-  console.log("loading treeBenefits ")
+  // console.log("loading treeBenefits ")
   //gets Location form Location useContext
   const value = useContext(LocationContext)
   const address = value.address
@@ -138,6 +138,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           `TreeCrownHeightMeter=-1&`;
 
         const response = await axios.get(url)
+        console.log('iSeaTreeApi response +++', response)
         if (response.data) {
           const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
           const root: RootObject = xml2js(response.data, { compact: true }) as RootObject

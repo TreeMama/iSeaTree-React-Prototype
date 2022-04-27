@@ -2,6 +2,7 @@ import { SpeciesData } from './SpeciesSelect'
 import { TreeTypes } from '../../lib/treeData'
 
 export interface FormValues {
+  both: number
   photo: null | {
     width: number
     height: number
@@ -18,4 +19,5 @@ export interface FormValues {
   crownLightExposureCategory: string | null
   locationType: string | null
   estimate: boolean
+  CameraMeasured: boolean
 }
