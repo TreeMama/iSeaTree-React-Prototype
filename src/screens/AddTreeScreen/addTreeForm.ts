@@ -2,6 +2,7 @@ import { SpeciesData } from './SpeciesSelect'
 import { TreeTypes } from '../../lib/treeData'
 
 export interface FormValues {
+  both: number
   photo: null | {
     width: number
     height: number

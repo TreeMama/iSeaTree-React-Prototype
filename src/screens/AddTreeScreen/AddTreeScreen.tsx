@@ -13,7 +13,8 @@ import {
   TextInput as RNTextInput,
   ScrollView,
   useColorScheme,
-  LogBox
+  LogBox,
+  Platform
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button, TextInput, Text, Subheading, useTheme, } from 'react-native-paper'
@@ -215,9 +216,17 @@ export function AddTreeScreen() {
 
   setUpdateIntervalForType(SensorTypes.accelerometer, 1000);
 
-  const subscription = accelerometer.subscribe(
-    ({ x, y, z, timestamp }) => setX(x) & setY(y) & setZ(z)
-  );
+  const subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
+    setX(x);
+    setY(y);
+    setZ(z);
+    // console.log('RN sensors ===', x, y, z, timestamp);
+  });
+
+  // setTimeout(() => {
+  //   console.log(`unsubscribe ===`);
+  //   subscription.unsubscribe();
+  // }, 100000);
 
   const toRadians = (angle: any) => {
     return angle * (Math.PI / 180);
@@ -236,18 +245,22 @@ export function AddTreeScreen() {
 
     if (toIn >= 0) {
       formik.setFieldValue('both', formik.values.both + toIn)
+    } else {
+      formik.setFieldValue('both', formik.values.both + (toIn * -1))
     }
     number = parseFloat(toIn.toString().substr(0, 4));
     setfinal(parseFloat(toIn.toString().substr(0, 4)));
     if (number <= 0) {
-      formik.setFieldValue('number', 0);
-      Alert.alert('', 'Calibration error! Please try again.');
+      number = parseFloat((toIn * -1).toString().substr(0, 4));
+      formik.setFieldValue('number', number);
+      // Alert.alert('', 'Calibration error! Please try again.');
     } else {
       formik.setFieldValue('number', number);
     }
   };
 
   const done = () => {
+    setIsMeasureWithCamera(false);
     both = both.toString().substr(0, 4);
     setDone(true);
     formik.setFieldValue('both', formik.values.both.toString().substr(0, 4))
@@ -262,10 +275,18 @@ export function AddTreeScreen() {
     both = 0;
     setTest(false);
     setDone(false);
+    setTimeout(() => setIsMeasureWithCamera(true), Platform.OS === "ios" ? 200 : 0);
     formik.setFieldValue('both', 0)
     formik.setFieldValue('number', 0)
   };
 
+  const showTip = () => {
+    Alert.alert('Multiple Trunks Calculate', "Multiple Trunks: For each individual trunk, fit the width of the trunk at breast height (4.5 ft) between the two lines. Select -Enter Another- to add the next trunk.", [
+      {
+        text: 'Ok',
+      },
+    ]);
+  }
 
   React.useEffect(() => {
 
@@ -393,7 +414,16 @@ export function AddTreeScreen() {
           borderColor: theme.colors.backdrop,
           backgroundColor: theme.colors.background,
           borderRadius: theme.roundness,
-        }]} onPress={() => setIsMeasureWithCamera(true) & formik.setFieldValue('both', 0) & formik.setFieldValue('number', 0) & setTest(false)}>
+        }]} onPress={() => {
+          console.log('setIsMeasureWithCamera start ===', isMeasureWithCamera);
+          // setIsMeasureWithCamera(true);
+          setDBHSelected(false);
+          formik.setFieldValue('both', 0);
+          formik.setFieldValue('number', 0);
+          setTest(false);
+          console.log('setIsMeasureWithCamera end ===', isMeasureWithCamera);
+          setTimeout(() => setIsMeasureWithCamera(true), Platform.OS === "ios" ? 200 : 0);
+        }}>
           <View style={{ flexDirection: "row" }}><View style={{ right: 15, backgroundColor: '#A9A9A9', padding: 2, paddingHorizontal: 5, borderRadius: 4, }} ><Text style={{ color: 'white', fontSize: 11, fontWeight: "bold" }}>beta</Text></View>
             <Text>Measure with camera</Text>
           </View>
@@ -977,15 +1007,14 @@ export function AddTreeScreen() {
                   right: 10,
                 }}>
                 <View style={{ padding: 10 }}>
-                  <TouchableOpacity>
-                    <Tip
-                      id="multiTrunksHelp"
-                      title="Multiple Trunks Calculate"
-                      body="Multiple Trunks: For each individual trunk, fit the width of the trunk at breast height (4.5 ft) between the two lines. Select -Enter Another- to add the next trunk."
-                    >
-                      <MaterialCommunityIcons name="help-circle" color="white" size={30} />
-                    </Tip>
-                  </TouchableOpacity>
+                  {/* <Tip
+                    id="multiTrunksHelp"
+                    title="Multiple Trunks Calculate"
+                    body="Multiple Trunks: For each individual trunk, fit the width of the trunk at breast height (4.5 ft) between the two lines. Select -Enter Another- to add the next trunk."
+                  >
+                    <MaterialCommunityIcons name="help-circle" color="white" size={30} />
+                  </Tip> */}
+                  <MaterialCommunityIcons onPress={() => showTip()} name="help-circle" color="white" size={30} />
                 </View>
               </View>
 
@@ -1029,7 +1058,7 @@ export function AddTreeScreen() {
                   top: 15,
 
                 }}>
-                <TouchableOpacity style={{ flexDirection: 'row', }}
+                <TouchableOpacity style={{ flexDirection: 'row', top: 35 }}
                   onPress={() => setIsMeasureWithCamera(false)}>
                   <Icon name="chevron-back" type="Ionicons" color="white" size={23} />
                   <Text

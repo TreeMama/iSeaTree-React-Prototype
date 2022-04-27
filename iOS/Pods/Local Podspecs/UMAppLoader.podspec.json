@@ -4,9 +4,7 @@
   "summary": "App loader for background applications",
   "description": "App loader for background applications",
   "license": "MIT",
-  "authors": {
-    "name": "650 Industries, Inc."
-  },
+  "authors": "650 Industries, Inc.",
   "homepage": "https://github.com/expo/expo/tree/master/packages/unimodules-app-loader",
   "platforms": {
     "ios": "10.0"

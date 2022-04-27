@@ -1,0 +1,1 @@
+../../../../../node_modules/react-native-sensors/ios/RNSensorsBarometer.h

@@ -138,6 +138,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           `TreeCrownHeightMeter=-1&`;
 
         const response = await axios.get(url)
+        console.log('iSeaTreeApi response +++', response)
         if (response.data) {
           const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
           const root: RootObject = xml2js(response.data, { compact: true }) as RootObject
