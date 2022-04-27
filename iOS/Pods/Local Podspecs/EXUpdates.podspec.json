@@ -4,7 +4,9 @@
   "summary": "Fetches and manages remotely-hosted assets and updates to your app's JS bundle.",
   "description": "Fetches and manages remotely-hosted assets and updates to your app's JS bundle.",
   "license": "MIT",
-  "authors": "650 Industries, Inc.",
+  "authors": {
+    "name": "650 Industries, Inc."
+  },
   "homepage": "https://docs.expo.io/versions/latest/sdk/updates/",
   "platforms": {
     "ios": "10.0"
