@@ -1,0 +1,53 @@
+{
+  "name": "react-native-app-intro-slider",
+  "version": "4.0.4",
+  "description": "Simple and configurable app introduction slider for react native",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint 'src/**/*.{ts,tsx}'",
+    "format": "prettier --write src",
+    "test": "echo 'no tests yet'",
+    "prepublishOnly": "yarn run build && yarn run lint && yarn run format",
+    "version": "yarn run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacse/react-native-app-intro-slider.git"
+  },
+  "keywords": [
+    "swiper",
+    "App",
+    "Intro",
+    "ios",
+    "android",
+    "react-component",
+    "react-native",
+    "slider"
+  ],
+  "author": "Jacob Lauritzen <jacsebl@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jacse/react-native-app-intro-slider/issues"
+  },
+  "homepage": "https://github.com/jacse/react-native-app-intro-slider",
+  "files": [
+    "dist/**/*"
+  ],
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^1.0.0",
+    "@types/jest": "^24.0.24",
+    "@types/react": "^16.9.31",
+    "@types/react-native": "^0.62.0",
+    "@types/react-test-renderer": "16.9.2",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.5.1",
+    "jest": "^24.9.0",
+    "prettier": "^2.0.2",
+    "react-test-renderer": "16.11.0",
+    "typescript": "^3.8.3"
+  }
+}

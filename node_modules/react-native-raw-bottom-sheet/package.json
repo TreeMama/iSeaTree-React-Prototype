@@ -1,0 +1,56 @@
+{
+  "name": "react-native-raw-bottom-sheet",
+  "version": "2.2.0",
+  "description": "Add Your Own Component To Bottom Sheet Whatever You Want (Android & iOS)",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nysamnang/react-native-raw-bottom-sheet.git"
+  },
+  "keywords": [
+    "bottom-sheet",
+    "action-sheet",
+    "raw-bottom-sheet",
+    "bottom-drawer",
+    "bottom-animated",
+    "drawer",
+    "picker",
+    "swipper",
+    "modal",
+    "dialog"
+  ],
+  "author": "NY Samnang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nysamnang/react-native-raw-bottom-sheet/issues"
+  },
+  "homepage": "https://github.com/nysamnang/react-native-raw-bottom-sheet#readme",
+  "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.9.0",
+    "metro-react-native-babel-preset": "^0.52.0",
+    "prettier": "^1.16.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.3",
+    "react-native": "^0.62.2"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+    }
+  }
+}
