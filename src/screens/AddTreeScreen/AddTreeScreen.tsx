@@ -1007,14 +1007,16 @@ export function AddTreeScreen() {
                   right: 10,
                 }}>
                 <View style={{ padding: 10 }}>
-                  {/* <Tip
-                    id="multiTrunksHelp"
-                    title="Multiple Trunks Calculate"
-                    body="Multiple Trunks: For each individual trunk, fit the width of the trunk at breast height (4.5 ft) between the two lines. Select -Enter Another- to add the next trunk."
-                  >
-                    <MaterialCommunityIcons name="help-circle" color="white" size={30} />
-                  </Tip> */}
-                  <MaterialCommunityIcons onPress={() => showTip()} name="help-circle" color="white" size={30} />
+                  {Platform.OS === "ios" ?
+                    (<MaterialCommunityIcons onPress={() => showTip()} name="help-circle" color="white" size={30} />)
+                    :
+                    (<Tip
+                      id="multiTrunksHelp"
+                      title="Multiple Trunks Calculate"
+                      body="Multiple Trunks: For each individual trunk, fit the width of the trunk at breast height (4.5 ft) between the two lines. Select -Enter Another- to add the next trunk."
+                    >
+                      <MaterialCommunityIcons name="help-circle" color="white" size={30} />
+                    </Tip>)}
                 </View>
               </View>
 
