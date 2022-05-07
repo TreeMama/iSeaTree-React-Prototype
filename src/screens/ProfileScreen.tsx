@@ -373,11 +373,11 @@ export function ProfileScreen(props) {
               <View style={styles.container}>
                 <View style={styles.profileContainer}>
                   <View style={styles.profileRightMenuContainer}>
-                    <TouchableOpacity onPress={() => {
+                    {/* <TouchableOpacity onPress={() => {
                       Linking.openURL('https://treemama.org/forum');
                     }}>
                       <Image source={informationIcon} style={styles.menuIcon} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity onPress={() => redirectToSignIn()}>
                       <Image source={logoutIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
