@@ -8,7 +8,7 @@ buildscript {
         targetSdkVersion = 30
 // Read these values from a pair of files that is also read by iOS.
 // Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
-        versionCode = = file('../../BuildNumber.txt').text.trim()
+        versionCode = file('../../BuildNumber.txt').text.trim()
         versionName = file('../../VersionString.txt').text.trim()
     }
     repositories {
