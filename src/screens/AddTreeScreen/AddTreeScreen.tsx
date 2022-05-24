@@ -160,6 +160,8 @@ export function AddTreeScreen() {
   const [DBHFeetInput, setDBHFeetInput] = React.useState('');
   const [DBHInchInput, setDBHInchInput] = React.useState('');
   const [DBHCalculation, setDBHCalculation] = React.useState('');
+  const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false);
+  const [calculatedFormValues, setCalculatedFormValues] = React.useState(false);
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -187,13 +189,17 @@ export function AddTreeScreen() {
 
   function handleAddTreeSuccess(_formValues: FormValues) {
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
-    formik.resetForm()
+    formik.resetForm();
+    setLoadBenefitsCall(false);
+    setCalculatedFormValues(false);
     formik.setSubmitting(false)
     Alert.alert('Success', 'You have added new tree successfully', [
       {
         text: 'Great',
         onPress: () => {
-          formik.resetForm()
+          formik.resetForm();
+          setLoadBenefitsCall(false);
+          setCalculatedFormValues(false);
         },
       },
     ])
@@ -304,6 +310,22 @@ export function AddTreeScreen() {
     }
   }, [DBHFeetInput, DBHInchInput]);
 
+  React.useEffect(() => {
+    if (calculatedFormValues) {
+      formik.handleSubmit();
+      formik.values.speciesData?.COMMON === 'Unknown' && formik.values.speciesType === TreeTypes.NULL && (
+        Alert.alert('', 'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.', [
+          {
+            text: 'Ok',
+            onPress: () => {
+              console.log('ok')
+            },
+          },
+        ])
+      )
+    }
+  }, [calculatedFormValues]);
+
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
   const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
 
@@ -320,6 +342,8 @@ export function AddTreeScreen() {
         onPress: () => {
           refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL);
           formik.resetForm();
+          setLoadBenefitsCall(false);
+          setCalculatedFormValues(false);
           removeBenefitVal();
         },
       },
@@ -327,6 +351,8 @@ export function AddTreeScreen() {
   }
 
   function handleAddTreeError() {
+    setLoadBenefitsCall(false);
+    setCalculatedFormValues(false);
     formik.setSubmitting(false)
 
     Alert.alert('Error', "Oops - looks like you are not logged in. Please go to the Profile screen and login or create an account.", [
@@ -935,22 +961,25 @@ export function AddTreeScreen() {
             )}
 
             <View style={{ marginBottom: 25 }}>
-              <TreeBenefits values={formik.values} />
+              <TreeBenefits values={formik.values} loadBenefitsCall={loadBenefitsCall} setCalculatedFormValues={setCalculatedFormValues} />
             </View>
 
             <Button mode="contained"
               onPress={() => {
-                formik.handleSubmit();
-                formik.values.speciesData?.COMMON === 'Unknown' && formik.values.speciesType === TreeTypes.NULL && (
-                  Alert.alert('', 'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.', [
-                    {
-                      text: 'Ok',
-                      onPress: () => {
-                        console.log('ok')
-                      },
-                    },
-                  ])
-                )
+                setLoadBenefitsCall(true);
+                // if (calculatedFormValues) {
+                //   formik.handleSubmit();
+                //   formik.values.speciesData?.COMMON === 'Unknown' && formik.values.speciesType === TreeTypes.NULL && (
+                //     Alert.alert('', 'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.', [
+                //       {
+                //         text: 'Ok',
+                //         onPress: () => {
+                //           console.log('ok')
+                //         },
+                //       },
+                //     ])
+                //   )
+                // }
               }
               }
               loading={formik.isSubmitting}>

@@ -678,7 +678,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         activeOpacity={0.7}
         onPress={() => setOwnmap()}
         style={[styles.touchableOpacityStyle, { backgroundColor: isActiveown ? colors.gray[600] : '#fff' }]}>
-        <MaterialCommunityIcons name="account-circle" color={isActiveown ? '#fff' : colors.gray[600]} size={38} />
+        <MaterialCommunityIcons name="account" color={isActiveown ? '#fff' : colors.gray[600]} size={30} />
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.7}

@@ -18,7 +18,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const CUBIC_GALLONS_FACTOR = 264.172052
 
 interface TreeBenefitsProps {
-  values: FormValues
+  values: FormValues,
+  loadBenefitsCall: boolean,
+  setCalculatedFormValues: Function
 }
 
 const styles = StyleSheet.create({
@@ -94,7 +96,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const [benefits, setBenefits] = React.useState<OutputInformation>()
   const [benefitsError, setBenefitsError] = React.useState('')
   const [, setFormattedResponse] = React.useState('')
-  const { values } = props
+  const { values, loadBenefitsCall } = props
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values
   const canCalculateBenefits = !!(
     speciesData &&
@@ -283,41 +285,45 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
             setIsModalVisible(true)
             setFormattedResponse(formattedResponse)
+            props.setCalculatedFormValues(true);
           }
         }
       }
     } else {
-      console.log('iSeaTreeApi not called ---')
+      console.log('iSeaTreeApi not called ---');
+      props.setCalculatedFormValues(false);
     }
   }
 
   useEffect(() => {
     (async function () {
-      console.log('speciesData +++', speciesData);
-      await loadBenefits();
+      console.log('loadBenefitsCall ===', loadBenefitsCall);
+      if (loadBenefitsCall) {
+        await loadBenefits();
+      }
     })();
-  }, [speciesData])
+  }, [loadBenefitsCall])
 
-  useEffect(() => {
-    (async function () {
-      console.log('crownLightExposureCategory +++', crownLightExposureCategory);
-      await loadBenefits();
-    })();
-  }, [crownLightExposureCategory])
+  // useEffect(() => {
+  //   (async function () {
+  //     console.log('crownLightExposureCategory +++', crownLightExposureCategory);
+  //     await loadBenefits();
+  //   })();
+  // }, [crownLightExposureCategory])
 
-  useEffect(() => {
-    (async function () {
-      console.log('dbh +++', dbh);
-      await loadBenefits();
-    })();
-  }, [dbh])
+  // useEffect(() => {
+  //   (async function () {
+  //     console.log('dbh +++', dbh);
+  //     await loadBenefits();
+  //   })();
+  // }, [dbh])
 
-  useEffect(() => {
-    (async function () {
-      console.log('treeConditionCategory +++', treeConditionCategory);
-      await loadBenefits();
-    })();
-  }, [treeConditionCategory])
+  // useEffect(() => {
+  //   (async function () {
+  //     console.log('treeConditionCategory +++', treeConditionCategory);
+  //     await loadBenefits();
+  //   })();
+  // }, [treeConditionCategory])
 
   const getBenefit = (benefitName: string) => {
     if (benefits && benefits.Benefit) {
