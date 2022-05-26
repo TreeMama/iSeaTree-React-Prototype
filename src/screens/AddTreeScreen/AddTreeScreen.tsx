@@ -966,24 +966,13 @@ export function AddTreeScreen() {
 
             <Button mode="contained"
               onPress={() => {
-                setLoadBenefitsCall(true);
-                // if (calculatedFormValues) {
-                //   formik.handleSubmit();
-                //   formik.values.speciesData?.COMMON === 'Unknown' && formik.values.speciesType === TreeTypes.NULL && (
-                //     Alert.alert('', 'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.', [
-                //       {
-                //         text: 'Ok',
-                //         onPress: () => {
-                //           console.log('ok')
-                //         },
-                //       },
-                //     ])
-                //   )
-                // }
-              }
-              }
-              loading={formik.isSubmitting}>
-              Save
+                  setLoadBenefitsCall(true);
+              }}
+              style={{ fontSize: 10}}
+              icon="calculator"
+              loading={formik.isSubmitting}
+            >
+              {`Calculate Tree Benefits & Save`}
             </Button>
           </View>
 

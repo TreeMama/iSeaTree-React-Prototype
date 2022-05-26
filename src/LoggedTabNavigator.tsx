@@ -74,7 +74,7 @@ export function LoggedTabNavigator() {
             <Image
               source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
-              style={{ width: 35, height: 35 }}
+              style={{ width: 38, height: 38 }}
             />
           ),
         }}
