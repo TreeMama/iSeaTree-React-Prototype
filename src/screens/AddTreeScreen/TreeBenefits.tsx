@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { xml2js, xml2json } from 'xml-js'
-import { Modal, View, ScrollView, StyleSheet, AppState, ActivityIndicator } from 'react-native'
+import { Modal, View, ScrollView, StyleSheet, AppState, ActivityIndicator, Alert } from 'react-native'
 import { LocationContext } from '../../LocationContext'
 import { useTheme } from 'react-native-paper'
 
@@ -100,16 +100,184 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values
   const canCalculateBenefits = !!(
     speciesData &&
-    speciesData.TYPE.toLowerCase() !== 'unknown' &&
     crownLightExposureCategory !== null &&
     dbh &&
     parseInt(dbh) !== 0 &&
     treeConditionCategory
+    // speciesData.TYPE.toLowerCase() !== 'unknown' &&
   )
   // console.log("loading treeBenefits ")
   //gets Location form Location useContext
-  const value = useContext(LocationContext)
-  const address = value.address
+  const value = useContext(LocationContext);
+  const address = value.address;
+
+  const calculateTreezBenefits = async (state: any) => {
+    setIsCalculatorloader(true);
+    const url =
+      `${CONFIG.API_TREE_BENEFIT}?` +
+      `key=${CONFIG.ITREE_KEY}&` +
+      `NationFullName=${address.country}&` +
+      `StateAbbr=${state}&` +
+      `CountyName=${address.subregion}&` +
+      `CityName=${address.city}&` +
+      `Species=${speciesData.ITREECODE}&` +
+      `DBHInch=${dbh}&` +
+      `condition=${treeConditionCategory}&` +
+      `CLE=${crownLightExposureCategory}&` +
+      `TreeHeightMeter=-1&` +
+      `TreeCrownWidthMeter=-1&` +
+      `TreeCrownHeightMeter=-1&`;
+
+    const response = await axios.get(url)
+    console.log('iSeaTreeApi response +++', response)
+    if (response.data) {
+      const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
+      const root: RootObject = xml2js(response.data, { compact: true }) as RootObject
+      if (root) {
+        const err = root.Result.Error
+
+        if (Object.keys(err).length > 0) {
+          setBenefitsError(
+            'The USFS iTree API was not able to calculate the Tree Benefits for this tree.',
+          )
+        } else {
+          const inputInformation = root.Result.InputInformation
+          setItem('NationFullName', inputInformation.Location.NationFullName._text, '')
+          setItem('StateAbbr', inputInformation.Location.StateAbbr._text, '')
+          setItem('CountyName', inputInformation.Location.CountyName._text, '')
+          setItem('CityName', inputInformation.Location.CityName._text, '')
+
+          setItem(
+            'CalculatedHeightMeter',
+            inputInformation.Tree.CalculatedHeightMeter._text,
+            '',
+          )
+          setItem(
+            'CalculatedCrownHeightMeter',
+            inputInformation.Tree.CalculatedCrownHeightMeter._text,
+            '',
+          )
+          setItem(
+            'CalculatedCrownWidthMeter',
+            inputInformation.Tree.CalculatedCrownWidthMeter._text,
+            '',
+          )
+
+          const outputInformation = root.Result.OutputInformation
+
+          setItem(
+            'RunoffAvoided',
+            outputInformation.Benefit.HydroBenefit.RunoffAvoided._text,
+            '',
+          )
+          setItem(
+            'RunoffAvoidedValue',
+            outputInformation.Benefit.HydroBenefit.RunoffAvoidedValue._text,
+            '$',
+          )
+          setItem('Interception', outputInformation.Benefit.HydroBenefit.Interception._text, '')
+          setItem(
+            'PotentialEvaporation',
+            outputInformation.Benefit.HydroBenefit.PotentialEvaporation._text,
+            '',
+          )
+          setItem(
+            'PotentialEvapotranspiration',
+            outputInformation.Benefit.HydroBenefit.PotentialEvapotranspiration._text,
+            '',
+          )
+          setItem('Evaporation', outputInformation.Benefit.HydroBenefit.Evaporation._text, '')
+          setItem(
+            'Transpiration',
+            outputInformation.Benefit.HydroBenefit.Transpiration._text,
+            '',
+          )
+
+          setItem(
+            'CORemoved',
+            outputInformation.Benefit.AirQualityBenefit.CORemoved._text,
+            'lb',
+          )
+          setItem(
+            'CORemovedValue',
+            outputInformation.Benefit.AirQualityBenefit.CORemovedValue._text,
+            '$',
+          )
+          setItem(
+            'NO2Removed',
+            outputInformation.Benefit.AirQualityBenefit.NO2Removed._text,
+            'lb',
+          )
+          setItem(
+            'NO2RemovedValue',
+            outputInformation.Benefit.AirQualityBenefit.NO2RemovedValue._text,
+            '$',
+          )
+          setItem(
+            'SO2Removed',
+            outputInformation.Benefit.AirQualityBenefit.SO2Removed._text,
+            'lb',
+          )
+          setItem(
+            'SO2RemovedValue',
+            outputInformation.Benefit.AirQualityBenefit.SO2RemovedValue._text,
+            '$',
+          )
+          setItem(
+            'O3Removed',
+            outputInformation.Benefit.AirQualityBenefit.O3Removed._text,
+            'lb',
+          )
+          setItem(
+            'O3RemovedValue',
+            outputInformation.Benefit.AirQualityBenefit.O3RemovedValue._text,
+            '$',
+          )
+          setItem(
+            'PM25Removed',
+            outputInformation.Benefit.AirQualityBenefit.PM25Removed._text,
+            'lb',
+          )
+          setItem(
+            'PM25RemovedValue',
+            outputInformation.Benefit.AirQualityBenefit.PM25RemovedValue._text,
+            '$',
+          )
+
+          setItem(
+            'CO2Sequestered',
+            outputInformation.Benefit.CO2Benefits.CO2Sequestered._text,
+            'lb',
+          )
+          setItem(
+            'CO2SequesteredValue',
+            outputInformation.Benefit.CO2Benefits.CO2SequesteredValue._text,
+            '$',
+          )
+
+          setItem('CarbonStorage', outputInformation.Carbon.CarbonStorage._text, 'lb')
+          setItem(
+            'CarbonDioxideStorage',
+            outputInformation.Carbon.CarbonDioxideStorage._text,
+            'lb',
+          )
+          setItem(
+            'CarbonDioxideStorageValue',
+            outputInformation.Carbon.CarbonDioxideStorageValue._text,
+            '$',
+          )
+          setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb')
+
+          setBenefits(root.Result.OutputInformation)
+        }
+        setIsCalculatorloader(false);
+
+        setIsModalVisible(true)
+        setFormattedResponse(formattedResponse)
+        props.setCalculatedFormValues(true);
+      }
+    }
+  }
 
   const loadBenefits = async () => {
     if (canCalculateBenefits) {
@@ -123,174 +291,23 @@ export function TreeBenefits(props: TreeBenefitsProps) {
       }
 
       if (canCalculateBenefits) {
-        setIsCalculatorloader(true);
-        const url =
-          `${CONFIG.API_TREE_BENEFIT}?` +
-          `key=${CONFIG.ITREE_KEY}&` +
-          `NationFullName=${address.country}&` +
-          `StateAbbr=${state}&` +
-          `CountyName=${address.subregion}&` +
-          `CityName=${address.city}&` +
-          `Species=${speciesData.ITREECODE}&` +
-          `DBHInch=${dbh}&` +
-          `condition=${treeConditionCategory}&` +
-          `CLE=${crownLightExposureCategory}&` +
-          `TreeHeightMeter=-1&` +
-          `TreeCrownWidthMeter=-1&` +
-          `TreeCrownHeightMeter=-1&`;
-
-        const response = await axios.get(url)
-        console.log('iSeaTreeApi response +++', response)
-        if (response.data) {
-          const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
-          const root: RootObject = xml2js(response.data, { compact: true }) as RootObject
-          if (root) {
-            const err = root.Result.Error
-
-            if (Object.keys(err).length > 0) {
-              setBenefitsError(
-                'The USFS iTree API was not able to calculate the Tree Benefits for this tree.',
-              )
-            } else {
-              const inputInformation = root.Result.InputInformation
-              setItem('NationFullName', inputInformation.Location.NationFullName._text, '')
-              setItem('StateAbbr', inputInformation.Location.StateAbbr._text, '')
-              setItem('CountyName', inputInformation.Location.CountyName._text, '')
-              setItem('CityName', inputInformation.Location.CityName._text, '')
-
-              setItem(
-                'CalculatedHeightMeter',
-                inputInformation.Tree.CalculatedHeightMeter._text,
-                '',
-              )
-              setItem(
-                'CalculatedCrownHeightMeter',
-                inputInformation.Tree.CalculatedCrownHeightMeter._text,
-                '',
-              )
-              setItem(
-                'CalculatedCrownWidthMeter',
-                inputInformation.Tree.CalculatedCrownWidthMeter._text,
-                '',
-              )
-
-              const outputInformation = root.Result.OutputInformation
-
-              setItem(
-                'RunoffAvoided',
-                outputInformation.Benefit.HydroBenefit.RunoffAvoided._text,
-                '',
-              )
-              setItem(
-                'RunoffAvoidedValue',
-                outputInformation.Benefit.HydroBenefit.RunoffAvoidedValue._text,
-                '$',
-              )
-              setItem('Interception', outputInformation.Benefit.HydroBenefit.Interception._text, '')
-              setItem(
-                'PotentialEvaporation',
-                outputInformation.Benefit.HydroBenefit.PotentialEvaporation._text,
-                '',
-              )
-              setItem(
-                'PotentialEvapotranspiration',
-                outputInformation.Benefit.HydroBenefit.PotentialEvapotranspiration._text,
-                '',
-              )
-              setItem('Evaporation', outputInformation.Benefit.HydroBenefit.Evaporation._text, '')
-              setItem(
-                'Transpiration',
-                outputInformation.Benefit.HydroBenefit.Transpiration._text,
-                '',
-              )
-
-              setItem(
-                'CORemoved',
-                outputInformation.Benefit.AirQualityBenefit.CORemoved._text,
-                'lb',
-              )
-              setItem(
-                'CORemovedValue',
-                outputInformation.Benefit.AirQualityBenefit.CORemovedValue._text,
-                '$',
-              )
-              setItem(
-                'NO2Removed',
-                outputInformation.Benefit.AirQualityBenefit.NO2Removed._text,
-                'lb',
-              )
-              setItem(
-                'NO2RemovedValue',
-                outputInformation.Benefit.AirQualityBenefit.NO2RemovedValue._text,
-                '$',
-              )
-              setItem(
-                'SO2Removed',
-                outputInformation.Benefit.AirQualityBenefit.SO2Removed._text,
-                'lb',
-              )
-              setItem(
-                'SO2RemovedValue',
-                outputInformation.Benefit.AirQualityBenefit.SO2RemovedValue._text,
-                '$',
-              )
-              setItem(
-                'O3Removed',
-                outputInformation.Benefit.AirQualityBenefit.O3Removed._text,
-                'lb',
-              )
-              setItem(
-                'O3RemovedValue',
-                outputInformation.Benefit.AirQualityBenefit.O3RemovedValue._text,
-                '$',
-              )
-              setItem(
-                'PM25Removed',
-                outputInformation.Benefit.AirQualityBenefit.PM25Removed._text,
-                'lb',
-              )
-              setItem(
-                'PM25RemovedValue',
-                outputInformation.Benefit.AirQualityBenefit.PM25RemovedValue._text,
-                '$',
-              )
-
-              setItem(
-                'CO2Sequestered',
-                outputInformation.Benefit.CO2Benefits.CO2Sequestered._text,
-                'lb',
-              )
-              setItem(
-                'CO2SequesteredValue',
-                outputInformation.Benefit.CO2Benefits.CO2SequesteredValue._text,
-                '$',
-              )
-
-              setItem('CarbonStorage', outputInformation.Carbon.CarbonStorage._text, 'lb')
-              setItem(
-                'CarbonDioxideStorage',
-                outputInformation.Carbon.CarbonDioxideStorage._text,
-                'lb',
-              )
-              setItem(
-                'CarbonDioxideStorageValue',
-                outputInformation.Carbon.CarbonDioxideStorageValue._text,
-                '$',
-              )
-              setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb')
-
-              setBenefits(root.Result.OutputInformation)
-            }
-            setIsCalculatorloader(false);
-
-            setIsModalVisible(true)
-            setFormattedResponse(formattedResponse)
-            props.setCalculatedFormValues(true);
-          }
+        if (speciesData.TYPE.toLowerCase() === 'unknown') {
+          Alert.alert('Tree Benefits Pending', "Tree benefits cannot be calculated on \'Unknown\' species. Your data will be saved so that the benefits can be calculated later.", [
+            {
+              text: 'Ok',
+              onPress: () => {
+                console.log('ok');
+                calculateTreezBenefits(state);
+              },
+            },
+          ]);
+        } else {
+          calculateTreezBenefits(state);
         }
+
       }
     } else {
-      console.log('iSeaTreeApi not called ---');
+      console.log('iSeaTreeApi not called ---', canCalculateBenefits);
       props.setCalculatedFormValues(false);
     }
   }
