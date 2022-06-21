@@ -8,20 +8,15 @@ import {
   TouchableHighlight,
   Text as RNText,
   StyleSheet,
+  Image,
 } from 'react-native'
-import {
-  Subheading,
-  useTheme,
-  Button,
-  TextInput,
-  DefaultTheme,
-  Badge,
-} from 'react-native-paper'
+import { Subheading, useTheme, Button, TextInput, DefaultTheme, Badge } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 import { StatusBar } from '../../components/StatusBar'
 import { colors } from '../../styles/theme'
 import speciesDataList from '../../../data/species.json'
+import { CONFIG } from '../../../envVariables'
 
 export interface SpeciesData {
   ID: string
@@ -30,6 +25,7 @@ export interface SpeciesData {
   SCIENTIFIC: string
   LEVEL?: string
   ITREECODE?: string
+  FULL_PIC_75x75?: string
 }
 
 interface SpeciesSelectProps {
@@ -40,7 +36,10 @@ interface SpeciesSelectProps {
 
 const MIN_SEARCH_TERM_LENGTH = 3
 
-function getSpeciesFlatListData(type: string | null, query?: string): { ID: string; COMMON: string; SCIENTIFIC: string; TYPE: string }[] {
+function getSpeciesFlatListData(
+  type: string | null,
+  query?: string,
+): { ID: string; COMMON: string; SCIENTIFIC: string; TYPE: string }[] {
   const $speciesDataList: { ID: string; COMMON: string; SCIENTIFIC: string; TYPE: string }[] = []
   speciesDataList.forEach((item) => {
     if (typeof type == 'string') {
@@ -81,14 +80,27 @@ const styles = StyleSheet.create({
     padding: 12,
     borderBottomWidth: 1,
     borderColor: '#ddd',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   listItemTitle: {
     fontSize: 16,
+    marginLeft: 10,
     color: DefaultTheme.colors.text,
+    position: 'relative',
+    bottom: 8,
   },
   listItemDescription: {
     fontSize: 16,
     color: DefaultTheme.colors.backdrop,
+    position: 'absolute',
+    marginLeft: 115,
+    top: 50,
+  },
+  smallImage: {
+    width: 90,
+    height: 55,
   },
 })
 
@@ -141,6 +153,8 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   }
 
   function renderFlatListItem({ item }: { item: SpeciesData }) {
+    const imageUrl = `${CONFIG.AWS_S3_URL}` + item.FULL_PIC_75x75
+
     return (
       <TouchableHighlight
         key={item.ID}
@@ -158,6 +172,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             },
           ]}
         >
+          {item.FULL_PIC_75x75 ? (
+            <Image source={{ uri: imageUrl }} style={styles.smallImage} />
+          ) : (
+            <></>
+          )}
           <RNText style={styles.listItemTitle}>{item.COMMON}</RNText>
           <RNText style={styles.listItemDescription}>{item.SCIENTIFIC}</RNText>
         </View>
