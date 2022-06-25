@@ -25,7 +25,8 @@ export interface SpeciesData {
   SCIENTIFIC: string
   LEVEL?: string
   ITREECODE?: string
-  FULL_PIC_75x75?: string
+  FULL_PIC_180x110?: string
+  FULL_PIC_1024x768?: string
 }
 
 interface SpeciesSelectProps {
@@ -139,6 +140,7 @@ function rendergramtext(level: string) {
 export function SpeciesSelect(props: SpeciesSelectProps) {
   const [query, setQuery] = React.useState<undefined | string>(undefined)
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
+  const [secondaryModalVisibility, setSecondaryModalVisibility] = React.useState<boolean>(false)
   const theme = useTheme()
 
   const currentSpeciesNamesItems = React.useMemo(() => {
@@ -153,7 +155,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   }
 
   function renderFlatListItem({ item }: { item: SpeciesData }) {
-    const imageUrl = `${CONFIG.AWS_S3_URL}` + item.FULL_PIC_75x75
+    const imageUrl = `${CONFIG.AWS_S3_URL}` + item.FULL_PIC_180x110
 
     return (
       <TouchableHighlight
@@ -172,8 +174,13 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             },
           ]}
         >
-          {item.FULL_PIC_75x75 ? (
-            <Image source={{ uri: imageUrl }} style={styles.smallImage} />
+          {item.FULL_PIC_180x110 ? (
+            <TouchableOpacity onPress={() => {
+              console.log('iamge press ===')
+              setSecondaryModalVisibility(true);
+            }}>
+              <Image source={{ uri: imageUrl }} style={styles.smallImage} />
+            </TouchableOpacity>
           ) : (
             <></>
           )}
@@ -235,6 +242,21 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         </TouchableOpacity>
 
         <Modal visible={isModalVisible} animationType="slide">
+
+          <Modal
+            animationType='fade'
+            transparent={true}
+            visible={secondaryModalVisibility}>
+
+            <View style={{ flex: 1 }}>
+              <View style={{ backgroundColor: 'blue' }}>
+
+                <RNText>Second Modal Text</RNText>
+
+              </View>
+            </View>
+          </Modal>
+
           <StatusBar />
 
           <View style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -266,6 +288,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             />
           </View>
         </Modal>
+
       </View>
     </View>
   )
