@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   Modal,
@@ -9,6 +9,8 @@ import {
   Text as RNText,
   StyleSheet,
   Image,
+  Dimensions,
+  ActivityIndicator,
 } from 'react-native'
 import { Subheading, useTheme, Button, TextInput, DefaultTheme, Badge } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -17,6 +19,17 @@ import { StatusBar } from '../../components/StatusBar'
 import { colors } from '../../styles/theme'
 import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
+//import Carousel from '../../components/Carousel'
+import Carousel, { Pagination } from 'react-native-snap-carousel'
+import { ScrollView } from 'react-native-gesture-handler'
+
+// const dummy_image = require('../../../assets/dummy_photo.png')
+const info_image = require('../../../assets/info.png')
+const arrow_up = require('../../../assets/arrow_up.png')
+const arrow_down = require('../../../assets/arrow_down.png')
+const tree_round = require('../../../assets/tree_round.png')
+const tree_rect = require('../../../assets/conifer.png')
+const search_image = require('../../../assets/trees.png')
 
 export interface SpeciesData {
   ID: string
@@ -27,6 +40,7 @@ export interface SpeciesData {
   ITREECODE?: string
   FULL_PIC_180x110?: string
   FULL_PIC_1024x768?: string
+  THUMB_PIC_1024x768?: string
 }
 
 interface SpeciesSelectProps {
@@ -75,6 +89,7 @@ function getSpeciesFlatListData(
 export function getSpeciesNames(speciesNameId: string): undefined | SpeciesData {
   return speciesDataList.find((speciesDatum) => speciesDatum.ID === speciesNameId)
 }
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   listItem: {
@@ -103,6 +118,15 @@ const styles = StyleSheet.create({
     width: 90,
     height: 55,
   },
+
+  imageContainer: {
+    flex: 1,
+    width: '100%',
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: { width: '100%', height: '100%' },
 })
 
 function getTreeBadgeColor(level: string) {
@@ -141,6 +165,13 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   const [query, setQuery] = React.useState<undefined | string>(undefined)
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const [secondaryModalVisibility, setSecondaryModalVisibility] = React.useState<boolean>(false)
+  const [thirdModalVisibility, setThirdModalVisibility] = React.useState<boolean>(false)
+
+  const [isInfo, setInfo] = React.useState<boolean>(false)
+  const [currentScreen, setCurrentScreen] = React.useState(0)
+  const [currentData, setCurrentData] = React.useState<SpeciesData>()
+  const [loading, setLoading] = React.useState<boolean>(false)
+
   const theme = useTheme()
 
   const currentSpeciesNamesItems = React.useMemo(() => {
@@ -175,10 +206,13 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           ]}
         >
           {item.FULL_PIC_180x110 ? (
-            <TouchableOpacity onPress={() => {
-              console.log('iamge press ===')
-              setSecondaryModalVisibility(true);
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                setCurrentScreen(0)
+                setCurrentData(item)
+                setSecondaryModalVisibility(true)
+              }}
+            >
               <Image source={{ uri: imageUrl }} style={styles.smallImage} />
             </TouchableOpacity>
           ) : (
@@ -189,6 +223,96 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         </View>
       </TouchableHighlight>
     )
+  }
+
+  function onLoading(value, label) {
+    setLoading(value)
+  }
+
+  const renderItem = ({ item }) => {
+    const imgURL = `${CONFIG.AWS_S3_URL}` + item
+    return (
+      <View style={styles.imageContainer}>
+        <Image
+          source={{ uri: imgURL }}
+          style={styles.image}
+          resizeMode={'cover'}
+          onLoadStart={() => onLoading(true, 'onLoadStart')}
+          onLoadEnd={() => onLoading(false, 'onLoadStart')}
+        ></Image>
+        {loading && (
+          <View
+            style={{
+              justifyContent: 'center',
+              alignSelf: 'center',
+              alignContent: 'center',
+              zIndex: 0,
+              width: '100%',
+              position: 'absolute',
+              height: 350,
+            }}
+          >
+            <ActivityIndicator color={'green'} />
+          </View>
+        )}
+
+        <TouchableOpacity
+          onPress={() => {
+            setThirdModalVisibility(true)
+          }}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 5,
+            position: 'absolute',
+            top: 15,
+            left: 15,
+          }}
+        >
+          <Image
+            style={{
+              resizeMode: 'contain',
+              height: 50,
+              width: 50,
+            }}
+            source={tree_round}
+          />
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  const pagination = () => {
+    return (
+      <Pagination
+        dotsLength={imageArray.length}
+        activeDotIndex={currentScreen}
+        containerStyle={{
+          backgroundColor: 'transparent',
+        }}
+        dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: -5,
+          backgroundColor: '#4A5568',
+        }}
+        inactiveDotStyle={{
+          width: 12,
+          height: 12,
+          borderRadius: 8,
+          backgroundColor: '#A0AEC0',
+        }}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+      />
+    )
+  }
+  const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
+  const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
+  const imageArray = currentData?.THUMB_PIC_1024x768 ? currentData?.THUMB_PIC_1024x768.split(',') : [];
+  if (currentData?.FULL_PIC_1024x768) {
+    imageArray.unshift(currentData?.FULL_PIC_1024x768);
   }
 
   return (
@@ -242,17 +366,350 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
         </TouchableOpacity>
 
         <Modal visible={isModalVisible} animationType="slide">
+          <Modal animationType="slide" transparent={true} visible={secondaryModalVisibility}>
+            <Modal animationType="slide" transparent={true} visible={thirdModalVisibility}>
+              <StatusBar />
+              <View
+                style={{
+                  flex: 1,
+                  height: '60%',
+                  backgroundColor: 'white',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <View
+                  style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      width: viewportWidth / 1.5,
+                      height: viewportWidth / 2,
+                      overflow: 'hidden',
+                      borderRadius: 20,
+                    }}
+                  >
+                    <Image
+                      source={{ uri: imageUrl1 }}
+                      style={{ height: '100%', width: '100%' }}
+                      resizeMode={'cover'}
+                      onLoadStart={() => onLoading(true, 'onLoadStart')}
+                      onLoadEnd={() => onLoading(false, 'onLoadStart')}
+                    />
 
-          <Modal
-            animationType='fade'
-            transparent={true}
-            visible={secondaryModalVisibility}>
+                    {loading && (
+                      <View
+                        style={{
+                          justifyContent: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                          zIndex: 0,
+                          width: '100%',
+                          position: 'absolute',
+                          height: viewportWidth / 2,
+                        }}
+                      >
+                        <ActivityIndicator color={'green'} />
+                      </View>
+                    )}
+                  </View>
+                  {!loading && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        right: -10,
+                      }}
+                    >
+                      <Image
+                        source={search_image}
+                        style={{ height: 100, width: 100 }}
+                        resizeMode={'contain'}
+                      />
+                    </View>
+                  )}
+                </View>
+              </View>
+              <View
+                style={{ height: '60%', width: '100%', backgroundColor: 'white', paddingTop: 50 }}
+              >
+                <View
+                  style={{
+                    alignItems: 'baseline',
+                    marginHorizontal: 20,
+                  }}
+                >
+                  {currentData?.TYPE ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                      }}
+                    >
+                      <Image
+                        source={tree_rect}
+                        style={{ height: 40, width: 60 }}
+                        resizeMode={'contain'}
+                      />
+                      <View style={{ marginLeft: 5 }}>
+                        <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Type</RNText>
+                        <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                          {currentData?.TYPE}
+                        </RNText>
+                      </View>
+                    </View>
+                  ) : null}
+                  {currentData?.COMMON ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                      }}
+                    >
+                      <Image
+                        source={tree_rect}
+                        style={{ height: 40, width: 60 }}
+                        resizeMode={'contain'}
+                      />
+                      <View style={{ marginLeft: 5 }}>
+                        <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Common</RNText>
+                        <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                          {currentData?.COMMON}
+                        </RNText>
+                      </View>
+                    </View>
+                  ) : null}
+                  {currentData?.SCIENTIFIC ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                      }}
+                    >
+                      <Image
+                        source={tree_rect}
+                        style={{ height: 40, width: 60 }}
+                        resizeMode={'contain'}
+                      />
+                      <View style={{ marginLeft: 5 }}>
+                        <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Scientific</RNText>
+                        <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                          {currentData?.SCIENTIFIC}
+                        </RNText>
+                      </View>
+                    </View>
+                  ) : null}
+                  {currentData?.LEAF_COLOR ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                      }}
+                    >
+                      <Image
+                        source={tree_rect}
+                        style={{ height: 40, width: 60 }}
+                        resizeMode={'contain'}
+                      />
+                      <View style={{ marginLeft: 5 }}>
+                        <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Leaf Color</RNText>
+                        <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                          {currentData?.LEAF_COLOR}
+                        </RNText>
+                      </View>
+                    </View>
+                  ) : null}
+                  {currentData?.TREE_SHAPE ? (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 20,
+                      }}
+                    >
+                      <Image
+                        source={tree_rect}
+                        style={{ height: 40, width: 60 }}
+                        resizeMode={'contain'}
+                      />
+                      <View style={{ marginLeft: 5 }}>
+                        <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Tree Shape</RNText>
+                        <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                          {currentData?.TREE_SHAPE}
+                        </RNText>
+                      </View>
+                    </View>
+                  ) : null}
+                </View>
 
-            <View style={{ flex: 1 }}>
-              <View style={{ backgroundColor: 'blue' }}>
-
-                <RNText>Second Modal Text</RNText>
-
+                <Button
+                  mode="contained"
+                  style={{
+                    borderRadius: 0,
+                    //  alignContent: 'center',
+                    width: viewportWidth,
+                    alignSelf: 'center',
+                    // height: 45,
+                    padding: 10,
+                    paddingBottom: 20,
+                    // left: -60,
+                    position: 'absolute',
+                    bottom: 0,
+                  }}
+                  onPress={() => {
+                    setThirdModalVisibility(false)
+                  }}
+                >
+                  CLOSE
+                </Button>
+              </View>
+            </Modal>
+            <StatusBar />
+            <View
+              style={{
+                flex: 1,
+                height: '100%',
+                backgroundColor: 'white',
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  width: '100%',
+                  height: '70%',
+                  flex: 1,
+                  justifyContent: 'center',
+                }}
+              >
+                <Carousel
+                  data={imageArray}
+                  renderItem={renderItem}
+                  itemWidth={viewportWidth * 1}
+                  sliderWidth={viewportWidth}
+                  loop={true}
+                  pagingEnabled
+                  firstItem={currentScreen}
+                  initialNumToRender={currentScreen}
+                  onSnapToItem={(index) => setCurrentScreen(index)}
+                />
+                <View
+                  style={{
+                    position: 'absolute',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    bottom: 0,
+                  }}
+                >
+                  {pagination()}
+                </View>
+              </View>
+              <View style={{ height: isInfo ? '40%' : '15%', width: '100%' }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      marginTop: 10,
+                      marginLeft: 10,
+                    }}
+                  >
+                    <Image
+                      source={{ uri: imageUrl2 }}
+                      style={{ height: 40, width: 60 }}
+                      resizeMode={'contain'}
+                    />
+                    <View style={{ marginLeft: 5 }}>
+                      <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>
+                        {currentData?.COMMON}
+                      </RNText>
+                      <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                        {currentData?.SCIENTIFIC}
+                      </RNText>
+                    </View>
+                  </View>
+                  <TouchableOpacity
+                    style={{
+                      //  flexDirection: 'row',
+                      justifyContent: 'center',
+                      marginRight: 10,
+                      alignItems: 'center',
+                      marginTop: 10,
+                    }}
+                    onPress={() => {
+                      setInfo((current) => !current)
+                    }}
+                  >
+                    <Image
+                      source={info_image}
+                      style={{ height: 20, width: 20 }}
+                      resizeMode={'contain'}
+                    />
+                    {isInfo ? (
+                      <Image
+                        source={arrow_up}
+                        style={{ height: 15, width: 15 }}
+                        resizeMode={'contain'}
+                      />
+                    ) : (
+                      <Image
+                        source={arrow_down}
+                        style={{ height: 15, width: 15 }}
+                        resizeMode={'contain'}
+                      />
+                    )}
+                  </TouchableOpacity>
+                </View>
+                {isInfo ? (
+                  <View style={{ marginTop: 15, marginHorizontal: 10 }}>
+                    <ScrollView>
+                      <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
+                        {currentData?.DESCRIPTION}
+                      </RNText>
+                    </ScrollView>
+                  </View>
+                ) : null}
+                <Button
+                  mode="contained"
+                  style={{
+                    borderRadius: 0,
+                    width: viewportWidth,
+                    alignSelf: 'center',
+                    padding: 10,
+                    paddingBottom: 20,
+                    position: 'absolute',
+                    bottom: 0,
+                  }}
+                  onPress={() => {
+                    setSecondaryModalVisibility(false)
+                  }}
+                >
+                  CLOSE
+                </Button>
               </View>
             </View>
           </Modal>
@@ -288,7 +745,6 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             />
           </View>
         </Modal>
-
       </View>
     </View>
   )

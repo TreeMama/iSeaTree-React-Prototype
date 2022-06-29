@@ -44,18 +44,24 @@ const data = [
     },
     {
         key: 7,
+        text: `For help identifying tree species, click on the graphics in the species menu to review tree characteristics and more detailed images.`,
+        image: require('../../../assets/TutorialPics/tree_species.png'),
+        backgroundColor: '#488520',
+    },
+    {
+        key: 8,
         text: 'There are many options we offer for helping you measure the DBH (Diameter at Breast Height) of a tree - one option uses the camera on your phone!',
         image: require('../../../assets/TutorialPics/dbh.jpeg'),
         backgroundColor: '#64c7dd',
     },
     {
-        key: 8,
+        key: 9,
         text: `After you add new tree data to the 'Add new' page you will be able to calculate the 'Tree Benefits' of your data entry for others to learn about!`,
         image: require('../../../assets/TutorialPics/11v2.png'),
         backgroundColor: '#28666E',
     },
     {
-        key: 9,
+        key: 10,
         text: `Find & replay this tutorial using this icon!`,
         image: require('../../../assets/TutorialPics/12.png'),
         backgroundColor: '#13292A',
