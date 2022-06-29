@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/camelcase */
+import React from 'react'
 
 import {
   Modal,
@@ -27,9 +29,10 @@ import { ScrollView } from 'react-native-gesture-handler'
 const info_image = require('../../../assets/info.png')
 const arrow_up = require('../../../assets/arrow_up.png')
 const arrow_down = require('../../../assets/arrow_down.png')
-const tree_round = require('../../../assets/tree_round.png')
 const tree_rect = require('../../../assets/conifer.png')
 const search_image = require('../../../assets/trees.png')
+const treeConifer = require('../../../assets/tree_Conifer3X-01.png');
+const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png');
 
 export interface SpeciesData {
   ID: string
@@ -231,6 +234,15 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
 
   const renderItem = ({ item }) => {
     const imgURL = `${CONFIG.AWS_S3_URL}` + item
+    let treeDetailImg = ''
+    switch (currentData?.TYPE) {
+      case 'conifer':
+        treeDetailImg = treeConifer
+        break
+      case 'broadleaf':
+        treeDetailImg = treeBroadleaf
+        break
+    }
     return (
       <View style={styles.imageContainer}>
         <Image
@@ -272,10 +284,12 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           <Image
             style={{
               resizeMode: 'contain',
-              height: 50,
-              width: 50,
+              height: 60,
+              width: 60,
+              backgroundColor: 'white',
+              borderRadius: 30,
             }}
-            source={tree_round}
+            source={treeDetailImg}
           />
         </TouchableOpacity>
       </View>
@@ -310,9 +324,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   }
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
-  const imageArray = currentData?.THUMB_PIC_1024x768 ? currentData?.THUMB_PIC_1024x768.split(',') : [];
+  const imageArray = currentData?.THUMB_PIC_1024x768
+    ? currentData?.THUMB_PIC_1024x768.split(',')
+    : []
   if (currentData?.FULL_PIC_1024x768) {
-    imageArray.unshift(currentData?.FULL_PIC_1024x768);
+    imageArray.unshift(currentData?.FULL_PIC_1024x768)
   }
 
   return (
@@ -621,7 +637,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                   {pagination()}
                 </View>
               </View>
-              <View style={{ height: isInfo ? '40%' : '15%', width: '100%' }}>
+              <View style={{ height: isInfo ? '40%' : '18%', width: '100%' }}>
                 <View
                   style={{
                     flexDirection: 'row',
@@ -636,6 +652,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       alignItems: 'center',
                       marginTop: 10,
                       marginLeft: 10,
+                      width: '90%',
                     }}
                   >
                     <Image
@@ -643,7 +660,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       style={{ height: 40, width: 60 }}
                       resizeMode={'contain'}
                     />
-                    <View style={{ marginLeft: 5 }}>
+                    <View style={{ marginLeft: 10, width: '80%' }}>
                       <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>
                         {currentData?.COMMON}
                       </RNText>
