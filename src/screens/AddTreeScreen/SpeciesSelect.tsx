@@ -29,15 +29,16 @@ import { ScrollView } from 'react-native-gesture-handler'
 const info_image = require('../../../assets/info.png')
 const arrow_up = require('../../../assets/arrow_up.png')
 const arrow_down = require('../../../assets/arrow_down.png')
-const tree_rect = require('../../../assets/conifer.png')
+// const tree_rect = require('../../../assets/conifer.png')
 const search_image = require('../../../assets/trees.png')
-const treeConifer = require('../../../assets/tree_Conifer3X-01.png');
-const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png');
+const treeConifer = require('../../../assets/tree_Conifer3X-01.png')
+const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
 
 export interface SpeciesData {
   ID: string
   TYPE: string
   COMMON: string
+  DESCRIPTION: string
   SCIENTIFIC: string
   LEVEL?: string
   ITREECODE?: string
@@ -103,25 +104,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  listTile: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    width: '82%',
+    paddingLeft: 10,
+    marginRight: 10,
+  },
   listItemTitle: {
     fontSize: 16,
-    marginLeft: 10,
     color: DefaultTheme.colors.text,
-    position: 'relative',
-    bottom: 8,
+    marginBottom: 5,
   },
   listItemDescription: {
     fontSize: 16,
     color: DefaultTheme.colors.backdrop,
-    position: 'absolute',
-    marginLeft: 115,
-    top: 50,
   },
   smallImage: {
     width: 90,
     height: 55,
   },
-
   imageContainer: {
     flex: 1,
     width: '100%',
@@ -214,6 +216,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                 setCurrentScreen(0)
                 setCurrentData(item)
                 setSecondaryModalVisibility(true)
+                setInfo(false)
               }}
             >
               <Image source={{ uri: imageUrl }} style={styles.smallImage} />
@@ -221,8 +224,14 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           ) : (
             <></>
           )}
-          <RNText style={styles.listItemTitle}>{item.COMMON}</RNText>
-          <RNText style={styles.listItemDescription}>{item.SCIENTIFIC}</RNText>
+          <View style={styles.listTile}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: '90%' }}>
+              <RNText style={styles.listItemTitle}>{item.COMMON}</RNText>
+            </ScrollView>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: '80%' }}>
+              <RNText style={styles.listItemDescription}>{item.SCIENTIFIC}</RNText>
+            </ScrollView>
+          </View>
         </View>
       </TouchableHighlight>
     )
@@ -279,15 +288,17 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             position: 'absolute',
             top: 15,
             left: 15,
+            backgroundColor: 'white',
+            borderRadius: 30,
+            height: 60,
+            width: 60,
           }}
         >
           <Image
             style={{
               resizeMode: 'contain',
-              height: 60,
-              width: 60,
-              backgroundColor: 'white',
-              borderRadius: 30,
+              height: '100%',
+              width: '100%',
             }}
             source={treeDetailImg}
           />
@@ -330,7 +341,15 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   if (currentData?.FULL_PIC_1024x768) {
     imageArray.unshift(currentData?.FULL_PIC_1024x768)
   }
-
+  let treeDetailImg = ''
+  switch (currentData?.TYPE) {
+    case 'conifer':
+      treeDetailImg = treeConifer
+      break
+    case 'broadleaf':
+      treeDetailImg = treeBroadleaf
+      break
+  }
   return (
     <View>
       <Subheading>Species</Subheading>
@@ -470,11 +489,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       }}
                     >
                       <Image
-                        source={tree_rect}
-                        style={{ height: 40, width: 60 }}
+                        source={treeDetailImg}
+                        style={{ height: 80, width: 80 }}
                         resizeMode={'contain'}
                       />
-                      <View style={{ marginLeft: 5 }}>
+                      <View style={{ marginLeft: 5, width: '82%' }}>
                         <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Type</RNText>
                         <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
                           {currentData?.TYPE}
@@ -492,11 +511,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       }}
                     >
                       <Image
-                        source={tree_rect}
-                        style={{ height: 40, width: 60 }}
+                        source={treeDetailImg}
+                        style={{ height: 80, width: 80 }}
                         resizeMode={'contain'}
                       />
-                      <View style={{ marginLeft: 5 }}>
+                      <View style={{ marginLeft: 5, width: '82%' }}>
                         <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Common</RNText>
                         <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
                           {currentData?.COMMON}
@@ -514,11 +533,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       }}
                     >
                       <Image
-                        source={tree_rect}
-                        style={{ height: 40, width: 60 }}
+                        source={treeDetailImg}
+                        style={{ height: 80, width: 80 }}
                         resizeMode={'contain'}
                       />
-                      <View style={{ marginLeft: 5 }}>
+                      <View style={{ marginLeft: 5, width: '82%' }}>
                         <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Scientific</RNText>
                         <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
                           {currentData?.SCIENTIFIC}
@@ -536,11 +555,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       }}
                     >
                       <Image
-                        source={tree_rect}
-                        style={{ height: 40, width: 60 }}
+                        source={treeDetailImg}
+                        style={{ height: 80, width: 80 }}
                         resizeMode={'contain'}
                       />
-                      <View style={{ marginLeft: 5 }}>
+                      <View style={{ marginLeft: 5, width: '82%' }}>
                         <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Leaf Color</RNText>
                         <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
                           {currentData?.LEAF_COLOR}
@@ -558,11 +577,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       }}
                     >
                       <Image
-                        source={tree_rect}
-                        style={{ height: 40, width: 60 }}
+                        source={treeDetailImg}
+                        style={{ height: 80, width: 80 }}
                         resizeMode={'contain'}
                       />
-                      <View style={{ marginLeft: 5 }}>
+                      <View style={{ marginLeft: 5, width: '82%' }}>
                         <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Tree Shape</RNText>
                         <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
                           {currentData?.TREE_SHAPE}
@@ -660,13 +679,19 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                       style={{ height: 40, width: 60 }}
                       resizeMode={'contain'}
                     />
-                    <View style={{ marginLeft: 10, width: '80%' }}>
-                      <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>
-                        {currentData?.COMMON}
-                      </RNText>
-                      <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
-                        {currentData?.SCIENTIFIC}
-                      </RNText>
+                    <View
+                      style={{ marginLeft: 10, width: '80%', marginRight: 10, marginBottom: 10 }}
+                    >
+                      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>
+                          {currentData?.COMMON}
+                        </RNText>
+                      </ScrollView>
+                      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                        <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
+                          {currentData?.SCIENTIFIC}
+                        </RNText>
+                      </ScrollView>
                     </View>
                   </View>
                   <TouchableOpacity
