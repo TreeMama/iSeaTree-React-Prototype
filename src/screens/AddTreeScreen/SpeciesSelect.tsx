@@ -21,15 +21,12 @@ import { StatusBar } from '../../components/StatusBar'
 import { colors } from '../../styles/theme'
 import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
-//import Carousel from '../../components/Carousel'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { ScrollView } from 'react-native-gesture-handler'
 
-// const dummy_image = require('../../../assets/dummy_photo.png')
 const info_image = require('../../../assets/info.png')
 const arrow_up = require('../../../assets/arrow_up.png')
 const arrow_down = require('../../../assets/arrow_down.png')
-// const tree_rect = require('../../../assets/conifer.png')
 const search_image = require('../../../assets/trees.png')
 const treeConifer = require('../../../assets/tree_Conifer3X-01.png')
 const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
@@ -45,6 +42,8 @@ export interface SpeciesData {
   FULL_PIC_180x110?: string
   FULL_PIC_1024x768?: string
   THUMB_PIC_1024x768?: string
+  LEAF_COLOR?: string
+  TREE_SHAPE?: string
 }
 
 interface SpeciesSelectProps {
@@ -292,6 +291,8 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             borderRadius: 30,
             height: 60,
             width: 60,
+            borderColor: 'black',
+            borderWidth: 2,
           }}
         >
           <Image
@@ -727,13 +728,15 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                   </TouchableOpacity>
                 </View>
                 {isInfo ? (
-                  <View style={{ marginTop: 15, marginHorizontal: 10 }}>
-                    <ScrollView>
+                  // <View
+                  //   style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 100 }}
+                  // >
+                    <ScrollView style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }} showsVerticalScrollIndicator={true}>
                       <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
                         {currentData?.DESCRIPTION}
                       </RNText>
                     </ScrollView>
-                  </View>
+                  // </View>
                 ) : null}
                 <Button
                   mode="contained"
