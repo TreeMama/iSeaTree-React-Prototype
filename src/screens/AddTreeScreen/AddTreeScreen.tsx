@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import {
   KeyboardAvoidingView,
@@ -42,6 +42,7 @@ import { RNCamera } from 'react-native-camera';
 import { useCamera } from 'react-native-camera-hooks';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Tip } from "react-native-tip";
+import { LocationContext } from '../../LocationContext'
 
 const win = Dimensions.get('window');
 
@@ -162,6 +163,8 @@ export function AddTreeScreen() {
   const [DBHCalculation, setDBHCalculation] = React.useState('');
   const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false);
   const [calculatedFormValues, setCalculatedFormValues] = React.useState(false);
+  const value = useContext(LocationContext);
+  const address = value.address;
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -193,7 +196,7 @@ export function AddTreeScreen() {
     setLoadBenefitsCall(false);
     setCalculatedFormValues(false);
     formik.setSubmitting(false)
-    Alert.alert('Success', 'You have added new tree successfully', [
+    Alert.alert('Success', 'You have added new tree successfully in ' + address.city + ", " + address.state, [
       {
         text: 'Great',
         onPress: () => {
@@ -966,9 +969,9 @@ export function AddTreeScreen() {
 
             <Button mode="contained"
               onPress={() => {
-                  setLoadBenefitsCall(true);
+                setLoadBenefitsCall(true);
               }}
-              style={{ fontSize: 10}}
+              style={{ fontSize: 10 }}
               icon="calculator"
               loading={formik.isSubmitting}
             >
