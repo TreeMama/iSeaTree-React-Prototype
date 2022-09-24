@@ -196,7 +196,7 @@ export function AddTreeScreen() {
     setLoadBenefitsCall(false);
     setCalculatedFormValues(false);
     formik.setSubmitting(false)
-    Alert.alert('Success', 'You have added new tree successfully in ' + address.city + ", " + address.state, [
+    Alert.alert('Congratulations!', 'You have added a ' + formik.values.speciesData?.COMMON + ' successfully in ' + address.city + ", " + address.region + ". Thanks for you contribution!", [
       {
         text: 'Great',
         onPress: () => {
