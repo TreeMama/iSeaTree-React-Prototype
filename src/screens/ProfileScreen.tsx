@@ -167,6 +167,7 @@ export function ProfileScreen(props) {
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser();
+  const userAvatarUrl = `https://avatars.dicebear.com/api/human/${userData?.username ?? 'default_seed'}.svg`
 
   async function versionChanged(savedVersion: any, currentVersion: string) {
     if (savedVersion === currentVersion) {
@@ -389,7 +390,10 @@ export function ProfileScreen(props) {
                     </TouchableOpacity>
                   </View>
                   <View style={styles.profileImageContainer}>
-                    <Image source={imagePlaceholder} style={styles.profileImage} />
+                    <Image 
+                        source={{ uri: userAvatarUrl }} 
+                        style={styles.profileImage}
+                    />
                   </View>
 
                   <View style={styles.profiledetailContainer}>
