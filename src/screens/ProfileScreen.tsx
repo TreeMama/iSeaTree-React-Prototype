@@ -167,7 +167,7 @@ export function ProfileScreen(props) {
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser();
-  const userAvatarUrl = `https://avatars.dicebear.com/api/human/${userData?.username ?? 'default_seed'}.svg`
+  const [avatarUrl, setAvatarUrl] = React.useState<String | null>(`https://avatars.dicebear.com/api/human/${userData?.username ?? 'default_seed'}.svg`)
 
   async function versionChanged(savedVersion: any, currentVersion: string) {
     if (savedVersion === currentVersion) {
@@ -362,6 +362,11 @@ export function ProfileScreen(props) {
     setIsSliderVisible(false);
   }
 
+  function randomizeAvatarUrl() {
+    const seed = Math.random().toString(36).slice(2)
+    setAvatarUrl(`https://avatars.dicebear.com/api/human/${seed}.svg`)
+  }
+
   return (
     <>
       {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
@@ -389,12 +394,11 @@ export function ProfileScreen(props) {
                       <Image source={deleteIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.profileImageContainer}>
-                    <Image 
-                        source={{ uri: userAvatarUrl }} 
-                        style={styles.profileImage}
-                    />
-                  </View>
+                  <TouchableOpacity onPress={() => randomizeAvatarUrl()}>
+                    <View style={styles.profileImageContainer}>
+                      <Image source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder} style={styles.profileImage} />
+                    </View>
+                  </TouchableOpacity>
 
                   <View style={styles.profiledetailContainer}>
                     <Text style={styles.userNameText}>{userData?.username}</Text>
