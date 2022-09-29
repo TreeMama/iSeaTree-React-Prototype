@@ -363,8 +363,24 @@ export function ProfileScreen(props) {
   }
 
   function randomizeAvatarUrl() {
-    const seed = Math.random().toString(36).slice(2)
-    setAvatarUrl(`https://avatars.dicebear.com/api/human/${seed}.svg`)
+    Alert.alert(
+      "Confirmation",
+      "Generate a new random avatar?",
+      [
+        {
+          text: "OK", onPress: () => {
+            const seed = Math.random().toString(36).slice(2)
+            setAvatarUrl(`https://avatars.dicebear.com/api/human/${seed}.svg`)
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
+    
   }
 
   return (
