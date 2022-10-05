@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#fff',
     overflow: 'hidden',
-    backgroundColor: 'rgba(255,255,255,0.5)'
+    backgroundColor: 'rgba(255,255,255,0.8)'
   },
   profileImage: {
-    height: win.width / 3,
-    width: win.width / 3,
+    height: win.width / 4,
+    width: win.width / 4,
     alignSelf: 'center',
     justifyContent: 'center',
     // tintColor: '#fff'
@@ -168,7 +168,7 @@ export function ProfileScreen(props) {
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser();
-  const [avatarUrl, setAvatarUrl] = React.useState<String | null>(`https://avatars.dicebear.com/api/avataaars/${userData?.username ?? 'default_seed'}.png`)
+  const [avatarUrl, setAvatarUrl] = React.useState<String | null>(null)
 
   async function versionChanged(savedVersion: any, currentVersion: string) {
     if (savedVersion === currentVersion) {
@@ -247,9 +247,7 @@ export function ProfileScreen(props) {
             : item.id === 2 ? { ...item, value: badgeLength } : item
         ))
       
-      if (userData.avatarSeed) {
-        setAvatarUrl(`https://avatars.dicebear.com/api/avataaars/${userData.avatarSeed}.png`)
-      }
+      setAvatarUrl(getAvatarUrl(userData.avatarSeed ?? 'default_seed'))
       setUserData(userData);
     })
 
@@ -367,6 +365,10 @@ export function ProfileScreen(props) {
     setIsSliderVisible(false);
   }
 
+  function getAvatarUrl(seed: string) {
+    return `https://avatars.dicebear.com/api/bottts/${seed}.png`
+  }
+
   function randomizeAvatarUrl() {
     Alert.alert(
       "Confirmation",
@@ -375,7 +377,7 @@ export function ProfileScreen(props) {
         {
           text: "OK", onPress: () => {
             const seed = Math.random().toString(36).slice(2)
-            setAvatarUrl(`https://avatars.dicebear.com/api/avataaars/${seed}.png`)
+            setAvatarUrl(getAvatarUrl(seed))
             if (authUser?.uid) {
                 setUserAvatarSeed(authUser.uid, seed)
             }
