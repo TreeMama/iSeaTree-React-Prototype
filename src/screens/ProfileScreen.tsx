@@ -26,7 +26,8 @@ import {
   userDataListener,
   signOutUser,
   getCurrentAuthUser,
-  updateTreeAndDeleteAccount
+  updateTreeAndDeleteAccount,
+  setUserAvatarSeed
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
@@ -246,6 +247,10 @@ export function ProfileScreen(props) {
             ? { ...item, value: treecount }
             : item.id === 2 ? { ...item, value: badgeLength } : item
         ))
+      
+      if (userData.avatarSeed) {
+        setAvatarUrl(`https://avatars.dicebear.com/api/avataaars/${userData.avatarSeed}.png`)
+      }
       setUserData(userData);
     })
 
@@ -372,6 +377,9 @@ export function ProfileScreen(props) {
           text: "OK", onPress: () => {
             const seed = Math.random().toString(36).slice(2)
             setAvatarUrl(`https://avatars.dicebear.com/api/avataaars/${seed}.png`)
+            if (authUser?.uid) {
+                setUserAvatarSeed(authUser.uid, seed)
+            }
           }
         },
         {
