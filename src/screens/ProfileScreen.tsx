@@ -43,6 +43,7 @@ const informationIcon = require('../../assets/profile/information.png');
 const logoutIcon = require('../../assets/profile/logout.png');
 const compassIcon = require('../../assets/profile/compass.png');
 const deleteIcon = require('../../assets/profile/delete.png');
+const randomIcon = require('../../assets/profile/random.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -118,6 +119,13 @@ const styles = StyleSheet.create({
     width: 30,
     resizeMode: 'contain',
     tintColor: '#fff'
+  },
+  avatarIcon: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    top: 0,
+    right: 0,
   },
   statusCell: {
     height: Platform.OS === 'ios' ? win.height / 6 : win.height / 5,
@@ -247,7 +255,7 @@ export function ProfileScreen(props) {
             ? { ...item, value: treecount }
             : item.id === 2 ? { ...item, value: badgeLength } : item
         ))
-      
+
       setAvatarUrl(getAvatarUrl(userData.avatarSeed ?? 'default_seed'))
       setUserData(userData);
     })
@@ -380,7 +388,7 @@ export function ProfileScreen(props) {
             const seed = Math.random().toString(36).slice(2)
             setAvatarUrl(getAvatarUrl(seed))
             if (authUser?.uid) {
-                setUserAvatarSeed(authUser.uid, seed)
+              setUserAvatarSeed(authUser.uid, seed)
             }
           }
         },
@@ -421,11 +429,14 @@ export function ProfileScreen(props) {
                       <Image source={deleteIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
                   </View>
-                  <TouchableOpacity onPress={() => randomizeAvatarUrl()}>
+                  <View>
+                    <TouchableOpacity onPress={() => randomizeAvatarUrl()} style={[{ zIndex: 1, elevation: 1 }]}>
+                      <Image source={randomIcon} style={[styles.avatarIcon]} />
+                    </TouchableOpacity>
                     <View style={styles.profileImageContainer}>
                       <Image source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder} style={styles.profileImage} />
                     </View>
-                  </TouchableOpacity>
+                  </View>
 
                   <View style={styles.profiledetailContainer}>
                     <Text style={styles.userNameText}>{userData?.username}</Text>
