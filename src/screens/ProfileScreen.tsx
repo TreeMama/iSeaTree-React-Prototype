@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: win.height / 2.6,
-    backgroundColor: colors.gray[600],
+    backgroundColor: colors.green[700],
     paddingTop: 40
   },
   profileImageContainer: {
@@ -86,8 +86,7 @@ const styles = StyleSheet.create({
     height: win.width / 4,
     width: win.width / 4,
     alignSelf: 'center',
-    justifyContent: 'center',
-    // tintColor: '#fff'
+    justifyContent: 'center'
   },
   profiledetailContainer: {
     marginTop: 10,
@@ -133,14 +132,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.gray[600]
   },
   statuscellImage: {
     height: 40,
     width: 40,
     alignSelf: 'center',
     justifyContent: 'center',
-    tintColor: colors.gray[600]
+    tintColor: colors.green[700]
   },
   statusCellValueText: {
     fontSize: 24,
@@ -255,7 +253,6 @@ export function ProfileScreen(props) {
             ? { ...item, value: treecount }
             : item.id === 2 ? { ...item, value: badgeLength } : item
         ))
-
       setAvatarUrl(getAvatarUrl(userData.avatarSeed ?? 'default_seed'))
       setUserData(userData);
     })
