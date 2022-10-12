@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.5)'
   },
   profileImage: {
-    height: win.width / 6,
-    width: win.width / 6,
+    height: win.width / 3,
+    width: win.width / 3,
     alignSelf: 'center',
     justifyContent: 'center',
-    tintColor: '#fff'
+    // tintColor: '#fff'
   },
   profiledetailContainer: {
     marginTop: 10,
@@ -167,6 +167,7 @@ export function ProfileScreen(props) {
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser();
+  const [avatarUrl, setAvatarUrl] = React.useState<String | null>(`https://avatars.dicebear.com/api/avataaars/${userData?.username ?? 'default_seed'}.png`)
 
   async function versionChanged(savedVersion: any, currentVersion: string) {
     if (savedVersion === currentVersion) {
@@ -361,6 +362,27 @@ export function ProfileScreen(props) {
     setIsSliderVisible(false);
   }
 
+  function randomizeAvatarUrl() {
+    Alert.alert(
+      "Confirmation",
+      "Generate a new random avatar?",
+      [
+        {
+          text: "OK", onPress: () => {
+            const seed = Math.random().toString(36).slice(2)
+            setAvatarUrl(`https://avatars.dicebear.com/api/avataaars/${seed}.png`)
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
+
+  }
+
   return (
     <>
       {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
@@ -388,9 +410,11 @@ export function ProfileScreen(props) {
                       <Image source={deleteIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.profileImageContainer}>
-                    <Image source={imagePlaceholder} style={styles.profileImage} />
-                  </View>
+                  <TouchableOpacity onPress={() => randomizeAvatarUrl()}>
+                    <View style={styles.profileImageContainer}>
+                      <Image source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder} style={styles.profileImage} />
+                    </View>
+                  </TouchableOpacity>
 
                   <View style={styles.profiledetailContainer}>
                     <Text style={styles.userNameText}>{userData?.username}</Text>
