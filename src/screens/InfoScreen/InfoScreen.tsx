@@ -22,21 +22,18 @@ const pickerItems: Item[] = suggestedTrees.map((datum) => ({
   label: datum.name,
 }))
 
-function getBadgeColor(level: string) {
-  switch (level) {
-    case 'Easy':
-      return '#C6F6D5'
-
-    case 'Medium':
-      return '#FEEBC8'
-
-    case 'Expert':
-      return '#FEB2B2'
-
-    default:
-      return '#ddd'
-  }
-}
+// function getBadgeColor(level: string) {
+//   switch (level) {
+//     case 'Easy':
+//       return '#C6F6D5'
+//     case 'Medium':
+//       return '#FEEBC8'
+//     case 'Expert':
+//       return '#FEB2B2'
+//     default:
+//       return '#ddd'
+//   }
+// }
 
 export function InfoScreen(props) {
   const theme = useTheme()
@@ -58,7 +55,7 @@ export function InfoScreen(props) {
   async function getTreeIndex() {
     const { params } = props.route;
 
-    if(params !== undefined) {
+    if (params !== undefined) {
       const treeIndex = parseInt(params.showIndex)
       setCurrentSuggestedTreeData(suggestedTrees[treeIndex])
     }
@@ -68,13 +65,11 @@ export function InfoScreen(props) {
     if (!sliderRef.current) {
       return
     }
-
     sliderRef.current.scrollTo({ x: 0, animated: true })
   }, [currentSuggestedTreeData.name])
 
   React.useEffect(() => {
     props.navigation.addListener('focus', getTreeIndex);
-
     return () => {
       props.navigation.removeListener('focus', getTreeIndex)
     }
@@ -82,117 +77,38 @@ export function InfoScreen(props) {
 
   React.useEffect(() => {
     Dimensions.addEventListener('change', handleOrientationChange)
-
     return () => {
       Dimensions.removeEventListener('change', handleOrientationChange)
     }
   }, [])
 
+  const renderCards = () => {
+    return suggestedTrees.map((tree: SuggestedTreeData) => {
+      return <View style={{
+        width: Dimensions.get('screen').width / 3,
+        height: Dimensions.get('screen').width / 6,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1
+      }}>
+        {tree.images &&
+          <Image
+            style={{ width: '100%', height: '75%' }}
+            source={tree.images[0]}
+            resizeMode="contain"
+          />
+        }
+        <Text>{tree.name}</Text>
+        <Text>{tree.level}</Text>
+      </View>
+    })
+  }
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <StatusBar />
         <ScrollView>
-          {/* <View>
-            <ScrollView ref={sliderRef} style={{ backgroundColor: '#fff' }} horizontal pagingEnabled>
-              {currentSuggestedTreeData.imageUris &&
-                currentSuggestedTreeData.imageUris.map((imageUri) => (
-                  <View
-                    key={`${currentSuggestedTreeData.name}-${imageUri}`}
-                    style={{ width: sliderWidth, height: slideHeight }}
-                  >
-                    <Image
-                      style={{ width: '100%', height: '100%' }}
-                      source={{ uri: imageUri }}
-                      resizeMode="contain"
-                    />
-                  </View>
-                ))}
-
-              {currentSuggestedTreeData.images &&
-                currentSuggestedTreeData.images.map((imageSource) => (
-                  <View
-                    key={`${currentSuggestedTreeData.name}-${imageSource}`}
-                    style={{ width: sliderWidth, height: slideHeight }}
-                  >
-                    <Image
-                      style={{ width: '100%', height: '100%' }}
-                      source={imageSource}
-                      resizeMode="contain"
-                    />
-                  </View>
-                ))}
-            </ScrollView>
-          </View> */}
-          <View>
-            {suggestedTrees.map((tree: SuggestedTreeData) => tree.name}
-          </View>
-          {/* <View style={{ flex: 1, padding: 15 }}>
-            <View style={{ flexDirection: 'row' }}>
-              {
-                currentSuggestedTreeData.name === 'Western Red Cedar (Giant Arborvitae)' ?
-                  <Title>Western Red Cedar</Title> :
-                  <Title>{currentSuggestedTreeData.name}</Title>
-              }
-              <Badge
-                visible
-                style={{
-                  marginLeft: 5,
-                  alignSelf: 'flex-start',
-                  backgroundColor: getBadgeColor(currentSuggestedTreeData.level),
-                }}
-              >
-                {currentSuggestedTreeData.level}
-              </Badge>
-            </View>
-            {!!currentSuggestedTreeData.levelText && (
-              <Text style={{ fontStyle: 'italic', marginBottom: 15 }}>
-                {currentSuggestedTreeData.levelText}
-              </Text>
-            )}
-
-            {!!currentSuggestedTreeData.identifiable_attributes && (
-              <View style={{ marginBottom: 15 }}>
-                <Text style={{ fontWeight: 'bold' }}>Key Identifiable Attributes:</Text>
-
-                <View style={{ paddingLeft: 15 }}>
-                  {currentSuggestedTreeData.identifiable_attributes.map((attribute) => (
-                    <Text key={attribute}>
-                      {'\u2022'} {attribute}
-                    </Text>
-                  ))}
-                </View>
-              </View>
-            )}
-
-            {!!currentSuggestedTreeData.known_public_locations && (
-              <View style={{ marginBottom: 15 }}>
-                <Text style={{ fontWeight: 'bold' }}>Known Public Locations:</Text>
-
-                <View style={{ paddingLeft: 15 }}>
-                  {currentSuggestedTreeData.known_public_locations.map((attribute) => (
-                    <Text key={attribute}>
-                      {'\u2022'} {attribute}
-                    </Text>
-                  ))}
-                </View>
-              </View>
-            )}
-
-            {!!currentSuggestedTreeData.fun_facts && (
-              <View style={{ marginBottom: 15 }}>
-                <Text style={{ fontWeight: 'bold' }}>Fun Fact:</Text>
-
-                <View style={{ paddingLeft: 15 }}>
-                  {currentSuggestedTreeData.fun_facts.map((attribute) => (
-                    <Text key={attribute}>
-                      {'\u2022'} {attribute}
-                    </Text>
-                  ))}
-                </View>
-              </View>
-            )}
-          </View> */}
+          {renderCards()}
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>

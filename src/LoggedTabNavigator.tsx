@@ -8,8 +8,8 @@ import { Image } from 'react-native'
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen'
-import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
+import { InfoScreen } from './screens/InfoScreen/InfoScreen'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -53,7 +53,7 @@ export function LoggedTabNavigator() {
       />
       <Tab.Screen
         name={TabScreenNames.suggestedTrees}
-        component={SuggestedTreesScreen}
+        component={InfoScreen}
         options={{
           tabBarLabel: 'Information',
           tabBarIcon: ({ color }) => (
