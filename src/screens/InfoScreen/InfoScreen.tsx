@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import {
   View,
@@ -7,6 +7,7 @@ import {
   Image,
   KeyboardAvoidingView,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native"
 import { Text, Badge, Title, useTheme } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
@@ -37,6 +38,7 @@ const pickerItems: Item[] = suggestedTrees.map((datum) => ({
 
 export function InfoScreen(props) {
   const theme = useTheme()
+  const [selectedTree, setSelectedTree] = useState<SuggestedTreeData | undefined>(undefined)
 
   const initialSuggestedTreeData = suggestedTrees[0]
   const initialSliderWidth = Dimensions.get('screen').width
@@ -84,31 +86,36 @@ export function InfoScreen(props) {
 
   const renderCards = () => {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
-      return <View style={{
-        width: Dimensions.get('screen').width / 2.5,
-        height: Dimensions.get('screen').width / 2.5,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderWidth: 1,
-        margin: '5%'
-      }}>
-        {tree.images &&
-          <Image
-            style={{ width: '100%', height: '75%' }}
-            source={tree.images[0]}
-            resizeMode="cover"
-          />
-        }
-        <Text>{tree.name}</Text>
-        <Text style={{ color: 'gray' }}>{tree.level}</Text>
-      </View>
+      return <TouchableOpacity onPress={() => setSelectedTree(tree)}>
+        <View style={{
+          width: Dimensions.get('screen').width / 2.5,
+          height: Dimensions.get('screen').width / 2.5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 1,
+          margin: '5%'
+        }}>
+          {tree.images &&
+            <Image
+              style={{ width: '100%', height: '75%' }}
+              source={tree.images[0]}
+              resizeMode="cover"
+            />
+          }
+          <Text>{tree.name}</Text>
+          <Text style={{ color: 'gray' }}>{tree.level}</Text>
+        </View>
+      </TouchableOpacity>
     })
   }
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <StatusBar />
-        <ScrollView style={{ justifyContent: 'center' }}>
+        {/* <StatusBar /> */}
+        {selectedTree && (
+          <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
+        }
+        <ScrollView>
           <View style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
