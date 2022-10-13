@@ -85,21 +85,22 @@ export function InfoScreen(props) {
   const renderCards = () => {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <View style={{
-        width: Dimensions.get('screen').width / 3,
-        height: Dimensions.get('screen').width / 6,
+        width: Dimensions.get('screen').width / 2.5,
+        height: Dimensions.get('screen').width / 2.5,
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 1
+        borderWidth: 1,
+        margin: '5%'
       }}>
         {tree.images &&
           <Image
             style={{ width: '100%', height: '75%' }}
             source={tree.images[0]}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         }
         <Text>{tree.name}</Text>
-        <Text>{tree.level}</Text>
+        <Text style={{ color: 'gray' }}>{tree.level}</Text>
       </View>
     })
   }
@@ -107,8 +108,14 @@ export function InfoScreen(props) {
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <StatusBar />
-        <ScrollView>
-          {renderCards()}
+        <ScrollView style={{ justifyContent: 'center' }}>
+          <View style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}>
+            {renderCards()}
+          </View>
         </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
