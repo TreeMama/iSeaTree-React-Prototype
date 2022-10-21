@@ -26,7 +26,8 @@ import {
   userDataListener,
   signOutUser,
   getCurrentAuthUser,
-  updateTreeAndDeleteAccount
+  updateTreeAndDeleteAccount,
+  setUserAvatarSeed
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
@@ -42,6 +43,7 @@ const informationIcon = require('../../assets/profile/information.png');
 const logoutIcon = require('../../assets/profile/logout.png');
 const compassIcon = require('../../assets/profile/compass.png');
 const deleteIcon = require('../../assets/profile/delete.png');
+const randomIcon = require('../../assets/profile/random.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: win.height / 2.6,
-    backgroundColor: colors.gray[600],
+    backgroundColor: colors.green[700],
     paddingTop: 40
   },
   profileImageContainer: {
@@ -78,14 +80,13 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#fff',
     overflow: 'hidden',
-    backgroundColor: 'rgba(255,255,255,0.5)'
+    backgroundColor: 'rgba(255,255,255,0.8)'
   },
   profileImage: {
-    height: win.width / 6,
-    width: win.width / 6,
+    height: win.width / 4,
+    width: win.width / 4,
     alignSelf: 'center',
-    justifyContent: 'center',
-    tintColor: '#fff'
+    justifyContent: 'center'
   },
   profiledetailContainer: {
     marginTop: 10,
@@ -117,20 +118,26 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     tintColor: '#fff'
   },
+  avatarIcon: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
   statusCell: {
     height: Platform.OS === 'ios' ? win.height / 6 : win.height / 5,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderBottomWidth: 0.5,
-    borderBottomColor: colors.gray[600]
   },
   statuscellImage: {
     height: 40,
     width: 40,
     alignSelf: 'center',
     justifyContent: 'center',
-    tintColor: colors.gray[600]
+    tintColor: colors.green[700]
   },
   statusCellValueText: {
     fontSize: 24,
@@ -167,6 +174,7 @@ export function ProfileScreen(props) {
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
 
   const authUser = getCurrentAuthUser();
+  const [avatarUrl, setAvatarUrl] = React.useState<String | null>(null)
 
   async function versionChanged(savedVersion: any, currentVersion: string) {
     if (savedVersion === currentVersion) {
@@ -244,6 +252,7 @@ export function ProfileScreen(props) {
             ? { ...item, value: treecount }
             : item.id === 2 ? { ...item, value: badgeLength } : item
         ))
+      setAvatarUrl(getAvatarUrl(userData.avatarSeed ?? 'default_seed'))
       setUserData(userData);
     })
 
@@ -361,6 +370,34 @@ export function ProfileScreen(props) {
     setIsSliderVisible(false);
   }
 
+  function getAvatarUrl(seed: string) {
+    return `https://avatars.dicebear.com/api/bottts/${seed}.png`
+  }
+
+  function randomizeAvatarUrl() {
+    Alert.alert(
+      "Confirmation",
+      "Generate a new random avatar?",
+      [
+        {
+          text: "OK", onPress: () => {
+            const seed = Math.random().toString(36).slice(2)
+            setAvatarUrl(getAvatarUrl(seed))
+            if (authUser?.uid) {
+              setUserAvatarSeed(authUser.uid, seed)
+            }
+          }
+        },
+        {
+          text: "Cancel",
+          style: "cancel"
+        }
+      ],
+      { cancelable: false }
+    );
+
+  }
+
   return (
     <>
       {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
@@ -388,8 +425,13 @@ export function ProfileScreen(props) {
                       <Image source={deleteIcon} style={[styles.menuIcon, { marginTop: 12 }]} />
                     </TouchableOpacity>
                   </View>
-                  <View style={styles.profileImageContainer}>
-                    <Image source={imagePlaceholder} style={styles.profileImage} />
+                  <View>
+                    <TouchableOpacity onPress={() => randomizeAvatarUrl()} style={[{ zIndex: 1, elevation: 1 }]}>
+                      <Image source={randomIcon} style={[styles.avatarIcon]} />
+                    </TouchableOpacity>
+                    <View style={styles.profileImageContainer}>
+                      <Image source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder} style={styles.profileImage} />
+                    </View>
                   </View>
 
                   <View style={styles.profiledetailContainer}>
