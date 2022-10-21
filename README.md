@@ -28,9 +28,6 @@ The iSeaTree project is an open source project for building the react-native iSe
 
 - [Current Release Page](https://treemama.org/the-tech-treehouse/iseatree/)
 
-- [iSeaTree users / Treemama.org Community Forums](https://treemama.org/forum/)
-
-
 ## Git repository branching guidelines for contributors
 
 We follow a relaxed version of the [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/) workflow.
