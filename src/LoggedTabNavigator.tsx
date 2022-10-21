@@ -10,11 +10,12 @@ import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen'
 import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
+import { colors } from './styles/theme'
 
 const Tab = createMaterialBottomTabNavigator()
 
-const treeCameraIcon = require('../assets/tree_camera_inactive.png')
-const treeCameraActiveIcon = require('../assets/tree_camera_active.png')
+// const treeCameraIcon = require('../assets/tree_camera_inactive.png')
+// const treeCameraActiveIcon = require('../assets/tree_camera_active.png')
 const infoIcon = require('../assets/info_tree.png')
 const mapIcon = require('../assets/map_icon.png')
 
@@ -71,10 +72,15 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Add new',
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={focused ? treeCameraActiveIcon : treeCameraIcon}
-              fadeDuration={0}
-              style={{ width: 38, height: 38 }}
+            // <Image
+            //   source={focused ? treeCameraActiveIcon : treeCameraIcon}
+            //   fadeDuration={0}
+            //   style={{ width: 38, height: 38 }}
+            // />
+            <MaterialCommunityIcons
+              name="plus"
+              size={32}
+              color={focused ? colors.green[700] : colors.gray[700]}
             />
           ),
         }}
