@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   TouchableOpacity,
+  ImageBackground,
 } from "react-native"
 import { Text, Badge, Title, useTheme } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
@@ -87,24 +88,36 @@ export function InfoScreen(props) {
 
   const renderCards = () => {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
-      return <TouchableOpacity onPress={() => setSelectedTree(tree)}>
+      return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width / 2.5,
-          height: Dimensions.get('screen').width / 2.5,
-          justifyContent: 'center',
-          alignItems: 'center',
+          width: Dimensions.get('screen').width / 2.2,
+          height: Dimensions.get('screen').width / 2.2,
+          // justifyContent: 'center',
+          // alignItems: 'center',
           borderWidth: 1,
-          margin: '5%'
+          // margin: '5%'
+          marginBottom: '5%',
         }}>
-          {tree.images &&
+          <ImageBackground source={tree.images ? tree.images[0] : { uri: ' ' }}
+            style={{ width: '100%', height: '100%' }}
+            resizeMode="cover">
+            <View style={{
+              position: 'absolute',
+              bottom: 0, backgroundColor: 'white',
+              alignItems: 'center',
+              width: '100%'
+            }}>
+              <Text>{tree.name}</Text>
+              <Text style={{ color: 'gray' }}>{tree.level}</Text>
+
+            </View>
+          </ImageBackground>
+          {/* {tree.images &&
             <Image
-              style={{ width: '100%', height: '75%' }}
               source={tree.images[0]}
               resizeMode="cover"
             />
-          }
-          <Text>{tree.name}</Text>
-          <Text style={{ color: 'gray' }}>{tree.level}</Text>
+          } */}
         </View>
       </TouchableOpacity>
     })
@@ -120,7 +133,7 @@ export function InfoScreen(props) {
             <View style={{
               flexDirection: 'row',
               flexWrap: 'wrap',
-              justifyContent: 'center',
+              justifyContent: 'space-around',
             }}>
               {renderCards()}
             </View>
