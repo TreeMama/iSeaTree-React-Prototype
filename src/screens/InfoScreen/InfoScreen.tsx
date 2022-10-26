@@ -41,83 +41,41 @@ const pickerItems: Item[] = suggestedTrees.map((datum) => ({
 export function InfoScreen(props) {
   const theme = useTheme()
   const [selectedTree, setSelectedTree] = useState<SuggestedTreeData | undefined>(undefined)
-
-  const initialSuggestedTreeData = suggestedTrees[0]
-  const initialSliderWidth = Dimensions.get('screen').width
-
-  const [currentSuggestedTreeData, setCurrentSuggestedTreeData] = React.useState<SuggestedTreeData>(
-    initialSuggestedTreeData,
-  )
-  const [sliderWidth, setSliderWidth] = React.useState<number>(initialSliderWidth)
-  const sliderRef = React.useRef<ScrollView>(null)
-
-  function handleOrientationChange() {
-    setSliderWidth(Dimensions.get('screen').width)
-  }
-
-  // set the suggestedTrees data after navigate from map screen
-  async function getTreeIndex() {
-    const { params } = props.route;
-
-    if (params !== undefined) {
-      const treeIndex = parseInt(params.showIndex)
-      setCurrentSuggestedTreeData(suggestedTrees[treeIndex])
-    }
-  }
-
-  React.useEffect(() => {
-    if (!sliderRef.current) {
-      return
-    }
-    sliderRef.current.scrollTo({ x: 0, animated: true })
-  }, [currentSuggestedTreeData.name])
-
-  React.useEffect(() => {
-    props.navigation.addListener('focus', getTreeIndex);
-    return () => {
-      props.navigation.removeListener('focus', getTreeIndex)
-    }
-  })
-
-  React.useEffect(() => {
-    Dimensions.addEventListener('change', handleOrientationChange)
-    return () => {
-      Dimensions.removeEventListener('change', handleOrientationChange)
-    }
-  }, [])
-
   const renderCards = () => {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
           width: Dimensions.get('screen').width / 2.2,
-          height: Dimensions.get('screen').width / 2.2,
-          // justifyContent: 'center',
-          // alignItems: 'center',
+          height: Dimensions.get('screen').width / 2.7,
+          borderRadius: 5,
+          marginBottom: 24,
           borderWidth: 1,
-          // margin: '5%'
-          marginBottom: '5%',
+          borderColor: '#C4D0D9',
+          shadowColor: '#171717',
+          shadowOpacity: 0.2,
+          shadowRadius: 5,
+          shadowOffset: { width: 2, height: 4 },
+          elevation: 20
         }}>
-          <ImageBackground source={tree.images ? tree.images[0] : { uri: ' ' }}
+          <ImageBackground source={tree.images ? tree.images[0] : { uri: '' }}
             style={{ width: '100%', height: '100%' }}
             resizeMode="cover">
             <View style={{
               position: 'absolute',
-              bottom: 0, backgroundColor: 'white',
+              bottom: 0,
+              backgroundColor: 'white',
+              justifyContent: 'center',
               alignItems: 'center',
-              width: '100%'
+              width: '100%',
+              paddingHorizontal: 20,
+              paddingVertical: 10,
             }}>
-              <Text>{tree.name}</Text>
-              <Text style={{ color: 'gray' }}>{tree.level}</Text>
-
+              <View style={{ alignItems: 'center' }}>
+                <Text>{tree.name}</Text>
+                <Text style={{ color: 'gray' }}>{tree.level}</Text>
+              </View>
             </View>
           </ImageBackground>
-          {/* {tree.images &&
-            <Image
-              source={tree.images[0]}
-              resizeMode="cover"
-            />
-          } */}
         </View>
       </TouchableOpacity>
     })
@@ -125,7 +83,6 @@ export function InfoScreen(props) {
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-        {/* <StatusBar /> */}
         {selectedTree ? (
           <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
         ) : (
@@ -140,7 +97,6 @@ export function InfoScreen(props) {
           </ScrollView>
         )
         }
-
       </SafeAreaView>
     </KeyboardAvoidingView>
   )
