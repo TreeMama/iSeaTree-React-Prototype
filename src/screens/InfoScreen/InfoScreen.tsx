@@ -45,11 +45,11 @@ export function InfoScreen(props) {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width / 2.2,
-          height: Dimensions.get('screen').width / 2.7,
-          borderRadius: 5,
+          width: Dimensions.get('screen').width / 1.1,    // 2.2 for 2-column
+          height: Dimensions.get('screen').width / 1.78,  // 2.7 for 2-column
           marginBottom: 24,
           borderWidth: 1,
+          borderRadius: 10,
           borderColor: '#C4D0D9',
           shadowColor: '#171717',
           shadowOpacity: 0.2,
@@ -69,10 +69,18 @@ export function InfoScreen(props) {
               width: '100%',
               paddingHorizontal: 20,
               paddingVertical: 10,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10
             }}>
-              <View style={{ alignItems: 'center' }}>
-                <Text>{tree.name}</Text>
-                <Text style={{ color: 'gray' }}>{tree.level}</Text>
+              {/* 3-element row space-between */}
+              <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <Image source={require('../../../assets/info_screen_tree_icon.png')}></Image>
+                {/* text segment */}
+                <View style={{ alignItems: 'center' }}>
+                  <Text>{tree.name}</Text>
+                  <Text style={{ color: 'gray' }}>{tree.level}</Text>
+                </View>
+                <Image source={require('../../../assets/info_screen_tree_icon.png')}></Image>
               </View>
             </View>
           </ImageBackground>
