@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native"
-import { Text, Badge, Title, useTheme } from 'react-native-paper'
+import { Text, Badge, Title, useTheme, TextInput } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { suggestedTrees, SuggestedTreeData } from '../../../data/suggestedTrees'
@@ -45,8 +45,8 @@ export function InfoScreen(props) {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width / 1.1,    // 2.2 for 2-column
-          height: Dimensions.get('screen').width / 1.78,  // 2.7 for 2-column
+          width: Dimensions.get('screen').width / 1.2,    // 2.2 for 2-column
+          height: Dimensions.get('screen').width / 1.94,  // 2.7 for 2-column
           marginBottom: 24,
           borderWidth: 1,
           borderRadius: 10,
@@ -59,6 +59,7 @@ export function InfoScreen(props) {
         }}>
           <ImageBackground source={tree.images ? tree.images[0] : { uri: '' }}
             style={{ width: '100%', height: '100%' }}
+            imageStyle={{ borderRadius: 10 }}
             resizeMode="cover">
             <View style={{
               position: 'absolute',
@@ -74,13 +75,13 @@ export function InfoScreen(props) {
             }}>
               {/* 3-element row space-between */}
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Image source={require('../../../assets/info_screen_tree_icon.png')}></Image>
+                <Image style={{ maxHeight: 50 }} source={require('../../../assets/info_screen_tree_icon.png')}></Image>
                 {/* text segment */}
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ maxWidth: '75%', alignItems: 'center', justifyContent: 'center' }}>
                   <Text>{tree.name}</Text>
                   <Text style={{ color: 'gray' }}>{tree.level}</Text>
                 </View>
-                <Image source={require('../../../assets/info_screen_tree_icon.png')}></Image>
+                <Image style={{ maxHeight: 50 }} source={require('../../../assets/angle-right.png')}></Image>
               </View>
             </View>
           </ImageBackground>
@@ -94,15 +95,28 @@ export function InfoScreen(props) {
         {selectedTree ? (
           <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
         ) : (
-          <ScrollView>
-            <View style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-around',
-            }}>
-              {renderCards()}
+          <>
+            <View style={{ marginTop: 20, paddingHorizontal: 15, backgroundColor: '#F4F6FA', borderRadius: 12 }}>
+              <TextInput
+                placeholder="Search"
+                mode="outlined"
+                scrollEnabled={false}
+                value={""}
+              // onChangeText={(value) => {
+              //   formik.setFieldValue('notes', value)
+              // }}
+              />
             </View>
-          </ScrollView>
+            <ScrollView>
+              <View style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-around',
+              }}>
+                {renderCards()}
+              </View>
+            </ScrollView>
+          </>
         )
         }
       </SafeAreaView>
