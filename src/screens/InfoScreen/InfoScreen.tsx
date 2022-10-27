@@ -45,8 +45,8 @@ export function InfoScreen(props) {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width / 1.2,    // 2.2 for 2-column
-          height: Dimensions.get('screen').width / 1.94,  // 2.7 for 2-column
+          width: Dimensions.get('screen').width / 1.1,    // 2.2 for 2-column
+          height: Dimensions.get('screen').width / 1.78,  // 2.7 for 2-column
           marginBottom: 24,
           borderWidth: 1,
           borderRadius: 10,
@@ -68,16 +68,16 @@ export function InfoScreen(props) {
               justifyContent: 'center',
               alignItems: 'center',
               width: '100%',
-              paddingHorizontal: 20,
+              paddingHorizontal: 10,
               paddingVertical: 10,
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10
             }}>
               {/* 3-element row space-between */}
-              <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Image style={{ maxHeight: 50 }} source={require('../../../assets/info_screen_tree_icon.png')}></Image>
                 {/* text segment */}
-                <View style={{ maxWidth: '75%', alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ minWidth: '75%', alignItems: 'center', justifyContent: 'center' }}>
                   <Text>{tree.name}</Text>
                   <Text style={{ color: 'gray' }}>{tree.level}</Text>
                 </View>
@@ -96,12 +96,15 @@ export function InfoScreen(props) {
           <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
         ) : (
           <>
-            <View style={{ marginTop: 20, paddingHorizontal: 15, backgroundColor: '#F4F6FA', borderRadius: 12 }}>
+            <View style={{ margin: 20 }}>
               <TextInput
                 placeholder="Search"
                 mode="outlined"
                 scrollEnabled={false}
                 value={""}
+                style={{
+                  backgroundColor: '#F4F6FA', borderRadius: 12
+                }}
               // onChangeText={(value) => {
               //   formik.setFieldValue('notes', value)
               // }}

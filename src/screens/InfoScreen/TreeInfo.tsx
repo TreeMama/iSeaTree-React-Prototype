@@ -4,14 +4,16 @@ import {
   View,
   Image,
   Dimensions,
-  KeyboardAvoidingView
+  Alert,
+  KeyboardAvoidingView,
+  TouchableOpacity
 } from 'react-native'
+import { colors, theme } from '../../styles/theme'
 import {
-  Button, Text
+  Button,
+  Text
 } from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler'
-
-const slideHeight = 600
 
 interface ITreeInfoScreenProps {
   selectedTree: SuggestedTreeData,
@@ -19,53 +21,100 @@ interface ITreeInfoScreenProps {
 }
 
 export function TreeInfoScreen(props: ITreeInfoScreenProps) {
-  // const currentSuggestedTreeData = suggestedTrees[0]
   const currentSuggestedTreeData = props.selectedTree
 
   const initialSliderWidth = Dimensions.get('screen').width
   const [sliderWidth, setSliderWidth] = React.useState<number>(initialSliderWidth)
   const sliderRef = React.useRef<ScrollView>(null)
+  const [isInfoOpen, setIsInfoOpen] = React.useState<boolean>(false)
 
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView ref={sliderRef} style={{ backgroundColor: '#fff', height: slideHeight }} horizontal pagingEnabled>
-        {currentSuggestedTreeData.images &&
-          currentSuggestedTreeData.images.map((imageSource) => (
-            <View
-              key={`${currentSuggestedTreeData.name}-${imageSource}`}
-              style={{ width: sliderWidth, height: slideHeight }}
-            >
-              <Image
-                style={{ width: '100%', height: '100%' }}
-                source={imageSource}
-                resizeMode="cover"
-              />
-            </View>
-          ))}
-      </ScrollView>
-      <View style={{ height: 100 }}>
+    <View style={{
+      flex: 1,
+    }}>
+
+      {!isInfoOpen &&
+        <ScrollView ref={sliderRef} style={{
+          height: '72%',
+        }} horizontal pagingEnabled>
+          {currentSuggestedTreeData.images &&
+            currentSuggestedTreeData.images.map((imageSource) => (
+              <View
+                key={`${currentSuggestedTreeData.name}-${imageSource}`}
+                style={{ width: sliderWidth, height: '100%' }}
+              >
+                <Image
+                  style={{ width: '100%', height: '100%' }}
+                  source={imageSource}
+                  resizeMode="cover"
+                />
+              </View>
+            ))}
+        </ScrollView>
+      }
+
+      <View style={{
+        height: '20%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+      }}>
         <View>
           {currentSuggestedTreeData.images &&
             <Image
-              style={{ width: 50, height: 50 }}
+              style={{ width: 50, height: 50, left: 10 }}
               source={currentSuggestedTreeData.images[0]}
               resizeMode="cover"
             />
           }
         </View>
-        <View>
-          <Text style={{ fontSize: 22 }}>{currentSuggestedTreeData.name}</Text>
+
+        <View style={{ alignItems: 'flex-start' }}>
+          <Text style={{ fontSize: 18 }}>{currentSuggestedTreeData.name}</Text>
+          <Text style={{ color: 'grey' }}>Genus</Text>
+        </View>
+
+        <View style={{
+          alignItems: 'flex-end',
+        }}>
+          <Button
+            icon="alert-circle-outline"
+          >
+          </Button>
+          <Button
+            icon="chevron-down"
+            onPress={() => {
+              setIsInfoOpen(!isInfoOpen)
+            }}
+          >
+          </Button>
         </View>
       </View>
-      <Button mode="contained"
+
+      {isInfoOpen &&
+        <View style={{
+          height: '72%'
+        }}>
+          <Text>{currentSuggestedTreeData.name}</Text>
+          <Text style={{ fontSize: 30 }}>Fun Fact</Text>
+          <Text>{currentSuggestedTreeData.fun_facts}</Text>
+        </View>
+      }
+
+
+      <TouchableOpacity
+        style={{
+          height: '8%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: theme.colors.primary
+        }}
         onPress={() => {
-          // alert('close');
           props.setSelectedTree(undefined)
         }}
-        style={{ fontSize: 10 }}
       >
-        {`Close`}
-      </Button>
-    </View>
+        <Text style={{ color: 'white' }}>CLOSE</Text>
+      </TouchableOpacity>
+    </View >
   )
 }
