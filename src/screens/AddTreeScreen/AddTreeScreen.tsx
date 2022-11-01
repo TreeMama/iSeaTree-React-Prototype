@@ -34,6 +34,7 @@ import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
+import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 import { TreeConditionSelect } from './TreeConditionSelect'
 import { CrownLightExposureSelect } from './CrownLightExposureSelect'
 
@@ -692,6 +693,34 @@ export function AddTreeScreen() {
               style={{ borderRadius: 0 }}
             >
               Add photo
+            </Button>
+            {/* demo for auto identification */}
+            <Button
+              onPress={() => {
+                let result = identifyTreePicture().then(result => {
+                  console.log("geting result: " + result);
+                  Alert.alert('Possible Result:', result, [
+                    {
+                      text: 'Yeap',
+                      onPress: () => {
+
+                      },
+                    },
+                    {
+                      text: 'Nah',
+                      onPress: () => {
+
+                      },
+                    }
+                  ])
+                });
+
+              }}
+              icon="camera"
+              mode="outlined"
+              style={{ borderRadius: 0 }}
+            >
+              auto Identify
             </Button>
           </View>
 

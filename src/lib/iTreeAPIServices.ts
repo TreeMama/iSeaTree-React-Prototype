@@ -3,6 +3,7 @@ import { CONFIG } from '../../envVariables';
 import { xml2js, xml2json } from 'xml-js'
 import { OutputInformation, RootObject } from '../screens/AddTreeScreen/TreeBenefitResponse';
 import axios from 'axios';
+import fs from 'react-native-fs';
 
 async function setItem(key: string, stringValue: string, unit: string) {
   try {
@@ -25,6 +26,58 @@ async function setItem(key: string, stringValue: string, unit: string) {
   }
 }
 
+export async function identifyTreePicture() {
+  const file = '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/lib/img/maple_tree.jpeg';
+  let base64files = await fs.readFile(file, 'base64');
+  //   const data = {
+  //     api_key: "QmthcG07fdXf27yYmAtcAt2h92STmQEki0YkpoRDhPJcnJA7dV",
+  //     images: base64files,
+  //     /* modifiers docs: https://github.com/flowerchecker/Plant-id-API/wiki/Modifiers */
+  //     modifiers: ["crops_fast", "similar_images"],
+  //     plant_language: "en",
+  //     /* plant details docs: https://github.com/flowerchecker/Plant-id-API/wiki/Plant-details */
+  //     plant_details: ["common_names",
+  //       "url",
+  //       "name_authority",
+  //       "wiki_description",
+  //       "taxonomy",
+  //       "synonyms"],
+  //   };
+
+  //   console.log("test")
+  //   axios.post('https://api.plant.id/v2/identify', data).then(res => {
+  //     console.log('Success:', res.data);
+  //     return res.data;
+  //   }).catch(error => {
+  //     console.error('Error: ', error)
+  //   })
+  //   // axios.get("https://google.com").then(res => {
+  //   //   console.log("success");
+  //   // })
+  //   return -1;
+  try {
+    const response = await fetch(
+      'https://api.plant.id/v2/identify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Api-Key": "QmthcG07fdXf27yYmAtcAt2h92STmQEki0YkpoRDhPJcnJA7dV"
+      },
+      body: JSON.stringify({
+        "images": [base64files],
+        "modifiers": ["similar_images"],
+        "plant_details": ["common_names", "url"],
+      })
+    }
+    );
+    const result = await response.json();
+    console.log(result['suggestions'][0]['plant_name'])
+    return result['suggestions'][0]['plant_name'];
+  } catch (error) {
+    console.error(error);
+    return -1;
+  }
+}
 
 export async function getItreeData(params) {
   const { crownLightExposureCategory,
