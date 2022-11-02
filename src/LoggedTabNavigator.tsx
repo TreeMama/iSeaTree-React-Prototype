@@ -1,22 +1,30 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react'
 
-import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
+// import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { useTheme } from 'react-native-paper'
-import { Image } from 'react-native'
+import { Image, View } from 'react-native'
 
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen'
 import { MapScreen } from './screens/MapScreen'
 import { InfoScreen } from './screens/InfoScreen/InfoScreen'
+import { ChallengeScreen } from './screens/ChallengeScreen'
 
 const Tab = createMaterialBottomTabNavigator()
 
-const treeCameraIcon = require('../assets/tree_camera_inactive.png')
-const treeCameraActiveIcon = require('../assets/tree_camera_active.png')
-const infoIcon = require('../assets/info_tree.png')
-const mapIcon = require('../assets/map_icon.png')
+const profileIcon = require('../assets/nav_profile_inactive.png')
+const profileActiveIcon = require('../assets/nav_profile.png')
+const mapIcon = require('../assets/nav_map_inactive.png')
+const mapActiveIcon = require('../assets/nav_map.png')
+const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
+const treeCameraActiveIcon = require('../assets/nav_addtree.png')
+const challengeIcon = require('../assets/nav_callenge_inactive.png')
+const challengeAcitiveIcon = require('../assets/nav_callenge.png')
+const infoIcon = require('../assets/nav_tree_inactive.png')
+const infoActiveIcon = require('../assets/nav_tree.png')
 
 export function LoggedTabNavigator() {
   const theme = useTheme()
@@ -24,7 +32,7 @@ export function LoggedTabNavigator() {
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}
-      barStyle={{ paddingBottom: 8, backgroundColor: 'white' }}
+      barStyle={{ padding: 12, paddingBottom: 8, backgroundColor: 'white' }}
       labeled
     >
       <Tab.Screen
@@ -32,8 +40,22 @@ export function LoggedTabNavigator() {
         component={ProfileScreen}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account-circle" color={color} size={26} />
+          // tabBarIcon: ({ color }) => (
+          //   <MaterialCommunityIcons name="account-circle" color={color} size={26} />
+          // ),
+          // tabBarIcon: ({ color }) => (
+          //   <Image
+          //     source={profileIcon}
+          //     fadeDuration={0}
+          //     style={{ width: 23, height: 23, tintColor: color }}
+          //   />
+          // ),
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? profileActiveIcon : profileIcon}
+              fadeDuration={0}
+              style={{ width: 23, height: 23 }}
+            />
           ),
         }}
       />
@@ -42,25 +64,11 @@ export function LoggedTabNavigator() {
         component={MapScreen}
         options={{
           tabBarLabel: 'Explore',
-          tabBarIcon: ({ color }) => (
+          tabBarIcon: ({ focused }) => (
             <Image
-              source={mapIcon}
+              source={focused ? mapActiveIcon : mapIcon}
               fadeDuration={0}
-              style={{ width: 26, height: 26, tintColor: color }}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={TabScreenNames.suggestedTrees}
-        component={InfoScreen}
-        options={{
-          tabBarLabel: 'Information',
-          tabBarIcon: ({ color }) => (
-            <Image
-              source={infoIcon}
-              fadeDuration={0}
-              style={{ width: 26, height: 26, tintColor: color }}
+              style={{ width: 23, height: 23 }}
             />
           ),
         }}
@@ -69,12 +77,45 @@ export function LoggedTabNavigator() {
         name={TabScreenNames.addTree}
         component={AddTreeScreen}
         options={{
-          tabBarLabel: 'Add new',
+          tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
             <Image
               source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
-              style={{ width: 38, height: 38 }}
+              style={{ width: 50, height: 50, bottom: 8 }}
+            />
+            //   {/* // <MaterialCommunityIcons
+            // //   name="plus"
+            // //   size={32}
+            // //   color={focused ? colors.green[700] : colors.gray[700]}
+            // // /> */}
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={TabScreenNames.challengeScreen}
+        component={ChallengeScreen}
+        options={{
+          tabBarLabel: 'Challenge',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? challengeAcitiveIcon : challengeIcon}
+              fadeDuration={0}
+              style={{ width: 23, height: 23 }}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={TabScreenNames.suggestedTrees}
+        component={InfoScreen}
+        options={{
+          tabBarLabel: 'Info',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? infoActiveIcon : infoIcon}
+              fadeDuration={0}
+              style={{ width: 23, height: 23 }}
             />
           ),
         }}
