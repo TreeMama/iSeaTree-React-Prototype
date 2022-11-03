@@ -41,12 +41,13 @@ const pickerItems: Item[] = suggestedTrees.map((datum) => ({
 export function InfoScreen(props) {
   const theme = useTheme()
   const [selectedTree, setSelectedTree] = useState<SuggestedTreeData | undefined>(undefined)
+  const [query, setQuery] = useState<string>('')
   const renderCards = () => {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width / 1.1,    // 2.2 for 2-column
-          height: Dimensions.get('screen').width / 1.78,  // 2.7 for 2-column
+          width: Dimensions.get('screen').width * 0.45,    // 0.9 for 1-column, 0.45 for 2-column
+          height: Dimensions.get('screen').width * 0.45 * 0.618,
           marginBottom: 24,
           borderWidth: 1,
           borderRadius: 10,
@@ -75,13 +76,17 @@ export function InfoScreen(props) {
             }}>
               {/* 3-element row space-between */}
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Image style={{ maxHeight: 50 }} source={require('../../../assets/info_screen_tree_icon.png')}></Image>
+                {/* <Image style={{ maxHeight: 50 }} source={require('../../../assets/info_screen_tree_icon.png')}></Image> */}
                 {/* text segment */}
-                <View style={{ minWidth: '75%', alignItems: 'center', justifyContent: 'center' }}>
-                  <Text>{tree.name}</Text>
-                  <Text style={{ color: 'gray' }}>{tree.level}</Text>
+                <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center' }}>
+                  <Text numberOfLines={1} style={{ color: '#287B51' }}>
+                    {tree.name}
+                  </Text>
+                  <Text numberOfLines={1} style={{ color: '#A4A4A4' }}>
+                    {tree.level}
+                  </Text>
                 </View>
-                <Image style={{ maxHeight: 50 }} source={require('../../../assets/angle-right.png')}></Image>
+                <Image source={require('../../../assets/angle-right.png')}></Image>
               </View>
             </View>
           </ImageBackground>
@@ -96,18 +101,31 @@ export function InfoScreen(props) {
           <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
         ) : (
           <>
-            <View style={{ margin: 20 }}>
+            {/* Button tab */}
+            <View style={{
+              width: Dimensions.get('screen').width * 0.57,
+              marginVertical: 20,
+              borderWidth: 1,
+              borderRadius: 10,
+              borderColor: '#62717A'
+            }} >
+              <Text numberOfLines={1} style={{ color: '#287B51' }}>
+                {'button tab placeholder'}
+              </Text>
+            </View>
+            {/* Search bar */}
+            <View style={{ width: Dimensions.get('screen').width * 0.45 * 2, marginVertical: 20 }}>
               <TextInput
                 placeholder="Search"
                 mode="outlined"
                 scrollEnabled={false}
-                value={""}
+                value={query}
                 style={{
-                  backgroundColor: '#F4F6FA', borderRadius: 12
+                  borderRadius: 12
                 }}
-              // onChangeText={(value) => {
-              //   formik.setFieldValue('notes', value)
-              // }}
+                onChangeText={(value) => {
+                  setQuery(value)
+                }}
               />
             </View>
             <ScrollView>
@@ -123,6 +141,6 @@ export function InfoScreen(props) {
         )
         }
       </SafeAreaView>
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingView >
   )
 }
