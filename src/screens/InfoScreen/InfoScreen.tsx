@@ -46,17 +46,17 @@ export function InfoScreen(props) {
     return suggestedTrees.map((tree: SuggestedTreeData) => {
       return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width * 0.45,    // 0.9 for 1-column, 0.45 for 2-column
-          height: Dimensions.get('screen').width * 0.45 * 0.618,
-          marginBottom: 24,
+          width: Dimensions.get('screen').width * 0.46,    // 0.92 for 1-column, 0.46 for 2-column
+          height: Dimensions.get('screen').width * 0.46 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
+          marginBottom: Dimensions.get('screen').width * 0.04,
           borderWidth: 1,
           borderRadius: 10,
           borderColor: '#C4D0D9',
           shadowColor: '#171717',
-          shadowOpacity: 0.2,
-          shadowRadius: 5,
-          shadowOffset: { width: 2, height: 4 },
-          elevation: 20
+          shadowOpacity: 0.5,
+          shadowRadius: 3,
+          shadowOffset: { width: 1, height: 2 },
+          elevation: 10
         }}>
           <ImageBackground source={tree.images ? tree.images[0] : { uri: '' }}
             style={{ width: '100%', height: '100%' }}
@@ -68,25 +68,26 @@ export function InfoScreen(props) {
               backgroundColor: 'white',
               justifyContent: 'center',
               alignItems: 'center',
+              // height: '30%',
               width: '100%',
               paddingHorizontal: 10,
               paddingVertical: 10,
               borderBottomLeftRadius: 10,
               borderBottomRightRadius: 10
             }}>
-              {/* 3-element row space-between */}
+              {/* 2-element row space-between */}
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* <Image style={{ maxHeight: 50 }} source={require('../../../assets/info_screen_tree_icon.png')}></Image> */}
                 {/* text segment */}
-                <View style={{ width: '90%', alignItems: 'center', justifyContent: 'center' }}>
-                  <Text numberOfLines={1} style={{ color: '#287B51' }}>
+                <View style={{ width: '93%', alignItems: 'center', justifyContent: 'center' }}>
+                  <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 13 }}>
                     {tree.name}
                   </Text>
-                  <Text numberOfLines={1} style={{ color: '#A4A4A4' }}>
+                  <Text numberOfLines={1} style={{ color: '#A4A4A4', fontSize: 12 }}>
                     {tree.level}
                   </Text>
                 </View>
-                <Image source={require('../../../assets/angle-right.png')}></Image>
+                <Image style={{ maxHeight: '25%', resizeMode: 'contain' }} source={require('../../../assets/angle-right.png')}></Image>
               </View>
             </View>
           </ImageBackground>
@@ -101,32 +102,62 @@ export function InfoScreen(props) {
           <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
         ) : (
           <>
-            {/* Button tab */}
-            <View style={{
-              width: Dimensions.get('screen').width * 0.57,
-              marginVertical: 20,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: '#62717A'
-            }} >
-              <Text numberOfLines={1} style={{ color: '#287B51' }}>
-                {'button tab placeholder'}
-              </Text>
-            </View>
-            {/* Search bar */}
-            <View style={{ width: Dimensions.get('screen').width * 0.45 * 2, marginVertical: 20 }}>
-              <TextInput
-                placeholder="Search"
-                mode="outlined"
-                scrollEnabled={false}
-                value={query}
-                style={{
-                  borderRadius: 12
-                }}
-                onChangeText={(value) => {
-                  setQuery(value)
-                }}
-              />
+            <View style={{ alignItems: 'center' }}>
+              {/* Button tab */}
+              <View style={{
+                width: Dimensions.get('screen').width * 0.57,
+                height: Dimensions.get('screen').width * 0.57 * 0.16,
+                marginBottom: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: '#62717A',
+                flexDirection: 'row',
+              }} >
+                <View style={{
+                  width: '50%',
+                  backgroundColor: '#287B51',
+                  borderBottomLeftRadius: 10,
+                  borderTopLeftRadius: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <Text numberOfLines={1} style={{ color: 'white' }}>
+                    {'Genus'}
+                  </Text>
+                </View>
+                <View style={{
+                  width: '50%',
+                  backgroundColor: 'white',
+                  borderRadius: 10,
+                  borderBottomRightRadius: 10,
+                  borderTopRightRadius: 10,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
+                  <Text numberOfLines={1} style={{ color: '#287B51' }}>
+                    {'Species'}
+                  </Text>
+                </View>
+              </View>
+              {/* Search bar */}
+              <View style={{
+                width: Dimensions.get('screen').width * 0.92,
+                marginBottom: 20
+              }}>
+                <TextInput
+                  placeholder="Search"
+                  mode="outlined"
+                  scrollEnabled={false}
+                  value={query}
+                  style={{
+                    height: Dimensions.get('screen').width * 0.094,
+                    borderRadius: 12
+                  }}
+                  onChangeText={(value) => {
+                    setQuery(value)
+                  }}
+                />
+              </View>
             </View>
             <ScrollView>
               <View style={{
