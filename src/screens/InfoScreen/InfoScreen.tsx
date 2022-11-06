@@ -16,7 +16,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { suggestedTrees, SuggestedTreeData } from '../../../data/suggestedTrees'
 import { colors } from '../../styles/theme'
 import { StatusBar } from '../../components/StatusBar'
-import { TreeInfoScreen } from './TreeInfo'
+import { TreeInfo } from './TreeInfo'
 
 const slideHeight = 300
 
@@ -99,7 +99,7 @@ export function InfoScreen(props) {
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         {selectedTree ? (
-          <TreeInfoScreen selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
+          <TreeInfo selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
         ) : (
           <>
             <View style={{ alignItems: 'center' }}>
