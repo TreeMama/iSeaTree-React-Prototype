@@ -71,7 +71,7 @@ export async function identifyTreePicture() {
     }
     );
     const result = await response.json();
-    console.log(result['suggestions'][0]['plant_name'])
+    console.log(result)
     return result['suggestions'][0]['plant_name'];
   } catch (error) {
     console.error(error);
