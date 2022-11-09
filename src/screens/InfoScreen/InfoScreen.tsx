@@ -17,34 +17,17 @@ import { suggestedTrees, SuggestedTreeData } from '../../../data/suggestedTrees'
 import { colors } from '../../styles/theme'
 import { StatusBar } from '../../components/StatusBar'
 import { TreeInfo } from './TreeInfo'
-
-const slideHeight = 300
-
-const pickerItems: Item[] = suggestedTrees.map((datum) => ({
-  value: datum.name,
-  label: datum.name,
-}))
-
-// function getBadgeColor(level: string) {
-//   switch (level) {
-//     case 'Easy':
-//       return '#C6F6D5'
-//     case 'Medium':
-//       return '#FEEBC8'
-//     case 'Expert':
-//       return '#FEB2B2'
-//     default:
-//       return '#ddd'
-//   }
-// }
+import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
+import speciesDataList from '../../../data/species.json'
+import { CONFIG } from '../../../envVariables'
 
 export function InfoScreen(props) {
   const theme = useTheme()
-  const [selectedTree, setSelectedTree] = useState<SuggestedTreeData | undefined>(undefined)
+  const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
   const renderCards = () => {
-    return suggestedTrees.map((tree: SuggestedTreeData) => {
-      return <TouchableOpacity key={tree.name} onPress={() => setSelectedTree(tree)}>
+    return speciesDataList.map((tree: SpeciesData) => {
+      return <TouchableOpacity key={tree.COMMON} onPress={() => setSelectedTree(tree)}>
         <View style={{
           width: Dimensions.get('screen').width * 0.46,    // 0.92 for 1-column, 0.46 for 2-column
           height: Dimensions.get('screen').width * 0.46 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
@@ -58,7 +41,9 @@ export function InfoScreen(props) {
           shadowOffset: { width: 1, height: 2 },
           elevation: 10
         }}>
-          <ImageBackground source={tree.images ? tree.images[0] : { uri: '' }}
+          <ImageBackground source={
+            { uri: tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + tree?.FULL_PIC_180x110 : '' }
+          }
             style={{ width: '100%', height: '100%' }}
             imageStyle={{ borderRadius: 10 }}
             resizeMode="cover">
@@ -81,10 +66,10 @@ export function InfoScreen(props) {
                 {/* text segment */}
                 <View style={{ width: '93%', alignItems: 'center', justifyContent: 'center' }}>
                   <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 13 }}>
-                    {tree.name}
+                    {tree.COMMON}
                   </Text>
                   <Text numberOfLines={1} style={{ color: '#A4A4A4', fontSize: 12 }}>
-                    {tree.level}
+                    {tree.SCIENTIFIC}
                   </Text>
                 </View>
                 <Image style={{ maxHeight: '25%', resizeMode: 'contain' }} source={require('../../../assets/angle-right.png')}></Image>
