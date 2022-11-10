@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
 import {
   View,
   ScrollView,
@@ -15,6 +14,7 @@ import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
+import { cardBottomStyles, cardStyles } from './styles'
 
 export function InfoScreen(props) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
@@ -23,58 +23,36 @@ export function InfoScreen(props) {
   const [activeTab, setActiveTab] = useState<string>('Genus')
 
   useEffect(() => {
-    // sort list by common name ascending
-    speciesDataList.sort((a, b) => {
+    // filter out the 'unknown' tree in json, and sort list by common name ascending
+    speciesDataList.filter(tree => tree.COMMON != 'unknown').sort((a, b) => {
       return a.COMMON.localeCompare(b.COMMON)
     })
     setTreeList(speciesDataList)
   }, [])
 
   useEffect(() => {
-    if (query == '') {
-      setTreeList(speciesDataList)
+    let newList: SpeciesData[] = speciesDataList
+    if (query) {
+      newList = newList.filter(tree => tree.COMMON.indexOf(query) > -1)
     }
-    const newList: SpeciesData[] = speciesDataList.filter(tree => {
-      return tree.COMMON.indexOf(query) > -1;
-    });
+    newList = newList.filter(tree => {
+      const sppIndex = tree.COMMON.indexOf('spp')
+      return activeTab == 'Genus' ? (sppIndex == -1) : (sppIndex > -1)
+    })
     setTreeList(newList)
-  }, [query]);
+  }, [query, activeTab]);
 
   const renderCards = () => {
     return treeList.map((tree: SpeciesData) => {
       return <TouchableOpacity key={tree.COMMON} onPress={() => setSelectedTree(tree)}>
-        <View style={{
-          width: Dimensions.get('screen').width * 0.47,    // 0.92 for 1-column, 0.46 for 2-column
-          height: Dimensions.get('screen').width * 0.47 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
-          marginBottom: 10,
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: '#C4D0D9',
-          shadowColor: '#171717',
-          shadowOpacity: 0.5,
-          shadowRadius: 2,
-          shadowOffset: { width: 1, height: 2 },
-          elevation: 5
-        }}>
+        <View style={cardStyles}>
           <ImageBackground source={
             { uri: tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + tree?.FULL_PIC_180x110 : '' }
           }
             style={{ width: '100%', height: '100%' }}
             imageStyle={{ borderRadius: 10 }}
             resizeMode="cover">
-            <View style={{
-              position: 'absolute',
-              bottom: 0,
-              backgroundColor: 'white',
-              justifyContent: 'center',
-              alignItems: 'center',
-              // height: '30%',
-              width: '100%',
-              paddingHorizontal: 10,
-              paddingVertical: 10,
-              borderBottomLeftRadius: 10,
-              borderBottomRightRadius: 10
-            }}>
+            <View style={cardBottomStyles}>
               {/* 2-element row space-between */}
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* text segment */}
@@ -133,6 +111,7 @@ export function InfoScreen(props) {
                 />
               </View>
             </View>
+            {/* Cards */}
             <ScrollView>
               <View style={{
                 flexDirection: 'row',
@@ -157,7 +136,7 @@ const ButtonTab = (props: {
   const activeBackgroundColor = '#287B51'
   const inactiveBackgroundColor = 'white'
   const activeTextColor = 'white'
-  const inactiveTextColor = '#287B51'
+  const inactiveTextColor = '#62717A'
   const switchTab = () => {
     props.setActiveTab(props.activeTab == 'Genus' ? 'Species' : 'Genus')
   }
@@ -166,7 +145,7 @@ const ButtonTab = (props: {
     height: Dimensions.get('screen').width * 0.57 * 0.16,
     marginBottom: 16,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 6,
     borderColor: '#62717A',
     flexDirection: 'row',
   }} >
@@ -174,8 +153,8 @@ const ButtonTab = (props: {
       style={{
         width: '50%',
         backgroundColor: props.activeTab == 'Genus' ? activeBackgroundColor : inactiveBackgroundColor,
-        borderBottomLeftRadius: 10,
-        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 6,
+        borderTopLeftRadius: 6,
         justifyContent: 'center',
         alignItems: 'center'
       }}
@@ -192,8 +171,8 @@ const ButtonTab = (props: {
       style={{
         width: '50%',
         backgroundColor: props.activeTab == 'Species' ? activeBackgroundColor : inactiveBackgroundColor,
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10,
+        borderBottomRightRadius: 6,
+        borderTopRightRadius: 6,
         justifyContent: 'center',
         alignItems: 'center'
       }}
