@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import {
   View,
@@ -13,9 +13,7 @@ import {
 import { Text, Badge, Title, useTheme, TextInput } from 'react-native-paper'
 import RNPickerSelect, { Item } from 'react-native-picker-select'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { suggestedTrees, SuggestedTreeData } from '../../../data/suggestedTrees'
 import { colors } from '../../styles/theme'
-import { StatusBar } from '../../components/StatusBar'
 import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
@@ -25,6 +23,14 @@ export function InfoScreen(props) {
   const theme = useTheme()
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
+
+  useEffect(() => {
+    // sort list by common name ascending
+    speciesDataList.sort((a, b) => {
+      return a.COMMON.localeCompare(b.COMMON)
+    })
+  }, [])
+
   const renderCards = () => {
     return speciesDataList.map((tree: SpeciesData) => {
       return <TouchableOpacity key={tree.COMMON} onPress={() => setSelectedTree(tree)}>
@@ -62,15 +68,18 @@ export function InfoScreen(props) {
             }}>
               {/* 2-element row space-between */}
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                {/* <Image style={{ maxHeight: 50 }} source={require('../../../assets/info_screen_tree_icon.png')}></Image> */}
                 {/* text segment */}
                 <View style={{ width: '93%', alignItems: 'center', justifyContent: 'center' }}>
-                  <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 13 }}>
-                    {tree.COMMON}
-                  </Text>
-                  <Text numberOfLines={1} style={{ color: '#A4A4A4', fontSize: 12 }}>
-                    {tree.SCIENTIFIC}
-                  </Text>
+                  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 16 }}>
+                      {tree.COMMON}
+                    </Text>
+                  </ScrollView>
+                  {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <Text numberOfLines={1} style={{ color: '#A4A4A4', fontSize: 12 }}>
+                      {tree.SCIENTIFIC}
+                    </Text>
+                  </ScrollView> */}
                 </View>
                 <Image style={{ maxHeight: '25%', resizeMode: 'contain' }} source={require('../../../assets/angle-right.png')}></Image>
               </View>
