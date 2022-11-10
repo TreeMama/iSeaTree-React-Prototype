@@ -20,6 +20,7 @@ export function InfoScreen(props) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
+  const [activeTab, setActiveTab] = useState<string>('Genus')
 
   useEffect(() => {
     // sort list by common name ascending
@@ -78,7 +79,11 @@ export function InfoScreen(props) {
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* text segment */}
                 <View style={{ width: '93%', alignItems: 'center', justifyContent: 'center' }}>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                  <ScrollView
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    onStartShouldSetResponder={(e) => true}
+                  >
                     <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 16 }}>
                       {tree.COMMON}
                     </Text>
@@ -92,9 +97,9 @@ export function InfoScreen(props) {
                 <Image style={{ maxHeight: '25%', resizeMode: 'contain' }} source={require('../../../assets/angle-right.png')}></Image>
               </View>
             </View>
-          </ImageBackground>
-        </View>
-      </TouchableOpacity>
+          </ImageBackground >
+        </View >
+      </TouchableOpacity >
     })
   }
   return (
@@ -106,41 +111,7 @@ export function InfoScreen(props) {
           <>
             <View style={{ alignItems: 'center' }}>
               {/* Button tab */}
-              <View style={{
-                width: Dimensions.get('screen').width * 0.57,
-                height: Dimensions.get('screen').width * 0.57 * 0.16,
-                marginBottom: 10,
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: '#62717A',
-                flexDirection: 'row',
-              }} >
-                <View style={{
-                  width: '50%',
-                  backgroundColor: '#287B51',
-                  borderBottomLeftRadius: 10,
-                  borderTopLeftRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                  <Text numberOfLines={1} style={{ color: 'white' }}>
-                    {'Genus'}
-                  </Text>
-                </View>
-                <View style={{
-                  width: '50%',
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  borderBottomRightRadius: 10,
-                  borderTopRightRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                  <Text numberOfLines={1} style={{ color: '#287B51' }}>
-                    {'Species'}
-                  </Text>
-                </View>
-              </View>
+              <ButtonTab activeTab={activeTab} setActiveTab={setActiveTab} />
               {/* Search bar */}
               <View style={{
                 width: Dimensions.get('screen').width * 0.92,
@@ -176,4 +147,64 @@ export function InfoScreen(props) {
       </SafeAreaView>
     </KeyboardAvoidingView >
   )
+}
+
+const ButtonTab = (props: {
+  activeTab: string,
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>
+}) => {
+  const activeBackgroundColor = '#287B51'
+  const inactiveBackgroundColor = 'white'
+  const activeTextColor = 'white'
+  const inactiveTextColor = '#287B51'
+  const switchTab = () => {
+    props.setActiveTab(props.activeTab == 'Genus' ? 'Species' : 'Genus')
+  }
+  return <View style={{
+    width: Dimensions.get('screen').width * 0.57,
+    height: Dimensions.get('screen').width * 0.57 * 0.16,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#62717A',
+    flexDirection: 'row',
+  }} >
+    <TouchableOpacity
+      style={{
+        width: '50%',
+        backgroundColor: props.activeTab == 'Genus' ? activeBackgroundColor : inactiveBackgroundColor,
+        borderBottomLeftRadius: 10,
+        borderTopLeftRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+      onPress={() => switchTab()}
+    >
+      <Text
+        numberOfLines={1}
+        style={{ color: props.activeTab == 'Genus' ? activeTextColor : inactiveTextColor }}
+      >
+        {'Genus'}
+      </Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      style={{
+        width: '50%',
+        backgroundColor: props.activeTab == 'Species' ? activeBackgroundColor : inactiveBackgroundColor,
+        borderRadius: 10,
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+      onPress={() => switchTab()}
+    >
+      <Text
+        numberOfLines={1}
+        style={{ color: props.activeTab == 'Species' ? activeTextColor : inactiveTextColor }}
+      >
+        {'Species'}
+      </Text>
+    </TouchableOpacity>
+  </View>
 }
