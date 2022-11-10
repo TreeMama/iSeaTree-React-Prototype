@@ -10,29 +10,37 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native"
-import { Text, Badge, Title, useTheme, TextInput } from 'react-native-paper'
-import RNPickerSelect, { Item } from 'react-native-picker-select'
-import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { colors } from '../../styles/theme'
+import { Text, TextInput } from 'react-native-paper'
 import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
 
 export function InfoScreen(props) {
-  const theme = useTheme()
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
+  const [treeList, setTreeList] = useState<SpeciesData[]>([])
 
   useEffect(() => {
     // sort list by common name ascending
     speciesDataList.sort((a, b) => {
       return a.COMMON.localeCompare(b.COMMON)
     })
+    setTreeList(speciesDataList)
   }, [])
 
+  useEffect(() => {
+    if (query == '') {
+      setTreeList(speciesDataList)
+    }
+    const newList: SpeciesData[] = speciesDataList.filter(tree => {
+      return tree.COMMON.indexOf(query) > -1;
+    });
+    setTreeList(newList)
+  }, [query]);
+
   const renderCards = () => {
-    return speciesDataList.map((tree: SpeciesData) => {
+    return treeList.map((tree: SpeciesData) => {
       return <TouchableOpacity key={tree.COMMON} onPress={() => setSelectedTree(tree)}>
         <View style={{
           width: Dimensions.get('screen').width * 0.46,    // 0.92 for 1-column, 0.46 for 2-column
