@@ -26,6 +26,8 @@ import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { StatusBar } from '../../components/StatusBar'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { useTabNavigationActions, useNavigationActions } from '../../lib/navigation'
+import { MaterialBottomTabNavigationConfig, MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs/lib/typescript/src/types'
 
 const info_image = require('../../../assets/info.png')
 const arrow_up = require('../../../assets/arrow_up.png')
@@ -34,10 +36,12 @@ const search_image = require('../../../assets/trees.png')
 const treeConifer = require('../../../assets/tree_Conifer3X-01.png')
 const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
 
+type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
 interface ITreeInfoProps {
   selectedTree: SpeciesData,
-  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>
+  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>,
+  navigation: TreeInfoNavigation
 }
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
@@ -83,15 +87,17 @@ const styles = StyleSheet.create({
 
 
 export function TreeInfo(props: ITreeInfoProps) {
-  const currentSuggestedTreeData = props.selectedTree
-  // const currentSuggestedTreeData = speciesDataList[1]
+  const selectedTree = props.selectedTree
+  // const selectedTree = speciesDataList[1]
 
   const [isInfo, setInfo] = React.useState<boolean>(false)
   const [secondaryModalVisibility, setSecondaryModalVisibility] = React.useState<boolean>(true)
   const [thirdModalVisibility, setThirdModalVisibility] = React.useState<boolean>(false)
   const [currentScreen, setCurrentScreen] = React.useState(0)
   const [loading, setLoading] = React.useState<boolean>(false)
-  const [currentData, setCurrentData] = React.useState<SpeciesData>(currentSuggestedTreeData)
+  const [currentData, setCurrentData] = React.useState<SpeciesData>(selectedTree)
+  const tabNavigationActions = useTabNavigationActions()
+  // const tabNavigationActions = useNavigationActions()
 
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
@@ -538,7 +544,12 @@ export function TreeInfo(props: ITreeInfoProps) {
                   {
                     text: 'Yes',
                     onPress: () => {
-                      console.log(currentSuggestedTreeData)
+                      setSecondaryModalVisibility(false)
+                      props.setSelectedTree(undefined)
+                      props.navigation.navigate('addTree', {
+                        selectedTree: selectedTree
+                      })
+                      console.log(selectedTree)
                     },
                   },
                 ])

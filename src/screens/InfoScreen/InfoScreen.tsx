@@ -15,19 +15,22 @@ import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
+import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs'
 
-export function InfoScreen(props) {
+type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
+
+export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
   const [activeTab, setActiveTab] = useState<string>('Genus')
-
+  let completeList = []
   useEffect(() => {
-    // filter out the 'unknown' tree in json, and sort list by common name ascending
-    speciesDataList.filter(tree => tree.COMMON != 'unknown').sort((a, b) => {
+    // sort list by common name ascending
+    completeList = speciesDataList.sort((a, b) => {
       return a.COMMON.localeCompare(b.COMMON)
     })
-    setTreeList(speciesDataList)
+    setTreeList(completeList)
   }, [])
 
   useEffect(() => {
@@ -109,7 +112,7 @@ export function InfoScreen(props) {
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         {selectedTree ? (
-          <TreeInfo selectedTree={selectedTree} setSelectedTree={setSelectedTree} />
+          <TreeInfo selectedTree={selectedTree} setSelectedTree={setSelectedTree} navigation={props.navigation} />
         ) : (
           <>
             <View style={{ alignItems: 'center' }}>
