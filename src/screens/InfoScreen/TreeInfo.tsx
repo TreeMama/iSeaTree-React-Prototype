@@ -36,8 +36,8 @@ const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
 
 
 interface ITreeInfoProps {
-  selectedTree: SuggestedTreeData,
-  setSelectedTree: React.Dispatch<React.SetStateAction<SuggestedTreeData | undefined>>
+  selectedTree: SpeciesData,
+  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>
 }
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
 
 
 export function TreeInfo(props: ITreeInfoProps) {
-  // const currentSuggestedTreeData = props.selectedTree
-  const currentSuggestedTreeData = speciesDataList[1]
+  const currentSuggestedTreeData = props.selectedTree
+  // const currentSuggestedTreeData = speciesDataList[1]
 
   const [isInfo, setInfo] = React.useState<boolean>(false)
   const [secondaryModalVisibility, setSecondaryModalVisibility] = React.useState<boolean>(true)

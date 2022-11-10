@@ -44,17 +44,17 @@ export function InfoScreen(props) {
     return treeList.map((tree: SpeciesData) => {
       return <TouchableOpacity key={tree.COMMON} onPress={() => setSelectedTree(tree)}>
         <View style={{
-          width: Dimensions.get('screen').width * 0.46,    // 0.92 for 1-column, 0.46 for 2-column
-          height: Dimensions.get('screen').width * 0.46 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
-          marginBottom: Dimensions.get('screen').width * 0.04,
+          width: Dimensions.get('screen').width * 0.47,    // 0.92 for 1-column, 0.46 for 2-column
+          height: Dimensions.get('screen').width * 0.47 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
+          marginBottom: 10,
           borderWidth: 1,
           borderRadius: 10,
           borderColor: '#C4D0D9',
           shadowColor: '#171717',
           shadowOpacity: 0.5,
-          shadowRadius: 3,
+          shadowRadius: 2,
           shadowOffset: { width: 1, height: 2 },
-          elevation: 10
+          elevation: 5
         }}>
           <ImageBackground source={
             { uri: tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + tree?.FULL_PIC_180x110 : '' }
@@ -82,11 +82,12 @@ export function InfoScreen(props) {
                   <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
-                    onStartShouldSetResponder={(e) => true}
                   >
-                    <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 16 }}>
-                      {tree.COMMON}
-                    </Text>
+                    <View onStartShouldSetResponder={() => true}>
+                      <Text numberOfLines={1} style={{ color: '#287B51', fontSize: 16 }}>
+                        {tree.COMMON}
+                      </Text>
+                    </View>
                   </ScrollView>
                   {/* <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <Text numberOfLines={1} style={{ color: '#A4A4A4', fontSize: 12 }}>
@@ -115,7 +116,7 @@ export function InfoScreen(props) {
               {/* Search bar */}
               <View style={{
                 width: Dimensions.get('screen').width * 0.92,
-                marginBottom: 20
+                marginBottom: 24
               }}>
                 <TextInput
                   placeholder="Search"
@@ -163,7 +164,7 @@ const ButtonTab = (props: {
   return <View style={{
     width: Dimensions.get('screen').width * 0.57,
     height: Dimensions.get('screen').width * 0.57 * 0.16,
-    marginBottom: 10,
+    marginBottom: 16,
     borderWidth: 1,
     borderRadius: 10,
     borderColor: '#62717A',
@@ -191,7 +192,6 @@ const ButtonTab = (props: {
       style={{
         width: '50%',
         backgroundColor: props.activeTab == 'Species' ? activeBackgroundColor : inactiveBackgroundColor,
-        borderRadius: 10,
         borderBottomRightRadius: 10,
         borderTopRightRadius: 10,
         justifyContent: 'center',
