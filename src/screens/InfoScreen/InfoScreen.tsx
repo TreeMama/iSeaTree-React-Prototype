@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import {
   View,
   ScrollView,
@@ -14,7 +15,6 @@ import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
-import { cardBottomStyles, cardStyles } from './styles'
 
 export function InfoScreen(props) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
@@ -45,14 +45,38 @@ export function InfoScreen(props) {
   const renderCards = () => {
     return treeList.map((tree: SpeciesData) => {
       return <TouchableOpacity key={tree.COMMON} onPress={() => setSelectedTree(tree)}>
-        <View style={cardStyles}>
+        <View style={{
+          width: Dimensions.get('screen').width * 0.47,    // 0.92 for 1-column, 0.46 for 2-column
+          height: Dimensions.get('screen').width * 0.47 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
+          marginBottom: 10,
+          borderWidth: 1,
+          borderRadius: 10,
+          borderColor: '#C4D0D9',
+          shadowColor: '#171717',
+          shadowOpacity: 0.5,
+          shadowRadius: 2,
+          shadowOffset: { width: 1, height: 2 },
+          elevation: 5
+        }}>
           <ImageBackground source={
             { uri: tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + tree?.FULL_PIC_180x110 : '' }
           }
             style={{ width: '100%', height: '100%' }}
             imageStyle={{ borderRadius: 10 }}
             resizeMode="cover">
-            <View style={cardBottomStyles}>
+            <View style={{
+              position: 'absolute',
+              bottom: 0,
+              backgroundColor: 'white',
+              justifyContent: 'center',
+              alignItems: 'center',
+              // height: '30%',
+              width: '100%',
+              paddingHorizontal: 10,
+              paddingVertical: 10,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10
+            }}>
               {/* 2-element row space-between */}
               <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                 {/* text segment */}
