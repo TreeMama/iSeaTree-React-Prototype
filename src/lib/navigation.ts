@@ -14,7 +14,7 @@ export enum TabScreenNames {
   addTree = 'addTree',
   suggestedTrees = 'suggestedTrees',
   mapScreen = 'mapScreen',
-  challengeScreen = 'challengeScreen',
+  addTreeNew = 'addTreeNew'
 }
 
 type NavigationActions = { [key in ScreenNames]: () => void }
@@ -61,8 +61,8 @@ export function useTabNavigationActions(): TabNavigationActions {
     mapScreen: () => {
       navigation.navigate(TabScreenNames.mapScreen)
     },
-    challengeScreen: () => {
-      navigation.navigate(TabScreenNames.challengeScreen)
+    addTreeNew: () => {
+      navigation.navigate(TabScreenNames.addTreeNew)
     }
   }
 }

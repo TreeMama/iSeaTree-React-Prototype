@@ -12,7 +12,8 @@ import { AddTreeScreen } from './screens/AddTreeScreen'
 import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
 // import { colors } from './styles/theme';
-import { ChallengeScreen } from './screens/ChallengeScreen'
+// import { ChallengeScreen } from './screens/ChallengeScreen'
+import { AddTreeScreenNew } from './screens/AddTreeScreenNew/AddTreeScreenNew'
 
 const Tab = createMaterialBottomTabNavigator()
 
@@ -94,6 +95,20 @@ export function LoggedTabNavigator() {
         }}
       />
       <Tab.Screen
+        name={TabScreenNames.addTreeNew}
+        component={AddTreeScreenNew}
+        options={{
+          tabBarLabel: 'TreeNew',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={focused ? treeCameraActiveIcon : treeCameraIcon}
+              fadeDuration={0}
+              style={{ width: 23, height: 23 }}
+            />
+          ),
+        }}
+      />
+      {/* <Tab.Screen
         name={TabScreenNames.challengeScreen}
         component={ChallengeScreen}
         options={{
@@ -106,7 +121,7 @@ export function LoggedTabNavigator() {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name={TabScreenNames.suggestedTrees}
         component={SuggestedTreesScreen}
