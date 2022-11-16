@@ -1,5 +1,6 @@
 import React from "react"
 import { ImageBackground, ScrollView, TouchableOpacity, View, Image } from "react-native"
+import { Text } from "react-native-paper"
 import { styles } from "../styles"
 import { CONFIG } from '../../../../envVariables'
 import { SpeciesData } from "../../AddTreeScreen/SpeciesSelect"
@@ -36,7 +37,7 @@ export const TreeCard = (props: {
                 </Text>
               </ScrollView>
             </View>
-            <Image style={{ maxHeight: '25%', resizeMode: 'contain' }} source={require('../../../assets/angle-right.png')}></Image>
+            <Image style={{ maxHeight: '25%', resizeMode: 'contain' }} source={require('../../../../assets/angle-right.png')}></Image>
           </View>
         </View>
       </ImageBackground >

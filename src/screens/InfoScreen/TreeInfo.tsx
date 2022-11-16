@@ -97,7 +97,6 @@ export function TreeInfo(props: ITreeInfoProps) {
   const [loading, setLoading] = React.useState<boolean>(false)
   const [currentData, setCurrentData] = React.useState<SpeciesData>(selectedTree)
   const tabNavigationActions = useTabNavigationActions()
-  // const tabNavigationActions = useNavigationActions()
 
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''

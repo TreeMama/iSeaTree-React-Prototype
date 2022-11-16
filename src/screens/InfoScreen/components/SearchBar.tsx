@@ -1,5 +1,6 @@
 import React from "react"
 import { Dimensions, View } from "react-native"
+import { TextInput } from "react-native-paper"
 
 export const SearchBar = (props: {
   query: string,
