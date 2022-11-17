@@ -63,10 +63,10 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   }
 
   const renderGenusLayout = () => {
-    return <ScrollView>
+    return <ScrollView style={{ justifyContent: 'center' }}>
       <TouchableOpacity onPress={() => setSelectedGenus(undefined)}>
         {/* @ts-ignore: skip props */}
-        <Text>{'return button'}</Text>
+        <Text>{'RETURN'}</Text>
       </TouchableOpacity>
       {/* @ts-ignore: skip props */}
       <Text>{'--------- Genus ---------'}</Text>
@@ -74,15 +74,15 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
 
       {/* @ts-ignore: skip props */}
       <Text>{'--------- Species ---------'}</Text>
-      <View style={{
+      {selectedGenus && <View style={{
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
       }}>
-        {treeList.map((tree: SpeciesData) =>
+        {treeList.filter((tree: SpeciesData) => tree.GENUS == selectedGenus.GENUS).map((tree: SpeciesData) =>
           <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} key={tree.COMMON} />)
         }
-      </View>
+      </View>}
     </ScrollView>
   }
 
