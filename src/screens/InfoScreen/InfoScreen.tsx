@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   SafeAreaView,
   TouchableOpacity,
+  Image,
 } from "react-native"
 import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
@@ -15,6 +16,7 @@ import { ButtonTab } from './components/ButtonTab'
 import { SearchBar } from './components/SearchBar'
 import { TreeCard } from './components/TreeCard'
 import { Text } from 'react-native-paper'
+const returnButton = require('../../../assets/angle-left.png')
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
@@ -67,16 +69,20 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
 
   const renderGenusLayout = () => {
     return <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-      <TouchableOpacity onPress={() => setSelectedGenus(undefined)}>
-        {/* @ts-ignore: skip props */}
-        <Text>{'RETURN'}</Text>
-      </TouchableOpacity>
       {/* @ts-ignore: skip props */}
-      <Text>{'--------- Genus ---------'}</Text>
-      {selectedGenus && (activeTab != 'Genus') && <TreeCard tree={selectedGenus} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />}
+      <Text style={{
+        fontSize: 15,
+        color: '#62717A',
+        margin: 4,
+      }}>{'Genus'}</Text>
+      {selectedGenus && (activeTab == 'Genus') && <TreeCard tree={selectedGenus} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />}
 
       {/* @ts-ignore: skip props */}
-      <Text>{'--------- Species ---------'}</Text>
+      <Text style={{
+        fontSize: 15,
+        color: '#62717A',
+        margin: 4,
+      }}>{'Species'}</Text>
       {selectedGenus && <View style={{
         flexDirection: 'row',
         flexWrap: 'wrap',
@@ -97,6 +103,20 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
         ) : (
           <>
             <View style={{ alignItems: 'center' }}>
+              {selectedGenus &&
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedGenus(undefined);
+                  }}
+                  style={{
+                    position: 'absolute',
+                    top: 10,
+                    left: 20,
+                  }}
+                >
+                  <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
+                </TouchableOpacity>
+              }
               <ButtonTab activeTab={activeTab} setActiveTab={setActiveTab} />
               <SearchBar query={query} setQuery={setQuery} />
             </View>
