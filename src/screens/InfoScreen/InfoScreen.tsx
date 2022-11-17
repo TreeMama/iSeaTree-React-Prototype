@@ -56,7 +56,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
         justifyContent: 'space-around',
       }}>
         {treeList.map((tree: SpeciesData) =>
-          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />)
+          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} key={tree.COMMON} />)
         }
       </View>
     </ScrollView>
@@ -80,7 +80,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
         justifyContent: 'space-around',
       }}>
         {treeList.map((tree: SpeciesData) =>
-          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />)
+          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} key={tree.COMMON} />)
         }
       </View>
     </ScrollView>

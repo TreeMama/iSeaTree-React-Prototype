@@ -22,7 +22,7 @@ export const TreeCard = (props: {
       props.setSelectedTree(props.tree)
     }
   }
-  return <TouchableOpacity key={props.tree.COMMON} onPress={cardOnPress}>
+  return <TouchableOpacity onPress={cardOnPress}>
     <View style={styles.treeCard}>
       <ImageBackground source={
         { uri: props.tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + props.tree?.FULL_PIC_180x110 : '' }
