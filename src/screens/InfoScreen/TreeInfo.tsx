@@ -1,5 +1,4 @@
 import React from 'react'
-import { suggestedTrees, SuggestedTreeData } from '../../../data/suggestedTrees'
 import {
   View,
   Image,
@@ -12,7 +11,6 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native'
-import { colors, theme } from '../../styles/theme'
 import { CONFIG } from '../../../envVariables'
 import speciesDataList from '../../../data/species.json'
 import {
@@ -517,11 +515,35 @@ export function TreeInfo(props: ITreeInfoProps) {
               //   style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 100 }}
               // >
               <ScrollView style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }} showsVerticalScrollIndicator={true}>
-                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10 }}>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+                  Common Name
+                </RNText>
+                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
+                  {currentData?.COMMON}
+                </RNText>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+                  Scientific Name
+                </RNText>
+                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
+                  {currentData?.SCIENTIFIC}
+                </RNText>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+                  Type
+                </RNText>
+                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
+                  {currentData?.TYPE}
+                </RNText>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
                   Description
                 </RNText>
                 <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
                   {currentData?.DESCRIPTION}
+                </RNText>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
+                  Level
+                </RNText>
+                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
+                  {currentData?.LEVEL}
                 </RNText>
               </ScrollView>
               // </View>
@@ -546,9 +568,8 @@ export function TreeInfo(props: ITreeInfoProps) {
                       setSecondaryModalVisibility(false)
                       props.setSelectedTree(undefined)
                       props.navigation.navigate('addTree', {
-                        selectedTree: selectedTree
+                        selectedSpeciesData: selectedTree
                       })
-                      console.log(selectedTree)
                     },
                   },
                 ])
