@@ -7,9 +7,22 @@ import { SpeciesData } from "../../AddTreeScreen/SpeciesSelect"
 
 export const TreeCard = (props: {
   tree: SpeciesData,
-  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>
+  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>,
+  selectedGenus: SpeciesData | undefined,
+  setSelectedGenus: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>
 }) => {
-  return <TouchableOpacity key={props.tree.COMMON} onPress={() => props.setSelectedTree(props.tree)}>
+  const cardOnPress = () => {
+    const isGenus = props.tree.COMMON.indexOf('spp') > -1
+    // case 1: genus card on default screen -> go to genus screen
+    if (isGenus && props.selectedGenus === undefined) {
+      props.setSelectedGenus(props.tree)
+    } else {
+      // case 2: genus card on genus screen -> go to details screen
+      // case 3: species card on any screen -> go to details screen
+      props.setSelectedTree(props.tree)
+    }
+  }
+  return <TouchableOpacity key={props.tree.COMMON} onPress={cardOnPress}>
     <View style={styles.treeCard}>
       <ImageBackground source={
         { uri: props.tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + props.tree?.FULL_PIC_180x110 : '' }

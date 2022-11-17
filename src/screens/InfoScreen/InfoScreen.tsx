@@ -5,6 +5,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native"
 import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
@@ -13,11 +14,13 @@ import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bott
 import { ButtonTab } from './components/ButtonTab'
 import { SearchBar } from './components/SearchBar'
 import { TreeCard } from './components/TreeCard'
+import { Text } from 'react-native-paper'
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
 export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
+  const [selectedGenus, setSelectedGenus] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
   const [activeTab, setActiveTab] = useState<string>('Genus')
@@ -36,11 +39,11 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   useEffect(() => {
     let newList: SpeciesData[] = speciesDataList
     if (query) {
-      newList = newList.filter(tree => tree.COMMON.indexOf(query) > -1)
+      newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1) || (tree.SCIENTIFIC.indexOf(query) > -1))
     }
     newList = newList.filter(tree => {
       const sppIndex = tree.COMMON.indexOf('spp')
-      return activeTab == 'Genus' ? (sppIndex == -1) : (sppIndex > -1)
+      return activeTab == 'Genus' ? (sppIndex > -1) : (sppIndex == -1)
     })
     setTreeList(newList)
   }, [query, activeTab]);
@@ -52,7 +55,33 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
       }}>
-        {treeList.map((tree: SpeciesData) => <TreeCard tree={tree} setSelectedTree={setSelectedTree} />)}
+        {treeList.map((tree: SpeciesData) =>
+          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />)
+        }
+      </View>
+    </ScrollView>
+  }
+
+  const renderGenusLayout = () => {
+    return <ScrollView>
+      <TouchableOpacity onPress={() => setSelectedGenus(undefined)}>
+        {/* @ts-ignore: skip props */}
+        <Text>{'return button'}</Text>
+      </TouchableOpacity>
+      {/* @ts-ignore: skip props */}
+      <Text>{'--------- Genus ---------'}</Text>
+      {selectedGenus && <TreeCard tree={selectedGenus} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />}
+
+      {/* @ts-ignore: skip props */}
+      <Text>{'--------- Species ---------'}</Text>
+      <View style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+      }}>
+        {treeList.map((tree: SpeciesData) =>
+          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />)
+        }
       </View>
     </ScrollView>
   }
@@ -68,7 +97,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
               <ButtonTab activeTab={activeTab} setActiveTab={setActiveTab} />
               <SearchBar query={query} setQuery={setQuery} />
             </View>
-            {renderDefaultLayout()}
+            {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
           </>
         )
         }
