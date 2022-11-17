@@ -63,7 +63,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   }
 
   const renderGenusLayout = () => {
-    return <ScrollView style={{ justifyContent: 'center' }}>
+    return <ScrollView contentContainerStyle={{ justifyContent: 'center' }}>
       <TouchableOpacity onPress={() => setSelectedGenus(undefined)}>
         {/* @ts-ignore: skip props */}
         <Text>{'RETURN'}</Text>

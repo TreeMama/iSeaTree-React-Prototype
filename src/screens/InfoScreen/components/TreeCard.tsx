@@ -1,9 +1,12 @@
 import React from "react"
-import { ImageBackground, ScrollView, TouchableOpacity, View, Image } from "react-native"
+import { ImageBackground, ScrollView, TouchableOpacity, View, Image, Alert } from "react-native"
 import { Text } from "react-native-paper"
 import { styles } from "../styles"
 import { CONFIG } from '../../../../envVariables'
 import { SpeciesData } from "../../AddTreeScreen/SpeciesSelect"
+const seedlingIcon = require("../../../../assets/badges/seedling.png")
+const saplingIcon = require("../../../../assets/badges/sapling.png")
+const expertIcon = require('../../../../assets/badges/old_growth_expert.png')
 
 export const TreeCard = (props: {
   tree: SpeciesData,
@@ -22,8 +25,31 @@ export const TreeCard = (props: {
       props.setSelectedTree(props.tree)
     }
   }
+
+  // Challenge Icon initialization 
+  let challengeIcon = null;
+  switch (props.tree.LEVEL) {
+    case 'easy':
+      challengeIcon = seedlingIcon;
+      break;
+    case 'medium':
+      challengeIcon = saplingIcon;
+      break
+    case 'expert':
+      challengeIcon = expertIcon;
+    default:
+      break;
+  }
+
   return <TouchableOpacity onPress={cardOnPress}>
     <View style={styles.treeCard}>
+      <TouchableOpacity
+        style={[{ zIndex: 1, elevation: 1 }]}
+        onPress={(e) => {
+          Alert.alert(`You selected ${props.tree.LEVEL} level challenge!`)
+        }} >
+        <Image source={challengeIcon} style={[styles.challengeIcon]} />
+      </TouchableOpacity>
       <ImageBackground source={
         { uri: props.tree.FULL_PIC_180x110 ? `${CONFIG.AWS_S3_URL}` + props.tree?.FULL_PIC_180x110 : '' }
       }

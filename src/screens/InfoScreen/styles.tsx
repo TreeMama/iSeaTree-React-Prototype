@@ -36,5 +36,14 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     borderColor: '#62717A',
     flexDirection: 'row',
+  },
+  challengeIcon: {
+    height: 28,
+    width: 28,
+    position: 'absolute',
+    top: 3,
+    left: 3,
+    opacity: 0.85,
+    // backgroundColor: 'white'
   }
 })
