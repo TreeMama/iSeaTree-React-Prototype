@@ -22,7 +22,10 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [selectedGenus, setSelectedGenus] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
+  // page 1 list
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
+  // page 2 list
+  const [filteredSpeciesList, setFilteredSpeciesList] = useState<SpeciesData[]>([])
   const [activeTab, setActiveTab] = useState<string>('Genus')
 
   // loading the complete list of trees on component mount
@@ -41,11 +44,11 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
     if (query) {
       newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1) || (tree.SCIENTIFIC.indexOf(query) > -1))
     }
-    newList = newList.filter(tree => {
-      const sppIndex = tree.COMMON.indexOf('spp')
-      return activeTab == 'Genus' ? (sppIndex > -1) : (sppIndex == -1)
-    })
-    setTreeList(newList)
+    // page 2 is not affected by button tab
+    let genusList = newList.filter(tree => tree.COMMON.indexOf('spp') > -1)
+    let speciesList = newList.filter(tree => tree.COMMON.indexOf('spp') == -1)
+    setTreeList(activeTab == 'Genus' ? genusList : speciesList)
+    setFilteredSpeciesList(speciesList)
   }, [query, activeTab]);
 
   const renderDefaultLayout = () => {
@@ -63,14 +66,14 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   }
 
   const renderGenusLayout = () => {
-    return <ScrollView contentContainerStyle={{ justifyContent: 'center' }}>
+    return <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
       <TouchableOpacity onPress={() => setSelectedGenus(undefined)}>
         {/* @ts-ignore: skip props */}
         <Text>{'RETURN'}</Text>
       </TouchableOpacity>
       {/* @ts-ignore: skip props */}
       <Text>{'--------- Genus ---------'}</Text>
-      {selectedGenus && <TreeCard tree={selectedGenus} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />}
+      {selectedGenus && (activeTab != 'Genus') && <TreeCard tree={selectedGenus} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />}
 
       {/* @ts-ignore: skip props */}
       <Text>{'--------- Species ---------'}</Text>
@@ -79,7 +82,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
         flexWrap: 'wrap',
         justifyContent: 'space-around',
       }}>
-        {treeList.filter((tree: SpeciesData) => tree.GENUS == selectedGenus.GENUS).map((tree: SpeciesData) =>
+        {filteredSpeciesList.filter((tree: SpeciesData) => tree.GENUS == selectedGenus.GENUS).map((tree: SpeciesData) =>
           <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} key={tree.COMMON} />)
         }
       </View>}
