@@ -43,7 +43,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: 3,
     left: 3,
-    opacity: 0.85,
     // backgroundColor: 'white'
   }
 })
