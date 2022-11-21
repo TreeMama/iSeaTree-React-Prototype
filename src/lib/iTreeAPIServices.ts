@@ -27,7 +27,7 @@ async function setItem(key: string, stringValue: string, unit: string) {
 }
 
 export async function identifyTreePicture() {
-  const file = '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/lib/img/maple_tree.jpeg';
+  const file = '/Users/jingsizou/iSeaTree/iSeaTree-React-Prototype/src/lib/img/oak-tree.jpeg';
   let base64files = await fs.readFile(file, 'base64');
   //   const data = {
   //     api_key: "QmthcG07fdXf27yYmAtcAt2h92STmQEki0YkpoRDhPJcnJA7dV",
@@ -72,7 +72,18 @@ export async function identifyTreePicture() {
     );
     const result = await response.json();
     console.log(result)
-    return result['suggestions'][0]['plant_name'];
+    // return result['suggestions'][0]['plant_name'];
+    // let ret: [boolean, string, string]
+    let ret: any;
+    /*
+    AI return result
+    (1) is_plant: Whether the given picture contains a tree
+    (2) common_names: the tree's common name
+    (3) scientific_name: the tree's common name scientific name
+    (4) structured_name: contains the genus and species of a tree. May only contains genus
+    */
+    ret = [result['is_plant'], result['suggestions'][0]['plant_details']['common_names'][0], result['suggestions'][0]['plant_details']['scientific_name'], result['suggestions'][0]['plant_details']['structured_name']]
+    return ret;
   } catch (error) {
     console.error(error);
     return -1;

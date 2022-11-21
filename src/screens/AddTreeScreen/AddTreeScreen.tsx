@@ -44,6 +44,7 @@ import { useCamera } from 'react-native-camera-hooks';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Tip } from "react-native-tip";
 import { LocationContext } from '../../LocationContext'
+import { getSpeciesNames, handleSpeciesSelect } from './SpeciesSelect'
 
 const win = Dimensions.get('window');
 
@@ -699,20 +700,103 @@ export function AddTreeScreen() {
               onPress={() => {
                 let result = identifyTreePicture().then(result => {
                   console.log("geting result: " + result);
-                  Alert.alert('Possible Result:', result, [
-                    {
-                      text: 'Yeap',
-                      onPress: () => {
+                  let is_plant = result[0];
+                  let species_match = false;
+                  let genus_match = false;
+                  let common_names = result[1];
+                  let scientific_name = result[2];
+                  let structured_name = result[3];
+                  let genus = structured_name[0];
+                  let species = structured_name[1];
+                  let species_name_id = "";
 
-                      },
-                    },
-                    {
-                      text: 'Nah',
-                      onPress: () => {
+                  if (is_plant) {
+                    {/*Is a tree*/ }
 
-                      },
+                    let local_species_data = require('/Users/jingsizou/iSeaTree/iSeaTree-React-Prototype/data/species.json');
+                    // let local_species_data = require('../../../../data/species.json');
+                    // (1) Check if the AI has found a match to our json records for a Species
+                    // (2) Check if the AI has found a match to our json records for a genus
+                    for (var i = 0; i < local_species_data.length; i++) {
+                      var obj = local_species_data[i];
+                      if (obj.COMMON == common_names) {
+                        species_match = true;
+                        species_name_id = obj.ID
+                        console.log("AI commom name: " + common_names + ", Json record common name: " + obj.COMMON);
+                      } else if (obj.GENUS == genus) {
+                        genus_match = true;
+                        console.log("AI genus name: " + genus + ", Json genus name: " + obj.GENUS);
+                      }
+
                     }
-                  ])
+
+                    if (species_match) {
+                      {/* Outcome 2: Prompt user to enter the Species name */ }
+                      Alert.alert('It\'s a match!', "We've determined that this tree likely is a " + common_names + "(" + scientific_name + ").\n Do you agree?", [
+                        {
+                          text: 'Try again',
+                          onPress: () => {
+
+                          },
+                        },
+                        {
+                          text: 'OK',
+                          onPress: () => {
+                            // handleSpeciesSelect(getSpeciesNames(species_name_id))
+                          },
+                        }
+                      ])
+                    } else if (genus_match) {
+                      {/* Outcome 1: Prompt user to enter the GENUS  */ }
+                      Alert.alert('It\'s a match!', "We've determined that this tree likely belongs in the " + genus + "(" + scientific_name + ") Genus.\n Do you agree?", [
+                        {
+                          text: 'Try again',
+                          onPress: () => {
+
+                          },
+                        },
+                        {
+                          text: 'OK',
+                          onPress: () => {
+
+                          },
+                        }
+                      ])
+                    } else if (common_names == null) {
+                      {/* Outcome 3: Prompt user to enter Unknown */ }
+                      Alert.alert('Sorry! No matches found', "We cannot determine this species. Do you want to enter this species as 'Unknown'?", [
+                        {
+                          text: 'Try again',
+                          onPress: () => {
+
+                          },
+                        },
+                        {
+                          text: 'OK',
+                          onPress: () => {
+
+                          },
+                        }
+                      ])
+                    }
+                  } else {
+                    {/* Is not a tree */ }
+                    {/* Outcome 4: Prompt user to take another picture */ }
+                    Alert.alert('Hmmm...', "This doesn't look like a tree to us.\n Can you take another picture?", [
+                      {
+                        text: 'Cancel',
+                        onPress: () => {
+
+                        },
+                      },
+                      {
+                        text: 'OK',
+                        onPress: () => {
+
+                        },
+                      }
+                    ])
+                  }
                 });
 
               }}
