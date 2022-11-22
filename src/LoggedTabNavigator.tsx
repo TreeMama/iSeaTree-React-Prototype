@@ -2,25 +2,26 @@
 import React from 'react'
 
 // import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons'
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useTheme } from 'react-native-paper'
-import { Image, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen'
 import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
-// import { colors } from './styles/theme';
+import { colors } from './styles/theme'
 import { ChallengeScreen } from './screens/ChallengeScreen'
 
-const Tab = createMaterialBottomTabNavigator()
+const Tab = createBottomTabNavigator()
 
 const profileIcon = require('../assets/nav_profile_inactive.png')
 const profileActiveIcon = require('../assets/nav_profile.png')
 const mapIcon = require('../assets/nav_map_inactive.png')
 const mapActiveIcon = require('../assets/nav_map.png')
-const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
+// const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
 const treeCameraActiveIcon = require('../assets/nav_addtree.png')
 const challengeIcon = require('../assets/nav_callenge_inactive.png')
 const challengeAcitiveIcon = require('../assets/nav_callenge.png')
@@ -30,11 +31,27 @@ const infoActiveIcon = require('../assets/nav_tree.png')
 export function LoggedTabNavigator() {
   const theme = useTheme()
 
+  const CustomTabButton = ({ children, onPress }) => (
+    <TouchableOpacity style={styles.cameraTab} onPress={onPress}>
+      <View style={styles.cameraChildren}>{children}</View>
+    </TouchableOpacity>
+  )
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}
-      barStyle={{ padding: 12, paddingBottom: 8, backgroundColor: 'white' }}
-      labeled
+      tabBarOptions={{
+        showLabel: false,
+        style: {
+          position: 'absolute',
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          backgroundColor: 'white',
+          borderRadius: 15,
+          height: 90,
+        },
+      }}
     >
       <Tab.Screen
         name={TabScreenNames.profile}
@@ -52,11 +69,16 @@ export function LoggedTabNavigator() {
           //   />
           // ),
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={focused ? profileActiveIcon : profileIcon}
-              fadeDuration={0}
-              style={{ width: 23, height: 23 }}
-            />
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+              <Image
+                source={focused ? profileActiveIcon : profileIcon}
+                fadeDuration={0}
+                style={{ width: 23, height: 23 }}
+              />
+              <Text style={{ fontSize: 10, color: focused ? '#373C3F' : colors.gray[700] }}>
+                Profile
+              </Text>
+            </View>
           ),
         }}
       />
@@ -66,11 +88,16 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={focused ? mapActiveIcon : mapIcon}
-              fadeDuration={0}
-              style={{ width: 23, height: 23 }}
-            />
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+              <Image
+                source={focused ? mapActiveIcon : mapIcon}
+                fadeDuration={0}
+                style={{ width: 23, height: 23 }}
+              />
+              <Text style={{ fontSize: 10, color: focused ? '#373C3F' : colors.gray[700] }}>
+                Explore
+              </Text>
+            </View>
           ),
         }}
       />
@@ -81,16 +108,16 @@ export function LoggedTabNavigator() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
             <Image
-              source={focused ? treeCameraActiveIcon : treeCameraIcon}
+              source={focused ? treeCameraActiveIcon : treeCameraActiveIcon}
               fadeDuration={0}
-              style={{ width: 50, height: 50, bottom: 8 }}
+              style={{
+                width: 60,
+                height: 60,
+              }}
             />
-            //   {/* // <MaterialCommunityIcons
-            // //   name="plus"
-            // //   size={32}
-            // //   color={focused ? colors.green[700] : colors.gray[700]}
-            // // /> */}
           ),
+
+          tabBarButton: (props) => <CustomTabButton {...props} />,
         }}
       />
       <Tab.Screen
@@ -99,11 +126,16 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Challenge',
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={focused ? challengeAcitiveIcon : challengeIcon}
-              fadeDuration={0}
-              style={{ width: 23, height: 23 }}
-            />
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+              <Image
+                source={focused ? challengeAcitiveIcon : challengeIcon}
+                fadeDuration={0}
+                style={{ width: 23, height: 23 }}
+              />
+              <Text style={{ fontSize: 10, color: focused ? '#373C3F' : colors.gray[700] }}>
+                Challenge
+              </Text>
+            </View>
           ),
         }}
       />
@@ -113,14 +145,27 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Info',
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={focused ? infoActiveIcon : infoIcon}
-              fadeDuration={0}
-              style={{ width: 23, height: 23 }}
-            />
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+              <Image
+                source={focused ? infoActiveIcon : infoIcon}
+                fadeDuration={0}
+                style={{ width: 23, height: 23 }}
+              />
+              <Text style={{ fontSize: 10, color: focused ? '#373C3F' : colors.gray[700] }}>
+                Info
+              </Text>
+            </View>
           ),
         }}
       />
     </Tab.Navigator>
   )
 }
+const styles = StyleSheet.create({
+  cameraTab: {
+    top: -20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cameraChildren: { width: 70, height: 70, borderRadius: 35 },
+})
