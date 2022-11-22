@@ -44,7 +44,6 @@ import { useCamera } from 'react-native-camera-hooks';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Tip } from "react-native-tip";
 import { LocationContext } from '../../LocationContext'
-import { getSpeciesNames, handleSpeciesSelect } from './SpeciesSelect'
 
 const win = Dimensions.get('window');
 
@@ -709,6 +708,8 @@ export function AddTreeScreen() {
                   let genus = structured_name[0];
                   let species = structured_name[1];
                   let species_name_id = "";
+                  let image_url_from_json = "";
+                  let file = '/Users/jingsizou/iSeaTree/iSeaTree-React-Prototype/src/lib/img/oak-tree.jpeg';
 
                   if (is_plant) {
                     {/*Is a tree*/ }
@@ -717,12 +718,14 @@ export function AddTreeScreen() {
                     // let local_species_data = require('../../../../data/species.json');
                     // (1) Check if the AI has found a match to our json records for a Species
                     // (2) Check if the AI has found a match to our json records for a genus
+                    let match_obj;
                     for (var i = 0; i < local_species_data.length; i++) {
                       var obj = local_species_data[i];
-                      if (obj.COMMON == common_names) {
+                      if (obj.SCIENTIFIC == scientific_name) {
                         species_match = true;
                         species_name_id = obj.ID
-                        console.log("AI commom name: " + common_names + ", Json record common name: " + obj.COMMON);
+                        match_obj = obj;
+                        console.log("AI SCIENTIFIC NAME: " + scientific_name + ", Json SCIENTIFIC NAME: " + obj.SCIENTIFIC);
                       } else if (obj.GENUS == genus) {
                         genus_match = true;
                         console.log("AI genus name: " + genus + ", Json genus name: " + obj.GENUS);
@@ -732,6 +735,10 @@ export function AddTreeScreen() {
 
                     if (species_match) {
                       {/* Outcome 2: Prompt user to enter the Species name */ }
+                      <Image
+                        style={{ width: 50, height: 50 }}
+                        source={{ uri: '/Users/jingsizou/iSeaTree/iSeaTree-React-Prototype/src/lib/img/oak-tree.jpeg' }}
+                      />
                       Alert.alert('It\'s a match!', "We've determined that this tree likely is a " + common_names + "(" + scientific_name + ").\n Do you agree?", [
                         {
                           text: 'Try again',
@@ -742,7 +749,8 @@ export function AddTreeScreen() {
                         {
                           text: 'OK',
                           onPress: () => {
-                            // handleSpeciesSelect(getSpeciesNames(species_name_id))
+                            console.log("start setFieldValue");
+                            formik.setFieldValue('speciesData', match_obj);
                           },
                         }
                       ])
@@ -758,7 +766,7 @@ export function AddTreeScreen() {
                         {
                           text: 'OK',
                           onPress: () => {
-
+                            formik.setFieldValue('speciesData', match_obj);
                           },
                         }
                       ])
@@ -774,7 +782,7 @@ export function AddTreeScreen() {
                         {
                           text: 'OK',
                           onPress: () => {
-
+                            formik.setFieldValue('speciesData', local_species_data[0]);
                           },
                         }
                       ])
