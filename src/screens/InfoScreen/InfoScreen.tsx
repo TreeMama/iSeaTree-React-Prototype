@@ -16,6 +16,7 @@ import { ButtonTab } from './components/ButtonTab'
 import { SearchBar } from './components/SearchBar'
 import { TreeCard } from './components/TreeCard'
 import { Text } from 'react-native-paper'
+import { FilterModal } from './components/FilterModal'
 const returnButton = require('../../../assets/angle-left.png')
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
@@ -24,6 +25,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [selectedGenus, setSelectedGenus] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
+  const [showFilters, setShowFilters] = useState<boolean>(false)
   // page 1 list
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
   // page 2 list
@@ -120,10 +122,14 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
               <ButtonTab activeTab={activeTab} setActiveTab={setActiveTab} />
               <SearchBar query={query} setQuery={setQuery} />
             </View>
+            <TouchableOpacity onPress={() => setShowFilters(true)} >
+              <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
+            </TouchableOpacity>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
           </>
         )
         }
+        {showFilters && <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} />}
       </SafeAreaView>
     </KeyboardAvoidingView >
   )
