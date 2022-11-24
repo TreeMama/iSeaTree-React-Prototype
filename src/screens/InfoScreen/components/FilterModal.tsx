@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View } from "react-native"
+import { Modal, View } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { Text } from 'react-native-paper'
 import { styles } from "../styles"
@@ -12,13 +12,22 @@ export const FilterModal = (props: {
   showFilters: boolean,
   setShowFilters: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-  return <View style={{ width: '100%', height: '70%', position: 'absolute', bottom: 0, backgroundColor: 'white' }} >
-    <TouchableOpacity onPress={() => props.setShowFilters(false)}>
-      <Text>{'return button'}</Text>
-    </TouchableOpacity>
-    <Text>{'Filters'}</Text>
-    <FilterButton defaultState={false} buttonText="All" />
-  </View>
+  return <Modal
+    animationType="slide"
+    transparent={true}
+    visible={props.showFilters}>
+    <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: '30%' }}>
+    </View>
+    <View style={{ backgroundColor: 'white', height: '70%' }}>
+      <TouchableOpacity onPress={() => props.setShowFilters(false)}>
+        <Text>{'return button'}</Text>
+      </TouchableOpacity>
+      <View style={{ alignItems: 'center' }}>
+        <Text >{'Filters'}</Text>
+      </View>
+      <FilterButton defaultState={false} buttonText="All" />
+    </View>
+  </Modal>
 }
 
 // generalizes the appearance of a filter button
@@ -30,11 +39,13 @@ const FilterButton = (props: { defaultState: boolean, buttonText: string }) => {
   const inactiveTextColor = '#62717A'
   return <TouchableOpacity
     style={{
-      height: 24, borderWidth: 2, borderRadius: 1,
+      height: 50, maxWidth: '20%', borderWidth: 2, borderRadius: 10, margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
       backgroundColor: isActive ? activeBackgroundColor : inactiveBackgroundColor
     }}
     onPress={() => { setIsActive(!isActive) }}
   >
-    <Text>{props.buttonText}</Text>
+    <Text style={{ color: isActive ? activeTextColor : inactiveTextColor }}>{props.buttonText}</Text>
   </TouchableOpacity>
 }

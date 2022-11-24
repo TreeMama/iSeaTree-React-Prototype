@@ -181,7 +181,7 @@ export function TreeInfo(props: ITreeInfoProps) {
     <View style={{
       marginTop: 5
     }}>
-      <Modal animationType="slide" transparent={true} visible={secondaryModalVisibility}>
+      <Modal animationType="slide" transparent={true} visible={props.selectedTree !== undefined}>
         <Modal animationType="slide" transparent={true} visible={thirdModalVisibility}>
           <StatusBar />
           <View

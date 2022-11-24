@@ -104,7 +104,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
           <TreeInfo selectedTree={selectedTree} setSelectedTree={setSelectedTree} navigation={props.navigation} />
         ) : (
           <>
-            {showFilters && <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} />}
+
             <View style={{ alignItems: 'center' }}>
               {selectedGenus &&
                 <TouchableOpacity
@@ -127,6 +127,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
               <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
             </TouchableOpacity>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
+            <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} />
           </>
         )
         }
