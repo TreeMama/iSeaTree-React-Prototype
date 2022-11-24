@@ -12,12 +12,12 @@ export const FilterModal = (props: {
   showFilters: boolean,
   setShowFilters: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
-  return <View style={{ width: '100%', height: '70%', position: 'absolute', bottom: 0 }} >
+  return <View style={{ width: '100%', height: '70%', position: 'absolute', bottom: 0, backgroundColor: 'white' }} >
     <TouchableOpacity onPress={() => props.setShowFilters(false)}>
       <Text>{'return button'}</Text>
     </TouchableOpacity>
     <Text>{'Filters'}</Text>
-    <FilterButton defaultState={false} buttonText="test filter button" />
+    <FilterButton defaultState={false} buttonText="All" />
   </View>
 }
 
