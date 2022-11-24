@@ -28,14 +28,13 @@ export const FilterModal = (props: {
       <View style={{ alignItems: 'center' }}>
         <Text >{'Filters'}</Text>
       </View>
-      <Text >{'Name Type'}</Text>
+      <Text >{'Name type'}</Text>
       <FilterButton
         isActive={props.filterValues.allNameTypes}
         buttonText="All"
         toggleOnHandler={() => {
           props.setFilterValues({ ...props.filterValues, allNameTypes: true, commonName: false, scientificName: false })
         }}
-        toggleOffHandler={() => 1}
       />
       <FilterButton
         isActive={props.filterValues.commonName}
@@ -43,7 +42,6 @@ export const FilterModal = (props: {
         toggleOnHandler={() => {
           props.setFilterValues({ ...props.filterValues, allNameTypes: false, commonName: true, scientificName: false })
         }}
-        toggleOffHandler={() => 1}
       />
       <FilterButton
         isActive={props.filterValues.scientificName}
@@ -51,7 +49,59 @@ export const FilterModal = (props: {
         toggleOnHandler={() => {
           props.setFilterValues({ ...props.filterValues, allNameTypes: false, commonName: false, scientificName: true })
         }}
-        toggleOffHandler={() => 1}
+      />
+
+      <Text>{'Tree type'}</Text>
+      <FilterButton
+        isActive={props.filterValues.allTreeTypes}
+        buttonText="All"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: true, conifer: false, broadleaf: false })
+        }}
+      />
+      <FilterButton
+        isActive={props.filterValues.conifer}
+        buttonText="Conifer"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: true, broadleaf: false })
+        }}
+      />
+      <FilterButton
+        isActive={props.filterValues.broadleaf}
+        buttonText="Broadleaf"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: false, broadleaf: true })
+        }}
+      />
+
+      <Text>{'Level of Difficulty'}</Text>
+      <FilterButton
+        isActive={props.filterValues.allDifficulties}
+        buttonText="All"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: true, conifer: false, broadleaf: false })
+        }}
+      />
+      <FilterButton
+        isActive={props.filterValues.easy}
+        buttonText="Easy"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: true, broadleaf: false })
+        }}
+      />
+      <FilterButton
+        isActive={props.filterValues.medium}
+        buttonText="Medium"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: false, broadleaf: true })
+        }}
+      />
+      <FilterButton
+        isActive={props.filterValues.expert}
+        buttonText="Expert"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: false, broadleaf: true })
+        }}
       />
     </View>
   </Modal>
@@ -61,8 +111,7 @@ export const FilterModal = (props: {
 const FilterButton = (props: {
   isActive: boolean,
   buttonText: string,
-  toggleOnHandler: () => any,
-  toggleOffHandler: () => any
+  toggleOnHandler: () => any
 }) => {
   // const [isActive, setIsActive] = useState<boolean>(props.defaultState);
   const activeBackgroundColor = '#287B51'
@@ -79,8 +128,6 @@ const FilterButton = (props: {
     onPress={() => {
       if (!props.isActive) {
         props.toggleOnHandler()
-      } else {
-        props.toggleOffHandler()
       }
     }}
   >

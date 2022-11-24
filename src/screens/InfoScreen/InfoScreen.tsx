@@ -27,7 +27,11 @@ export function InfoScreen(props) {
   const [selectedGenus, setSelectedGenus] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
   const [showFilters, setShowFilters] = useState<boolean>(false)
-  const [filterValues, setFilterValues] = useState<IFilterValues>({ allNameTypes: true, commonName: false, scientificName: false })
+  const [filterValues, setFilterValues] = useState<IFilterValues>({
+    allNameTypes: true, commonName: false, scientificName: false,
+    allTreeTypes: true, conifer: false, broadleaf: false,
+    allDifficulties: true, easy: false, medium: false, expert: false
+  })
   // page 1 list
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
   // page 2 list
@@ -59,6 +63,20 @@ export function InfoScreen(props) {
       } else if (filterValues.scientificName) {
         newList = newList.filter(tree => (tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1))
       }
+    }
+    // tree types filter
+    if (filterValues.conifer) {
+      newList = newList.filter(tree => tree.TYPE == 'conifer')
+    } else if (filterValues.broadleaf) {
+      newList = newList.filter(tree => tree.TYPE == 'broadleaf')
+    }
+    // difficulty filter
+    if (filterValues.easy) {
+      newList = newList.filter(tree => tree.LEVEL == 'easy')
+    } else if (filterValues.medium) {
+      newList = newList.filter(tree => tree.LEVEL == 'medium')
+    } else if (filterValues.expert) {
+      newList = newList.filter(tree => tree.LEVEL == 'expert')
     }
     // page 2 is not affected by button tab
     let genusList = newList.filter(tree => tree.COMMON.indexOf('spp') > -1)
