@@ -3,6 +3,7 @@ import { Modal, View } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { Text } from 'react-native-paper'
 import { styles } from "../styles"
+import { IFilterValues } from "../types"
 
 /**
  * The Button Tab at the top of Info screen containing Genus | Species.
@@ -10,7 +11,9 @@ import { styles } from "../styles"
  */
 export const FilterModal = (props: {
   showFilters: boolean,
-  setShowFilters: React.Dispatch<React.SetStateAction<boolean>>
+  setShowFilters: React.Dispatch<React.SetStateAction<boolean>>,
+  filterValues: IFilterValues,
+  setFilterValues: React.Dispatch<React.SetStateAction<IFilterValues>>
 }) => {
   return <Modal
     animationType="slide"
@@ -25,14 +28,43 @@ export const FilterModal = (props: {
       <View style={{ alignItems: 'center' }}>
         <Text >{'Filters'}</Text>
       </View>
-      <FilterButton defaultState={false} buttonText="All" />
+      <Text >{'Name Type'}</Text>
+      <FilterButton
+        isActive={props.filterValues.allNameTypes}
+        buttonText="All"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allNameTypes: true, commonName: false, scientificName: false })
+        }}
+        toggleOffHandler={() => 1}
+      />
+      <FilterButton
+        isActive={props.filterValues.commonName}
+        buttonText="Common Name"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allNameTypes: false, commonName: true, scientificName: false })
+        }}
+        toggleOffHandler={() => 1}
+      />
+      <FilterButton
+        isActive={props.filterValues.scientificName}
+        buttonText="Scientific Name"
+        toggleOnHandler={() => {
+          props.setFilterValues({ ...props.filterValues, allNameTypes: false, commonName: false, scientificName: true })
+        }}
+        toggleOffHandler={() => 1}
+      />
     </View>
   </Modal>
 }
 
 // generalizes the appearance of a filter button
-const FilterButton = (props: { defaultState: boolean, buttonText: string }) => {
-  const [isActive, setIsActive] = useState<boolean>(props.defaultState);
+const FilterButton = (props: {
+  isActive: boolean,
+  buttonText: string,
+  toggleOnHandler: () => any,
+  toggleOffHandler: () => any
+}) => {
+  // const [isActive, setIsActive] = useState<boolean>(props.defaultState);
   const activeBackgroundColor = '#287B51'
   const inactiveBackgroundColor = 'white'
   const activeTextColor = 'white'
@@ -42,10 +74,16 @@ const FilterButton = (props: { defaultState: boolean, buttonText: string }) => {
       height: 50, maxWidth: '20%', borderWidth: 2, borderRadius: 10, margin: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: isActive ? activeBackgroundColor : inactiveBackgroundColor
+      backgroundColor: props.isActive ? activeBackgroundColor : inactiveBackgroundColor
     }}
-    onPress={() => { setIsActive(!isActive) }}
+    onPress={() => {
+      if (!props.isActive) {
+        props.toggleOnHandler()
+      } else {
+        props.toggleOffHandler()
+      }
+    }}
   >
-    <Text style={{ color: isActive ? activeTextColor : inactiveTextColor }}>{props.buttonText}</Text>
+    <Text style={{ color: props.isActive ? activeTextColor : inactiveTextColor }}>{props.buttonText}</Text>
   </TouchableOpacity>
 }

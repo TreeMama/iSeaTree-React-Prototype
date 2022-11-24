@@ -17,6 +17,7 @@ import { SearchBar } from './components/SearchBar'
 import { TreeCard } from './components/TreeCard'
 import { Text } from 'react-native-paper'
 import { FilterModal } from './components/FilterModal'
+import { IFilterValues } from './types'
 const returnButton = require('../../../assets/angle-left.png')
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
@@ -26,6 +27,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   const [selectedGenus, setSelectedGenus] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
   const [showFilters, setShowFilters] = useState<boolean>(false)
+  const [filterValues, setFilterValues] = useState<IFilterValues>({ allNameTypes: true, commonName: false, scientificName: false })
   // page 1 list
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
   // page 2 list
@@ -46,7 +48,13 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   useEffect(() => {
     let newList: SpeciesData[] = speciesDataList
     if (query) {
-      newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1) || (tree.SCIENTIFIC.indexOf(query) > -1))
+      if (filterValues.allNameTypes) {
+        newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1) || (tree.SCIENTIFIC.indexOf(query) > -1))
+      } else if (filterValues.commonName) {
+        newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1))
+      } else if (filterValues.scientificName) {
+        newList = newList.filter(tree => (tree.SCIENTIFIC.indexOf(query) > -1))
+      }
     }
     // page 2 is not affected by button tab
     let genusList = newList.filter(tree => tree.COMMON.indexOf('spp') > -1)
@@ -104,7 +112,6 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
           <TreeInfo selectedTree={selectedTree} setSelectedTree={setSelectedTree} navigation={props.navigation} />
         ) : (
           <>
-
             <View style={{ alignItems: 'center' }}>
               {selectedGenus &&
                 <TouchableOpacity
@@ -127,7 +134,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
               <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
             </TouchableOpacity>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
-            <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} />
+            <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} setFilterValues={setFilterValues}/>
           </>
         )
         }
