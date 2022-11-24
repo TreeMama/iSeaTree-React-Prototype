@@ -22,7 +22,7 @@ const returnButton = require('../../../assets/angle-left.png')
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
-export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
+export function InfoScreen(props) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
   const [selectedGenus, setSelectedGenus] = useState<SpeciesData | undefined>(undefined)
   const [query, setQuery] = useState<string>('')
@@ -35,13 +35,17 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
   const [activeTab, setActiveTab] = useState<string>('Genus')
 
   // loading the complete list of trees on component mount
-  let completeList = []
+  let completeList: SpeciesData[] = []
   useEffect(() => {
     // sort list by common name ascending
     completeList = speciesDataList.sort((a, b) => {
       return a.COMMON.localeCompare(b.COMMON)
     })
     setTreeList(completeList)
+    props.navigation.addListener('focus', getSelectedTree);
+    return () => {
+      props.navigation.removeListener('focus', getSelectedTree)
+    }
   }, [])
 
   // filters logic
@@ -49,11 +53,11 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
     let newList: SpeciesData[] = speciesDataList
     if (query) {
       if (filterValues.allNameTypes) {
-        newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1) || (tree.SCIENTIFIC.indexOf(query) > -1))
+        newList = newList.filter(tree => (tree.COMMON.toUpperCase().indexOf(query.toUpperCase()) > -1) || (tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1))
       } else if (filterValues.commonName) {
-        newList = newList.filter(tree => (tree.COMMON.indexOf(query) > -1))
+        newList = newList.filter(tree => (tree.COMMON.toUpperCase().indexOf(query.toUpperCase()) > -1))
       } else if (filterValues.scientificName) {
-        newList = newList.filter(tree => (tree.SCIENTIFIC.indexOf(query) > -1))
+        newList = newList.filter(tree => (tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1))
       }
     }
     // page 2 is not affected by button tab
@@ -61,7 +65,18 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
     let speciesList = newList.filter(tree => tree.COMMON.indexOf('spp') == -1)
     setTreeList(activeTab == 'Genus' ? genusList : speciesList)
     setFilteredSpeciesList(speciesList)
-  }, [query, activeTab]);
+  }, [query, activeTab, filterValues]);
+
+  // Auto-fill species data when jumped from MapScreen
+  function getSelectedTree() {
+    const { params } = props.route;
+    console.log(params);
+    if (params && params.treeNameQuery !== undefined) {
+      const query = params.treeNameQuery
+      const newList = completeList.filter(tree => (tree.COMMON.indexOf(query) > -1))
+      setSelectedTree(newList.length == 0 ? undefined : newList[0])
+    }
+  }
 
   const renderDefaultLayout = () => {
     return <ScrollView>
@@ -134,7 +149,7 @@ export function InfoScreen(props: { navigation: TreeInfoNavigation }) {
               <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
             </TouchableOpacity>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
-            <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} setFilterValues={setFilterValues}/>
+            <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} filterValues={filterValues} setFilterValues={setFilterValues} />
           </>
         )
         }

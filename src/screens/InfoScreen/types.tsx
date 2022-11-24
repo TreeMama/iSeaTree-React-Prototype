@@ -1,5 +1,5 @@
 export interface IFilterValues {
-  allNameTypes: boolean
+  allNameTypes: boolean,
   commonName: boolean,
   scientificName: boolean
 }
