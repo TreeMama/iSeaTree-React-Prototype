@@ -4,7 +4,7 @@ import { TouchableOpacity } from "react-native-gesture-handler"
 import { Text } from 'react-native-paper'
 import { styles } from "../styles"
 import { IFilterValues } from "../types"
-const returnButton = require('../../../../assets/angle-left.png')
+const cancelIcon = require('../../../../assets/cancel_icon.png')
 
 /**
  * The Button Tab at the top of Info screen containing Genus | Species.
@@ -26,7 +26,7 @@ export const FilterModal = (props: {
       <TouchableOpacity
         onPress={() => props.setShowFilters(false)}
       >
-        <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
+        <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={cancelIcon}></Image>
       </TouchableOpacity>
       <View style={{ alignItems: 'center' }}>
         <Text style={{ fontSize: 17, margin: 24 }} >{'Filters'}</Text>

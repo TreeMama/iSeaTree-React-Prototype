@@ -19,6 +19,7 @@ import { Text } from 'react-native-paper'
 import { FilterModal } from './components/FilterModal'
 import { IFilterValues } from './types'
 const returnButton = require('../../../assets/angle-left.png')
+const filtersIcon = require('../../../assets/filters_icon.png')
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
@@ -164,7 +165,7 @@ export function InfoScreen(props) {
               <SearchBar query={query} setQuery={setQuery} />
             </View>
             <TouchableOpacity onPress={() => setShowFilters(true)} >
-              <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
+              <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={filtersIcon}></Image>
             </TouchableOpacity>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
             <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} filterValues={filterValues} setFilterValues={setFilterValues} />
