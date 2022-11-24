@@ -162,11 +162,13 @@ export function InfoScreen(props) {
                 </TouchableOpacity>
               }
               <ButtonTab activeTab={activeTab} setActiveTab={setActiveTab} />
-              <SearchBar query={query} setQuery={setQuery} />
+              <View>
+                <SearchBar query={query} setQuery={setQuery} />
+                <TouchableOpacity onPress={() => setShowFilters(true)} >
+                  <Image style={{ resizeMode: 'contain' }} source={filtersIcon}></Image>
+                </TouchableOpacity>
+              </View>
             </View>
-            <TouchableOpacity onPress={() => setShowFilters(true)} >
-              <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={filtersIcon}></Image>
-            </TouchableOpacity>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
             <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} filterValues={filterValues} setFilterValues={setFilterValues} />
           </>

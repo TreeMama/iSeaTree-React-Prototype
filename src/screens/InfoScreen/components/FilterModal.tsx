@@ -26,7 +26,7 @@ export const FilterModal = (props: {
       <TouchableOpacity
         onPress={() => props.setShowFilters(false)}
       >
-        <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={cancelIcon}></Image>
+        <Image style={{ margin: 25, resizeMode: 'contain' }} source={cancelIcon}></Image>
       </TouchableOpacity>
       <View style={{ alignItems: 'center' }}>
         <Text style={{ fontSize: 17, margin: 24 }} >{'Filters'}</Text>
@@ -93,28 +93,28 @@ export const FilterModal = (props: {
             isActive={props.filterValues.allDifficulties}
             buttonText="All"
             toggleOnHandler={() => {
-              props.setFilterValues({ ...props.filterValues, allTreeTypes: true, conifer: false, broadleaf: false })
+              props.setFilterValues({ ...props.filterValues, allDifficulties: true, easy: false, medium: false, expert: false })
             }}
           />
           <FilterButton
             isActive={props.filterValues.easy}
             buttonText="Easy"
             toggleOnHandler={() => {
-              props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: true, broadleaf: false })
+              props.setFilterValues({ ...props.filterValues, allDifficulties: false, easy: true, medium: false, expert: false })
             }}
           />
           <FilterButton
             isActive={props.filterValues.medium}
             buttonText="Medium"
             toggleOnHandler={() => {
-              props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: false, broadleaf: true })
+              props.setFilterValues({ ...props.filterValues, allDifficulties: false, easy: false, medium: true, expert: false })
             }}
           />
           <FilterButton
             isActive={props.filterValues.expert}
             buttonText="Expert"
             toggleOnHandler={() => {
-              props.setFilterValues({ ...props.filterValues, allTreeTypes: false, conifer: false, broadleaf: true })
+              props.setFilterValues({ ...props.filterValues, allDifficulties: false, easy: false, medium: false, expert: true })
             }}
           />
         </ScrollView>
