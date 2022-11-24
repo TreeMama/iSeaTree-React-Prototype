@@ -39,18 +39,20 @@ export function LoggedTabNavigator() {
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}
-      tabBarOptions={{
-        showLabel: false,
-        style: {
+      screenOptions={{
+        tabBarStyle: {
           position: 'absolute',
-          bottom: 25,
-          left: 20,
-          right: 20,
+          bottom: 5,
+          // left: 20,
+          // right: 20,
           elevation: 0,
           backgroundColor: 'white',
-          borderRadius: 15,
-          height: 90,
+          // borderRadius: 15,
+          // height: 90,
         },
+      }}
+      tabBarOptions={{
+        showLabel: false,
       }}
     >
       <Tab.Screen
