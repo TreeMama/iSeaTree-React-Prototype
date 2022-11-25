@@ -40,6 +40,7 @@ export function LoggedTabNavigator() {
     <Tab.Navigator
       activeColor={theme.colors.primary}
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           position: 'absolute',
           bottom: 5,
@@ -53,6 +54,7 @@ export function LoggedTabNavigator() {
       }}
       tabBarOptions={{
         showLabel: false,
+        headerShown: false,
       }}
     >
       <Tab.Screen
