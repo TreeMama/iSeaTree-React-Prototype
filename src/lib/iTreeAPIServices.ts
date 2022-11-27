@@ -26,8 +26,9 @@ async function setItem(key: string, stringValue: string, unit: string) {
   }
 }
 
-export async function identifyTreePicture() {
+export async function identifyTreePicture(url) {
   const file = '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/lib/img/maple_tree.jpeg';
+  // const file = url;
   let base64files = await fs.readFile(file, 'base64');
   //   const data = {
   //     api_key: "QmthcG07fdXf27yYmAtcAt2h92STmQEki0YkpoRDhPJcnJA7dV",

@@ -31,6 +31,8 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -50,6 +52,8 @@
 	<string>We use the camera to allow you to take a photo and submit it with your iSeaTree reports.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We attach your location to your iSeaTree reports, and show your location on a map</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow iSeaTree to access your microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>You have asked to upload a tree photo from your photo library.</string>
 	<key>UILaunchStoryboardName</key>
@@ -70,10 +74,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow iSeaTree to access your microphone</string>
-	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
 </plist>

@@ -697,13 +697,40 @@ export function AddTreeScreen() {
             {/* demo for auto identification */}
             <Button
               onPress={() => {
-                let result = identifyTreePicture().then(result => {
+                let result = identifyTreePicture(formik.values.photo.uri).then(result => {
                   console.log("geting result: " + result);
                   Alert.alert('Possible Result:', result, [
                     {
                       text: 'Yeap',
                       onPress: () => {
-
+                        const speciesData = {
+                          "COMMON": "Vine Maple",
+                          "TYPE": "broadleaf",
+                          "SCIENTIFIC": "Acer circinatum",
+                          "ID": "7",
+                          "ITREECODE": "ACCI",
+                          "LEVEL": "easy",
+                          "THUMB_PIC": "",
+                          "FULL_PIC": "/images/7/EOL-media-607-http___bioimages.vanderbilt.edu_baskauf_40880/full.jpg",
+                          "GENUS": "Acer",
+                          "BARK_TYPE": "",
+                          "LEAF_SHAPE": "",
+                          "LEAF_VEINS": "",
+                          "LEAF_EDGES": "",
+                          "LEAF_TYPE": "",
+                          "TREE_SHAPE": "",
+                          "FRUIT_SEED": "",
+                          "BARK_COLOR": "",
+                          "LEAF_COLOR": "",
+                          "LEAF_ARRANGEMENT": "",
+                          "LEAF_UNDERSIDE_COLOR": "",
+                          "LEAF_TEXTURE": "",
+                          "DESCRIPTION": "Acer circinatum, the vine maple, is a species of maple native to western North America, from southwest British Columbia to northern California, usually within 300 kilometres of the Pacific Ocean coast, found along the Columbia Gorge and Coastal Forest.",
+                          "FULL_PIC_180x110": "new_images/7/EOL-media-607-http___bioimages.vanderbilt.edu_baskauf_40880/full_180x110.png",
+                          "FULL_PIC_1024x768": "new_images/7/EOL-media-607-http___bioimages.vanderbilt.edu_baskauf_40880/full_1024x768.png",
+                          "THUMB_PIC_1024x768": ""
+                        };
+                        refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
                       },
                     },
                     {
@@ -791,6 +818,7 @@ export function AddTreeScreen() {
                 formik.setFieldValue('speciesData', speciesData)
                 if (speciesData?.TYPE != 'unknown') {
                   console.log('known selected' + formik.values.speciesType)
+                  console.log('known selected data' + formik.values.speciesData)
                   if ((formik.values.speciesType === TreeTypes.NULL || formik.values.speciesType == null)) {
                     formik.setFieldValue('speciesData', speciesData)
                     formik.setFieldValue('treeType', speciesData?.TYPE)
@@ -1022,6 +1050,7 @@ export function AddTreeScreen() {
                   }
 
                   formik.setValues({ ...formik.values, coords, photo })
+                  console.log("taking pictures...");
                   setIsCameraVisible(false)
                 }}
               />
