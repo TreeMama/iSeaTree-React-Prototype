@@ -7,6 +7,7 @@ export interface UserData {
   username: string
   badges: Array<string>
   treesCount: number
+  avatarSeed: string
 };
 
 export const firebaseImagePath = {
@@ -60,6 +61,10 @@ export function setUser(user: { username: string; uid: string; email: string }):
     created_at: firestore.FieldValue.serverTimestamp(),
   });
 };
+
+export function setUserAvatarSeed(uid: string, seed: string): void {
+  firestore().collection(USERS_COLLECTION).doc(uid).update({ avatarSeed: seed });
+}
 
 export function updateBadges(
   uid: string,

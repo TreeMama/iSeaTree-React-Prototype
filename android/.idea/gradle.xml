@@ -57,7 +57,6 @@
             <option value="$PROJECT_DIR$/../node_modules/unimodules-task-manager-interface/android" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
