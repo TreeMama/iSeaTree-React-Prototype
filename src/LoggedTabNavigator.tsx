@@ -39,21 +39,23 @@ export function LoggedTabNavigator() {
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: 5,
+          // left: 20,
+          // right: 20,
+          elevation: 0,
+          backgroundColor: 'white',
+          // borderRadius: 15,
+          // height: 90,
+        },
+      }}
       tabBarOptions={{
         showLabel: false,
         headerShown: false,
-        style: {
-          position: 'absolute',
-          bottom: 25,
-          left: 20,
-          right: 20,
-          elevation: 0,
-          backgroundColor: 'white',
-          borderRadius: 15,
-          height: 90,
-        },
       }}
-      screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
         name={TabScreenNames.profile}
