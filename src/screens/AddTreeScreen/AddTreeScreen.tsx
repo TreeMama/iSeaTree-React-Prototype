@@ -778,13 +778,18 @@ export function AddTreeScreen() {
           >
             Clear
           </Button>
-
-          <Switch
-            trackColor={{ true: 'green' }}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          >
-          </Switch>
+          <View style={styles.rowContainer}>
+            <DbhHelp />
+            <Text style={{ color: theme.colors.text, marginLeft: 15, marginTop: 5 }}>
+              TreeBot
+            </Text>
+            <Switch
+              trackColor={{ true: 'green' }}
+              onValueChange={toggleSwitch}
+              value={isEnabled}
+            >
+            </Switch>
+          </View>
 
           <View>
             <View
