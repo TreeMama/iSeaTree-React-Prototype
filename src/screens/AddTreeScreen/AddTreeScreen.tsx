@@ -17,7 +17,7 @@ import {
   Platform
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button, TextInput, Text, Subheading, useTheme, } from 'react-native-paper'
+import { Button, TextInput, Text, Subheading, useTheme, Switch } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
 import { StatusBar } from '../../components/StatusBar'
@@ -590,7 +590,8 @@ export function AddTreeScreen() {
     if (is_plant) {
       {/*Is a tree*/ }
 
-      let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
+      // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
+      let local_species_data = require('./../../../data/species.json');
       // let local_species_data = require('../../../../data/species.json');
       // (1) Check if the AI has found a match to our json records for a Species
       // (2) Check if the AI has found a match to our json records for a genus
@@ -761,6 +762,9 @@ export function AddTreeScreen() {
 
   const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
 
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={styles.container}>
@@ -774,6 +778,13 @@ export function AddTreeScreen() {
           >
             Clear
           </Button>
+
+          <Switch
+            trackColor={{ true: 'green' }}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          >
+          </Switch>
 
           <View>
             <View
@@ -1108,11 +1119,12 @@ export function AddTreeScreen() {
                   setIsCameraVisible(false)
                   //
                   console.log(photo.uri);
-                  identifyTreePicture(photo.uri).then(result => {
-                    console.log("geting result: " + result);
-                    treeValidation(result);
-                  });
-                  //
+                  if (isEnabled) {
+                    identifyTreePicture(photo.uri).then(result => {
+                      console.log("geting result: " + result);
+                      treeValidation(result);
+                    });
+                  }
                 }}
               />
             </SafeAreaView>
