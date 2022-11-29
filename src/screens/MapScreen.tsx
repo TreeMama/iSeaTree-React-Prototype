@@ -431,16 +431,15 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     )
   }
 
-  const extractTreeNameQuery = (item) => {
-    console.log(item)
-    const treename = item.item.name
-    const extractTreeName = treename.split('(')[0]
-    return extractTreeName
+  function extractTreeNameQuery(item) {
+    const treename = item.item.speciesNameCommon
+    console.log("Extracted Tree Common Name :" + treename + "   from tooltip. Passing to InfoScreen to show more tree info")
+    return treename
   }
 
   // navigate to Tree Info screen to show MORE TREE INFO
   const onSuggestedTree = async (item) => {
-    props.navigation.navigate('treeInfo', {
+    props.navigation.navigate('infoScreen', {
       treeNameQuery: extractTreeNameQuery(item)
     })
   }
@@ -545,7 +544,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const onSuggestedTreeAndroid = async (item) => {
     RBSheetref.close()
     setTimeout(function () {
-      props.navigation.navigate('treeInfo', { treeNameQuery: extractTreeNameQuery(item) })
+      props.navigation.navigate('infoScreen', { treeNameQuery: extractTreeNameQuery(item) })
     }, 500)
   }
 

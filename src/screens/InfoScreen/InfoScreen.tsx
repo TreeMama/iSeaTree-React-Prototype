@@ -47,11 +47,18 @@ export function InfoScreen(props) {
       return a.COMMON.localeCompare(b.COMMON)
     })
     setTreeList(completeList)
-    props.navigation.addListener('focus', getSelectedTree);
-    return () => {
-      props.navigation.removeListener('focus', getSelectedTree)
-    }
   }, [])
+
+  // auto-fill selectedTree state when navigated from MapScreen; show TreeInfo
+  useEffect(() => {
+    let { params } = props.route;
+    if (params && params.treeNameQuery !== undefined) {
+      let completeList = speciesDataList
+      let query = params.treeNameQuery?.toUpperCase()
+      let filteredList = completeList.filter(tree => (tree.COMMON.toUpperCase().indexOf(query) > -1))
+      setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
+    }
+  }, [props.route])
 
   // filters logic
   useEffect(() => {
@@ -85,17 +92,6 @@ export function InfoScreen(props) {
     setTreeList(activeTab == 'Genus' ? genusList : speciesList)
     setFilteredSpeciesList(speciesList)
   }, [query, activeTab, filterValues]);
-
-  // Auto-fill species data when jumped from MapScreen
-  function getSelectedTree() {
-    const { params } = props.route;
-    console.log(params);
-    if (params && params.treeNameQuery !== undefined) {
-      const query = params.treeNameQuery
-      const newList = completeList.filter(tree => (tree.COMMON.indexOf(query) > -1))
-      setSelectedTree(newList.length == 0 ? undefined : newList[0])
-    }
-  }
 
   const renderDefaultLayout = () => {
     return <ScrollView>

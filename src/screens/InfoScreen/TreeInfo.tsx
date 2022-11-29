@@ -6,17 +6,13 @@ import {
   Dimensions,
   Text as RNText,
   Alert,
-  KeyboardAvoidingView,
   StyleSheet,
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native'
 import { CONFIG } from '../../../envVariables'
-import speciesDataList from '../../../data/species.json'
 import {
   Button,
-  Text,
-  Subheading,
   DefaultTheme
 } from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler'
@@ -24,7 +20,6 @@ import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { StatusBar } from '../../components/StatusBar'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { useTabNavigationActions, useNavigationActions } from '../../lib/navigation'
 import { MaterialBottomTabNavigationConfig, MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs/lib/typescript/src/types'
 
 const info_image = require('../../../assets/info.png')
@@ -86,7 +81,6 @@ const styles = StyleSheet.create({
 
 export function TreeInfo(props: ITreeInfoProps) {
   const selectedTree = props.selectedTree
-  // const selectedTree = speciesDataList[1]
 
   const [isInfo, setInfo] = React.useState<boolean>(false)
   const [secondaryModalVisibility, setSecondaryModalVisibility] = React.useState<boolean>(true)
@@ -94,7 +88,6 @@ export function TreeInfo(props: ITreeInfoProps) {
   const [currentScreen, setCurrentScreen] = React.useState(0)
   const [loading, setLoading] = React.useState<boolean>(false)
   const [currentData, setCurrentData] = React.useState<SpeciesData>(selectedTree)
-  const tabNavigationActions = useTabNavigationActions()
 
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
@@ -102,8 +95,6 @@ export function TreeInfo(props: ITreeInfoProps) {
   const imageArray = currentData?.THUMB_PIC_1024x768
     ? currentData?.THUMB_PIC_1024x768.split(',')
     : []
-
-  const initialSliderWidth = Dimensions.get('screen').width
 
   function onLoading(value, label) {
     setLoading(value)

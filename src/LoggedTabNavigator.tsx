@@ -140,7 +140,7 @@ export function LoggedTabNavigator() {
         }}
       />
       <Tab.Screen
-        name={TabScreenNames.treeInfo}
+        name={TabScreenNames.infoScreen}
         component={InfoScreen}
         options={{
           tabBarLabel: 'Info',

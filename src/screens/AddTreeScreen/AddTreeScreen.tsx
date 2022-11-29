@@ -331,7 +331,7 @@ export function AddTreeScreen(props) {
     return () => {
       props.navigation.removeListener('focus', getSelectedSpecies)
     }
-  }, [])
+  }, [props])
 
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
   const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
@@ -359,10 +359,15 @@ export function AddTreeScreen(props) {
 
   // Auto-fill species data when jumped from TreeInfo Screen
   function getSelectedSpecies() {
-    const { params } = props.route;
-    console.log(params);
-    if (params && params.selectedSpeciesData) {
-      formik.setFieldValue('speciesData', params.selectedSpeciesData)
+    let { params } = props.route
+    let speciesData = params.selectedSpeciesData
+    if (params && speciesData) {
+      formik.setFieldValue('speciesData', speciesData)
+      if (speciesData?.TYPE != 'unknown') {
+        formik.setFieldValue('treeType', speciesData?.TYPE)
+        formik.setFieldValue('speciesType', speciesData?.TYPE)
+        refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
+      }
     }
   }
 

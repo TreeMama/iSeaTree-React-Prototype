@@ -13,7 +13,7 @@ export enum TabScreenNames {
   profile = 'profile',
   addTree = 'addTree',
   suggestedTrees = 'suggestedTrees',  // legacy tree info page
-  treeInfo = 'treeInfo',
+  infoScreen = 'infoScreen',
   mapScreen = 'mapScreen',
   challengeScreen = 'challengeScreen',
 }
@@ -57,10 +57,10 @@ export function useTabNavigationActions(): TabNavigationActions {
       navigation.navigate(TabScreenNames.addTree)
     },
     suggestedTrees: () => {
-      navigation.navigate(TabScreenNames.treeInfo)   // legacy tree info page
+      navigation.navigate(TabScreenNames.infoScreen)   // legacy tree info page
     },
-    treeInfo: () => {
-      navigation.navigate(TabScreenNames.treeInfo)
+    infoScreen: () => {
+      navigation.navigate(TabScreenNames.infoScreen)
     },
     mapScreen: () => {
       navigation.navigate(TabScreenNames.mapScreen)
