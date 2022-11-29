@@ -36,25 +36,27 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
         setErrorMessage('Disallowed access to Location. Go to the settings and change permissions.')
         return null
       } else {
-        let location;
+        let location
         try {
-          location = await Location.getCurrentPositionAsync();
+          location = await Location.getCurrentPositionAsync()
         } catch (error) {
-          location = await Location.getLastKnownPositionAsync();
+          location = await Location.getLastKnownPositionAsync()
         }
 
         const decimals = 1000000
-        const roundedLatitude = Math.round(location.coords.latitude * decimals) / decimals
-        const roundedLongitude = Math.round(location.coords.longitude * decimals) / decimals
-        console.log("location from device", location, location.coords)
-        console.log("rounded", roundedLatitude, roundedLongitude)
+        const roundedLatitude = Math.round(location?.coords.latitude * decimals) / decimals
+        const roundedLongitude = Math.round(location?.coords.longitude * decimals) / decimals
+        console.log('location from device', location, location?.coords)
+        console.log('rounded', roundedLatitude, roundedLongitude)
         return { latitude: roundedLatitude, longitude: roundedLongitude }
       }
     } catch (error) {
       if (__DEV__) {
         console.log(error)
       }
-      setErrorMessage('There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.')
+      setErrorMessage(
+        'There was an unexpected error (CameraWithLocation::getCurrentLocation). Please try again later.',
+      )
       setIsLoadingLocation(false)
 
       return null
@@ -67,22 +69,22 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
     }
 
     var latitude: number | undefined = capturedPicture.exif.GPSLatitude
-    if (capturedPicture.exif.GPSLatudeRef == "S") {
+    if (capturedPicture.exif.GPSLatudeRef == 'S') {
       latitude = latitude * -1
     }
     var longitude: number | undefined = capturedPicture.exif.GPSLongitude
-    if (capturedPicture.exif.GPSLongitudeRef == "W") {
+    if (capturedPicture.exif.GPSLongitudeRef == 'W') {
       longitude = longitude * -1
     }
 
     if (!latitude || !longitude) {
       return null
     }
-    console.log("exif lon", longitude)
-    console.log("exif lat", latitude)
+    console.log('exif lon', longitude)
+    console.log('exif lat', latitude)
     const timestring = capturedPicture.exif.DateTimeOriginal
     const offset = capturedPicture.exif.OffsetTimeOriginal
-    console.log("captured", timestring, offset)
+    console.log('captured', timestring, offset)
     return { latitude, longitude }
   }
 
@@ -90,7 +92,7 @@ export function CameraWithLocation(props: CameraWithLocationProps) {
     setIsLocatDialogVisible(true)
 
     const coordsFromExif = getLocationFromExif(capturedPicture)
-    console.log("coordsFromExif", coordsFromExif)
+    console.log('coordsFromExif', coordsFromExif)
 
     if (!!coordsFromExif) {
       props.onTakePictureFinish({ capturedPicture, coords: coordsFromExif })
