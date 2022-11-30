@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
-} from "react-native"
+} from 'react-native'
 import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
@@ -29,9 +29,16 @@ export function InfoScreen(props) {
   const [query, setQuery] = useState<string>('')
   const [showFilters, setShowFilters] = useState<boolean>(false)
   const [filterValues, setFilterValues] = useState<IFilterValues>({
-    allNameTypes: true, commonName: false, scientificName: false,
-    allTreeTypes: true, conifer: false, broadleaf: false,
-    allDifficulties: true, easy: false, medium: false, expert: false
+    allNameTypes: true,
+    commonName: false,
+    scientificName: false,
+    allTreeTypes: true,
+    conifer: false,
+    broadleaf: false,
+    allDifficulties: true,
+    easy: false,
+    medium: false,
+    expert: false,
   })
   // page 1 list
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
@@ -51,11 +58,13 @@ export function InfoScreen(props) {
 
   // auto-fill selectedTree state when navigated from MapScreen; show TreeInfo
   useEffect(() => {
-    let { params } = props.route;
+    let { params } = props.route
     if (params && params.treeNameQuery !== undefined) {
       let completeList = speciesDataList
       let query = params.treeNameQuery?.toUpperCase()
-      let filteredList = completeList.filter(tree => (tree.COMMON.toUpperCase().indexOf(query) > -1))
+      let filteredList = completeList.filter(
+        (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
+      )
       setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
     }
   }, [props.route])
@@ -65,88 +74,139 @@ export function InfoScreen(props) {
     let newList: SpeciesData[] = speciesDataList
     if (query) {
       if (filterValues.allNameTypes) {
-        newList = newList.filter(tree => (tree.COMMON.toUpperCase().indexOf(query.toUpperCase()) > -1) || (tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1))
+        newList = newList.filter(
+          (tree) =>
+            tree.COMMON.toUpperCase().indexOf(query.toUpperCase()) > -1 ||
+            tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1,
+        )
       } else if (filterValues.commonName) {
-        newList = newList.filter(tree => (tree.COMMON.toUpperCase().indexOf(query.toUpperCase()) > -1))
+        newList = newList.filter(
+          (tree) => tree.COMMON.toUpperCase().indexOf(query.toUpperCase()) > -1,
+        )
       } else if (filterValues.scientificName) {
-        newList = newList.filter(tree => (tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1))
+        newList = newList.filter(
+          (tree) => tree.SCIENTIFIC.toUpperCase().indexOf(query.toUpperCase()) > -1,
+        )
       }
     }
     // tree types filter
     if (filterValues.conifer) {
-      newList = newList.filter(tree => tree.TYPE == 'conifer')
+      newList = newList.filter((tree) => tree.TYPE == 'conifer')
     } else if (filterValues.broadleaf) {
-      newList = newList.filter(tree => tree.TYPE == 'broadleaf')
+      newList = newList.filter((tree) => tree.TYPE == 'broadleaf')
     }
     // difficulty filter
     if (filterValues.easy) {
-      newList = newList.filter(tree => tree.LEVEL == 'easy')
+      newList = newList.filter((tree) => tree.LEVEL == 'easy')
     } else if (filterValues.medium) {
-      newList = newList.filter(tree => tree.LEVEL == 'medium')
+      newList = newList.filter((tree) => tree.LEVEL == 'medium')
     } else if (filterValues.expert) {
-      newList = newList.filter(tree => tree.LEVEL == 'expert')
+      newList = newList.filter((tree) => tree.LEVEL == 'expert')
     }
     // page 2 is not affected by button tab
-    let genusList = newList.filter(tree => tree.COMMON.indexOf('spp') > -1)
-    let speciesList = newList.filter(tree => tree.COMMON.indexOf('spp') == -1)
+    let genusList = newList.filter((tree) => tree.COMMON.indexOf('spp') > -1)
+    let speciesList = newList.filter((tree) => tree.COMMON.indexOf('spp') == -1)
     setTreeList(activeTab == 'Genus' ? genusList : speciesList)
     setFilteredSpeciesList(speciesList)
-  }, [query, activeTab, filterValues]);
+  }, [query, activeTab, filterValues])
 
   const renderDefaultLayout = () => {
-    return <ScrollView>
-      <View style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-      }}>
-        {treeList.map((tree: SpeciesData) =>
-          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} key={tree.COMMON} />)
-        }
-      </View>
-    </ScrollView>
+    return (
+      <ScrollView>
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-around',
+          }}
+        >
+          {treeList.map((tree: SpeciesData) => (
+            <TreeCard
+              tree={tree}
+              setSelectedTree={setSelectedTree}
+              selectedGenus={selectedGenus}
+              setSelectedGenus={setSelectedGenus}
+              key={tree.COMMON}
+            />
+          ))}
+        </View>
+      </ScrollView>
+    )
   }
 
   const renderGenusLayout = () => {
-    return <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
-      {/* @ts-ignore: skip props */}
-      <Text style={{
-        fontSize: 15,
-        color: '#62717A',
-        margin: 4,
-      }}>{'Genus'}</Text>
-      {selectedGenus && (activeTab == 'Genus') && <TreeCard tree={selectedGenus} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} />}
+    return (
+      <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
+        {/* @ts-ignore: skip props */}
+        <Text
+          style={{
+            fontSize: 15,
+            color: '#62717A',
+            margin: 4,
+          }}
+        >
+          {'Genus'}
+        </Text>
+        {selectedGenus && activeTab == 'Genus' && (
+          <TreeCard
+            tree={selectedGenus}
+            setSelectedTree={setSelectedTree}
+            selectedGenus={selectedGenus}
+            setSelectedGenus={setSelectedGenus}
+          />
+        )}
 
-      {/* @ts-ignore: skip props */}
-      <Text style={{
-        fontSize: 15,
-        color: '#62717A',
-        margin: 4,
-      }}>{'Species'}</Text>
-      {selectedGenus && <View style={{
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-      }}>
-        {filteredSpeciesList.filter((tree: SpeciesData) => tree.GENUS == selectedGenus.GENUS).map((tree: SpeciesData) =>
-          <TreeCard tree={tree} setSelectedTree={setSelectedTree} selectedGenus={selectedGenus} setSelectedGenus={setSelectedGenus} key={tree.COMMON} />)
-        }
-      </View>}
-    </ScrollView>
+        {/* @ts-ignore: skip props */}
+        <Text
+          style={{
+            fontSize: 15,
+            color: '#62717A',
+            margin: 4,
+          }}
+        >
+          {'Species'}
+        </Text>
+        {selectedGenus && (
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+            }}
+          >
+            {filteredSpeciesList
+              .filter((tree: SpeciesData) => tree.GENUS == selectedGenus.GENUS)
+              .map((tree: SpeciesData) => (
+                <TreeCard
+                  tree={tree}
+                  setSelectedTree={setSelectedTree}
+                  selectedGenus={selectedGenus}
+                  setSelectedGenus={setSelectedGenus}
+                  key={tree.COMMON}
+                />
+              ))}
+          </View>
+        )}
+      </ScrollView>
+    )
   }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         {selectedTree ? (
-          <TreeInfo selectedTree={selectedTree} setSelectedTree={setSelectedTree} navigation={props.navigation} />
+          <TreeInfo
+            selectedTree={selectedTree}
+            setSelectedTree={setSelectedTree}
+            navigation={props.navigation}
+          />
         ) : (
           <>
             <View style={{ alignItems: 'center' }}>
-              {selectedGenus &&
+              {selectedGenus && (
                 <TouchableOpacity
                   onPress={() => {
-                    setSelectedGenus(undefined);
+                    setSelectedGenus(undefined)
                   }}
                   style={{
                     position: 'absolute',
@@ -154,23 +214,36 @@ export function InfoScreen(props) {
                     left: 20,
                   }}
                 >
-                  <Image style={{ maxHeight: '60%', resizeMode: 'contain' }} source={returnButton}></Image>
+                  <Image
+                    style={{ maxHeight: '60%', resizeMode: 'contain' }}
+                    source={returnButton}
+                  ></Image>
                 </TouchableOpacity>
-              }
+              )}
               <ButtonTab activeTab={activeTab} setActiveTab={setActiveTab} />
-              <View>
+              <View style={{ justifyContent: 'center', marginVertical: 24 }}>
                 <SearchBar query={query} setQuery={setQuery} />
-                <TouchableOpacity onPress={() => setShowFilters(true)} >
-                  <Image style={{ resizeMode: 'contain' }} source={filtersIcon}></Image>
+                <TouchableOpacity
+                  style={{ position: 'absolute', right: 12 }}
+                  onPress={() => setShowFilters(true)}
+                >
+                  <Image
+                    style={{ resizeMode: 'contain', flex: 1, top: 5 }}
+                    source={filtersIcon}
+                  ></Image>
                 </TouchableOpacity>
               </View>
             </View>
             {selectedGenus ? renderGenusLayout() : renderDefaultLayout()}
-            <FilterModal showFilters={showFilters} setShowFilters={setShowFilters} filterValues={filterValues} setFilterValues={setFilterValues} />
+            <FilterModal
+              showFilters={showFilters}
+              setShowFilters={setShowFilters}
+              filterValues={filterValues}
+              setFilterValues={setFilterValues}
+            />
           </>
-        )
-        }
+        )}
       </SafeAreaView>
-    </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   )
 }
