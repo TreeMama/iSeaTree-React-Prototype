@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Modal, View, ScrollView, Image } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
-import { Text } from 'react-native-paper'
+import { Badge, Text } from 'react-native-paper'
 import { styles } from "../styles"
 import { IFilterValues } from "../types"
 const cancelIcon = require('../../../../assets/cancel_icon.png')
@@ -119,6 +119,52 @@ export const FilterModal = (props: {
           />
         </ScrollView>
       </View>
+
+      <Text style={{ fontSize: 15, marginLeft: 10 }}>{'Leaf type'}</Text>
+      <Badge
+        visible
+        style={{
+          marginLeft: 5,
+          alignSelf: 'flex-start',
+          color: '#7AB662',
+        }}
+      >
+        {'Coming soon'}
+      </Badge>
+      <View style={{ width: '100%' }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <DisabledFilterButton buttonText="All" />
+          <DisabledFilterButton buttonText="Simple" />
+          <DisabledFilterButton buttonText="Palmately compound" />
+          <DisabledFilterButton buttonText="Pinnately compound" />
+          <DisabledFilterButton buttonText="Oval" />
+          <DisabledFilterButton buttonText="Bipinnately compound" />
+        </ScrollView>
+      </View>
+
+      <Text style={{ fontSize: 15, marginLeft: 10 }}>{'Leaf shape'}</Text>
+      <Badge
+        visible
+        style={{
+          marginLeft: 5,
+          alignSelf: 'flex-start',
+          color: '#7AB662',
+        }}
+      >
+        {'Coming soon'}
+      </Badge>
+      <View style={{ width: '100%' }}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {/* Note: these placeholders are not the complete list of shapes. */}
+          <DisabledFilterButton buttonText="All" />
+          <DisabledFilterButton buttonText="Hand-shaped" />
+          <DisabledFilterButton buttonText="Fan-shaped" />
+          <DisabledFilterButton buttonText="Spear-shaped" />
+          <DisabledFilterButton buttonText="Ovate" />
+          <DisabledFilterButton buttonText="Obtuse" />
+          <DisabledFilterButton buttonText="Elliptic" />
+        </ScrollView>
+      </View>
     </View>
   </Modal >
 }
@@ -148,5 +194,21 @@ const FilterButton = (props: {
     }}
   >
     <Text style={{ color: props.isActive ? activeTextColor : inactiveTextColor }}>{props.buttonText}</Text>
+  </TouchableOpacity>
+}
+
+const DisabledFilterButton = (props: {
+  buttonText: string
+}) => {
+  return <TouchableOpacity
+    style={{
+      height: 50, minWidth: '20%', borderWidth: 2, borderRadius: 10, margin: 10, padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#F4F6FA',
+      borderColor: '#E2E8F0'
+    }}
+  >
+    <Text style={{ color: '#62717A' }}>{props.buttonText}</Text>
   </TouchableOpacity>
 }
