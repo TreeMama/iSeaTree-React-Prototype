@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Modal, View, ScrollView, Image } from "react-native"
+import { Modal, View, ScrollView, Image, Dimensions } from "react-native"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { Badge, Text } from 'react-native-paper'
 import { styles } from "../styles"
@@ -19,21 +19,24 @@ export const FilterModal = (props: {
   return <Modal
     animationType="slide"
     transparent={true}
-    visible={props.showFilters}>
-    <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: '30%' }}>
+    visible={props.showFilters}
+    style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+  >
+    <View style={{ backgroundColor: 'rgba(0,0,0,0.5)', height: '100%' }}>
     </View>
-    <View style={{ backgroundColor: 'white', height: '70%' }}>
-      <TouchableOpacity
-        style={{ position: 'absolute', left: 24 }}
-        onPress={() => props.setShowFilters(false)}
-      >
-        <Image style={{ margin: 25, resizeMode: 'contain' }} source={cancelIcon}></Image>
-      </TouchableOpacity>
-      <View style={{ alignItems: 'center' }}>
-        <Text style={{ fontSize: 17, margin: 24 }} >{'Filters'}</Text>
+    <View style={{ position: 'absolute', top: '30%', backgroundColor: 'white', height: '70%', borderTopRightRadius: 60, borderTopLeftRadius: 60 }}>
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          onPress={() => props.setShowFilters(false)}
+        >
+          <Image style={{ margin: 25, resizeMode: 'contain' }} source={cancelIcon}></Image>
+        </TouchableOpacity>
+        <View style={{ alignItems: 'center', width: '85%' }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 24 }} >{'Filters'}</Text>
+        </View>
       </View>
 
-      <Text style={{ fontSize: 15, marginLeft: 10 }} >{'Name type'}</Text>
+      <Text style={{ fontSize: 15, marginLeft: 10, fontWeight: 'bold' }} >{'Name type'}</Text>
       <View style={{ width: '100%' }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <FilterButton
@@ -60,7 +63,7 @@ export const FilterModal = (props: {
         </ScrollView>
       </View>
 
-      <Text style={{ fontSize: 15, marginLeft: 10 }}>{'Tree type'}</Text>
+      <Text style={{ fontSize: 15, marginLeft: 10, fontWeight: 'bold' }}>{'Tree type'}</Text>
       <View style={{ width: '100%' }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <FilterButton
@@ -87,7 +90,7 @@ export const FilterModal = (props: {
         </ScrollView>
       </View>
 
-      <Text style={{ fontSize: 15, marginLeft: 10 }}>{'Level of Difficulty'}</Text>
+      <Text style={{ fontSize: 15, marginLeft: 10, fontWeight: 'bold' }}>{'Level of difficulty'}</Text>
       <View style={{ width: '100%' }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <FilterButton
@@ -121,17 +124,19 @@ export const FilterModal = (props: {
         </ScrollView>
       </View>
 
-      <Text style={{ fontSize: 15, marginLeft: 10 }}>{'Leaf type'}</Text>
-      <Badge
-        visible
-        style={{
-          marginLeft: 5,
-          alignSelf: 'flex-start',
-          color: '#7AB662',
-        }}
-      >
-        {'Coming soon'}
-      </Badge>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ fontSize: 15, marginLeft: 10, fontWeight: 'bold' }}>{'Leaf type'}</Text>
+        <Badge
+          visible
+          style={{
+            marginLeft: 5,
+            alignSelf: 'flex-start',
+            backgroundColor: '#7AB662',
+          }}
+        >
+          <Text style={{ color: 'white' }}>{'Coming Soon'}</Text>
+        </Badge>
+      </View>
       <View style={{ width: '100%' }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <DisabledFilterButton buttonText="All" />
@@ -142,18 +147,19 @@ export const FilterModal = (props: {
           <DisabledFilterButton buttonText="Bipinnately compound" />
         </ScrollView>
       </View>
-
-      <Text style={{ fontSize: 15, marginLeft: 10 }}>{'Leaf shape'}</Text>
-      <Badge
-        visible
-        style={{
-          marginLeft: 5,
-          alignSelf: 'flex-start',
-          color: '#7AB662',
-        }}
-      >
-        {'Coming soon'}
-      </Badge>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ fontSize: 15, marginLeft: 10, fontWeight: 'bold' }}>{'Leaf shape'}</Text>
+        <Badge
+          visible
+          style={{
+            marginLeft: 5,
+            alignSelf: 'flex-start',
+            backgroundColor: '#7AB662',
+          }}
+        >
+          <Text style={{ color: 'white' }}>{'Coming Soon'}</Text>
+        </Badge>
+      </View>
       <View style={{ width: '100%' }}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {/* Note: these placeholders are not the complete list of shapes. */}
@@ -183,7 +189,9 @@ const FilterButton = (props: {
   const inactiveTextColor = '#62717A'
   return <TouchableOpacity
     style={{
-      height: 50, minWidth: '20%', borderWidth: 2, borderRadius: 10, margin: 10, padding: 10,
+      height: 50, minWidth: 0.1 * Dimensions.get('screen').width,
+      borderWidth: 1, borderRadius: 10, margin: 10, padding: 10,
+      borderColor: '#E2E8F0',
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: props.isActive ? activeBackgroundColor : inactiveBackgroundColor
@@ -203,7 +211,8 @@ const DisabledFilterButton = (props: {
 }) => {
   return <TouchableOpacity
     style={{
-      height: 50, minWidth: '20%', borderWidth: 2, borderRadius: 10, margin: 10, padding: 10,
+      height: 50, minWidth: 0.1 * Dimensions.get('screen').width,
+      borderWidth: 2, borderRadius: 10, margin: 10, padding: 10,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: '#F4F6FA',
