@@ -144,7 +144,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               trees.push(appObj)
-            })
+            });
           } catch (error) { }
           // return trees;
           setTrees(trees)
@@ -181,7 +181,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               alltrees.push(appObj)
-            })
+            });
           } catch (error) { }
 
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
@@ -431,11 +431,17 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     )
   }
 
-  // navigate to suggestedTrees screen to show MORE TREE INFO
-  const onSuggestedTree = async (treename) => {
-    const extractTreeName = treename.split('(')[0]
-    const index = await suggestedTrees.findIndex((x) => x.name.split('(')[0] === extractTreeName)
-    props.navigation.navigate('suggestedTrees', { showIndex: index })
+  function extractTreeNameQuery(item) {
+    const treename = item.item.speciesNameCommon
+    console.log("Extracted Tree Common Name: " + treename + "  from tooltip. Passing to InfoScreen to show more tree info")
+    return treename
+  }
+
+  // navigate to Tree Info screen to show MORE TREE INFO
+  const onSuggestedTree = async (item) => {
+    props.navigation.navigate('infoScreen', {
+      treeNameQuery: extractTreeNameQuery(item)
+    })
   }
 
   // custome callout component for IOS
@@ -512,7 +518,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               </TouchableOpacity>
             </CalloutSubview>
             {isMoreinfo && (
-              <CalloutSubview onPress={() => onSuggestedTree(item.item.speciesNameCommon)}>
+              <CalloutSubview onPress={() => onSuggestedTree(item)}>
                 <TouchableOpacity style={styles.redirectionContainer}>
                   <Text style={[styles.redirectionText, { flex: 1 }]}>MORE TREE INFO</Text>
                   <MaterialIcons
@@ -536,12 +542,9 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }
 
   const onSuggestedTreeAndroid = async (item) => {
-    const extractTreeName = item.item.speciesNameCommon.split('(')[0]
-    const index = await suggestedTrees.findIndex((x) => x.name.split('(')[0] === extractTreeName)
-
     RBSheetref.close()
     setTimeout(function () {
-      props.navigation.navigate('suggestedTrees', { showIndex: index })
+      props.navigation.navigate('infoScreen', { treeNameQuery: extractTreeNameQuery(item) })
     }, 500)
   }
 
@@ -847,7 +850,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         onPress={() => setOwnmap()}
         style={[
           styles.touchableOpacityStyle,
-          { backgroundColor: isActiveown ? colors.gray[600] : '#fff' },
+          { backgroundColor: isActiveown ? colors.gray[600] : '#fff', bottom: '12%' },
         ]}
       >
         <MaterialCommunityIcons
@@ -861,7 +864,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         onPress={() => setPublicmap()}
         style={[
           styles.touchableOpacityStyle,
-          { bottom: 105, backgroundColor: !isActiveown ? colors.gray[600] : '#fff' },
+          { bottom: '22%', backgroundColor: !isActiveown ? colors.gray[600] : '#fff' },
         ]}
       >
         <Image

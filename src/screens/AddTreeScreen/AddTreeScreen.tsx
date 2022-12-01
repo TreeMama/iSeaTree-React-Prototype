@@ -149,7 +149,7 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   return errors
 }
 
-export function AddTreeScreen() {
+export function AddTreeScreen(props) {
   const theme = useTheme()
   const refTreeTypeSelect = React.useRef(null)
   const [isDBHSelected, setDBHSelected] = React.useState<null | boolean>(false)
@@ -333,6 +333,13 @@ export function AddTreeScreen() {
     }
   }, [calculatedFormValues])
 
+  React.useEffect(() => {
+    props.navigation.addListener('focus', getSelectedSpecies)
+    return () => {
+      props.navigation.removeListener('focus', getSelectedSpecies)
+    }
+  }, [props])
+
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
   const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
 
@@ -355,6 +362,20 @@ export function AddTreeScreen() {
         },
       },
     ])
+  }
+
+  // Auto-fill species data when jumped from TreeInfo Screen
+  function getSelectedSpecies() {
+    let { params } = props.route
+    let speciesData = params?.selectedSpeciesData
+    if (params && speciesData) {
+      formik.setFieldValue('speciesData', speciesData)
+      if (speciesData?.TYPE != 'unknown') {
+        formik.setFieldValue('treeType', speciesData?.TYPE)
+        formik.setFieldValue('speciesType', speciesData?.TYPE)
+        refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
+      }
+    }
   }
 
   function handleAddTreeError() {
