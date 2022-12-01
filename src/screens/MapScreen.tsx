@@ -144,8 +144,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               trees.push(appObj)
-            })
-          } catch (error) {}
+            });
+          } catch (error) { }
           // return trees;
           setTrees(trees)
           setDataLoaded(true)
@@ -181,8 +181,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               alltrees.push(appObj)
-            })
-          } catch (error) {}
+            });
+          } catch (error) { }
 
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
           for (let i = 0; i < alltrees.length; i++) {
@@ -254,11 +254,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const currentRegion: undefined | Region = !currentCoords
     ? undefined
     : {
-        latitude: currentCoords.latitude,
-        longitude: currentCoords.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }
+      latitude: currentCoords.latitude,
+      longitude: currentCoords.longitude,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    }
 
   // validate the tree
   const onValidated = (selectedItem) => {
@@ -393,7 +393,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           Platform.OS === 'ios'
             ? console.log('checkbox click')
             : (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') &&
-              validateAlertHandler(item)
+            validateAlertHandler(item)
         }
         isChecked={item.isValidated === 'VALIDATED' ? true : false}
         rightText={rightText}
@@ -431,11 +431,17 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     )
   }
 
-  // navigate to suggestedTrees screen to show MORE TREE INFO
-  const onSuggestedTree = async (treename) => {
-    const extractTreeName = treename.split('(')[0]
-    const index = await suggestedTrees.findIndex((x) => x.name.split('(')[0] === extractTreeName)
-    props.navigation.navigate('suggestedTrees', { showIndex: index })
+  function extractTreeNameQuery(item) {
+    const treename = item.item.speciesNameCommon
+    console.log("Extracted Tree Common Name: " + treename + "  from tooltip. Passing to InfoScreen to show more tree info")
+    return treename
+  }
+
+  // navigate to Tree Info screen to show MORE TREE INFO
+  const onSuggestedTree = async (item) => {
+    props.navigation.navigate('infoScreen', {
+      treeNameQuery: extractTreeNameQuery(item)
+    })
   }
 
   // custome callout component for IOS
@@ -512,7 +518,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               </TouchableOpacity>
             </CalloutSubview>
             {isMoreinfo && (
-              <CalloutSubview onPress={() => onSuggestedTree(item.item.speciesNameCommon)}>
+              <CalloutSubview onPress={() => onSuggestedTree(item)}>
                 <TouchableOpacity style={styles.redirectionContainer}>
                   <Text style={[styles.redirectionText, { flex: 1 }]}>MORE TREE INFO</Text>
                   <MaterialIcons
@@ -536,12 +542,9 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }
 
   const onSuggestedTreeAndroid = async (item) => {
-    const extractTreeName = item.item.speciesNameCommon.split('(')[0]
-    const index = await suggestedTrees.findIndex((x) => x.name.split('(')[0] === extractTreeName)
-
     RBSheetref.close()
     setTimeout(function () {
-      props.navigation.navigate('suggestedTrees', { showIndex: index })
+      props.navigation.navigate('infoScreen', { treeNameQuery: extractTreeNameQuery(item) })
     }, 500)
   }
 

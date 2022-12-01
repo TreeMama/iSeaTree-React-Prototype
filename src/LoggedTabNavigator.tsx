@@ -10,8 +10,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen'
-import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
+import { InfoScreen } from './screens/InfoScreen/InfoScreen'
 import { colors } from './styles/theme'
 import { ChallengeScreen } from './screens/ChallengeScreen'
 
@@ -144,8 +144,8 @@ export function LoggedTabNavigator() {
         }}
       />
       <Tab.Screen
-        name={TabScreenNames.suggestedTrees}
-        component={SuggestedTreesScreen}
+        name={TabScreenNames.infoScreen}
+        component={InfoScreen}
         options={{
           tabBarLabel: 'Info',
           tabBarIcon: ({ focused }) => (

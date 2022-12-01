@@ -44,6 +44,7 @@ export interface SpeciesData {
   THUMB_PIC_1024x768?: string
   LEAF_COLOR?: string
   TREE_SHAPE?: string
+  GENUS?: string
 }
 
 interface SpeciesSelectProps {
@@ -731,11 +732,11 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                   // <View
                   //   style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 100 }}
                   // >
-                    <ScrollView style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }} showsVerticalScrollIndicator={true}>
-                      <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
-                        {currentData?.DESCRIPTION}
-                      </RNText>
-                    </ScrollView>
+                  <ScrollView style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }} showsVerticalScrollIndicator={true}>
+                    <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
+                      {currentData?.DESCRIPTION}
+                    </RNText>
+                  </ScrollView>
                   // </View>
                 ) : null}
                 <Button
