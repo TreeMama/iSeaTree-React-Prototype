@@ -109,8 +109,7 @@ const styles = StyleSheet.create({
   },
   profileRightMenuContainer: {
     right: 15,
-    // top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
-    top: Platform.OS === 'ios' ? Constants.statusBarHeight > 0 ? Constants.statusBarHeight : 10 + 5 : Constants.statusBarHeight,
+    top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
     position: 'absolute'
   },
   menuIcon: {

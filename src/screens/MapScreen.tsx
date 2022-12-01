@@ -144,7 +144,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               trees.push(appObj)
-            })
+            });
           } catch (error) { }
           // return trees;
           setTrees(trees)
@@ -181,7 +181,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               alltrees.push(appObj)
-            })
+            });
           } catch (error) { }
 
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
@@ -879,7 +879,10 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   )
 }
 
-const mapHeight = Dimensions.get('window').height
+const mapHeight =
+  Platform.OS === 'ios'
+    ? Dimensions.get('window').height - Constants.statusBarHeight
+    : Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   container: {
