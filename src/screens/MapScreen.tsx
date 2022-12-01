@@ -850,7 +850,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         onPress={() => setOwnmap()}
         style={[
           styles.touchableOpacityStyle,
-          { backgroundColor: isActiveown ? colors.gray[600] : '#fff' },
+          { backgroundColor: isActiveown ? colors.gray[600] : '#fff', bottom: '12%' },
         ]}
       >
         <MaterialCommunityIcons
@@ -864,7 +864,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         onPress={() => setPublicmap()}
         style={[
           styles.touchableOpacityStyle,
-          { bottom: 105, backgroundColor: !isActiveown ? colors.gray[600] : '#fff' },
+          { bottom: '22%', backgroundColor: !isActiveown ? colors.gray[600] : '#fff' },
         ]}
       >
         <Image

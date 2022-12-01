@@ -73,7 +73,7 @@ export function LoggedTabNavigator() {
           //   />
           // ),
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? profileActiveIcon : profileIcon}
                 fadeDuration={0}
@@ -92,7 +92,7 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? mapActiveIcon : mapIcon}
                 fadeDuration={0}
@@ -130,7 +130,7 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Challenge',
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? challengeAcitiveIcon : challengeIcon}
                 fadeDuration={0}
@@ -149,7 +149,7 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Info',
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? infoActiveIcon : infoIcon}
                 fadeDuration={0}
