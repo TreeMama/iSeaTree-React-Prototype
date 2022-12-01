@@ -24,6 +24,7 @@ export const FilterModal = (props: {
     </View>
     <View style={{ backgroundColor: 'white', height: '70%' }}>
       <TouchableOpacity
+        style={{ position: 'absolute', left: 24 }}
         onPress={() => props.setShowFilters(false)}
       >
         <Image style={{ margin: 25, resizeMode: 'contain' }} source={cancelIcon}></Image>
