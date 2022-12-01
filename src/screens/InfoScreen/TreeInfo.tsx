@@ -34,7 +34,9 @@ type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 interface ITreeInfoProps {
   selectedTree: SpeciesData,
   setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>,
-  navigation: TreeInfoNavigation
+  navigation: TreeInfoNavigation,
+  isFromMapScreen: boolean,
+  setIsFromMapScreen: React.Dispatch<React.SetStateAction<boolean | false>>
 }
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
@@ -539,61 +541,89 @@ export function TreeInfo(props: ITreeInfoProps) {
               </ScrollView>
               // </View>
             ) : null}
-            <Button
-              mode="contained"
-              style={{
-                borderRadius: 0,
-                width: viewportWidth,
-                alignSelf: 'center',
-                padding: 10,
-                paddingBottom: 20,
-                position: 'absolute',
-                bottom: 0,
-              }}
-              onPress={() => {
-                Alert.alert('', 'Do you want to add a record of this tree?', [
-                  { text: 'No' },
-                  {
-                    text: 'Yes',
-                    onPress: () => {
-                      setSecondaryModalVisibility(false)
-                      props.setSelectedTree(undefined)
-                      props.navigation.navigate('addTree', {
-                        selectedSpeciesData: selectedTree
-                      })
+            {props.isFromMapScreen ? (
+              <Button
+                mode="contained"
+                style={{
+                  borderRadius: 0,
+                  width: viewportWidth,
+                  alignSelf: 'center',
+                  padding: 10,
+                  paddingBottom: 20,
+                  position: 'absolute',
+                  bottom: 0,
+                }}
+                onPress={() => {
+                  // reset Info Screen
+                  setSecondaryModalVisibility(false)
+                  props.setSelectedTree(undefined)
+                  props.setIsFromMapScreen(false)
+                  // navigate back to Map Screen
+                  props.navigation.goBack()
+                }}
+              >
+                Back to Map
+              </Button>
+            ) : (
+              <Button
+                mode="contained"
+                style={{
+                  borderRadius: 0,
+                  width: viewportWidth,
+                  alignSelf: 'center',
+                  padding: 10,
+                  paddingBottom: 20,
+                  position: 'absolute',
+                  bottom: 0,
+                }}
+                onPress={() => {
+                  Alert.alert('', 'Do you want to add a record of this tree?', [
+                    { text: 'No' },
+                    {
+                      text: 'Yes',
+                      onPress: () => {
+                        setSecondaryModalVisibility(false)
+                        props.setSelectedTree(undefined)
+                        props.navigation.navigate('addTree', {
+                          selectedSpeciesData: selectedTree
+                        })
+                      },
                     },
-                  },
-                ])
-              }}
-            >
-              Add a Record
-            </Button>
+                  ])
+                }}
+              >
+                Add a Record
+              </Button>
+            )}
           </View>
 
           {/* Return Button */}
-          <TouchableOpacity
-            onPress={() => {
-              setSecondaryModalVisibility(false)
-              props.setSelectedTree(undefined)
-            }}
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginTop: 5,
-              position: 'absolute',
-              top: 25,
-              left: 15,
-              backgroundColor: 'white',
-              opacity: 0.8,
-              borderRadius: 30,
-              height: 60,
-              width: 60,
-              borderColor: 'black',
-              borderWidth: 2,
-            }}
-          >
-            <MaterialCommunityIcons name="window-close" size={22} />
-          </TouchableOpacity>
+          {props.isFromMapScreen ? null : (
+            <TouchableOpacity
+              onPress={
+                () => {
+                  setSecondaryModalVisibility(false)
+                  props.setSelectedTree(undefined)
+                }}
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                marginTop: 5,
+                position: 'absolute',
+                top: 25,
+                left: 15,
+                backgroundColor: 'white',
+                opacity: 0.8,
+                borderRadius: 30,
+                height: 60,
+                width: 60,
+                borderColor: 'black',
+                borderWidth: 2,
+              }}
+            >
+              <MaterialCommunityIcons name="window-close" size={22} />
+            </TouchableOpacity>
+          )}
 
           {/* Tree Type Button */}
           <TouchableOpacity
@@ -627,8 +657,8 @@ export function TreeInfo(props: ITreeInfoProps) {
           </TouchableOpacity>
 
         </View>
-      </Modal>
-    </View>
+      </Modal >
+    </View >
 
   )
 }

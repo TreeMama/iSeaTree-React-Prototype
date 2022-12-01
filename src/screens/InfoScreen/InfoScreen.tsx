@@ -45,6 +45,8 @@ export function InfoScreen(props) {
   // page 2 list
   const [filteredSpeciesList, setFilteredSpeciesList] = useState<SpeciesData[]>([])
   const [activeTab, setActiveTab] = useState<string>('Genus')
+  // flag to indicate whether this screen is navigated from Map Screen
+  const [isFromMapScreen, setIsFromMapScreen] = useState<boolean>(false)
 
   // loading the complete list of trees on component mount
   let completeList: SpeciesData[] = []
@@ -66,6 +68,7 @@ export function InfoScreen(props) {
         (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
       )
       setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
+      setIsFromMapScreen(true)
     }
   }, [props.route])
 
@@ -199,6 +202,8 @@ export function InfoScreen(props) {
             selectedTree={selectedTree}
             setSelectedTree={setSelectedTree}
             navigation={props.navigation}
+            isFromMapScreen={isFromMapScreen}
+            setIsFromMapScreen={setIsFromMapScreen}
           />
         ) : (
           <>

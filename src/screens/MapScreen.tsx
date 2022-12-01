@@ -433,7 +433,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   function extractTreeNameQuery(item) {
     const treename = item.item.speciesNameCommon
-    console.log("Extracted Tree Common Name :" + treename + "   from tooltip. Passing to InfoScreen to show more tree info")
+    console.log("Extracted Tree Common Name: " + treename + "  from tooltip. Passing to InfoScreen to show more tree info")
     return treename
   }
 
