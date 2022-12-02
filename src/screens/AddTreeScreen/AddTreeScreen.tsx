@@ -41,6 +41,7 @@ import { setUpdateIntervalForType, SensorTypes, accelerometer } from 'react-nati
 import { RNCamera } from 'react-native-camera'
 import { useCamera } from 'react-native-camera-hooks'
 import Icon from 'react-native-vector-icons/Ionicons'
+import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
 import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 
@@ -112,6 +113,11 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
+  },
+  treeBotContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginRight: 10,
   },
 })
 
@@ -905,13 +911,52 @@ export function AddTreeScreen(props) {
           >
             Clear
           </Button>
-          <View style={styles.rowContainer}>
-            <DbhHelp />
-            <Text style={{ color: theme.colors.text, marginLeft: 15, marginTop: 5 }}>TreeBot</Text>
+          <View style={[styles.rowContainer, styles.treeBotContainer]}>
+            {/* <DbhHelp /> */}
+            <View>
+              <Tooltip
+                height={200}
+                width={200}
+                backgroundColor={theme.colors.primary}
+                popover={
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      paddingHorizontal: 20,
+                    }}
+                  >
+                    <Image
+                      style={{ height: 80, width: 50, resizeMode: 'contain' }}
+                      source={{
+                        uri: 'https://i.pinimg.com/originals/9c/21/95/9c2195094a81095f87e83cb5534ee121.png',
+                      }}
+                    />
+                    <Text
+                      style={{ fontSize: 14, color: 'white' }}
+                    >{`TreeBot is our AI assistant for helping you correctly identify a tree species for genus). Toggle the switch & take a picture if you need help!`}</Text>
+                  </View>
+                }
+              >
+                <MaterialCommunityIcons
+                  name="help-circle-outline"
+                  size={16}
+                  color={colors.gray[700]}
+                />
+              </Tooltip>
+            </View>
+            <Text
+              style={{ color: theme.colors.text, marginLeft: 2, fontSize: 17, fontWeight: 'bold' }}
+            >
+              TreeBot
+            </Text>
             <Switch
               trackColor={{ true: 'green' }}
               onValueChange={toggleSwitch}
               value={isEnabled}
+              style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
             ></Switch>
           </View>
 
