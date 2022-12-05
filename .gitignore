@@ -72,20 +72,3 @@ android/.gradle/buildOutputCleanup/outputFiles.bin
 android/.gradle/checksums/checksums.lock
 android/.gradle/checksums/md5-checksums.bin
 android/.gradle/checksums/sha1-checksums.bin
-
-
-# node.js
-#
-node_modules/
-/node_modules
-npm-debug.log
-yarn-error.log
-
-# Bundle artifact
-*.jsbundle
-
-# CocoaPods
-/ios/Pods/
-/iOS/Pods/
-/ios/Pods 4*
-/iOS/Pods 4*
