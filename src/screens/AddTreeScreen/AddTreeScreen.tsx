@@ -30,6 +30,7 @@ import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
+import { TreeBotHelp } from './TreeBotHelp'
 import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
@@ -111,7 +112,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   rowContainer: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 1,
   }
 
 })
@@ -778,12 +780,13 @@ export function AddTreeScreen() {
           >
             Clear
           </Button>
-          <View style={styles.rowContainer}>
-            <DbhHelp />
-            <Text style={{ color: theme.colors.text, marginLeft: 15, marginTop: 5 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+            <TreeBotHelp />
+            <Text style={{ color: theme.colors.text }}>
               TreeBot
             </Text>
             <Switch
+              style={{}}
               trackColor={{ true: 'green' }}
               onValueChange={toggleSwitch}
               value={isEnabled}
