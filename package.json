@@ -53,6 +53,7 @@
     "react-native-elements": "^3.4.2",
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "~1.7.0",
+    "react-native-linear-gradient": "^2.6.2",
     "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "^0.27.1",
     "react-native-paper": "^2.2.2 || ^3.0.0",

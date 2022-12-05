@@ -20,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, TextInput, Text, Subheading, useTheme, Switch } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
+import LinearGradient from 'react-native-linear-gradient'
 import { StatusBar } from '../../components/StatusBar'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
@@ -168,6 +169,7 @@ export function AddTreeScreen(props) {
   const [DBHCalculation, setDBHCalculation] = React.useState('')
   const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false)
   const [calculatedFormValues, setCalculatedFormValues] = React.useState(false)
+  const [isEnabled, setIsEnabled] = useState(false)
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -184,10 +186,12 @@ export function AddTreeScreen(props) {
       locationType: null,
       estimate: false,
       CameraMeasured: false,
+      needsValidation: false,
     },
     validate: validateForm,
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
+
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
       submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
     },
@@ -895,8 +899,14 @@ export function AddTreeScreen(props) {
 
   const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
 
-  const [isEnabled, setIsEnabled] = useState(false)
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+  const toggleSwitch = () => {
+    if (formik.values.speciesData?.TYPE != 'unknown') {
+      formik.setFieldValue('needsValidation', true)
+    } else {
+      formik.setFieldValue('needsValidation', false)
+    }
+    setIsEnabled((previousState) => !previousState)
+  }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -904,19 +914,22 @@ export function AddTreeScreen(props) {
         <StatusBar />
 
         <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
-          <Button
+          {/* <Button
             style={{ alignSelf: 'flex-end', marginVertical: 5 }}
             icon="close"
             onPress={handleClear}
           >
             Clear
-          </Button>
+          </Button> */}
           <View style={[styles.rowContainer, styles.treeBotContainer]}>
             {/* <DbhHelp /> */}
             <View>
               <Tooltip
-                height={200}
-                width={200}
+                height={180}
+                width={250}
+                containerStyle={{
+                  left: 60,
+                }}
                 backgroundColor={theme.colors.primary}
                 popover={
                   <View
@@ -925,18 +938,16 @@ export function AddTreeScreen(props) {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'flex-start',
-                      paddingHorizontal: 20,
+                      paddingHorizontal: 40,
                     }}
                   >
                     <Image
-                      style={{ height: 80, width: 50, resizeMode: 'contain' }}
-                      source={{
-                        uri: 'https://i.pinimg.com/originals/9c/21/95/9c2195094a81095f87e83cb5534ee121.png',
-                      }}
+                      style={{ height: 70, width: 70, resizeMode: 'contain' }}
+                      source={require('../../../assets/tree-help/help-robot.png')}
                     />
                     <Text
-                      style={{ fontSize: 14, color: 'white' }}
-                    >{`TreeBot is our AI assistant for helping you correctly identify a tree species for genus). Toggle the switch & take a picture if you need help!`}</Text>
+                      style={{ fontSize: 14, color: 'white', lineHeight: 20 }}
+                    >{`TreeBot is our AI assistant for helping you correctly identify a tree species (or genus). Toggle the switch & take a picture if you need help!`}</Text>
                   </View>
                 }
               >
@@ -954,7 +965,7 @@ export function AddTreeScreen(props) {
             </Text>
             <Switch
               trackColor={{ true: 'green' }}
-              onValueChange={toggleSwitch}
+              onValueChange={() => toggleSwitch()}
               value={isEnabled}
               style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
             ></Switch>
@@ -1083,6 +1094,11 @@ export function AddTreeScreen(props) {
                 formik.setFieldValue('speciesData', speciesData)
                 if (speciesData?.TYPE != 'unknown') {
                   console.log('known selected' + formik.values.speciesType)
+                  if (isEnabled) {
+                    formik.setFieldValue('needsValidation', true)
+                  } else {
+                    formik.setFieldValue('needsValidation', false)
+                  }
                   if (
                     formik.values.speciesType === TreeTypes.NULL ||
                     formik.values.speciesType == null
@@ -1109,6 +1125,8 @@ export function AddTreeScreen(props) {
                     }, 1000)
                     refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
                   }
+                } else {
+                  formik.setFieldValue('needsValidation', false)
                 }
               }}
             />
