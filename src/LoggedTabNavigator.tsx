@@ -21,7 +21,7 @@ const profileIcon = require('../assets/nav_profile_inactive.png')
 const profileActiveIcon = require('../assets/nav_profile.png')
 const mapIcon = require('../assets/nav_map_inactive.png')
 const mapActiveIcon = require('../assets/nav_map.png')
-// const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
+const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
 const treeCameraActiveIcon = require('../assets/nav_addtree.png')
 const challengeIcon = require('../assets/nav_callenge_inactive.png')
 const challengeAcitiveIcon = require('../assets/nav_callenge.png')
@@ -112,7 +112,7 @@ export function LoggedTabNavigator() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
             <Image
-              source={focused ? treeCameraActiveIcon : treeCameraActiveIcon}
+              source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
               style={{
                 width: 60,
