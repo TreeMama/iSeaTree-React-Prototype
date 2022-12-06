@@ -94,9 +94,16 @@ export function TreeInfo(props: ITreeInfoProps) {
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
 
-  const imageArray = currentData?.THUMB_PIC_1024x768
-    ? currentData?.THUMB_PIC_1024x768.split(',')
-    : []
+  const imageArray = (() => {
+    let pictures: string[] = []
+    if (currentData?.THUMB_PIC_1024x768) {
+      pictures.push(...currentData.THUMB_PIC_1024x768.split(','))
+    }
+    if (currentData?.FULL_PIC_1024x768) {
+      pictures.unshift(currentData.FULL_PIC_1024x768)
+    }
+    return pictures
+  })()
 
   function onLoading(value, label) {
     setLoading(value)
