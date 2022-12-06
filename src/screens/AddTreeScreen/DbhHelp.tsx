@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Modal, View, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, ScrollView, Image } from 'react-native'
 import { Text, Title, Headline, Button, useTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -18,17 +18,13 @@ export function DbhHelp() {
 
   return (
     <View>
-      <TouchableOpacity
+      <Button
         onPress={() => {
           setIsModalVisible(true)
         }}
-        style={{
-          marginLeft: 5,
-          bottom: 5,
-        }}
       >
-        <MaterialCommunityIcons name="help-circle-outline" size={18} color={theme.colors.primary} />
-      </TouchableOpacity>
+        <MaterialCommunityIcons name="help-circle-outline" size={20} color={theme.colors.primary} />
+      </Button>
 
       <Modal visible={isModalVisible} animationType="slide">
         <StatusBar />

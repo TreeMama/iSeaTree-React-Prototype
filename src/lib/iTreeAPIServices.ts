@@ -3,7 +3,6 @@ import { CONFIG } from '../../envVariables';
 import { xml2js, xml2json } from 'xml-js'
 import { OutputInformation, RootObject } from '../screens/AddTreeScreen/TreeBenefitResponse';
 import axios from 'axios';
-import fs from 'react-native-fs';
 
 async function setItem(key: string, stringValue: string, unit: string) {
   try {
@@ -23,46 +22,6 @@ async function setItem(key: string, stringValue: string, unit: string) {
     })
   } catch (error) {
     return null
-  }
-}
-
-export async function identifyTreePicture(picture) {
-  let file = picture;
-  file = '/Users/jingsizou/iSeaTree/iSeaTree-React-Prototype/src/screens/AddTreeScreen/img/maple_tree.jpeg'
-  let base64files = await fs.readFile(file, 'base64');
-
-  try {
-    const response = await fetch(
-      'https://api.plant.id/v2/identify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        "Api-Key": "QmthcG07fdXf27yYmAtcAt2h92STmQEki0YkpoRDhPJcnJA7dV"
-      },
-      body: JSON.stringify({
-        "images": [base64files],
-        "modifiers": ["similar_images"],
-        "plant_details": ["common_names", "url"],
-      })
-    }
-    );
-    const result = await response.json();
-    console.log(result)
-    // return result['suggestions'][0]['plant_name'];
-    // let ret: [boolean, string, string]
-    let ret: any;
-    /*
-    AI return result
-    (1) is_plant: Whether the given picture contains a tree
-    (2) common_names: the tree's common name
-    (3) scientific_name: the tree's common name scientific name
-    (4) structured_name: contains the genus and species of a tree. May only contains genus
-    */
-    ret = [result['is_plant'], result['suggestions'][0]['plant_details']['common_names'][0], result['suggestions'][0]['plant_details']['scientific_name'], result['suggestions'][0]['plant_details']['structured_name']]
-    return ret;
-  } catch (error) {
-    console.error(error);
-    return -1;
   }
 }
 
