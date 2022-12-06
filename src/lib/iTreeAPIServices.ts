@@ -37,7 +37,7 @@ export async function identifyTreePicture(picture) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Api-Key": "dpkoLRRqVuucwKOTsGk0NVyZdJCticAFOqemOPg6Yg1gIqx9H6"
+        "Api-Key": CONFIG.PLANTID_KEY,
       },
       body: JSON.stringify({
         "images": [base64files],
