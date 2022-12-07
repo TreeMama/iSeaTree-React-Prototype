@@ -8,19 +8,19 @@ import {
   Alert,
   StyleSheet,
   ActivityIndicator,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native'
 import { CONFIG } from '../../../envVariables'
-import {
-  Button,
-  DefaultTheme
-} from 'react-native-paper'
+import { Button, DefaultTheme } from 'react-native-paper'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { StatusBar } from '../../components/StatusBar'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { MaterialBottomTabNavigationConfig, MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs/lib/typescript/src/types'
+import {
+  MaterialBottomTabNavigationConfig,
+  MaterialBottomTabNavigationProp,
+} from '@react-navigation/material-bottom-tabs/lib/typescript/src/types'
 
 const info_image = require('../../../assets/info.png')
 const arrow_up = require('../../../assets/arrow_up.png')
@@ -32,10 +32,10 @@ const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
 interface ITreeInfoProps {
-  selectedTree: SpeciesData,
-  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>,
-  navigation: TreeInfoNavigation,
-  isFromMapScreen: boolean,
+  selectedTree: SpeciesData
+  setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>
+  navigation: TreeInfoNavigation
+  isFromMapScreen: boolean
   setIsFromMapScreen: React.Dispatch<React.SetStateAction<boolean | false>>
 }
 
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   },
   image: { width: '100%', height: '100%' },
 })
-
 
 export function TreeInfo(props: ITreeInfoProps) {
   const selectedTree = props.selectedTree
@@ -145,7 +144,6 @@ export function TreeInfo(props: ITreeInfoProps) {
             <ActivityIndicator color={'green'} />
           </View>
         )}
-
       </View>
     )
   }
@@ -178,9 +176,11 @@ export function TreeInfo(props: ITreeInfoProps) {
   }
 
   return (
-    <View style={{
-      marginTop: 5
-    }}>
+    <View
+      style={{
+        marginTop: 5,
+      }}
+    >
       <Modal animationType="slide" transparent={true} visible={props.selectedTree !== undefined}>
         <Modal animationType="slide" transparent={true} visible={thirdModalVisibility}>
           <StatusBar />
@@ -250,9 +250,7 @@ export function TreeInfo(props: ITreeInfoProps) {
               )}
             </View>
           </View>
-          <View
-            style={{ height: '60%', width: '100%', backgroundColor: 'white', paddingTop: 50 }}
-          >
+          <View style={{ height: '60%', width: '100%', backgroundColor: 'white', paddingTop: 50 }}>
             <View
               style={{
                 alignItems: 'baseline',
@@ -275,9 +273,7 @@ export function TreeInfo(props: ITreeInfoProps) {
                   />
                   <View style={{ marginLeft: 5, width: '82%' }}>
                     <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>Type</RNText>
-                    <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>
-                      {currentData?.TYPE}
-                    </RNText>
+                    <RNText style={{ fontSize: 16, color: '#7F7F7F' }}>{currentData?.TYPE}</RNText>
                   </View>
                 </View>
               ) : null}
@@ -391,20 +387,20 @@ export function TreeInfo(props: ITreeInfoProps) {
               CLOSE
             </Button>
           </View>
-
         </Modal>
         <StatusBar />
 
         {/* Main Screen Layout */}
-        <View style={{
-          flex: 1,
-          height: '100%',
-          backgroundColor: 'white',
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-
+        <View
+          style={{
+            flex: 1,
+            height: '100%',
+            backgroundColor: 'white',
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           {/* Carousel */}
           <View
             style={{
@@ -463,9 +459,7 @@ export function TreeInfo(props: ITreeInfoProps) {
                   style={{ height: 40, width: 60 }}
                   resizeMode={'contain'}
                 />
-                <View
-                  style={{ marginLeft: 10, width: '80%', marginRight: 10, marginBottom: 10 }}
-                >
+                <View style={{ marginLeft: 10, width: '80%', marginRight: 10, marginBottom: 10 }}>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     <RNText style={{ fontWeight: 'bold', fontSize: 16 }}>
                       {currentData?.COMMON}
@@ -514,7 +508,10 @@ export function TreeInfo(props: ITreeInfoProps) {
               // <View
               //   style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 100 }}
               // >
-              <ScrollView style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }} showsVerticalScrollIndicator={true}>
+              <ScrollView
+                style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }}
+                showsVerticalScrollIndicator={true}
+              >
                 <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
                   Common Name
                 </RNText>
@@ -527,27 +524,19 @@ export function TreeInfo(props: ITreeInfoProps) {
                 <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
                   {currentData?.SCIENTIFIC}
                 </RNText>
-                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
-                  Type
-                </RNText>
-                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
-                  {currentData?.TYPE}
-                </RNText>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>Type</RNText>
+                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>{currentData?.TYPE}</RNText>
                 <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
                   Description
                 </RNText>
                 <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
                   {currentData?.DESCRIPTION}
                 </RNText>
-                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>
-                  Level
-                </RNText>
-                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
-                  {currentData?.LEVEL}
-                </RNText>
+                <RNText style={{ fontWeight: 'bold', fontSize: 18, marginTop: 10 }}>Level</RNText>
+                <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>{currentData?.LEVEL}</RNText>
               </ScrollView>
-              // </View>
-            ) : null}
+            ) : // </View>
+            null}
             {props.isFromMapScreen ? (
               <Button
                 mode="contained"
@@ -592,7 +581,7 @@ export function TreeInfo(props: ITreeInfoProps) {
                         setSecondaryModalVisibility(false)
                         props.setSelectedTree(undefined)
                         props.navigation.navigate('addTree', {
-                          selectedSpeciesData: selectedTree
+                          selectedSpeciesData: selectedTree,
                         })
                       },
                     },
@@ -607,11 +596,10 @@ export function TreeInfo(props: ITreeInfoProps) {
           {/* Return Button */}
           {props.isFromMapScreen ? null : (
             <TouchableOpacity
-              onPress={
-                () => {
-                  setSecondaryModalVisibility(false)
-                  props.setSelectedTree(undefined)
-                }}
+              onPress={() => {
+                setSecondaryModalVisibility(false)
+                props.setSelectedTree(undefined)
+              }}
               style={{
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -662,10 +650,8 @@ export function TreeInfo(props: ITreeInfoProps) {
               source={treeDetailImg}
             />
           </TouchableOpacity>
-
         </View>
-      </Modal >
-    </View >
-
+      </Modal>
+    </View>
   )
 }

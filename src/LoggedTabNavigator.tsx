@@ -43,12 +43,9 @@ export function LoggedTabNavigator() {
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: 5,
-          // left: 20,
-          // right: 20,
+          // bottom: 5,
           elevation: 0,
           backgroundColor: 'white',
-          // borderRadius: 15,
           // height: 90,
         },
       }}
@@ -61,6 +58,7 @@ export function LoggedTabNavigator() {
         name={TabScreenNames.profile}
         component={ProfileScreen}
         options={{
+          // headerShown: true,
           tabBarLabel: 'Profile',
           // tabBarIcon: ({ color }) => (
           //   <MaterialCommunityIcons name="account-circle" color={color} size={26} />

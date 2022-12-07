@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { Banner, Button } from 'react-native-paper'
-import auth from '@react-native-firebase/auth';
+import auth from '@react-native-firebase/auth'
 import { LoginForm } from './LoginForm'
 import { useNavigationActions } from '../../lib/navigation'
 
-import AppIntroScreen from '../AppIntroScreen';
+import AppIntroScreen from '../AppIntroScreen'
 import { StatusBar } from '../../components/StatusBar'
 
 const styles = StyleSheet.create({
@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
 export function LoginScreen(props) {
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const navigationActions = useNavigationActions();
-  const { isShowIntro } = props.route.params;
-  const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(isShowIntro);
+  const navigationActions = useNavigationActions()
+  const { isShowIntro } = props.route.params
+  const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(isShowIntro)
 
   function sliderDismissHanlder() {
-    setIsSliderVisible(false);
+    setIsSliderVisible(false)
   }
 
   function handleLogin({ email, password }: { email: string; password: string }) {
@@ -54,9 +54,9 @@ export function LoginScreen(props) {
 
   return (
     <>
-      {isSliderVisible ?
+      {isSliderVisible ? (
         <AppIntroScreen dismissSlider={sliderDismissHanlder} />
-        :
+      ) : (
         <View style={styles.container}>
           <StatusBar />
 
@@ -85,7 +85,7 @@ export function LoginScreen(props) {
             create new account
           </Button>
         </View>
-      }
+      )}
     </>
   )
 }
