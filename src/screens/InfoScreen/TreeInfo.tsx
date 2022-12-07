@@ -95,7 +95,7 @@ export function TreeInfo(props: ITreeInfoProps) {
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
 
   const imageArray = (() => {
-    let pictures: string[] = []
+    const pictures: string[] = []
     if (currentData?.THUMB_PIC_1024x768) {
       pictures.push(...currentData.THUMB_PIC_1024x768.split(','))
     }
