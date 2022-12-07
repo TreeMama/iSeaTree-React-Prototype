@@ -6,13 +6,15 @@ export enum ScreenNames {
   resetPassword = 'resetPassword',
   loggedTabNavigator = 'loggedTabNavigator',
   showImage = 'showImage',
-  identifySpecies = 'identifySpecies'
+  identifySpecies = 'identifySpecies',
+  tutorial = 'tutorial'
 }
 
 export enum TabScreenNames {
   profile = 'profile',
   addTree = 'addTree',
-  suggestedTrees = 'suggestedTrees',  // legacy tree info page
+  // legacy tree info page
+  suggestedTrees = 'suggestedTrees',
   infoScreen = 'infoScreen',
   mapScreen = 'mapScreen',
   challengeScreen = 'challengeScreen',
@@ -42,6 +44,9 @@ export function useNavigationActions(): NavigationActions {
     },
     identifySpecies: () => {
       navigation.navigate(ScreenNames.identifySpecies)
+    },
+    tutorial: () => {
+      navigation.navigate(ScreenNames.tutorial)
     },
   }
 }

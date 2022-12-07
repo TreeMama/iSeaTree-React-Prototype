@@ -4,9 +4,9 @@ import React from 'react'
 
 import { StatusBar } from 'react-native'
 import { registerRootComponent } from 'expo'
-import * as SplashScreen from 'expo-splash-screen';
+import * as SplashScreen from 'expo-splash-screen'
 import { Provider as PaperProvider } from 'react-native-paper'
-import auth, { firebase } from '@react-native-firebase/auth';
+import auth, { firebase } from '@react-native-firebase/auth'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -20,12 +20,13 @@ import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPassword
 import { LoggedTabNavigator } from './LoggedTabNavigator'
 import { usePrevious } from './hooks/usePrevious'
 import { LocationProvider } from './LocationContext'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import Constants from 'expo-constants';
-import DeviceInfo from 'react-native-device-info';
-import TipProvider from "react-native-tip";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Constants from 'expo-constants'
+import DeviceInfo from 'react-native-device-info'
+import TipProvider from 'react-native-tip'
+import AppIntroScreen from './screens/AppIntroScreen/index'
 
-console.disableYellowBox = true;
+console.disableYellowBox = true
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
@@ -62,16 +63,15 @@ const Stack = createStackNavigator()
 
 // eslint-disable-next-line import/no-default-export
 export default function App() {
-  const { isUserLogged } = useAuthStateChange();
+  const { isUserLogged } = useAuthStateChange()
   const [isShowIntro, setisShowIntro] = React.useState<null | boolean>(null)
 
-  useManageSplashScreen(isUserLogged);
+  useManageSplashScreen(isUserLogged)
 
-  const apps = firebase.apps;
-  apps.forEach(app => {
-    console.log('app name +++', app);
+  const apps = firebase.apps
+  apps.forEach((app) => {
+    console.log('app name +++', app)
   })
-
 
   async function versionChanged(savedVersion, currentVersion) {
     if (savedVersion === currentVersion) {
@@ -82,11 +82,11 @@ export default function App() {
   }
 
   async function checkIntro() {
-    const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP');
-    const savedAppversion = await AsyncStorage.getItem('APP_VERSION');
-    const parseisShowIntro = JSON.parse(isShowIntro);
-    const parsesavedAppversion = JSON.parse(savedAppversion);
-    const currentVersionNum = DeviceInfo.getVersion();
+    const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP')
+    const savedAppversion = await AsyncStorage.getItem('APP_VERSION')
+    const parseisShowIntro = JSON.parse(isShowIntro)
+    const parsesavedAppversion = JSON.parse(savedAppversion)
+    const currentVersionNum = DeviceInfo.getVersion()
 
     const isVersionChanged = await versionChanged(parsesavedAppversion, currentVersionNum)
 
@@ -132,6 +132,11 @@ export default function App() {
                   component={IdentifySpecies}
                   options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                  name={ScreenNames.tutorial}
+                  component={AppIntroScreen}
+                  options={{ headerShown: false }}
+                />
               </>
             ) : (
               <>
@@ -160,22 +165,20 @@ export default function App() {
           titleStyle={{
             fontWeight: 'bold',
             fontSize: 13,
-            marginBottom: 10
+            marginBottom: 10,
           }}
           bodyStyle={{
-            fontSize: 13
+            fontSize: 13,
           }}
           tipContainerStyle={{
             padding: 15,
             borderRadius: 15,
             maxWidth: 350,
-            elevation: 5
+            elevation: 5,
           }}
           // darkMode={isDarkMode}
-          prevNextTextStyle={{
-          }}
-          prevNextButtonStyle={{
-          }}
+          prevNextTextStyle={{}}
+          prevNextButtonStyle={{}}
         />
       </LocationProvider>
     </PaperProvider>
