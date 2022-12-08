@@ -10,8 +10,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
 import { AddTreeScreen } from './screens/AddTreeScreen'
-import { SuggestedTreesScreen } from './screens/SuggestedTreesScreen'
 import { MapScreen } from './screens/MapScreen'
+import { InfoScreen } from './screens/InfoScreen/InfoScreen'
 import { colors } from './styles/theme'
 import { ChallengeScreen } from './screens/ChallengeScreen'
 
@@ -21,7 +21,7 @@ const profileIcon = require('../assets/nav_profile_inactive.png')
 const profileActiveIcon = require('../assets/nav_profile.png')
 const mapIcon = require('../assets/nav_map_inactive.png')
 const mapActiveIcon = require('../assets/nav_map.png')
-// const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
+const treeCameraIcon = require('../assets/nav_addtree_inactive.png')
 const treeCameraActiveIcon = require('../assets/nav_addtree.png')
 const challengeIcon = require('../assets/nav_callenge_inactive.png')
 const challengeAcitiveIcon = require('../assets/nav_callenge.png')
@@ -73,7 +73,7 @@ export function LoggedTabNavigator() {
           //   />
           // ),
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? profileActiveIcon : profileIcon}
                 fadeDuration={0}
@@ -92,7 +92,7 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Explore',
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? mapActiveIcon : mapIcon}
                 fadeDuration={0}
@@ -112,7 +112,7 @@ export function LoggedTabNavigator() {
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
             <Image
-              source={focused ? treeCameraActiveIcon : treeCameraActiveIcon}
+              source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
               style={{
                 width: 60,
@@ -130,7 +130,7 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: 'Challenge',
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? challengeAcitiveIcon : challengeIcon}
                 fadeDuration={0}
@@ -144,12 +144,12 @@ export function LoggedTabNavigator() {
         }}
       />
       <Tab.Screen
-        name={TabScreenNames.suggestedTrees}
-        component={SuggestedTreesScreen}
+        name={TabScreenNames.infoScreen}
+        component={InfoScreen}
         options={{
           tabBarLabel: 'Info',
           tabBarIcon: ({ focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
               <Image
                 source={focused ? infoActiveIcon : infoIcon}
                 fadeDuration={0}

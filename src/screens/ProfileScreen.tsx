@@ -13,11 +13,11 @@ import {
   Text,
   TouchableOpacity,
   Platform,
-  Alert
+  Alert,
 } from 'react-native'
 
 import { Button } from 'react-native-paper'
-import Constants from 'expo-constants';
+import Constants from 'expo-constants'
 import { StatusBar } from '../components/StatusBar'
 import { Badge } from '../components/Badge'
 import {
@@ -27,23 +27,23 @@ import {
   signOutUser,
   getCurrentAuthUser,
   updateTreeAndDeleteAccount,
-  setUserAvatarSeed
+  setUserAvatarSeed,
 } from '../lib/firebaseServices'
 import { colors } from '../styles/theme'
 import Slider from './SliderScreen'
-import AppIntroScreen from './AppIntroScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import DeviceInfo from 'react-native-device-info';
+import AppIntroScreen from './AppIntroScreen'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import DeviceInfo from 'react-native-device-info'
 
-const win = Dimensions.get('window');
-const imagePlaceholder = require('../../assets/profile/image_placeholder.png');
-const imageReward = require('../../assets/profile/reward_icon.png');
-const imageTree = require('../../assets/profile/tree_icon.png');
-const informationIcon = require('../../assets/profile/information.png');
-const logoutIcon = require('../../assets/profile/logout.png');
-const compassIcon = require('../../assets/profile/compass.png');
-const deleteIcon = require('../../assets/profile/delete.png');
-const randomIcon = require('../../assets/profile/random.png');
+const win = Dimensions.get('window')
+const imagePlaceholder = require('../../assets/profile/image_placeholder.png')
+const imageReward = require('../../assets/profile/reward_icon.png')
+const imageTree = require('../../assets/profile/tree_icon.png')
+const informationIcon = require('../../assets/profile/information.png')
+const logoutIcon = require('../../assets/profile/logout.png')
+const compassIcon = require('../../assets/profile/compass.png')
+const deleteIcon = require('../../assets/profile/delete.png')
+const randomIcon = require('../../assets/profile/random.png')
 
 const styles = StyleSheet.create({
   container: {
@@ -56,12 +56,12 @@ const styles = StyleSheet.create({
   },
   helpSectionLink: {
     fontSize: 12,
-    paddingVertical: 5
+    paddingVertical: 5,
   },
   linkColor: {
     color: '#87CEEB',
     fontSize: 12,
-    textDecorationLine: "underline"
+    textDecorationLine: 'underline',
   },
   profileContainer: {
     width: '100%',
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: win.height / 2.6,
     backgroundColor: colors.green[700],
-    paddingTop: 40
+    paddingTop: 40,
   },
   profileImageContainer: {
     height: win.width / 3,
@@ -80,18 +80,18 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     borderColor: '#fff',
     overflow: 'hidden',
-    backgroundColor: 'rgba(255,255,255,0.8)'
+    backgroundColor: 'rgba(255,255,255,0.8)',
   },
   profileImage: {
     height: win.width / 4,
     width: win.width / 4,
     alignSelf: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   profiledetailContainer: {
     marginTop: 10,
     alignContent: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   userNameText: {
     fontSize: 28,
@@ -105,19 +105,18 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textAlign: 'center',
     color: '#fff',
-    lineHeight: 25
+    lineHeight: 25,
   },
   profileRightMenuContainer: {
     right: 15,
-    // top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
-    top: Platform.OS === 'ios' ? Constants.statusBarHeight > 0 ? Constants.statusBarHeight : 10 + 5 : Constants.statusBarHeight,
-    position: 'absolute'
+    top: Platform.OS === 'ios' ? Constants.statusBarHeight + 5 : Constants.statusBarHeight,
+    position: 'absolute',
   },
   menuIcon: {
     height: 30,
     width: 30,
     resizeMode: 'contain',
-    tintColor: '#fff'
+    tintColor: '#fff',
   },
   avatarIcon: {
     height: 30,
@@ -138,18 +137,18 @@ const styles = StyleSheet.create({
     width: 40,
     alignSelf: 'center',
     justifyContent: 'center',
-    tintColor: colors.green[700]
+    tintColor: colors.green[700],
   },
   statusCellValueText: {
     fontSize: 24,
     fontWeight: '700',
     textAlign: 'center',
-    color: colors.gray[700]
+    color: colors.gray[700],
   },
   statusCellTitleText: {
     fontSize: 14,
     textAlign: 'center',
-    color: colors.gray[600]
+    color: colors.gray[600],
   },
   badgeViewContainer: {
     flex: 1,
@@ -161,8 +160,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 12
-  }
+    margin: 12,
+  },
 })
 
 export function ProfileScreen(props) {
@@ -171,10 +170,10 @@ export function ProfileScreen(props) {
   const [statusData, setStatusData] = React.useState<any[]>([
     { id: 1, title: 'Trees Identified', value: 0, imgSrc: imageTree },
     { id: 2, title: 'Badges Earned', value: 0, imgSrc: imageReward },
-  ]);
-  const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false);
+  ])
+  const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(false)
 
-  const authUser = getCurrentAuthUser();
+  const authUser = getCurrentAuthUser()
   const [avatarUrl, setAvatarUrl] = React.useState<String | null>(null)
 
   async function versionChanged(savedVersion: any, currentVersion: string) {
@@ -187,30 +186,31 @@ export function ProfileScreen(props) {
 
   const deleteAccount = () =>
     Alert.alert(
-      "Confirmation",
+      'Confirmation',
       `Do you want to delete your account? If you select "OK" all user data will be impossible to restore in the future.`,
       [
         {
-          text: "OK", onPress: () => {
-            console.log("ok pressed +++", authUser?.uid);
-            updateTreeAndDeleteAccount(authUser?.uid);
-          }
+          text: 'OK',
+          onPress: () => {
+            console.log('ok pressed +++', authUser?.uid)
+            updateTreeAndDeleteAccount(authUser?.uid)
+          },
         },
         {
-          text: "Cancel",
-          onPress: () => console.log("cancel button pressed +++"),
-          style: "cancel"
-        }
+          text: 'Cancel',
+          onPress: () => console.log('cancel button pressed +++'),
+          style: 'cancel',
+        },
       ],
-      { cancelable: false }
-    );
+      { cancelable: false },
+    )
 
   async function checkIntro() {
-    const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP');
-    const savedAppversion = await AsyncStorage.getItem('APP_VERSION');
-    const parseisShowIntro = JSON.parse(isShowIntro);
-    const parsesavedAppversion = JSON.parse(savedAppversion);
-    const currentVersionNum = DeviceInfo.getVersion();
+    const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP')
+    const savedAppversion = await AsyncStorage.getItem('APP_VERSION')
+    const parseisShowIntro = JSON.parse(isShowIntro)
+    const parsesavedAppversion = JSON.parse(savedAppversion)
+    const currentVersionNum = DeviceInfo.getVersion()
 
     const isVersionChanged = await versionChanged(parsesavedAppversion, currentVersionNum)
 
@@ -239,22 +239,25 @@ export function ProfileScreen(props) {
         return
       }
 
-      const treecount = addTreeCount(userData);
-      let badgeLength: number;
+      const treecount = addTreeCount(userData)
+      let badgeLength: number
       if (userData?.badges !== undefined) {
-        badgeLength = userData?.badges.length;
+        badgeLength = userData?.badges.length
       } else {
-        badgeLength = 0;
+        badgeLength = 0
       }
 
       setStatusData(
-        statusData.map(item =>
+        statusData.map((item) =>
           item.id === 1
             ? { ...item, value: treecount }
-            : item.id === 2 ? { ...item, value: badgeLength } : item
-        ))
+            : item.id === 2
+            ? { ...item, value: badgeLength }
+            : item,
+        ),
+      )
       setAvatarUrl(getAvatarUrl(userData.avatarSeed ?? 'default_seed'))
-      setUserData(userData);
+      setUserData(userData)
     })
 
     return () => {
@@ -263,29 +266,30 @@ export function ProfileScreen(props) {
   }, [authUser?.email])
 
   function handleSignout() {
-    setIsMenuVisible(false);
-    signOutUser();
+    setIsMenuVisible(false)
+    signOutUser()
   }
 
   const redirectToSignIn = () =>
     Alert.alert(
-      "Confirmation",
-      "This will log you out and take you to the login screen. Ok?",
+      'Confirmation',
+      'This will log you out and take you to the login screen. Ok?',
       [
         {
-          text: "OK", onPress: () => {
-            console.log("ok pressed +++", authUser?.uid);
-            handleSignout();
-          }
+          text: 'OK',
+          onPress: () => {
+            console.log('ok pressed +++', authUser?.uid)
+            handleSignout()
+          },
         },
         {
-          text: "Cancel",
-          onPress: () => console.log("cancel button pressed +++"),
-          style: "cancel"
-        }
+          text: 'Cancel',
+          onPress: () => console.log('cancel button pressed +++'),
+          style: 'cancel',
+        },
       ],
-      { cancelable: false }
-    );
+      { cancelable: false },
+    )
 
   if (!authUser) {
     return null
@@ -294,15 +298,19 @@ export function ProfileScreen(props) {
   function addTreeCount(data) {
     if (data?.treesCount == undefined) {
       // return 'You haven\'t added any trees yet.'
-      return 0;
+      return 0
     }
-    return data?.treesCount;
-
+    return data?.treesCount
   }
 
   function renderStatusList({ item, index }) {
     return (
-      <View style={[styles.statusCell, index % 2 !== 0 && { borderLeftWidth: 0.5, borderLeftColor: colors.gray[600] }]}>
+      <View
+        style={[
+          styles.statusCell,
+          index % 2 !== 0 && { borderLeftWidth: 0.5, borderLeftColor: colors.gray[600] },
+        ]}
+      >
         <Image source={item.imgSrc} style={styles.statuscellImage} resizeMode="contain" />
         <View style={{ alignSelf: 'center', justifyContent: 'center', marginTop: 15 }}>
           <Text style={styles.statusCellValueText}>{item.value}</Text>
@@ -315,60 +323,31 @@ export function ProfileScreen(props) {
   function renderBadgeList({ item, index }) {
     return (
       <View style={styles.badgeCell}>
-        {item === 'SEEDLING'
-          &&
-          <Badge key="seedling" variant="seedling" />
-        }
-        {item === 'SAPLING'
-          &&
-          <Badge key="sapling" variant="sapling" />
-        }
-        {item === 'OLD_GROWTH_EXPERT'
-          &&
+        {item === 'SEEDLING' && <Badge key="seedling" variant="seedling" />}
+        {item === 'SAPLING' && <Badge key="sapling" variant="sapling" />}
+        {item === 'OLD_GROWTH_EXPERT' && (
           <Badge key="old_growth_expert" variant="old_growth_expert" />
-        }
-        {item === 'FIRST_TREE'
-          &&
-          <Badge key="first_tree" variant="first_tree" />
-        }
-        {item === 'FIFTH_TREE'
-          &&
-          <Badge key="fifth_tree" variant="fifth_tree" />
-        }
-        {item === 'TENTH_TREE'
-          &&
-          <Badge key="tenth_tree" variant="tenth_tree" />
-        }
-        {item === 'TWENTIETH_TREE'
-          &&
-          <Badge key="twentieth_tree" variant="twentieth_tree" />
-        }
-        {item === 'FIFTIETH_TREE'
-          &&
-          <Badge key="fiftieth_tree" variant="fiftieth_tree" />
-        }
-        {item === 'HUNDREDTH_TREE'
-          &&
-          <Badge key="hundredth_tree" variant="hundredth_tree" />
-        }
-        {item === 'TWO_HUNDREDTH_TREE'
-          &&
+        )}
+        {item === 'FIRST_TREE' && <Badge key="first_tree" variant="first_tree" />}
+        {item === 'FIFTH_TREE' && <Badge key="fifth_tree" variant="fifth_tree" />}
+        {item === 'TENTH_TREE' && <Badge key="tenth_tree" variant="tenth_tree" />}
+        {item === 'TWENTIETH_TREE' && <Badge key="twentieth_tree" variant="twentieth_tree" />}
+        {item === 'FIFTIETH_TREE' && <Badge key="fiftieth_tree" variant="fiftieth_tree" />}
+        {item === 'HUNDREDTH_TREE' && <Badge key="hundredth_tree" variant="hundredth_tree" />}
+        {item === 'TWO_HUNDREDTH_TREE' && (
           <Badge key="two_hundredth_tree" variant="two_hundredth_tree" />
-        }
-        {item === 'DBH'
-          &&
-          <Badge key="dbh" variant="dbh" />
-        }
+        )}
+        {item === 'DBH' && <Badge key="dbh" variant="dbh" />}
       </View>
     )
   }
 
   function goToSliderHandler() {
-    setIsSliderVisible(true);
+    setIsSliderVisible(true)
   }
 
   function sliderDismissHanlder() {
-    setIsSliderVisible(false);
+    setIsSliderVisible(false)
   }
 
   function getAvatarUrl(seed: string) {
@@ -377,34 +356,34 @@ export function ProfileScreen(props) {
 
   function randomizeAvatarUrl() {
     Alert.alert(
-      "Confirmation",
-      "Generate a new random avatar?",
+      'Confirmation',
+      'Generate a new random avatar?',
       [
         {
-          text: "OK", onPress: () => {
+          text: 'OK',
+          onPress: () => {
             const seed = Math.random().toString(36).slice(2)
             setAvatarUrl(getAvatarUrl(seed))
             if (authUser?.uid) {
               setUserAvatarSeed(authUser.uid, seed)
             }
-          }
+          },
         },
         {
-          text: "Cancel",
-          style: "cancel"
-        }
+          text: 'Cancel',
+          style: 'cancel',
+        },
       ],
-      { cancelable: false }
-    );
-
+      { cancelable: false },
+    )
   }
 
   return (
     <>
       {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
-      {isSliderVisible ?
+      {isSliderVisible ? (
         <AppIntroScreen dismissSlider={sliderDismissHanlder} />
-        :
+      ) : (
         <>
           <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
             <ScrollView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -427,11 +406,17 @@ export function ProfileScreen(props) {
                     </TouchableOpacity>
                   </View>
                   <View>
-                    <TouchableOpacity onPress={() => randomizeAvatarUrl()} style={[{ zIndex: 1, elevation: 1 }]}>
+                    <TouchableOpacity
+                      onPress={() => randomizeAvatarUrl()}
+                      style={[{ zIndex: 1, elevation: 1 }]}
+                    >
                       <Image source={randomIcon} style={[styles.avatarIcon]} />
                     </TouchableOpacity>
                     <View style={styles.profileImageContainer}>
-                      <Image source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder} style={styles.profileImage} />
+                      <Image
+                        source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder}
+                        style={styles.profileImage}
+                      />
                     </View>
                   </View>
 
@@ -445,31 +430,31 @@ export function ProfileScreen(props) {
                   <FlatList
                     data={statusData}
                     style={styles.container}
-                    renderItem={object => renderStatusList(object)}
-                    numColumns={2} />
+                    renderItem={(object) => renderStatusList(object)}
+                    numColumns={2}
+                  />
                 </View>
 
-                {userData?.badges !== undefined
-                  &&
+                {userData?.badges !== undefined && (
                   <View style={styles.container}>
                     <FlatList
                       data={userData?.badges}
                       style={styles.badgeViewContainer}
-                      renderItem={object => renderBadgeList(object)}
-                      numColumns={2} />
+                      renderItem={(object) => renderBadgeList(object)}
+                      numColumns={2}
+                    />
                   </View>
-                }
+                )}
 
                 {/* <Button style={{ marginTop: 20, marginBottom: 20 }} onPress={goToSliderHandler}>
                   Click here for a walkthrough!
           </Button> */}
-
               </View>
             </ScrollView>
           </KeyboardAvoidingView>
           {/* { isSliderVisible ? <Slider dismissSlider={sliderDismissHanlder} /> : null} */}
         </>
-      }
+      )}
     </>
   )
 }
