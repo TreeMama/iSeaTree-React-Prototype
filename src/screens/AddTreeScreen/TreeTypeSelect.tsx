@@ -25,9 +25,9 @@ const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
     return {
       setTreeType: (treeType: TreeTypes) => {
         setCurrentType(treeType)
-      }
-    };
-  });
+      },
+    }
+  })
 
   function handleTreeTypeSelect(treeType: TreeTypes) {
     setCurrentType(treeType)
@@ -38,40 +38,42 @@ const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
     <View>
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginBottom: 5 }}>
         <Subheading>Tree type</Subheading>
-        <TtypeHelp/>
+        <TtypeHelp />
       </View>
       <View
         style={{
-          marginTop:10,
+          marginTop: 15,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}
       >
         <Button
-         style={{backgroundColor:currentType === TreeTypes.CONIFER ? theme.colors.background : 'white'}}
+          style={{
+            backgroundColor: currentType === TreeTypes.CONIFER ? theme.colors.background : 'white',
+          }}
           mode={currentType === TreeTypes.CONIFER ? 'outlined' : 'text'}
           icon={() => <Image source={coniferImage} style={iconStyle} />}
           onPress={() => {
             // handleTreeTypeSelect(TreeTypes.CONIFER)
-            if (currentType === TreeTypes.CONIFER)
-              handleTreeTypeSelect(TreeTypes.NULL)
-            else
-              handleTreeTypeSelect(TreeTypes.CONIFER)
+            if (currentType === TreeTypes.CONIFER) handleTreeTypeSelect(TreeTypes.NULL)
+            else handleTreeTypeSelect(TreeTypes.CONIFER)
           }}
         >
           {TreeTypes.CONIFER}
         </Button>
         <Button
-          style={{backgroundColor:currentType === TreeTypes.BROADLEAF ? theme.colors.background : 'white',borderColor: theme.colors.backdrop}}
+          style={{
+            backgroundColor:
+              currentType === TreeTypes.BROADLEAF ? theme.colors.background : 'white',
+            borderColor: theme.colors.backdrop,
+          }}
           mode={currentType === TreeTypes.BROADLEAF ? 'outlined' : 'text'}
           icon={() => <Image source={deciduousImage} style={iconStyle} />}
           onPress={() => {
             // handleTreeTypeSelect(TreeTypes.DECIDUOUS)
-            if (currentType === TreeTypes.BROADLEAF)
-              handleTreeTypeSelect(TreeTypes.NULL)
-            else 
-              handleTreeTypeSelect(TreeTypes.BROADLEAF)
+            if (currentType === TreeTypes.BROADLEAF) handleTreeTypeSelect(TreeTypes.NULL)
+            else handleTreeTypeSelect(TreeTypes.BROADLEAF)
           }}
         >
           {TreeTypes.BROADLEAF}
@@ -81,4 +83,4 @@ const TreeTypeSelect = React.forwardRef((props: TreeTypeSelectProps, ref) => {
   )
 })
 
-export default TreeTypeSelect;
+export default TreeTypeSelect

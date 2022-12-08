@@ -17,7 +17,7 @@ import {
   Platform,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { Button, TextInput, Text, Subheading, useTheme } from 'react-native-paper'
+import { Button, TextInput, Text, Subheading, useTheme, Switch } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
 import { StatusBar } from '../../components/StatusBar'
@@ -41,6 +41,7 @@ import { setUpdateIntervalForType, SensorTypes, accelerometer } from 'react-nati
 import { RNCamera } from 'react-native-camera'
 import { useCamera } from 'react-native-camera-hooks'
 import Icon from 'react-native-vector-icons/Ionicons'
+import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
 
 const win = Dimensions.get('window')
@@ -112,6 +113,11 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
   },
+  treeBotContainer: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginRight: 10,
+  },
 })
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
@@ -161,6 +167,7 @@ export function AddTreeScreen(props) {
   const [DBHCalculation, setDBHCalculation] = React.useState('')
   const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false)
   const [calculatedFormValues, setCalculatedFormValues] = React.useState(false)
+  const [isEnabled, setIsEnabled] = useState(false)
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -177,6 +184,7 @@ export function AddTreeScreen(props) {
       locationType: null,
       estimate: false,
       CameraMeasured: false,
+      needsValidation: false,
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -744,20 +752,77 @@ export function AddTreeScreen(props) {
   )
 
   const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
+  const toggleSwitch = () => {
+    if (formik.values.speciesData?.TYPE != 'unknown') {
+      formik.setFieldValue('needsValidation', true)
+    } else {
+      formik.setFieldValue('needsValidation', false)
+    }
+    setIsEnabled((previousState) => !previousState)
+  }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={styles.container}>
-        <StatusBar />
+        {/* <StatusBar /> */}
 
         <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 70 }}>
-          <Button
+          {/* <Button
             style={{ alignSelf: 'flex-end', marginVertical: 5 }}
             icon="close"
             onPress={handleClear}
           >
             Clear
-          </Button>
+          </Button> */}
+          <View style={[styles.rowContainer, styles.treeBotContainer]}>
+            {/* <DbhHelp /> */}
+            <View>
+              <Tooltip
+                height={180}
+                width={250}
+                containerStyle={{
+                  left: 60,
+                }}
+                backgroundColor={theme.colors.primary}
+                popover={
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      paddingHorizontal: 40,
+                    }}
+                  >
+                    <Image
+                      style={{ height: 70, width: 70, resizeMode: 'contain' }}
+                      source={require('../../../assets/tree-help/help-robot.png')}
+                    />
+                    <Text
+                      style={{ fontSize: 14, color: 'white', lineHeight: 20 }}
+                    >{`TreeBot is our AI assistant for helping you correctly identify a tree species (or genus). Toggle the switch & take a picture if you need help!`}</Text>
+                  </View>
+                }
+              >
+                <MaterialCommunityIcons
+                  name="help-circle-outline"
+                  size={16}
+                  color={colors.gray[700]}
+                />
+              </Tooltip>
+            </View>
+            <Text
+              style={{ color: theme.colors.text, marginLeft: 2, fontSize: 17, fontWeight: 'bold' }}
+            >
+              TreeBot
+            </Text>
+            <Switch
+              trackColor={{ true: 'green' }}
+              onValueChange={() => toggleSwitch()}
+              value={isEnabled}
+              style={{ transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }] }}
+            ></Switch>
+          </View>
 
           <View>
             <View
@@ -837,7 +902,7 @@ export function AddTreeScreen(props) {
                 }}
               />
             </View>
-            <View style={{ position: 'absolute', top: 5, right: 30 }}>
+            <View style={{ position: 'absolute', top: 0, right: 30 }}>
               <Button
                 mode="outlined"
                 uppercase={true}
@@ -846,11 +911,12 @@ export function AddTreeScreen(props) {
                 onPress={() => {
                   // todo fix clear
                   console.log('clear')
-                  formik.setFieldValue('speciesType', TreeTypes.NULL)
-                  formik.setFieldValue('treeType', TreeTypes.NULL)
+                  formik.resetForm()
+                  // formik.setFieldValue('speciesType', TreeTypes.NULL)
+                  // formik.setFieldValue('treeType', TreeTypes.NULL)
                   refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
-                  formik.setFieldValue('speciesType', TreeTypes.NULL)
-                  formik.setFieldValue('speciesData', null)
+                  // formik.setFieldValue('speciesType', TreeTypes.NULL)
+                  // formik.setFieldValue('speciesData', null)
                 }}
               >
                 Clear
@@ -871,6 +937,11 @@ export function AddTreeScreen(props) {
                 formik.setFieldValue('speciesData', speciesData)
                 if (speciesData?.TYPE != 'unknown') {
                   console.log('known selected' + formik.values.speciesType)
+                  if (isEnabled) {
+                    formik.setFieldValue('needsValidation', true)
+                  } else {
+                    formik.setFieldValue('needsValidation', false)
+                  }
                   if (
                     formik.values.speciesType === TreeTypes.NULL ||
                     formik.values.speciesType == null
@@ -896,6 +967,8 @@ export function AddTreeScreen(props) {
                       )
                     }, 1000)
                     refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
+                  } else {
+                    formik.setFieldValue('needsValidation', false)
                   }
                 }
               }}
