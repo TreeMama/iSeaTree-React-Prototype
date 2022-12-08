@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/namespace */
 import React from 'react'
 import {
   View,
@@ -17,15 +19,12 @@ import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { StatusBar } from '../../components/StatusBar'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import {
-  MaterialBottomTabNavigationConfig,
-  MaterialBottomTabNavigationProp,
-} from '@react-navigation/material-bottom-tabs/lib/typescript/src/types'
+import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs/lib/typescript/src/types'
 
-const info_image = require('../../../assets/info.png')
-const arrow_up = require('../../../assets/arrow_up.png')
-const arrow_down = require('../../../assets/arrow_down.png')
-const search_image = require('../../../assets/trees.png')
+const infoImage = require('../../../assets/info.png')
+const arrowUp = require('../../../assets/arrow_up.png')
+const arrowDown = require('../../../assets/arrow_down.png')
+const searchImage = require('../../../assets/trees.png')
 const treeConifer = require('../../../assets/tree_Conifer3X-01.png')
 const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
 
@@ -39,7 +38,7 @@ interface ITreeInfoProps {
   setIsFromMapScreen: React.Dispatch<React.SetStateAction<boolean | false>>
 }
 
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window')
+const { width: viewportWidth } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   listItem: {
@@ -108,7 +107,7 @@ export function TreeInfo(props: ITreeInfoProps) {
     setLoading(value)
   }
 
-  let treeDetailImg = ''
+  let treeDetailImg = treeConifer
   switch (currentData?.TYPE) {
     case 'conifer':
       treeDetailImg = treeConifer
@@ -242,7 +241,7 @@ export function TreeInfo(props: ITreeInfoProps) {
                   }}
                 >
                   <Image
-                    source={search_image}
+                    source={searchImage}
                     style={{ height: 100, width: 100 }}
                     resizeMode={'contain'}
                   />
@@ -474,7 +473,6 @@ export function TreeInfo(props: ITreeInfoProps) {
               </View>
               <TouchableOpacity
                 style={{
-                  //  flexDirection: 'row',
                   justifyContent: 'center',
                   marginRight: 10,
                   alignItems: 'center',
@@ -485,19 +483,19 @@ export function TreeInfo(props: ITreeInfoProps) {
                 }}
               >
                 <Image
-                  source={info_image}
+                  source={infoImage}
                   style={{ height: 20, width: 20 }}
                   resizeMode={'contain'}
                 />
                 {isInfo ? (
                   <Image
-                    source={arrow_up}
+                    source={arrowUp}
                     style={{ height: 15, width: 15 }}
                     resizeMode={'contain'}
                   />
                 ) : (
                   <Image
-                    source={arrow_down}
+                    source={arrowDown}
                     style={{ height: 15, width: 15 }}
                     resizeMode={'contain'}
                   />
@@ -505,9 +503,6 @@ export function TreeInfo(props: ITreeInfoProps) {
               </TouchableOpacity>
             </View>
             {isInfo ? (
-              // <View
-              //   style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 100 }}
-              // >
               <ScrollView
                 style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }}
                 showsVerticalScrollIndicator={true}
