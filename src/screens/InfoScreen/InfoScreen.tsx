@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -11,17 +13,15 @@ import {
 import { TreeInfo } from './TreeInfo'
 import { SpeciesData } from '../AddTreeScreen/SpeciesSelect'
 import speciesDataList from '../../../data/species.json'
-import { MaterialBottomTabNavigationProp } from '@react-navigation/material-bottom-tabs'
 import { ButtonTab } from './components/ButtonTab'
 import { SearchBar } from './components/SearchBar'
 import { TreeCard } from './components/TreeCard'
 import { Text } from 'react-native-paper'
 import { FilterModal } from './components/FilterModal'
 import { IFilterValues } from './types'
+
 const returnButton = require('../../../assets/angle-left.png')
 const filtersIcon = require('../../../assets/filters_icon.png')
-
-type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
 export function InfoScreen(props) {
   const [selectedTree, setSelectedTree] = useState<SpeciesData | undefined>(undefined)
@@ -40,6 +40,7 @@ export function InfoScreen(props) {
     medium: false,
     expert: false,
   })
+
   // page 1 list
   const [treeList, setTreeList] = useState<SpeciesData[]>([])
   // page 2 list
@@ -50,6 +51,7 @@ export function InfoScreen(props) {
 
   // loading the complete list of trees on component mount
   let completeList: SpeciesData[] = []
+
   useEffect(() => {
     // sort list by common name ascending
     completeList = speciesDataList.sort((a, b) => {
@@ -60,11 +62,11 @@ export function InfoScreen(props) {
 
   // auto-fill selectedTree state when navigated from MapScreen; show TreeInfo
   useEffect(() => {
-    let { params } = props.route
+    const { params } = props.route
     if (params && params.treeNameQuery !== undefined) {
-      let completeList = speciesDataList
-      let query = params.treeNameQuery?.toUpperCase()
-      let filteredList = completeList.filter(
+      const completeList = speciesDataList
+      const query = params.treeNameQuery?.toUpperCase()
+      const filteredList = completeList.filter(
         (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
       )
       setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
@@ -75,6 +77,7 @@ export function InfoScreen(props) {
   // filters logic
   useEffect(() => {
     let newList: SpeciesData[] = speciesDataList
+
     if (query) {
       if (filterValues.allNameTypes) {
         newList = newList.filter(
@@ -92,12 +95,14 @@ export function InfoScreen(props) {
         )
       }
     }
+
     // tree types filter
     if (filterValues.conifer) {
       newList = newList.filter((tree) => tree.TYPE == 'conifer')
     } else if (filterValues.broadleaf) {
       newList = newList.filter((tree) => tree.TYPE == 'broadleaf')
     }
+
     // difficulty filter
     if (filterValues.easy) {
       newList = newList.filter((tree) => tree.LEVEL == 'easy')
@@ -106,9 +111,11 @@ export function InfoScreen(props) {
     } else if (filterValues.expert) {
       newList = newList.filter((tree) => tree.LEVEL == 'expert')
     }
+
     // page 2 is not affected by button tab
-    let genusList = newList.filter((tree) => tree.COMMON.indexOf('spp') > -1)
-    let speciesList = newList.filter((tree) => tree.COMMON.indexOf('spp') == -1)
+    const genusList = newList.filter((tree) => tree.COMMON.indexOf('spp') > -1)
+    const speciesList = newList.filter((tree) => tree.COMMON.indexOf('spp') == -1)
+
     setTreeList(activeTab == 'Genus' ? genusList : speciesList)
     setFilteredSpeciesList(speciesList)
   }, [query, activeTab, filterValues])
