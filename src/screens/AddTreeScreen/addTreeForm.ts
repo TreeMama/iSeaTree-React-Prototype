@@ -20,4 +20,5 @@ export interface FormValues {
   locationType: string | null
   estimate: boolean
   CameraMeasured: boolean
+  needsValidation: boolean
 }

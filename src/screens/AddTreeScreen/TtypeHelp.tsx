@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Modal, View, ScrollView, Image } from 'react-native'
+import { Modal, View, ScrollView, Image, TouchableOpacity } from 'react-native'
 import { Text, Title, Headline, Button, useTheme } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -14,13 +14,24 @@ export function TtypeHelp() {
 
   return (
     <View>
-      <Button
+      {/* <Button
         onPress={() => {
           setIsModalVisible(true)
         }}
       >
         <MaterialCommunityIcons name="help-circle-outline" size={20} color={theme.colors.primary} />
-      </Button>
+      </Button> */}
+      <TouchableOpacity
+        onPress={() => {
+          setIsModalVisible(true)
+        }}
+        style={{
+          marginLeft: 5,
+          bottom: 5,
+        }}
+      >
+        <MaterialCommunityIcons name="help-circle-outline" size={18} color={theme.colors.primary} />
+      </TouchableOpacity>
 
       <Modal visible={isModalVisible} animationType="slide">
         <StatusBar />
@@ -30,8 +41,12 @@ export function TtypeHelp() {
             backgroundColor: '#fff',
           }}
         >
-          <View style={{ width: '100%', height: '90%',marginTop:20 }}>
-            <Image source={imageStep1} resizeMode={'contain'} style={{ width: '100%', height: '90%' }} />
+          <View style={{ width: '100%', height: '90%', marginTop: 20 }}>
+            <Image
+              source={imageStep1}
+              resizeMode={'contain'}
+              style={{ width: '100%', height: '90%' }}
+            />
           </View>
           <Button
             mode="contained"
