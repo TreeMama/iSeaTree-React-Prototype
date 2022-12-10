@@ -779,7 +779,7 @@ export function AddTreeScreen(props) {
             <View>
               <Tooltip
                 height={180}
-                width={250}
+                width={300}
                 containerStyle={{
                   left: 60,
                 }}
@@ -799,7 +799,7 @@ export function AddTreeScreen(props) {
                       source={require('../../../assets/tree-help/help-robot.png')}
                     />
                     <Text
-                      style={{ fontSize: 14, color: 'white', lineHeight: 20 }}
+                      style={{ fontSize: 14, color: 'white', lineHeight: 20, marginLeft: 15 }}
                     >{`TreeBot is our AI assistant for helping you correctly identify a tree species (or genus). Toggle the switch & take a picture if you need help!`}</Text>
                   </View>
                 }
