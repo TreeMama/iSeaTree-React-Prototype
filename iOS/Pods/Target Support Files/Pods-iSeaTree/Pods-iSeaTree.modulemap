@@ -1,6 +1,0 @@
-module Pods_iSeaTree {
-  umbrella header "Pods-iSeaTree-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -43,6 +43,7 @@ import { useCamera } from 'react-native-camera-hooks'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
+import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 
 const win = Dimensions.get('window')
 
@@ -673,6 +674,149 @@ export function AddTreeScreen(props) {
     </View>
   )
 
+  const treeValidation = (result) => {
+    let is_plant = result[0]
+    let species_match = false
+    let genus_match = false
+    let common_names = result[1]
+    let scientific_name = result[2]
+    let structured_name = result[3]
+    let genus = structured_name[0]
+    let species = structured_name[1]
+    let species_name_id = ''
+    let image_url_from_json = ''
+
+    console.log('is_plant: ' + is_plant)
+    if (is_plant) {
+      {
+        /*Is a tree*/
+      }
+
+      // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
+      let local_species_data = require('./../../../data/species.json')
+      // let local_species_data = require('../../../../data/species.json');
+      // (1) Check if the AI has found a match to our json records for a Species
+      // (2) Check if the AI has found a match to our json records for a genus
+      let match_obj;
+      for (var i = 0; i < local_species_data.length; i++) {
+        var obj = local_species_data[i]
+        if (obj.SCIENTIFIC == scientific_name) {
+          species_match = true
+          species_name_id = obj.ID
+          match_obj = obj
+          console.log(
+            'AI SCIENTIFIC NAME: ' + scientific_name + ', Json SCIENTIFIC NAME: ' + obj.SCIENTIFIC,
+          )
+        } else if (obj.GENUS == genus) {
+          genus_match = true
+          console.log('AI genus name: ' + genus + ', Json genus name: ' + obj.GENUS)
+        }
+      }
+
+      if (species_match) {
+        {
+          /* Outcome 2: Prompt user to enter the Species name */
+        }
+        // <Image
+        //   style={{ width: 50, height: 50 }}
+        //   source={{ uri: '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/screens/AddTreeScreen/img/maple_tree.jpeg' }}
+        // />
+        Alert.alert(
+          "It's a match!",
+          "We've determined that this tree likely is a " +
+          common_names +
+          '(' +
+          scientific_name +
+          ').\n Do you agree?',
+          [
+            {
+              text: 'Try again',
+              onPress: () => { },
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                console.log('start setFieldValue')
+                formik.setFieldValue('speciesData', match_obj)
+                formik.setFieldValue('treeType', match_obj.TYPE)
+                refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+              },
+            },
+          ],
+        )
+      } else if (genus_match) {
+        {
+          /* Outcome 1: Prompt user to enter the GENUS  */
+        }
+        Alert.alert(
+          "It's a match!",
+          "We've determined that this tree likely belongs in the " +
+          genus +
+          '(' +
+          scientific_name +
+          ') Genus.\n Do you agree?',
+          [
+            {
+              text: 'Try again',
+              onPress: () => { },
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                formik.setFieldValue('speciesData', match_obj)
+                formik.setFieldValue('treeType', match_obj.TYPE)
+                refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+              },
+            },
+          ],
+        )
+      } else if (common_names == null) {
+        {
+          /* Outcome 3: Prompt user to enter Unknown */
+        }
+        Alert.alert(
+          'Sorry! No matches found',
+          "We cannot determine this species. Do you want to enter this species as 'Unknown'?",
+          [
+            {
+              text: 'Try again',
+              onPress: () => { },
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                formik.setFieldValue('speciesData', local_species_data[0])
+                formik.setFieldValue('treeType', local_species_data[0].TYPE)
+                refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
+              },
+            },
+          ],
+        )
+      }
+    } else {
+      {
+        /* Is not a tree */
+      }
+      {
+        /* Outcome 4: Prompt user to take another picture */
+      }
+      Alert.alert(
+        'Hmmm...',
+        "This doesn't look like a tree to us.\n Can you take another picture?",
+        [
+          {
+            text: 'Cancel',
+            onPress: () => { },
+          },
+          {
+            text: 'OK',
+            onPress: () => { },
+          },
+        ],
+      )
+    }
+  }
+
   const DBHModal2 = (
     <View style={styles.modalContainer}>
       <View style={styles.modalHeaderContainer}>
@@ -954,8 +1098,8 @@ export function AddTreeScreen(props) {
                       Alert.alert(
                         '',
                         "Oops! Looks like you didn't say what type of tree this is. This species is a " +
-                          speciesData?.TYPE +
-                          '. I am going to correct this for you!',
+                        speciesData?.TYPE +
+                        '. I am going to correct this for you!',
                         [
                           {
                             text: 'Ok',
@@ -1214,6 +1358,14 @@ export function AddTreeScreen(props) {
 
                   formik.setValues({ ...formik.values, coords, photo })
                   setIsCameraVisible(false)
+
+                  if (isEnabled) {
+                    identifyTreePicture(photo.uri).then((result) => {
+                      console.log('geting result: ' + result)
+                      treeValidation(result)
+                    })
+                  }
+
                 }}
               />
             </SafeAreaView>
@@ -1524,7 +1676,7 @@ export function AddTreeScreen(props) {
                       borderColor: theme.colors.primary,
                     }}
                     onPress={() => {
-                      ;setDone(false) &
+                      ; setDone(false) &
                         setIsMeasureWithCamera(false) &
                         setDBHSelected(false) &
                         formik.setFieldValue('dbh', parseFloat(formik.values.both)) &
