@@ -34,6 +34,7 @@ import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
+import { addTreeAIResult } from '../../lib/firebaseServices/addTree'
 import { TreeConditionSelect } from './TreeConditionSelect'
 import { CrownLightExposureSelect } from './CrownLightExposureSelect'
 
@@ -1362,6 +1363,11 @@ export function AddTreeScreen(props) {
                   if (isEnabled) {
                     identifyTreePicture(photo.uri).then((result) => {
                       console.log('geting result: ' + result)
+                      const aiResult: AIResult = {
+                        tree_name: result[0],
+                        probability: result[4]
+                      }
+                      addTreeAIResult(aiResult)
                       treeValidation(result)
                     })
                   }

@@ -57,7 +57,7 @@ export async function identifyTreePicture(picture) {
     (3) scientific_name: the tree's common name scientific name
     (4) structured_name: contains the genus and species of a tree. May only contains genus
     */
-    ret = [result['is_plant'], result['suggestions'][0]['plant_details']['common_names'][0], result['suggestions'][0]['plant_details']['scientific_name'], result['suggestions'][0]['plant_details']['structured_name']]
+    ret = [result['is_plant'], result['suggestions'][0]['plant_details']['common_names'][0], result['suggestions'][0]['plant_details']['scientific_name'], result['suggestions'][0]['plant_details']['structured_name'], result['is_plant_probability']]
     return ret;
   } catch (error) {
     console.error(error);

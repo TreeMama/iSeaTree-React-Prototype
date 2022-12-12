@@ -64,14 +64,30 @@ export interface TreeData {
   DryWeight: string | null
 }
 
+export interface AIResult {
+  tree_name: string
+  probability: number
+}
+
 const TREES_COLLECTION = 'trees'
+const TREES_AI_RESULT = 'AI_results'
 
 export function addTree(treeData: TreeData) {
-console.log("Addtree cakked")
+  console.log("Addtree cakked")
   firestore()
     .collection(TREES_COLLECTION)
     .add({
       ...treeData,
+      created_at: firestore.FieldValue.serverTimestamp(),
+    })
+}
+
+export function addTreeAIResult(aiResult: AIResult) {
+  console.log("Add tree ai data")
+  firestore()
+    .collection(TREES_AI_RESULT)
+    .add({
+      ...aiResult,
       created_at: firestore.FieldValue.serverTimestamp(),
     })
 }
