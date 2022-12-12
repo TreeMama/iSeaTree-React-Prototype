@@ -5,11 +5,12 @@ buildscript {
         buildToolsVersion = "29.0.2"
         minSdkVersion = 21
         compileSdkVersion = 29
-        targetSdkVersion = 30
-// Read these values from a pair of files that is also read by iOS.
-// Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
-        versionCode = file('../../BuildNumber.txt').text.trim()
-        versionName = file('../../VersionString.txt').text.trim()
+        targetSdkVersion = 29
+        // Read these values from a pair of files that is also read by iOS.
+        // Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
+        versionCode = 67
+        versionName = '4.0'
+        kotlinVersion = "1.6.0"
     }
     repositories {
         google()
@@ -39,6 +40,17 @@ allprojects {
         maven {
           // expo-camera bundles a custom com.google.android:cameraview
           url "$rootDir/../node_modules/expo-camera/android/maven"
+        }
+
+        exclusiveContent {
+            filter {
+                includeGroup "com.facebook.react"
+            }
+            forRepository {
+                maven {
+                    url "$rootDir/../node_modules/react-native/android"
+                }
+            }
         }
 
         google()

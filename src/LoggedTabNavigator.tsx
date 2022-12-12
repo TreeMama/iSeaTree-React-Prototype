@@ -29,11 +29,20 @@ const infoIcon = require('../assets/nav_tree_inactive.png')
 const infoActiveIcon = require('../assets/nav_tree.png')
 
 export function LoggedTabNavigator() {
+  const styles = StyleSheet.create({
+    cameraTab: {
+      top: -20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    cameraChildren: { width: 70, height: 70, borderRadius: 35 },
+  })
+
   const theme = useTheme()
 
-  const CustomTabButton = ({ children, onPress }) => (
-    <TouchableOpacity style={styles.cameraTab} onPress={onPress}>
-      <View style={styles.cameraChildren}>{children}</View>
+  const CustomTabButton = (props: any) => (
+    <TouchableOpacity style={styles.cameraTab} onPress={props.onPress}>
+      <View style={styles.cameraChildren}>{props.children}</View>
     </TouchableOpacity>
   )
   return (
@@ -118,7 +127,6 @@ export function LoggedTabNavigator() {
               }}
             />
           ),
-
           tabBarButton: (props) => <CustomTabButton {...props} />,
         }}
       />
@@ -163,11 +171,3 @@ export function LoggedTabNavigator() {
     </Tab.Navigator>
   )
 }
-const styles = StyleSheet.create({
-  cameraTab: {
-    top: -20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cameraChildren: { width: 70, height: 70, borderRadius: 35 },
-})
