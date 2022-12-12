@@ -304,7 +304,6 @@ export function AddTreeScreen(props) {
       ],
     )
   }
-
   React.useEffect(() => {
     formik.setFieldValue('number', 0)
     formik.setFieldValue('both', 0)
@@ -753,7 +752,7 @@ export function AddTreeScreen(props) {
 
   const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
   const toggleSwitch = () => {
-    if (formik.values.speciesData?.TYPE != 'unknown') {
+    if (formik.values.speciesData?.TYPE != 'unknown' && !isEnabled) {
       formik.setFieldValue('needsValidation', true)
     } else {
       formik.setFieldValue('needsValidation', false)
@@ -967,9 +966,9 @@ export function AddTreeScreen(props) {
                       )
                     }, 1000)
                     refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
-                  } else {
-                    formik.setFieldValue('needsValidation', false)
                   }
+                } else {
+                  formik.setFieldValue('needsValidation', false)
                 }
               }}
             />
