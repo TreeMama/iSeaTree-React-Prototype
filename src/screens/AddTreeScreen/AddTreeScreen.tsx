@@ -170,6 +170,7 @@ export function AddTreeScreen(props) {
   const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false)
   const [calculatedFormValues, setCalculatedFormValues] = React.useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
+  var aiResult = 0;
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -187,6 +188,7 @@ export function AddTreeScreen(props) {
       estimate: false,
       CameraMeasured: false,
       needsValidation: false,
+      probability: aiResult,
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -1363,11 +1365,11 @@ export function AddTreeScreen(props) {
                   if (isEnabled) {
                     identifyTreePicture(photo.uri).then((result) => {
                       console.log('geting result: ' + result)
-                      const aiResult: AIResult = {
-                        tree_name: result[0],
-                        probability: result[4]
-                      }
-                      addTreeAIResult(aiResult)
+                      // const aiResult: AIResult = {
+                      //   tree_name: result[0],
+                      //   probability: result[4]
+                      // }
+                      aiResult = result[4];
                       treeValidation(result)
                     })
                   }

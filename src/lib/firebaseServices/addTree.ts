@@ -62,6 +62,7 @@ export interface TreeData {
   CarbonDioxideStorage: string | null
   CarbonDioxideStorageValue: string | null
   DryWeight: string | null
+  AIResult: number
 }
 
 export interface AIResult {
