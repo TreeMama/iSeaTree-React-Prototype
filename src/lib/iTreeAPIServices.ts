@@ -28,6 +28,7 @@ async function setItem(key: string, stringValue: string, unit: string) {
 
 export async function identifyTreePicture(picture) {
   let file = picture;
+  // file = "/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/lib/maple_tree.jpeg"
   let base64files = await fs.readFile(file, 'base64');
 
   try {
