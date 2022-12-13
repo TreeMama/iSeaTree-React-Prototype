@@ -55,6 +55,7 @@
     "react-native-gesture-handler": "~1.7.0",
     "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "^0.27.1",
+    "react-native-modal": "^13.0.1",
     "react-native-paper": "^2.2.2 || ^3.0.0",
     "react-native-picker-select": "^6.6.0",
     "react-native-raw-bottom-sheet": "^2.2.0",

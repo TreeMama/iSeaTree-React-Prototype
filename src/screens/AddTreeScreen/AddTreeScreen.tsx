@@ -16,6 +16,7 @@ import {
   LogBox,
   Platform,
 } from 'react-native'
+import RNModal from 'react-native-modal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Button, TextInput, Text, Subheading, useTheme, Switch } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
@@ -118,6 +119,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 10,
   },
+  centeredModal: {
+    // flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    padding: 20,
+    // marginTop: '35%',
+    // height: '30%',
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: 15,
+    right: 15,
+  },
+  modalButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  modalButton: { fontSize: 10, width: '48%', borderRadius: 10, paddingVertical: 4 },
+  modalImage: {
+    height: 200,
+    width: '92%',
+    // resizeMode: 'contain',
+    margin: 10,
+    borderRadius: 20,
+  },
 })
 
 function validateForm(values: FormValues): FormikErrors<FormValues> {
@@ -168,7 +200,7 @@ export function AddTreeScreen(props) {
   const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false)
   const [calculatedFormValues, setCalculatedFormValues] = React.useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
-
+  const [submittedModal, setSubmittedModal] = useState(true)
   const formik = useFormik<FormValues>({
     initialValues: {
       photo: null,
@@ -304,7 +336,6 @@ export function AddTreeScreen(props) {
       ],
     )
   }
-
   React.useEffect(() => {
     formik.setFieldValue('number', 0)
     formik.setFieldValue('both', 0)
@@ -753,7 +784,7 @@ export function AddTreeScreen(props) {
 
   const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
   const toggleSwitch = () => {
-    if (formik.values.speciesData?.TYPE != 'unknown') {
+    if (formik.values.speciesData?.TYPE != 'unknown' && !isEnabled) {
       formik.setFieldValue('needsValidation', true)
     } else {
       formik.setFieldValue('needsValidation', false)
@@ -967,9 +998,9 @@ export function AddTreeScreen(props) {
                       )
                     }, 1000)
                     refTreeTypeSelect.current.setTreeType(speciesData.TYPE)
-                  } else {
-                    formik.setFieldValue('needsValidation', false)
                   }
+                } else {
+                  formik.setFieldValue('needsValidation', false)
                 }
               }}
             />
@@ -1198,7 +1229,56 @@ export function AddTreeScreen(props) {
               {`Calculate Tree Benefits & Save`}
             </Button>
           </View>
-
+          <View>
+            <RNModal visible={submittedModal} animationType="slide" backdropOpacity={0.5}>
+              <View style={styles.centeredModal}>
+                <TouchableOpacity style={styles.closeIcon} onPress={() => setSubmittedModal(false)}>
+                  <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
+                </TouchableOpacity>
+                <Image
+                  source={{
+                    uri: 'https://img.freepik.com/free-photo/beautiful-tree-middle-field-covered-with-grass-with-tree-line-background_181624-29267.jpg',
+                  }}
+                  style={styles.modalImage}
+                />
+                <Text
+                  style={{
+                    color: theme.colors.text,
+                    fontSize: 17,
+                    fontWeight: 'bold',
+                    paddingTop: 5,
+                    paddingBottom: 10,
+                  }}
+                >{`It’s a match!`}</Text>
+                <Text>{`We've determined that this tree likely is a`}</Text>
+                <Text style={{ fontWeight: 'bold' }}>Sugar Maple (Acer saccharum).</Text>
+                <Text>Do you agree?</Text>
+                <View style={styles.modalButtons}>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                    }}
+                    style={styles.modalButton}
+                    color="white"
+                    loading={formik.isSubmitting}
+                  >
+                    Try again
+                  </Button>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                    }}
+                    style={styles.modalButton}
+                    loading={formik.isSubmitting}
+                  >
+                    Ok
+                  </Button>
+                </View>
+              </View>
+            </RNModal>
+          </View>
           <Modal visible={isCameraVisible} animationType="slide">
             <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
               <CameraWithLocation
