@@ -72,3 +72,5 @@ android/.gradle/buildOutputCleanup/outputFiles.bin
 android/.gradle/checksums/checksums.lock
 android/.gradle/checksums/md5-checksums.bin
 android/.gradle/checksums/sha1-checksums.bin
+
+iOS/Podfile.lock

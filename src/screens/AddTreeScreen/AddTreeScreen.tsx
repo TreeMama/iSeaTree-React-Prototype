@@ -15,6 +15,7 @@ import {
   useColorScheme,
   LogBox,
   Platform,
+  requireNativeComponent,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNModal from 'react-native-modal'
@@ -46,7 +47,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
 import { identifyTreePicture } from '../../lib/iTreeAPIServices'
-import { CONFIG } from '../../../envVariables.example'
+import { CONFIG } from '../../../envVariables'
 
 const win = Dimensions.get('window')
 var common_names = "";
@@ -54,6 +55,9 @@ var scientific_name = "";
 var match_obj = "";
 var match_obj_url = "";
 var genus = "";
+const maple_tree = require('../../../assets/maple_tree.jpeg')
+const invalid_pic = require('../../../assets/invalid_pic.png')
+const not_found_pic = require('../../../assets/not_found_pic.png')
 
 const styles = StyleSheet.create({
   container: {
@@ -350,7 +354,7 @@ export function AddTreeScreen(props) {
       ],
     )
   }
-
+  console.log(CONFIG.AWS_S3_URL + match_obj_url, "imageurl")
   React.useEffect(() => {
     formik.setFieldValue('number', 0)
     formik.setFieldValue('both', 0)
@@ -1423,9 +1427,7 @@ export function AddTreeScreen(props) {
                   <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
                 </TouchableOpacity>
                 <Image
-                  source={{
-                    uri: CONFIG.AWS_S3_URL + match_obj_url,
-                  }}
+                  source={not_found_pic}
                   style={styles.modalImage}
                 />
                 <Text
@@ -1479,9 +1481,7 @@ export function AddTreeScreen(props) {
                   <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
                 </TouchableOpacity>
                 <Image
-                  source={{
-                    uri: CONFIG.AWS_S3_URL + match_obj_url,
-                  }}
+                  source={invalid_pic}
                   style={styles.modalImage}
                 />
                 <Text
