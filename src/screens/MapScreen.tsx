@@ -446,8 +446,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   // custome callout component for IOS
   const CalloutComponentIos = (item) => {
-    const extractTreeName = item.item.speciesNameCommon.split('(')[0]
-    const isMoreinfo = suggestedTrees.some((obj) => obj.name.split('(')[0] === extractTreeName)
+    const isMoreinfo = (item.item.speciesNameCommon.toUpperCase() !== 'Unknown'.toUpperCase())
     const isCarbonDioxideStorage = item.item.CarbonDioxideStorage !== undefined
     return (
       <View style={[styles.calloutContainer, { zIndex: 999 }]}>
@@ -550,8 +549,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
   // custome callout component for Android
   const CalloutComponent = (item) => {
-    const extractTreeName = item.item.speciesNameCommon.split('(')[0]
-    const isMoreinfo = suggestedTrees.some((obj) => obj.name.split('(')[0] === extractTreeName)
+    const isMoreinfo = (item.item.speciesNameCommon.toUpperCase() !== 'Unknown'.toUpperCase())
     const isCarbonDioxideStorage = item.item.CarbonDioxideStorage !== undefined
     return (
       <>
