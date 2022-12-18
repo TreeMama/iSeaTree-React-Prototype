@@ -15,9 +15,11 @@ import {
   useColorScheme,
   LogBox,
   Platform,
+  requireNativeComponent,
 } from 'react-native'
 import RNModal from 'react-native-modal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+// import RNModal from 'react-native-modal'
 import { Button, TextInput, Text, Subheading, useTheme, Switch } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
@@ -35,6 +37,7 @@ import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
 import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
+import { addTreeAIResult } from '../../lib/firebaseServices/addTree'
 import { TreeConditionSelect } from './TreeConditionSelect'
 import { CrownLightExposureSelect } from './CrownLightExposureSelect'
 
@@ -44,8 +47,18 @@ import { useCamera } from 'react-native-camera-hooks'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
+import { identifyTreePicture } from '../../lib/iTreeAPIServices'
+import { CONFIG } from '../../../envVariables'
 
 const win = Dimensions.get('window')
+var common_names = ''
+var scientific_name = ''
+var match_obj = ''
+var match_obj_url = ''
+var genus = ''
+const maple_tree = require('../../../assets/maple_tree.jpeg')
+const invalid_pic = require('../../../assets/invalid_pic.png')
+const not_found_pic = require('../../../assets/not_found_pic.png')
 
 const styles = StyleSheet.create({
   container: {
@@ -200,7 +213,12 @@ export function AddTreeScreen(props) {
   const [loadBenefitsCall, setLoadBenefitsCall] = React.useState(false)
   const [calculatedFormValues, setCalculatedFormValues] = React.useState(false)
   const [isEnabled, setIsEnabled] = useState(false)
-  const [submittedModal, setSubmittedModal] = useState(true)
+  const [submittedModal, setSubmittedModal] = useState(false)
+  const [genusModal, setGenusModal] = useState(false)
+  const [notFoundModal, setNotFoundModal] = useState(false)
+  const [invalidModal, setInvalidModal] = useState(false)
+  var aiResult = 0
+
   const formik = useFormik<FormValues>({
     initialValues: {
       photo: null,
@@ -217,6 +235,7 @@ export function AddTreeScreen(props) {
       estimate: false,
       CameraMeasured: false,
       needsValidation: false,
+      probability: aiResult,
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -703,6 +722,60 @@ export function AddTreeScreen(props) {
       </View>
     </View>
   )
+
+  const treeValidation = (result) => {
+    let is_plant = result[0]
+    let species_match = false
+    let genus_match = false
+    common_names = result[1]
+    scientific_name = result[2]
+    let structured_name = result[3]
+    genus = structured_name[0]
+    let species = structured_name[1]
+    let species_name_id = ''
+    let image_url_from_json = ''
+
+    console.log('is_plant: ' + is_plant)
+    if (is_plant) {
+      /*Is a tree*/
+      // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
+      let local_species_data = require('./../../../data/species.json')
+      // let local_species_data = require('../../../../data/species.json');
+      // (1) Check if the AI has found a match to our json records for a Species
+      // (2) Check if the AI has found a match to our json records for a genus
+      for (var i = 0; i < local_species_data.length; i++) {
+        var obj = local_species_data[i]
+        if (obj.SCIENTIFIC == scientific_name) {
+          species_match = true
+          species_name_id = obj.ID
+          match_obj = obj
+          console.log(
+            'AI SCIENTIFIC NAME: ' + scientific_name + ', Json SCIENTIFIC NAME: ' + obj.SCIENTIFIC,
+          )
+        } else if (obj.GENUS == genus) {
+          genus_match = true
+          console.log('AI genus name: ' + genus + ', Json genus name: ' + obj.GENUS)
+        }
+        match_obj_url = obj.FULL_PIC_180x110
+      }
+
+      if (species_match) {
+        setSubmittedModal(true)
+        /* Outcome 2: Prompt user to enter the Species name */
+      } else if (genus_match) {
+        /* Outcome 1: Prompt user to enter the GENUS  */
+        setGenusModal(true)
+      } else if (common_names == null) {
+        /* Outcome 3: Prompt user to enter Unknown */
+        setNotFoundModal(true)
+      }
+    } else {
+      /* Is not a tree */
+      /* Outcome 4: Prompt user to take another picture */
+      console.log('right here...')
+      setInvalidModal(true)
+    }
+  }
 
   const DBHModal2 = (
     <View style={styles.modalContainer}>
@@ -1237,7 +1310,7 @@ export function AddTreeScreen(props) {
                 </TouchableOpacity>
                 <Image
                   source={{
-                    uri: 'https://img.freepik.com/free-photo/beautiful-tree-middle-field-covered-with-grass-with-tree-line-background_181624-29267.jpg',
+                    uri: CONFIG.AWS_S3_URL + match_obj_url,
                   }}
                   style={styles.modalImage}
                 />
@@ -1251,13 +1324,16 @@ export function AddTreeScreen(props) {
                   }}
                 >{`It’s a match!`}</Text>
                 <Text>{`We've determined that this tree likely is a`}</Text>
-                <Text style={{ fontWeight: 'bold' }}>Sugar Maple (Acer saccharum).</Text>
+                <Text style={{ fontWeight: 'bold' }}>
+                  {common_names + '(' + scientific_name + ')'}.
+                </Text>
                 <Text>Do you agree?</Text>
                 <View style={styles.modalButtons}>
                   <Button
                     mode="contained"
                     onPress={() => {
                       setLoadBenefitsCall(true)
+                      setSubmittedModal(false)
                     }}
                     style={styles.modalButton}
                     color="white"
@@ -1269,6 +1345,10 @@ export function AddTreeScreen(props) {
                     mode="contained"
                     onPress={() => {
                       setLoadBenefitsCall(true)
+                      formik.setFieldValue('speciesData', match_obj)
+                      formik.setFieldValue('treeType', match_obj.TYPE)
+                      refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+                      setSubmittedModal(false)
                     }}
                     style={styles.modalButton}
                     loading={formik.isSubmitting}
@@ -1279,6 +1359,160 @@ export function AddTreeScreen(props) {
               </View>
             </RNModal>
           </View>
+
+          <View>
+            <RNModal visible={genusModal} animationType="slide" backdropOpacity={0.5}>
+              <View style={styles.centeredModal}>
+                <TouchableOpacity style={styles.closeIcon} onPress={() => setSubmittedModal(false)}>
+                  <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
+                </TouchableOpacity>
+                <Image
+                  source={{
+                    uri: CONFIG.AWS_S3_URL + match_obj_url,
+                  }}
+                  style={styles.modalImage}
+                />
+                <Text
+                  style={{
+                    color: theme.colors.text,
+                    fontSize: 17,
+                    fontWeight: 'bold',
+                    paddingTop: 5,
+                    paddingBottom: 10,
+                  }}
+                >{`It’s a match!`}</Text>
+                <Text>{`We've determined that this tree likely is a`}</Text>
+                <Text style={{ fontWeight: 'bold' }}>{genus + '(' + scientific_name + ')'}.</Text>
+                <Text>Do you agree?</Text>
+                <View style={styles.modalButtons}>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                      setGenusModal(false)
+                    }}
+                    style={styles.modalButton}
+                    color="white"
+                    loading={formik.isSubmitting}
+                  >
+                    Try again
+                  </Button>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                      formik.setFieldValue('speciesData', match_obj)
+                      formik.setFieldValue('treeType', match_obj.TYPE)
+                      refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+                      setGenusModal(false)
+                    }}
+                    style={styles.modalButton}
+                    loading={formik.isSubmitting}
+                  >
+                    Ok
+                  </Button>
+                </View>
+              </View>
+            </RNModal>
+          </View>
+
+          <View>
+            <RNModal visible={notFoundModal} animationType="slide" backdropOpacity={0.5}>
+              <View style={styles.centeredModal}>
+                <TouchableOpacity style={styles.closeIcon} onPress={() => setSubmittedModal(false)}>
+                  <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
+                </TouchableOpacity>
+                <Image source={not_found_pic} style={styles.modalImage} />
+                <Text
+                  style={{
+                    color: theme.colors.text,
+                    fontSize: 17,
+                    fontWeight: 'bold',
+                    paddingTop: 5,
+                    paddingBottom: 10,
+                  }}
+                >{`Sorry! No matches found`}</Text>
+                <Text>{`We cannot determine this species. Do you want to enter this species as 'Unknown'?`}</Text>
+                <Text>Do you agree?</Text>
+                <View style={styles.modalButtons}>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                      setNotFoundModal(false)
+                    }}
+                    style={styles.modalButton}
+                    color="white"
+                    loading={formik.isSubmitting}
+                  >
+                    Try again
+                  </Button>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                      formik.setFieldValue('speciesData', local_species_data[0])
+                      formik.setFieldValue('treeType', local_species_data[0].TYPE)
+                      refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
+                      setNotFoundModal(false)
+                    }}
+                    style={styles.modalButton}
+                    loading={formik.isSubmitting}
+                  >
+                    Ok
+                  </Button>
+                </View>
+              </View>
+            </RNModal>
+          </View>
+
+          <View>
+            <RNModal visible={invalidModal} animationType="slide" backdropOpacity={0.5}>
+              <View style={styles.centeredModal}>
+                <TouchableOpacity style={styles.closeIcon} onPress={() => setSubmittedModal(false)}>
+                  <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
+                </TouchableOpacity>
+                <Image source={invalid_pic} style={styles.modalImage} />
+                <Text
+                  style={{
+                    color: theme.colors.text,
+                    fontSize: 17,
+                    fontWeight: 'bold',
+                    paddingTop: 5,
+                    paddingBottom: 10,
+                  }}
+                >{`Hmmm...`}</Text>
+                <Text>{`This doesn't look like a tree to us.\n Can you take another picture?`}</Text>
+                <Text>Do you agree?</Text>
+                <View style={styles.modalButtons}>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                      setInvalidModal(false)
+                    }}
+                    style={styles.modalButton}
+                    color="white"
+                    loading={formik.isSubmitting}
+                  >
+                    Try again
+                  </Button>
+                  <Button
+                    mode="contained"
+                    onPress={() => {
+                      setLoadBenefitsCall(true)
+                      setInvalidModal(false)
+                    }}
+                    style={styles.modalButton}
+                    loading={formik.isSubmitting}
+                  >
+                    Ok
+                  </Button>
+                </View>
+              </View>
+            </RNModal>
+          </View>
+
           <Modal visible={isCameraVisible} animationType="slide">
             <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
               <CameraWithLocation
@@ -1294,6 +1528,18 @@ export function AddTreeScreen(props) {
 
                   formik.setValues({ ...formik.values, coords, photo })
                   setIsCameraVisible(false)
+
+                  if (isEnabled) {
+                    identifyTreePicture(photo.uri).then((result) => {
+                      console.log('geting result: ' + result)
+                      // const aiResult: AIResult = {
+                      //   tree_name: result[0],
+                      //   probability: result[4]
+                      // }
+                      aiResult = result[4]
+                      treeValidation(result)
+                    })
+                  }
                 }}
               />
             </SafeAreaView>

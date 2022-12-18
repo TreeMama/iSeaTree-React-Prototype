@@ -179,6 +179,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     CarbonDioxideStorage,
     CarbonDioxideStorageValue,
     DryWeight,
+    AIResult: 1,
   }
   console.log('calling addTree')
   addTree(treeData)

@@ -21,4 +21,5 @@ export interface FormValues {
   estimate: boolean
   CameraMeasured: boolean
   needsValidation: boolean
+  probability: number
 }
