@@ -33,6 +33,7 @@ import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
+import { TreeBotHelp } from './TreeBotHelp'
 import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
 import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
@@ -760,20 +761,106 @@ export function AddTreeScreen(props) {
       }
 
       if (species_match) {
-        setSubmittedModal(true)
-        /* Outcome 2: Prompt user to enter the Species name */
+        {
+          /* Outcome 2: Prompt user to enter the Species name */
+        }
+        // <Image
+        //   style={{ width: 50, height: 50 }}
+        //   source={{ uri: '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/screens/AddTreeScreen/img/maple_tree.jpeg' }}
+        // />
+        Alert.alert(
+          "It's a match!",
+          "We've determined that this tree likely is a " +
+            common_names +
+            '(' +
+            scientific_name +
+            ').\n Do you agree?',
+          [
+            {
+              text: 'Try again',
+              onPress: () => {},
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                console.log('start setFieldValue')
+                formik.setFieldValue('speciesData', match_obj)
+                formik.setFieldValue('treeType', match_obj.TYPE)
+                refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+              },
+            },
+          ],
+        )
       } else if (genus_match) {
-        /* Outcome 1: Prompt user to enter the GENUS  */
-        setGenusModal(true)
+        {
+          /* Outcome 1: Prompt user to enter the GENUS  */
+        }
+        Alert.alert(
+          "It's a match!",
+          "We've determined that this tree likely belongs in the " +
+            genus +
+            '(' +
+            scientific_name +
+            ') Genus.\n Do you agree?',
+          [
+            {
+              text: 'Try again',
+              onPress: () => {},
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                formik.setFieldValue('speciesData', match_obj)
+                formik.setFieldValue('treeType', match_obj.TYPE)
+                refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+              },
+            },
+          ],
+        )
       } else if (common_names == null) {
-        /* Outcome 3: Prompt user to enter Unknown */
-        setNotFoundModal(true)
+        {
+          /* Outcome 3: Prompt user to enter Unknown */
+        }
+        Alert.alert(
+          'Sorry! No matches found',
+          "We cannot determine this species. Do you want to enter this species as 'Unknown'?",
+          [
+            {
+              text: 'Try again',
+              onPress: () => {},
+            },
+            {
+              text: 'OK',
+              onPress: () => {
+                formik.setFieldValue('speciesData', local_species_data[0])
+                formik.setFieldValue('treeType', local_species_data[0].TYPE)
+                refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
+              },
+            },
+          ],
+        )
       }
     } else {
-      /* Is not a tree */
-      /* Outcome 4: Prompt user to take another picture */
-      console.log('right here...')
-      setInvalidModal(true)
+      {
+        /* Is not a tree */
+      }
+      {
+        /* Outcome 4: Prompt user to take another picture */
+      }
+      Alert.alert(
+        'Hmmm...',
+        "This doesn't look like a tree to us.\n Can you take another picture?",
+        [
+          {
+            text: 'Cancel',
+            onPress: () => {},
+          },
+          {
+            text: 'OK',
+            onPress: () => {},
+          },
+        ],
+      )
     }
   }
 
@@ -921,6 +1008,7 @@ export function AddTreeScreen(props) {
               TreeBot
             </Text>
             <Switch
+              style={{}}
               trackColor={{ true: 'green' }}
               onValueChange={() => toggleSwitch()}
               value={isEnabled}
