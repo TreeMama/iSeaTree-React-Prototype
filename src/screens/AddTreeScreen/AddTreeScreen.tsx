@@ -50,16 +50,11 @@ import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
 import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 import { CONFIG } from '../../../envVariables'
-
-const win = Dimensions.get('window')
-var common_names = ''
-var scientific_name = ''
-var match_obj = ''
-var match_obj_url = ''
-var genus = ''
 const maple_tree = require('../../../assets/maple_tree.jpeg')
 const invalid_pic = require('../../../assets/invalid_pic.png')
 const not_found_pic = require('../../../assets/not_found_pic.png')
+
+const win = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   container: {
@@ -218,6 +213,14 @@ export function AddTreeScreen(props) {
   const [genusModal, setGenusModal] = useState(false)
   const [notFoundModal, setNotFoundModal] = useState(false)
   const [invalidModal, setInvalidModal] = useState(false)
+  const [state, setState] = useState({
+    aiResult: 0,
+    commonNames: '',
+    scientificName: '',
+    matchObj: '',
+    matchObjUrl: '',
+    genus: '',
+  })
   var aiResult = 0
 
   const formik = useFormik<FormValues>({
@@ -728,10 +731,17 @@ export function AddTreeScreen(props) {
     let is_plant = result[0]
     let species_match = false
     let genus_match = false
-    common_names = result[1]
-    scientific_name = result[2]
     let structured_name = result[3]
-    genus = structured_name[0]
+    // genus = structured_name[0]
+    // commonNames = result[1]
+    setState({
+      ...state,
+      commonNames: result[1],
+      scientificName: result[2],
+      genus: structured_name[0],
+    })
+    // scientificName = result[2]
+
     let species = structured_name[1]
     let species_name_id = ''
     let image_url_from_json = ''
@@ -746,18 +756,23 @@ export function AddTreeScreen(props) {
       // (2) Check if the AI has found a match to our json records for a genus
       for (var i = 0; i < local_species_data.length; i++) {
         var obj = local_species_data[i]
-        if (obj.SCIENTIFIC == scientific_name) {
+        if (obj.SCIENTIFIC == state.scientificName) {
           species_match = true
           species_name_id = obj.ID
-          match_obj = obj
+          // matchObj = obj
+          setState({ ...state, matchObj: obj })
           console.log(
-            'AI SCIENTIFIC NAME: ' + scientific_name + ', Json SCIENTIFIC NAME: ' + obj.SCIENTIFIC,
+            'AI SCIENTIFIC NAME: ' +
+              state.scientificName +
+              ', Json SCIENTIFIC NAME: ' +
+              obj.SCIENTIFIC,
           )
-        } else if (obj.GENUS == genus) {
+        } else if (obj.GENUS == state.genus) {
           genus_match = true
-          console.log('AI genus name: ' + genus + ', Json genus name: ' + obj.GENUS)
+          console.log('AI genus name: ' + state.genus + ', Json genus name: ' + obj.GENUS)
         }
-        match_obj_url = obj.FULL_PIC_180x110
+        // matchObjUrl = obj.FULL_PIC_180x110
+        setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
       }
 
       if (species_match) {
@@ -771,9 +786,9 @@ export function AddTreeScreen(props) {
         Alert.alert(
           "It's a match!",
           "We've determined that this tree likely is a " +
-            common_names +
+            state.commonNames +
             '(' +
-            scientific_name +
+            state.scientificName +
             ').\n Do you agree?',
           [
             {
@@ -784,9 +799,9 @@ export function AddTreeScreen(props) {
               text: 'OK',
               onPress: () => {
                 console.log('start setFieldValue')
-                formik.setFieldValue('speciesData', match_obj)
-                formik.setFieldValue('treeType', match_obj.TYPE)
-                refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+                formik.setFieldValue('speciesData', state.matchObj)
+                formik.setFieldValue('treeType', state.matchObj.TYPE)
+                refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
               },
             },
           ],
@@ -798,9 +813,9 @@ export function AddTreeScreen(props) {
         Alert.alert(
           "It's a match!",
           "We've determined that this tree likely belongs in the " +
-            genus +
+            state.genus +
             '(' +
-            scientific_name +
+            state.scientificName +
             ') Genus.\n Do you agree?',
           [
             {
@@ -810,14 +825,14 @@ export function AddTreeScreen(props) {
             {
               text: 'OK',
               onPress: () => {
-                formik.setFieldValue('speciesData', match_obj)
-                formik.setFieldValue('treeType', match_obj.TYPE)
-                refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+                formik.setFieldValue('speciesData', state.matchObj)
+                formik.setFieldValue('treeType', state.matchObj.TYPE)
+                refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
               },
             },
           ],
         )
-      } else if (common_names == null) {
+      } else if (state.commonNames == null) {
         {
           /* Outcome 3: Prompt user to enter Unknown */
         }
@@ -1398,7 +1413,7 @@ export function AddTreeScreen(props) {
                 </TouchableOpacity>
                 <Image
                   source={{
-                    uri: CONFIG.AWS_S3_URL + match_obj_url,
+                    uri: CONFIG.AWS_S3_URL + state.matchObjUrl,
                   }}
                   style={styles.modalImage}
                 />
@@ -1413,7 +1428,7 @@ export function AddTreeScreen(props) {
                 >{`It’s a match!`}</Text>
                 <Text>{`We've determined that this tree likely is a`}</Text>
                 <Text style={{ fontWeight: 'bold' }}>
-                  {common_names + '(' + scientific_name + ')'}.
+                  {state.commonNames + '(' + state.scientificName + ')'}.
                 </Text>
                 <Text>Do you agree?</Text>
                 <View style={styles.modalButtons}>
@@ -1433,9 +1448,9 @@ export function AddTreeScreen(props) {
                     mode="contained"
                     onPress={() => {
                       setLoadBenefitsCall(true)
-                      formik.setFieldValue('speciesData', match_obj)
-                      formik.setFieldValue('treeType', match_obj.TYPE)
-                      refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+                      formik.setFieldValue('speciesData', state.matchObj)
+                      formik.setFieldValue('treeType', state.matchObj.TYPE)
+                      refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
                       setSubmittedModal(false)
                     }}
                     style={styles.modalButton}
@@ -1456,7 +1471,7 @@ export function AddTreeScreen(props) {
                 </TouchableOpacity>
                 <Image
                   source={{
-                    uri: CONFIG.AWS_S3_URL + match_obj_url,
+                    uri: CONFIG.AWS_S3_URL + state.matchObjUrl,
                   }}
                   style={styles.modalImage}
                 />
@@ -1470,7 +1485,9 @@ export function AddTreeScreen(props) {
                   }}
                 >{`It’s a match!`}</Text>
                 <Text>{`We've determined that this tree likely is a`}</Text>
-                <Text style={{ fontWeight: 'bold' }}>{genus + '(' + scientific_name + ')'}.</Text>
+                <Text style={{ fontWeight: 'bold' }}>
+                  {state.genus + '(' + state.scientificName + ')'}.
+                </Text>
                 <Text>Do you agree?</Text>
                 <View style={styles.modalButtons}>
                   <Button
@@ -1489,9 +1506,9 @@ export function AddTreeScreen(props) {
                     mode="contained"
                     onPress={() => {
                       setLoadBenefitsCall(true)
-                      formik.setFieldValue('speciesData', match_obj)
-                      formik.setFieldValue('treeType', match_obj.TYPE)
-                      refTreeTypeSelect.current.setTreeType(match_obj.TYPE)
+                      formik.setFieldValue('speciesData', state.matchObj)
+                      formik.setFieldValue('treeType', state.matchObj.TYPE)
+                      refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
                       setGenusModal(false)
                     }}
                     style={styles.modalButton}
