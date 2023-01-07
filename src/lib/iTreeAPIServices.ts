@@ -1,8 +1,10 @@
-const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-import { CONFIG } from '../../envVariables';
+const EMAIL_REGEX =
+  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+import { CONFIG } from '../../envVariables'
 import { xml2js, xml2json } from 'xml-js'
-import { OutputInformation, RootObject } from '../screens/AddTreeScreen/TreeBenefitResponse';
-import axios from 'axios';
+import { OutputInformation, RootObject } from '../screens/AddTreeScreen/TreeBenefitResponse'
+import axios from 'axios'
+import fs from 'react-native-fs'
 
 async function setItem(key: string, stringValue: string, unit: string) {
   try {
@@ -18,21 +20,59 @@ async function setItem(key: string, stringValue: string, unit: string) {
         display = `${decimal.toFixed(2)}`
       }
       // console.log(key, display)
-      resolve(String(display).trim());
+      resolve(String(display).trim())
     })
   } catch (error) {
     return null
   }
 }
 
+export async function identifyTreePicture(picture) {
+  let file = picture
+  let base64files = await fs.readFile(file, 'base64')
+
+  try {
+    const response = await fetch('https://api.plant.id/v2/identify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Api-Key': CONFIG.PLANTID_KEY,
+      },
+      body: JSON.stringify({
+        images: [base64files],
+        modifiers: ['similar_images'],
+        plant_details: ['common_names', 'url'],
+      }),
+    })
+    const result = await response.json()
+    console.log(result)
+    // return result['suggestions'][0]['plant_name'];
+    // let ret: [boolean, string, string]
+    let ret: any
+    /*
+    AI return result
+    (1) is_plant: Whether the given picture contains a tree
+    (2) common_names: the tree's common name
+    (3) scientific_name: the tree's common name scientific name
+    (4) structured_name: contains the genus and species of a tree. May only contains genus
+    */
+    ret = [
+      result['is_plant'],
+      result['suggestions'][0]['plant_details']['common_names'][0],
+      result['suggestions'][0]['plant_details']['scientific_name'],
+      result['suggestions'][0]['plant_details']['structured_name'],
+      result['is_plant_probability'],
+    ]
+    return ret
+  } catch (error) {
+    console.error(error)
+    return -1
+  }
+}
 
 export async function getItreeData(params) {
-  const { crownLightExposureCategory,
-    dbh,
-    speciesData,
-    treeConditionCategory,
-    address,
-    state } = params;
+  const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory, address, state } =
+    params
   const url =
     `${CONFIG.API_TREE_BENEFIT}?` +
     `key=${CONFIG.ITREE_KEY}&` +
@@ -56,11 +96,15 @@ export async function getItreeData(params) {
       const err = root.Result.Error
 
       if (Object.keys(err).length > 0) {
-        return null;
+        return null
       } else {
         const inputInformation = root.Result.InputInformation
 
-        let NationFullName = await setItem('NationFullName', inputInformation.Location.NationFullName._text, '')
+        let NationFullName = await setItem(
+          'NationFullName',
+          inputInformation.Location.NationFullName._text,
+          '',
+        )
         let StateAbbr = await setItem('StateAbbr', inputInformation.Location.StateAbbr._text, '')
         let CountyName = await setItem('CountyName', inputInformation.Location.CountyName._text, '')
         let CityName = await setItem('CityName', inputInformation.Location.CityName._text, '')
@@ -93,7 +137,11 @@ export async function getItreeData(params) {
           outputInformation.Benefit.HydroBenefit.RunoffAvoidedValue._text,
           '$',
         )
-        let Interception = await setItem('Interception', outputInformation.Benefit.HydroBenefit.Interception._text, '')
+        let Interception = await setItem(
+          'Interception',
+          outputInformation.Benefit.HydroBenefit.Interception._text,
+          '',
+        )
         let PotentialEvaporation = await setItem(
           'PotentialEvaporation',
           outputInformation.Benefit.HydroBenefit.PotentialEvaporation._text,
@@ -104,7 +152,11 @@ export async function getItreeData(params) {
           outputInformation.Benefit.HydroBenefit.PotentialEvapotranspiration._text,
           '',
         )
-        let Evaporation = await setItem('Evaporation', outputInformation.Benefit.HydroBenefit.Evaporation._text, '')
+        let Evaporation = await setItem(
+          'Evaporation',
+          outputInformation.Benefit.HydroBenefit.Evaporation._text,
+          '',
+        )
         let Transpiration = await setItem(
           'Transpiration',
           outputInformation.Benefit.HydroBenefit.Transpiration._text,
@@ -173,7 +225,11 @@ export async function getItreeData(params) {
           '$',
         )
 
-        let CarbonStorage = await setItem('CarbonStorage', outputInformation.Carbon.CarbonStorage._text, 'lb')
+        let CarbonStorage = await setItem(
+          'CarbonStorage',
+          outputInformation.Carbon.CarbonStorage._text,
+          'lb',
+        )
         let CarbonDioxideStorage = await setItem(
           'CarbonDioxideStorage',
           outputInformation.Carbon.CarbonDioxideStorage._text,
@@ -185,7 +241,6 @@ export async function getItreeData(params) {
           '$',
         )
         let DryWeight = await setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb')
-
 
         const resultData = {
           NationFullName,
@@ -217,10 +272,10 @@ export async function getItreeData(params) {
           CarbonStorage,
           CarbonDioxideStorage,
           CarbonDioxideStorageValue,
-          DryWeight
+          DryWeight,
         }
 
-        return resultData;
+        return resultData
       }
     }
   }
