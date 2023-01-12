@@ -13,6 +13,7 @@ import {
   Image,
   Dimensions,
   ActivityIndicator,
+  Alert,
 } from 'react-native'
 import { Subheading, useTheme, Button, TextInput, DefaultTheme, Badge } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
@@ -50,6 +51,7 @@ export interface SpeciesData {
 interface SpeciesSelectProps {
   speciesType: null | string
   speciesData: null | SpeciesData
+  isEnabled: null | boolean
   onSelect: (speciesData: null | SpeciesData) => void
 }
 
@@ -183,11 +185,32 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
     return getSpeciesFlatListData(props.speciesType, query)
   }, [query, isModalVisible])
 
-  function handleSpeciesSelect(speciesData: SpeciesData) {
+  function selectSpecie(speciesData: SpeciesData) {
     setTimeout(() => {
       props.onSelect(speciesData)
       setIsModalVisible(false)
     }, 50)
+  }
+
+  function handleSpeciesSelect(speciesData: SpeciesData) {
+    if (props.speciesData && props.isEnabled) {
+      Alert.alert('', 'Do you want to change the species entry?', [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            console.log('OK Pressed')
+            selectSpecie(speciesData)
+          },
+        },
+      ])
+    } else {
+      selectSpecie(speciesData)
+    }
   }
 
   function renderFlatListItem({ item }: { item: SpeciesData }) {
@@ -733,13 +756,16 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                   // <View
                   //   style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 100 }}
                   // >
-                  <ScrollView style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }} showsVerticalScrollIndicator={true}>
+                  <ScrollView
+                    style={{ marginTop: 15, marginHorizontal: 10, height: 180, marginBottom: 88 }}
+                    showsVerticalScrollIndicator={true}
+                  >
                     <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>
                       {currentData?.DESCRIPTION}
                     </RNText>
                   </ScrollView>
-                  // </View>
-                ) : null}
+                ) : // </View>
+                null}
                 <Button
                   mode="contained"
                   style={{

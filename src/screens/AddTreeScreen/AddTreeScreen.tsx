@@ -1140,10 +1140,11 @@ export function AddTreeScreen(props) {
             <SpeciesSelect
               speciesType={formik.values.speciesType}
               speciesData={formik.values.speciesData}
+              isEnabled={isEnabled}
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)
                 if (speciesData?.TYPE != 'unknown') {
-                  console.log('known selected' + formik.values.speciesType)
+                  console.log('known selected ===' + formik.values.speciesType)
                   if (isEnabled) {
                     formik.setFieldValue('needsValidation', true)
                   } else {
