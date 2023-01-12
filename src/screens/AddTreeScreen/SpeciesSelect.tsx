@@ -201,7 +201,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
           style: 'cancel',
         },
         {
-          text: 'OK',
+          text: 'Yes',
           onPress: () => {
             console.log('OK Pressed')
             selectSpecie(speciesData)
