@@ -1636,7 +1636,7 @@ export function AddTreeScreen(props) {
                   setIsCameraVisible(false)
 
                   if (isEnabled) {
-                    identifyTreePicture(photo.uri).then((result) => {
+                    identifyTreePicture(photo.uri, coords).then((result) => {
                       console.log('geting result: ' + result)
                       // const aiResult: AIResult = {
                       //   tree_name: result[0],
