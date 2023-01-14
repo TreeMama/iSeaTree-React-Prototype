@@ -6,6 +6,11 @@ import { OutputInformation, RootObject } from '../screens/AddTreeScreen/TreeBene
 import axios from 'axios'
 import fs from 'react-native-fs'
 
+interface Coords {
+  latitude: number
+  longitude: number
+}
+
 async function setItem(key: string, stringValue: string, unit: string) {
   try {
     return new Promise(async (resolve, reject) => {
@@ -27,7 +32,7 @@ async function setItem(key: string, stringValue: string, unit: string) {
   }
 }
 
-export async function identifyTreePicture(picture) {
+export async function identifyTreePicture(picture, coords: Coords) {
   let file = picture
   let base64files = await fs.readFile(file, 'base64')
 
@@ -40,6 +45,8 @@ export async function identifyTreePicture(picture) {
       },
       body: JSON.stringify({
         images: [base64files],
+        latitude: coords.latitude,
+        longitude: coords.longitude,
         modifiers: ['similar_images'],
         plant_details: ['common_names', 'url'],
       }),
