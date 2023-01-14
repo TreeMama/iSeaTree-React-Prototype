@@ -122,8 +122,8 @@ export function LoggedTabNavigator() {
               source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
               style={{
-                width: 60,
-                height: 60,
+                width: 70,
+                height: 70,
                 borderRadius: 100,
                 borderWidth: 4,
                 backgroundColor: 'white',
