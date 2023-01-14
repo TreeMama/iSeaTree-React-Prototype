@@ -35,7 +35,7 @@ const data = [
   },
   {
     key: 4,
-    text: `The 'Explore' map page shows trees that you have entered, as well as trees that others have entered. Change to the multiperson view to show trees that other people have entered.`,
+    text: `Change to the multiperson view to show trees that other people have entered.`,
     image: require('../../../assets/TutorialPics/4.png'),
     backgroundColor: '#064420',
   },
@@ -53,7 +53,7 @@ const data = [
   },
   {
     key: 7,
-    text: `For help identifying tree species, click on the 'Info' menu to review tree characteristics and more detailed images.`,
+    text: `For help identifying tree species, click on the 'Info' menu to review tree details and images.`,
     image: require('../../../assets/TutorialPics/7.png'),
     backgroundColor: '#488520',
   },
@@ -65,7 +65,7 @@ const data = [
   },
   {
     key: 9,
-    text: `After you add new tree data to the 'Add new' page you will be able to calculate the 'Tree Benefits' of your data entry for others to learn about!`,
+    text: `After you add new tree data you will be able to calculate and save the 'Tree Benefits' of your tree for others to learn about!`,
     image: require('../../../assets/TutorialPics/9.png'),
     backgroundColor: '#28666E',
   },

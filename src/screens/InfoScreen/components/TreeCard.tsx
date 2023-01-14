@@ -50,7 +50,7 @@ export const TreeCard = (props: {
         <TouchableOpacity
           style={[{ zIndex: 1, elevation: 1 }]}
           onPress={(e) => {
-            Alert.alert(`You selected ${props.tree.LEVEL} level challenge!`)
+            Alert.alert(`You have selected an ${props.tree.LEVEL} level challenge!`)
           }}
         >
           <Image source={challengeIcon} style={[styles.challengeIcon]} />

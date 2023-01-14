@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   treeCard: {
-    width: Dimensions.get('screen').width * 0.47,    // 0.92 for 1-column, 0.46 for 2-column
+    width: Dimensions.get('screen').width * 0.47, // 0.92 for 1-column, 0.46 for 2-column
     height: Dimensions.get('screen').width * 0.47 * 0.85, // 0.92 * 0.618 for 1-column, 0.46 * 0.85 for 2-column
     marginBottom: 10,
     borderWidth: 1,
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 2,
     shadowOffset: { width: 1, height: 2 },
-    elevation: 5
+    elevation: 5,
   },
   treeCardBottomContainer: {
     display: 'flex',
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderBottomLeftRadius: 10,
-    borderBottomRightRadius: 10
+    borderBottomRightRadius: 10,
   },
   buttonTab: {
     width: Dimensions.get('screen').width * 0.57,
@@ -36,6 +36,7 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     borderColor: '#62717A',
     flexDirection: 'row',
+    top: 15,
   },
   challengeIcon: {
     height: 28,
@@ -44,5 +45,5 @@ export const styles = StyleSheet.create({
     top: 3,
     left: 3,
     // backgroundColor: 'white'
-  }
+  },
 })
