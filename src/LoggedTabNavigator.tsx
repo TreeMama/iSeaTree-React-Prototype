@@ -5,7 +5,7 @@ import React from 'react'
 // import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useTheme } from 'react-native-paper'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
@@ -52,7 +52,7 @@ export function LoggedTabNavigator() {
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          // bottom: 5,
+          bottom: Platform.OS === 'ios' ? 5 : 10,
           elevation: 0,
           backgroundColor: 'white',
           // height: 90,
@@ -124,6 +124,10 @@ export function LoggedTabNavigator() {
               style={{
                 width: 60,
                 height: 60,
+                borderRadius: 100,
+                borderWidth: 4,
+                backgroundColor: 'white',
+                borderColor: 'white',
               }}
             />
           ),
