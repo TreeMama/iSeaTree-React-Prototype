@@ -292,7 +292,7 @@ export function IdentifySpecies(props: any) {
             marginTop: 5,
             position: 'absolute',
             top: 15,
-            left: 15,
+            right: 15,
             backgroundColor: 'white',
             borderRadius: 30,
             height: 60,

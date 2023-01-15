@@ -16,6 +16,7 @@ import {
   LogBox,
   Platform,
   requireNativeComponent,
+  ActivityIndicator,
 } from 'react-native'
 import RNModal from 'react-native-modal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -213,6 +214,7 @@ export function AddTreeScreen(props) {
   const [genusModal, setGenusModal] = useState(false)
   const [notFoundModal, setNotFoundModal] = useState(false)
   const [invalidModal, setInvalidModal] = useState(false)
+  const [loading, setLoading] = React.useState<boolean>(false)
   const [state, setState] = useState({
     aiResult: 0,
     commonNames: '',
@@ -1619,6 +1621,22 @@ export function AddTreeScreen(props) {
             </RNModal>
           </View>
 
+          {loading && (
+            <View
+              style={{
+                justifyContent: 'center',
+                alignSelf: 'center',
+                alignContent: 'center',
+                zIndex: 0,
+                width: '100%',
+                position: 'absolute',
+                height: '100%',
+              }}
+            >
+              <ActivityIndicator color={'green'} />
+            </View>
+          )}
+
           <Modal visible={isCameraVisible} animationType="slide">
             <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
               <CameraWithLocation
@@ -1636,15 +1654,21 @@ export function AddTreeScreen(props) {
                   setIsCameraVisible(false)
 
                   if (isEnabled) {
-                    identifyTreePicture(photo.uri, coords).then((result) => {
-                      console.log('geting result: ' + result)
-                      // const aiResult: AIResult = {
-                      //   tree_name: result[0],
-                      //   probability: result[4]
-                      // }
-                      aiResult = result[4]
-                      treeValidation(result)
-                    })
+                    setLoading(true)
+                    try {
+                      identifyTreePicture(photo.uri, coords).then((result) => {
+                        console.log('geting result: ' + result)
+                        // const aiResult: AIResult = {
+                        //   tree_name: result[0],
+                        //   probability: result[4]
+                        // }
+                        aiResult = result[4]
+                        treeValidation(result)
+                        setLoading(false)
+                      })
+                    } catch (error) {
+                      setLoading(false)
+                    }
                   }
                 }}
               />
