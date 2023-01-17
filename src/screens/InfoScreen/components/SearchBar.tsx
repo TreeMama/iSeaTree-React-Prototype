@@ -20,6 +20,7 @@ export const SearchBar = (props: {
         value={props.query}
         style={{
           height: Dimensions.get('screen').width * 0.094,
+          // height: 35,
           borderRadius: 12,
         }}
         onChangeText={(value: string) => {
