@@ -121,7 +121,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const value = useContext(LocationContext)
   const address = value.address
   const location = value.currentCoords
-  console.log('value ==================', value)
+  // console.log('value ==================', value)
 
   const calculateTreezBenefits = async (state: any) => {
     setIsCalculatorloader(true)
