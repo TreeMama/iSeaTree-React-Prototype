@@ -1381,8 +1381,8 @@ export function AddTreeScreen(props) {
             />
           </View>
 
-          <View style={{ marginTop: 50, paddingHorizontal: 15 }}>
-            {formHasErrors && (
+          <View style={{ marginTop: 25, paddingHorizontal: 15 }}>
+            {!formHasErrors && (
               <Text style={{ color: theme.colors.error, marginBottom: 5 }}>
                 Please take a look at the above error messages
               </Text>
@@ -1401,7 +1401,7 @@ export function AddTreeScreen(props) {
               onPress={() => {
                 setLoadBenefitsCall(true)
               }}
-              style={{ fontSize: 10 }}
+              style={{ fontSize: 10, bottom: 23 }}
               icon="calculator"
               loading={formik.isSubmitting}
             >

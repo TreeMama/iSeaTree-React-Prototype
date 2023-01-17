@@ -122,9 +122,6 @@ const styles = StyleSheet.create({
   avatarIcon: {
     height: 30,
     width: 30,
-    position: 'absolute',
-    top: 0,
-    right: 0,
   },
   statusCell: {
     height: Platform.OS === 'ios' ? win.height / 6 : win.height / 5,
@@ -410,18 +407,26 @@ export function ProfileScreen() {
                     </TouchableOpacity>
                   </View>
                   <View>
-                    <TouchableOpacity
-                      onPress={() => randomizeAvatarUrl()}
-                      style={[{ zIndex: 1, elevation: 1 }]}
-                    >
-                      <Image source={randomIcon} style={[styles.avatarIcon]} />
-                    </TouchableOpacity>
                     <View style={styles.profileImageContainer}>
                       <Image
                         source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder}
                         style={styles.profileImage}
                       />
                     </View>
+                    <TouchableOpacity
+                      onPress={() => randomizeAvatarUrl()}
+                      style={[
+                        {
+                          zIndex: 1,
+                          elevation: 1,
+                          position: 'absolute',
+                          top: 0,
+                          right: 0,
+                        },
+                      ]}
+                    >
+                      <Image source={randomIcon} style={[styles.avatarIcon]} />
+                    </TouchableOpacity>
                   </View>
 
                   <View style={styles.profiledetailContainer}>
