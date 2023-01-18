@@ -9,8 +9,8 @@ import { StatusBar } from '../../components/StatusBar'
 const imageStep1 = require('../../../assets/dbh-help/step_1.png')
 const imageStep2 = require('../../../assets/dbh-help/step_2.png')
 const imageStep3 = require('../../../assets/dbh-help/step_3.png')
-const imageStep4 = require('../../../assets/dbh-help/step_4.png')
-const imageStep5 = require('../../../assets/dbh-help/step_5.png')
+const imageStep4 = require('../../../assets/dbh-help/step_4_new.png')
+const imageStep5 = require('../../../assets/dbh-help/step_5_new.png')
 
 export function DbhHelp() {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
