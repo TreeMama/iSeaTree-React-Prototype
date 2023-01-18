@@ -52,7 +52,8 @@ export function LoggedTabNavigator() {
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: Platform.OS === 'ios' ? 5 : 10,
+          // bottom: Platform.OS === 'ios' ? 5 : 10,
+          paddingBottom: Platform.OS === 'ios' ? 35 : 15,
           elevation: 0,
           backgroundColor: 'white',
           // height: 90,

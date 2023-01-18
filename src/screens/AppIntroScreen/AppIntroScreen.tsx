@@ -47,7 +47,7 @@ const data = [
   },
   {
     key: 6,
-    text: `The 'Add new' page is where you load new tree data. Our AI-assist feature is available to help you correctly identify what species (or genus) of tree you are identifying.`,
+    text: `The 'Add Tree' page is where you load new tree data. Our AI-assist feature is available to help you correctly identify what species (or genus) of tree you are identifying.`,
     image: require('../../../assets/TutorialPics/6.png'),
     backgroundColor: '#993520',
   },
