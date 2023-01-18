@@ -1382,7 +1382,7 @@ export function AddTreeScreen(props) {
           </View>
 
           <View style={{ marginTop: 25, paddingHorizontal: 15 }}>
-            {!formHasErrors && (
+            {formHasErrors && (
               <Text style={{ color: theme.colors.error, marginBottom: 5 }}>
                 Please take a look at the above error messages
               </Text>
