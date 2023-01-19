@@ -9,7 +9,8 @@ export function ChallengeScreen(props) {
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
         <StatusBar />
-        <ScrollView>
+        {/* <ScrollView> */}
+        <View>
           <View>
             <Text style={{ color: '#298AEF', top: 10, left: 5 }}>Select Challenge:</Text>
           </View>
@@ -18,27 +19,39 @@ export function ChallengeScreen(props) {
               flex: 1,
               flexDirection: 'row',
               top: 25,
+              alignItems: 'flex-start',
+              justifyContent: 'flex-start',
               // justifyContent: 'center',
               // alignItems: 'center',
             }}
           >
             <Image
-              style={{ width: '30%', height: 120, left: 5 }}
+              style={{
+                width: '30%',
+                height: 120,
+                left: 5,
+              }}
+              height={100}
+              resizeMode="contain"
               source={require('../../assets/badges/old_growth_expert.png')}
             />
-            <View style={{ padding: 20, width: '70%' }}>
-              <Text style={{ fontWeight: 'bold', flex: 1, flexDirection: 'column' }}>
-                (Challenge activated)
-              </Text>
-              <Text style={{ fontWeight: 'bold', flex: 1, flexDirection: 'column' }}>
-                Tree Identification Challenge
-              </Text>
-              <Text style={{ flex: 1, flexDirection: 'column' }}>
-                Correctly identify the species of tree & earn a badge for your expertise!
-              </Text>
+            <View
+              style={{
+                padding: 20,
+                width: '70%',
+                minHeight: 130,
+                paddingTop: 10,
+                // flex: 1,
+                // flexDirection: 'column',
+              }}
+            >
+              <Text style={{ fontWeight: 'bold' }}>(Challenge activated)</Text>
+              <Text style={{ fontWeight: 'bold' }}>Tree Identification Challenge</Text>
+              <Text>Correctly identify the species of tree & earn a badge for your expertise!</Text>
             </View>
           </View>
-        </ScrollView>
+        </View>
+        {/* </ScrollView> */}
       </SafeAreaView>
     </KeyboardAvoidingView>
   )
