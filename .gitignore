@@ -74,8 +74,3 @@ android/.gradle/checksums/md5-checksums.bin
 android/.gradle/checksums/sha1-checksums.bin
 
 iOS/Podfile.lock
-
-
-node_modules/
-iOS/Pods
-
