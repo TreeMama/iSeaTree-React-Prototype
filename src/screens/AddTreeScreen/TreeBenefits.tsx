@@ -29,6 +29,7 @@ interface TreeBenefitsProps {
   values: FormValues
   loadBenefitsCall: boolean
   setCalculatedFormValues: Function
+  onModalClose: Function
 }
 
 const styles = StyleSheet.create({
@@ -104,7 +105,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const [benefits, setBenefits] = React.useState<OutputInformation>()
   const [benefitsError, setBenefitsError] = React.useState('')
   const [, setFormattedResponse] = React.useState('')
-  const { values, loadBenefitsCall } = props
+  const { values, loadBenefitsCall, onModalClose } = props
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values
   const canCalculateBenefits = !!(
     (
@@ -282,7 +283,11 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                 text: 'Ok',
                 onPress: () => {
                   console.log('ok')
-                  calculateTreezBenefits(state)
+                  // calculateTreezBenefits(state)
+                  if (speciesData.TYPE.toLowerCase() === 'unknown') {
+                  } else {
+                    calculateTreezBenefits(state)
+                  }
                 },
               },
             ],
@@ -299,7 +304,6 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
   useEffect(() => {
     ;(async function () {
-      console.log('loadBenefitsCall ===', loadBenefitsCall)
       if (loadBenefitsCall) {
         await loadBenefits()
       }
@@ -412,6 +416,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           animationType="slide"
           onDismiss={() => {
             setIsModalVisible(false)
+            onModalClose()
           }}
         >
           <StatusBar />
@@ -544,6 +549,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                 setBenefits({})
                 setBenefitsError('')
                 setIsModalVisible(false)
+                onModalClose()
               }}
             >
               Done

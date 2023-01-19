@@ -248,26 +248,41 @@ export function AddTreeScreen(props) {
     onSubmit: (values) => {
       // alert(JSON.stringify(values, null, 2));
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
+      // submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
     },
   })
 
-  function handleAddTreeSuccess(_formValues: FormValues) {
+  const handleAddTreeSuccess = (_formValues: FormValues) => {
+    const { speciesData } = _formValues
+    refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
+    // formik.resetForm()
+    setLoadBenefitsCall(false)
+    setCalculatedFormValues(false)
+    formik.setSubmitting(false)
+    if (speciesData?.TYPE.toLowerCase() === 'unknown') {
+      formik.resetForm()
+    }
+    Alert.alert('Success', 'You have added new tree successfully', [
+      {
+        text: 'Great',
+        onPress: () => {
+          // formik.resetForm()
+          setLoadBenefitsCall(false)
+          setCalculatedFormValues(false)
+          if (speciesData?.TYPE.toLowerCase() === 'unknown') {
+            onModalCloseClick()
+          }
+        },
+      },
+    ])
+  }
+
+  const onModalCloseClick = () => {
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
     formik.resetForm()
     setLoadBenefitsCall(false)
     setCalculatedFormValues(false)
     formik.setSubmitting(false)
-    Alert.alert('Success', 'You have added new tree successfully', [
-      {
-        text: 'Great',
-        onPress: () => {
-          formik.resetForm()
-          setLoadBenefitsCall(false)
-          setCalculatedFormValues(false)
-        },
-      },
-    ])
   }
 
   LogBox.ignoreLogs(['Warning: ...'])
@@ -382,18 +397,14 @@ export function AddTreeScreen(props) {
       formik.handleSubmit()
       formik.values.speciesData?.COMMON === 'Unknown' &&
         formik.values.speciesType === TreeTypes.NULL &&
-        Alert.alert(
-          '',
-          'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.',
-          [
-            {
-              text: 'Ok',
-              onPress: () => {
-                console.log('ok')
-              },
+        Alert.alert('', 'You have missing data. You need to select a Tree type for this entry.', [
+          {
+            text: 'Ok',
+            onPress: () => {
+              console.log('ok')
             },
-          ],
-        )
+          },
+        ])
     }
   }, [calculatedFormValues])
 
@@ -1405,13 +1416,28 @@ export function AddTreeScreen(props) {
                 values={formik.values}
                 loadBenefitsCall={loadBenefitsCall}
                 setCalculatedFormValues={setCalculatedFormValues}
+                onModalClose={onModalCloseClick}
               />
             </View>
 
             <Button
               mode="contained"
               onPress={() => {
-                setLoadBenefitsCall(true)
+                // setLoadBenefitsCall(true)
+                formik.handleSubmit()
+                const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } =
+                  formik.values
+                const canCalculateBenefits = !!(
+                  speciesData &&
+                  crownLightExposureCategory !== null &&
+                  dbh &&
+                  parseInt(dbh) !== 0 &&
+                  treeConditionCategory
+                )
+                if (canCalculateBenefits) {
+                  setLoadBenefitsCall(true)
+                  submitTreeData(formik.values).then(handleAddTreeSuccess).catch(handleAddTreeError)
+                }
               }}
               style={{ fontSize: 10, bottom: 23 }}
               icon="calculator"
