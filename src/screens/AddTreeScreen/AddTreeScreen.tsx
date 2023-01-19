@@ -21,7 +21,7 @@ import {
 import RNModal from 'react-native-modal'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // import RNModal from 'react-native-modal'
-import { Button, TextInput, Text, Subheading, useTheme, Switch } from 'react-native-paper'
+import { Button, TextInput, Text, Subheading, useTheme, Switch, Dialog } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
 import { StatusBar } from '../../components/StatusBar'
@@ -215,6 +215,7 @@ export function AddTreeScreen(props) {
   const [notFoundModal, setNotFoundModal] = useState(false)
   const [invalidModal, setInvalidModal] = useState(false)
   const [loading, setLoading] = React.useState<boolean>(false)
+  const [treeValidationLoading, setTreeValidationLoading] = React.useState<boolean>(false)
   const [state, setState] = useState({
     aiResult: 0,
     commonNames: '',
@@ -730,154 +731,165 @@ export function AddTreeScreen(props) {
   )
 
   const treeValidation = (result) => {
-    let is_plant = result[0]
-    let species_match = false
-    let genus_match = false
-    let structured_name = result[3]
-    // genus = structured_name[0]
-    // commonNames = result[1]
-    setState({
-      ...state,
-      commonNames: result[1],
-      scientificName: result[2],
-      genus: structured_name[0],
-    })
-    // scientificName = result[2]
+    try {
+      formik.setFieldValue('needsValidation', false)
+      let is_plant = result[0]
+      let species_match = false
+      let genus_match = false
+      let structured_name = result[3]
+      // genus = structured_name[0]
+      // commonNames = result[1]
+      setState({
+        ...state,
+        commonNames: result[1],
+        scientificName: result[2],
+        genus: structured_name[0],
+      })
+      // scientificName = result[2]
 
-    let species = structured_name[1]
-    let species_name_id = ''
-    let image_url_from_json = ''
+      let species = structured_name[1]
+      let species_name_id = ''
+      let image_url_from_json = ''
 
-    console.log('is_plant: ' + is_plant)
-    if (is_plant) {
-      /*Is a tree*/
-      // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
-      let local_species_data = require('./../../../data/species.json')
-      // let local_species_data = require('../../../../data/species.json');
-      // (1) Check if the AI has found a match to our json records for a Species
-      // (2) Check if the AI has found a match to our json records for a genus
-      for (var i = 0; i < local_species_data.length; i++) {
-        var obj = local_species_data[i]
-        if (obj.SCIENTIFIC == state.scientificName) {
-          species_match = true
-          species_name_id = obj.ID
-          // matchObj = obj
-          setState({ ...state, matchObj: obj })
-          console.log(
-            'AI SCIENTIFIC NAME: ' +
+      console.log('is_plant: ' + is_plant)
+      if (is_plant) {
+        /*Is a tree*/
+        // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
+        let local_species_data = require('./../../../data/species.json')
+        // let local_species_data = require('../../../../data/species.json');
+        // (1) Check if the AI has found a match to our json records for a Species
+        // (2) Check if the AI has found a match to our json records for a genus
+        for (var i = 0; i < local_species_data.length; i++) {
+          var obj = local_species_data[i]
+          if (obj.SCIENTIFIC == state.scientificName) {
+            species_match = true
+            species_name_id = obj.ID
+            // matchObj = obj
+            setState({ ...state, matchObj: obj })
+            console.log(
+              'AI SCIENTIFIC NAME: ' +
+                state.scientificName +
+                ', Json SCIENTIFIC NAME: ' +
+                obj.SCIENTIFIC,
+            )
+          } else if (obj.GENUS == state.genus) {
+            genus_match = true
+            console.log('AI genus name: ' + state.genus + ', Json genus name: ' + obj.GENUS)
+          }
+          // matchObjUrl = obj.FULL_PIC_180x110
+          setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
+        }
+
+        if (species_match) {
+          {
+            /* Outcome 2: Prompt user to enter the Species name */
+          }
+          // <Image
+          //   style={{ width: 50, height: 50 }}
+          //   source={{ uri: '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/screens/AddTreeScreen/img/maple_tree.jpeg' }}
+          // />
+          setTreeValidationLoading(false)
+          Alert.alert(
+            "It's a match!",
+            "We've determined that this tree likely is a " +
+              state.commonNames +
+              '(' +
               state.scientificName +
-              ', Json SCIENTIFIC NAME: ' +
-              obj.SCIENTIFIC,
+              ').\n Do you agree?',
+            [
+              {
+                text: 'Try again',
+                onPress: () => {},
+              },
+              {
+                text: 'OK',
+                onPress: () => {
+                  console.log('start setFieldValue')
+                  formik.setFieldValue('needsValidation', true)
+                  formik.setFieldValue('speciesData', state.matchObj)
+                  formik.setFieldValue('treeType', state.matchObj.TYPE)
+                  refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
+                },
+              },
+            ],
           )
-        } else if (obj.GENUS == state.genus) {
-          genus_match = true
-          console.log('AI genus name: ' + state.genus + ', Json genus name: ' + obj.GENUS)
-        }
-        // matchObjUrl = obj.FULL_PIC_180x110
-        setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
-      }
-
-      if (species_match) {
-        {
-          /* Outcome 2: Prompt user to enter the Species name */
-        }
-        // <Image
-        //   style={{ width: 50, height: 50 }}
-        //   source={{ uri: '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/screens/AddTreeScreen/img/maple_tree.jpeg' }}
-        // />
-        Alert.alert(
-          "It's a match!",
-          "We've determined that this tree likely is a " +
-            state.commonNames +
-            '(' +
-            state.scientificName +
-            ').\n Do you agree?',
-          [
-            {
-              text: 'Try again',
-              onPress: () => {},
-            },
-            {
-              text: 'OK',
-              onPress: () => {
-                console.log('start setFieldValue')
-                formik.setFieldValue('speciesData', state.matchObj)
-                formik.setFieldValue('treeType', state.matchObj.TYPE)
-                refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
-              },
-            },
-          ],
-        )
-      } else if (genus_match) {
-        {
-          /* Outcome 1: Prompt user to enter the GENUS  */
-        }
-        Alert.alert(
-          "It's a match!",
-          "We've determined that this tree likely belongs in the " +
-            state.genus +
-            '(' +
-            state.scientificName +
-            ') Genus.\n Do you agree?',
-          [
-            {
-              text: 'Try again',
-              onPress: () => {},
-            },
-            {
-              text: 'OK',
-              onPress: () => {
-                formik.setFieldValue('speciesData', state.matchObj)
-                formik.setFieldValue('treeType', state.matchObj.TYPE)
-                refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
-              },
-            },
-          ],
-        )
-      } else if (state.commonNames == null) {
-        {
-          /* Outcome 3: Prompt user to enter Unknown */
-        }
-        Alert.alert(
-          'Sorry! No matches found',
-          "We cannot determine this species. Do you want to enter this species as 'Unknown'?",
-          [
-            {
-              text: 'Try again',
-              onPress: () => {},
-            },
-            {
-              text: 'OK',
-              onPress: () => {
-                formik.setFieldValue('speciesData', local_species_data[0])
-                formik.setFieldValue('treeType', local_species_data[0].TYPE)
-                refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
-              },
-            },
-          ],
-        )
-      }
-    } else {
-      {
-        /* Is not a tree */
-      }
-      {
-        /* Outcome 4: Prompt user to take another picture */
-      }
-      Alert.alert(
-        'Hmmm...',
-        "This doesn't look like a tree to us.\n Can you take another picture?",
-        [
+        } else if (genus_match) {
           {
-            text: 'Cancel',
-            onPress: () => {},
-          },
+            /* Outcome 1: Prompt user to enter the GENUS  */
+          }
+          setTreeValidationLoading(false)
+          Alert.alert(
+            "It's a match!",
+            "We've determined that this tree likely belongs in the " +
+              state.genus +
+              '(' +
+              state.scientificName +
+              ') Genus.\n Do you agree?',
+            [
+              {
+                text: 'Try again',
+                onPress: () => {},
+              },
+              {
+                text: 'OK',
+                onPress: () => {
+                  formik.setFieldValue('speciesData', state.matchObj)
+                  formik.setFieldValue('treeType', state.matchObj.TYPE)
+                  refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
+                },
+              },
+            ],
+          )
+        } else if (state.commonNames == null) {
           {
-            text: 'OK',
-            onPress: () => {},
-          },
-        ],
-      )
+            /* Outcome 3: Prompt user to enter Unknown */
+          }
+          setTreeValidationLoading(false)
+          Alert.alert(
+            'Sorry! No matches found',
+            "We cannot determine this species. Do you want to enter this species as 'Unknown'?",
+            [
+              {
+                text: 'Try again',
+                onPress: () => {},
+              },
+              {
+                text: 'OK',
+                onPress: () => {
+                  formik.setFieldValue('speciesData', local_species_data[0])
+                  formik.setFieldValue('treeType', local_species_data[0].TYPE)
+                  refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
+                },
+              },
+            ],
+          )
+        }
+      } else {
+        {
+          setTreeValidationLoading(false)
+          /* Is not a tree */
+        }
+        {
+          /* Outcome 4: Prompt user to take another picture */
+        }
+        Alert.alert(
+          'Hmmm...',
+          "This doesn't look like a tree to us.\n Can you take another picture?",
+          [
+            {
+              text: 'Cancel',
+              onPress: () => {},
+            },
+            {
+              text: 'OK',
+              onPress: () => {},
+            },
+          ],
+        )
+      }
+    } catch (error) {
+      setTreeValidationLoading(false)
+      setLoading(false)
     }
   }
 
@@ -1636,6 +1648,45 @@ export function AddTreeScreen(props) {
               <ActivityIndicator color={'green'} />
             </View>
           )}
+          <Dialog
+            visible={treeValidationLoading}
+            dismissable={false}
+            style={{
+              top: '15%',
+              height: 200,
+              position: 'absolute',
+              width: '100%',
+              marginLeft: 0,
+              backgroundColor: 'transparent',
+            }}
+          >
+            {treeValidationLoading && (
+              <Dialog.Content style={{ backgroundColor: 'white', margin: 20, paddingBottom: 40 }}>
+                <View style={{ alignItems: 'center', padding: 10 }}>
+                  <ActivityIndicator animating={true} size="large" color={colors.gray[700]} />
+                  <Text style={{ color: colors.gray[700], marginTop: 15 }}>
+                    Identifying species/genus...
+                  </Text>
+                </View>
+              </Dialog.Content>
+
+              // <View
+              //   style={{
+              //     justifyContent: 'center',
+              //     alignSelf: 'center',
+              //     alignContent: 'center',
+              //     flex: 1,
+              //     backgroundColor: 'rgba(0,0,0,0.5)',
+              //     zIndex: 0,
+              //     width: '100%',
+              //     position: 'absolute',
+              //     height: '100%',
+              //   }}
+              // >
+              //   <ActivityIndicator color={'green'} />
+              // </View>
+            )}
+          </Dialog>
 
           <Modal visible={isCameraVisible} animationType="slide">
             <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
@@ -1663,6 +1714,7 @@ export function AddTreeScreen(props) {
                         //   probability: result[4]
                         // }
                         aiResult = result[4]
+                        setTreeValidationLoading(true)
                         treeValidation(result)
                         setLoading(false)
                       })
