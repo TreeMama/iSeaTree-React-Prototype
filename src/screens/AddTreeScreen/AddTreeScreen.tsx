@@ -245,29 +245,44 @@ export function AddTreeScreen(props) {
     },
     validate: validateForm,
     onSubmit: (values) => {
+      console.log("values of forms", values)
       // alert(JSON.stringify(values, null, 2));
       // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
+      //submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
     },
   })
 
-  function handleAddTreeSuccess(_formValues: FormValues) {
+  const handleAddTreeSuccess = (_formValues: FormValues) => {
+    const { speciesData } = _formValues;
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
-    formik.resetForm()
     setLoadBenefitsCall(false)
     setCalculatedFormValues(false)
     formik.setSubmitting(false)
+    if (speciesData?.TYPE.toLowerCase() === 'unknown') {
+      formik.resetForm();
+    }
     Alert.alert('Success', 'You have added new tree successfully', [
       {
         text: 'Great',
         onPress: () => {
-          formik.resetForm()
-          setLoadBenefitsCall(false)
-          setCalculatedFormValues(false)
+          // formik.resetForm()
+          setLoadBenefitsCall(false);
+          setCalculatedFormValues(false);
+          if (speciesData?.TYPE.toLowerCase() === 'unknown') {
+            onModalCloseClick();
+          }
         },
       },
     ])
-  }
+  };
+
+  const onModalCloseClick = () => {
+    refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
+    formik.resetForm();
+    setLoadBenefitsCall(false)
+    setCalculatedFormValues(false)
+    formik.setSubmitting(false)
+  };
 
   LogBox.ignoreLogs(['Warning: ...'])
   LogBox.ignoreAllLogs()
@@ -383,7 +398,7 @@ export function AddTreeScreen(props) {
         formik.values.speciesType === TreeTypes.NULL &&
         Alert.alert(
           '',
-          'This entry could not be saved.You have missing data. You need to select a Tree type for this entry.',
+          'You have missing data. You need to select a Tree type for this entry.',
           [
             {
               text: 'Ok',
@@ -752,7 +767,9 @@ export function AddTreeScreen(props) {
     if (is_plant) {
       /*Is a tree*/
       // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
-      let local_species_data = require('./../../../data/species.json')
+      let local_species_data = require('./../../../data/species.json');
+
+      console.log("local_species_data", local_species_data)
       // let local_species_data = require('../../../../data/species.json');
       // (1) Check if the AI has found a match to our json records for a Species
       // (2) Check if the AI has found a match to our json records for a genus
@@ -765,9 +782,9 @@ export function AddTreeScreen(props) {
           setState({ ...state, matchObj: obj })
           console.log(
             'AI SCIENTIFIC NAME: ' +
-              state.scientificName +
-              ', Json SCIENTIFIC NAME: ' +
-              obj.SCIENTIFIC,
+            state.scientificName +
+            ', Json SCIENTIFIC NAME: ' +
+            obj.SCIENTIFIC,
           )
         } else if (obj.GENUS == state.genus) {
           genus_match = true
@@ -788,14 +805,14 @@ export function AddTreeScreen(props) {
         Alert.alert(
           "It's a match!",
           "We've determined that this tree likely is a " +
-            state.commonNames +
-            '(' +
-            state.scientificName +
-            ').\n Do you agree?',
+          state.commonNames +
+          '(' +
+          state.scientificName +
+          ').\n Do you agree?',
           [
             {
               text: 'Try again',
-              onPress: () => {},
+              onPress: () => { },
             },
             {
               text: 'OK',
@@ -815,14 +832,14 @@ export function AddTreeScreen(props) {
         Alert.alert(
           "It's a match!",
           "We've determined that this tree likely belongs in the " +
-            state.genus +
-            '(' +
-            state.scientificName +
-            ') Genus.\n Do you agree?',
+          state.genus +
+          '(' +
+          state.scientificName +
+          ') Genus.\n Do you agree?',
           [
             {
               text: 'Try again',
-              onPress: () => {},
+              onPress: () => { },
             },
             {
               text: 'OK',
@@ -844,7 +861,7 @@ export function AddTreeScreen(props) {
           [
             {
               text: 'Try again',
-              onPress: () => {},
+              onPress: () => { },
             },
             {
               text: 'OK',
@@ -870,11 +887,11 @@ export function AddTreeScreen(props) {
         [
           {
             text: 'Cancel',
-            onPress: () => {},
+            onPress: () => { },
           },
           {
             text: 'OK',
-            onPress: () => {},
+            onPress: () => { },
           },
         ],
       )
@@ -1164,8 +1181,8 @@ export function AddTreeScreen(props) {
                       Alert.alert(
                         '',
                         "Oops! Looks like you didn't say what type of tree this is. This species is a " +
-                          speciesData?.TYPE +
-                          '. I am going to correct this for you!',
+                        speciesData?.TYPE +
+                        '. I am going to correct this for you!',
                         [
                           {
                             text: 'Ok',
@@ -1393,13 +1410,27 @@ export function AddTreeScreen(props) {
                 values={formik.values}
                 loadBenefitsCall={loadBenefitsCall}
                 setCalculatedFormValues={setCalculatedFormValues}
+                onModalClose={onModalCloseClick}
               />
             </View>
 
             <Button
               mode="contained"
               onPress={() => {
-                setLoadBenefitsCall(true)
+                formik.handleSubmit();
+                const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = formik.values;
+                const canCalculateBenefits = !!(
+                  (
+                    speciesData &&
+                    crownLightExposureCategory !== null &&
+                    dbh &&
+                    parseInt(dbh) !== 0 &&
+                    treeConditionCategory
+                  ));
+                if (canCalculateBenefits) {
+                  setLoadBenefitsCall(true);
+                  submitTreeData(formik.values).then(handleAddTreeSuccess).catch(handleAddTreeError)
+                }
               }}
               style={{ fontSize: 10, bottom: 23 }}
               icon="calculator"
@@ -1980,7 +2011,7 @@ export function AddTreeScreen(props) {
                       borderColor: theme.colors.primary,
                     }}
                     onPress={() => {
-                      ;setDone(false) &
+                      ; setDone(false) &
                         setIsMeasureWithCamera(false) &
                         setDBHSelected(false) &
                         formik.setFieldValue('dbh', parseFloat(formik.values.both)) &
