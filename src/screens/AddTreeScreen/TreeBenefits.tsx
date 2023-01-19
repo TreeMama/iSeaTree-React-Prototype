@@ -108,8 +108,6 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const { values, loadBenefitsCall, onModalClose } = props
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values;
 
-  console.log("values of data", values)
-
   const canCalculateBenefits = !!(
     (
       speciesData &&

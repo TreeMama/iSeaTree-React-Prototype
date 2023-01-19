@@ -717,7 +717,7 @@ export function IdentifySpecies(props: any) {
                     </RNText>
                   </ScrollView>
                 ) : // </View>
-                null}
+                  null}
                 <Button
                   mode="contained"
                   style={{

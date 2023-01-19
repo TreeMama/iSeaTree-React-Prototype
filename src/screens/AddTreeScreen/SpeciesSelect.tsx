@@ -376,6 +376,12 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
       treeDetailImg = treeBroadleaf
       break
   }
+
+  const getUnknownFirst = () => {
+    const unknownObject = currentSpeciesNamesItems.filter((obj) => obj.ID === "0");
+    return [...unknownObject, ...currentSpeciesNamesItems];
+  }
+
   return (
     <View>
       <Subheading>Species</Subheading>
@@ -765,7 +771,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                     </RNText>
                   </ScrollView>
                 ) : // </View>
-                null}
+                  null}
                 <Button
                   mode="contained"
                   style={{
@@ -809,9 +815,8 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
               theme={{ roundness: 0 }}
               autoCorrect={false}
             />
-
             <FlatList
-              data={currentSpeciesNamesItems}
+              data={getUnknownFirst()}
               keyExtractor={(item, index) => `${item.ID}-${index}`}
               renderItem={renderFlatListItem}
               initialNumToRender={20}

@@ -769,7 +769,6 @@ export function AddTreeScreen(props) {
       // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
       let local_species_data = require('./../../../data/species.json');
 
-      console.log("local_species_data", local_species_data)
       // let local_species_data = require('../../../../data/species.json');
       // (1) Check if the AI has found a match to our json records for a Species
       // (2) Check if the AI has found a match to our json records for a genus
