@@ -1442,6 +1442,7 @@ export function AddTreeScreen(props) {
               style={{ fontSize: 10, bottom: 23 }}
               icon="calculator"
               loading={formik.isSubmitting}
+              disabled={formHasErrors}
             >
               {`Calculate Tree Benefits & Save`}
             </Button>

@@ -14,6 +14,7 @@ import { MapScreen } from './screens/MapScreen'
 import { InfoScreen } from './screens/InfoScreen/InfoScreen'
 import { colors } from './styles/theme'
 import { ChallengeScreen } from './screens/ChallengeScreen'
+import { styles } from './screens/InfoScreen/styles'
 
 const Tab = createBottomTabNavigator()
 
@@ -123,6 +124,7 @@ export function LoggedTabNavigator() {
               source={focused ? treeCameraActiveIcon : treeCameraIcon}
               fadeDuration={0}
               style={{
+                zIndex: 1,
                 width: 70,
                 height: 70,
                 borderRadius: 100,
