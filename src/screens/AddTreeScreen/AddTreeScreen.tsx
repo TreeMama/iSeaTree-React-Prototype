@@ -744,6 +744,7 @@ export function AddTreeScreen(props) {
   const treeValidation = (result) => {
     try {
       formik.setFieldValue('needsValidation', false)
+      console.log('tree check ===', result)
       let is_plant = result[0]
       let species_match = false
       let genus_match = false
@@ -758,40 +759,60 @@ export function AddTreeScreen(props) {
       })
       // scientificName = result[2]
 
-      let species = structured_name[1]
-      let species_name_id = ''
-      let image_url_from_json = ''
-
-      console.log('is_plant: ' + is_plant)
+      console.log('is_plant ===', is_plant)
       if (is_plant) {
         /*Is a tree*/
         // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
         let local_species_data = require('./../../../data/species.json')
+        let matchSpecieObj = ''
+        let matchGenusObj = ''
+        // Filter Plant From JSON
+
+        /* In Future we have to match API response result[2] 90% result with species.json data */
+        const speciesFilter = local_species_data.filter((species) => {
+          return species.SCIENTIFIC.toLowerCase() == result[2].toLowerCase()
+        })
+
+        /* We have to filter object that have schientif name has spp. */
+        const genusFilter = local_species_data.filter((genus) => {
+          return genus.GENUS.toLowerCase() == structured_name.genus.toLowerCase()
+        })
+
+        if (Array.isArray(speciesFilter) && speciesFilter.length >= 1) {
+          species_match = true
+          matchSpecieObj = speciesFilter[0]
+          setState({ ...state, matchObj: speciesFilter[0] })
+        } else if (Array.isArray(genusFilter) && genusFilter.length >= 1) {
+          genus_match = true
+          matchGenusObj = genusFilter[0]
+          setState({ ...state, matchObj: genusFilter[0] })
+        }
         // let local_species_data = require('../../../../data/species.json');
         // (1) Check if the AI has found a match to our json records for a Species
         // (2) Check if the AI has found a match to our json records for a genus
-        for (var i = 0; i < local_species_data.length; i++) {
-          var obj = local_species_data[i]
-          if (obj.SCIENTIFIC == state.scientificName) {
-            species_match = true
-            species_name_id = obj.ID
-            // matchObj = obj
-            setState({ ...state, matchObj: obj })
-            console.log(
-              'AI SCIENTIFIC NAME: ' +
-                state.scientificName +
-                ', Json SCIENTIFIC NAME: ' +
-                obj.SCIENTIFIC,
-            )
-          } else if (obj.GENUS == state.genus) {
-            genus_match = true
-            console.log('AI genus name: ' + state.genus + ', Json genus name: ' + obj.GENUS)
-          }
-          // matchObjUrl = obj.FULL_PIC_180x110
-          setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
-        }
 
-        if (species_match) {
+        // for (var i = 0; i < local_species_data.length; i++) {
+        //   var obj = local_species_data[i]
+        //   if (obj.SCIENTIFIC == state.scientificName) {
+        //     species_match = true
+        //     species_name_id = obj.ID
+        //     // matchObj = obj
+        //     setState({ ...state, matchObj: obj })
+        //     console.log(
+        //       'AI SCIENTIFIC NAME: ' +
+        //         state.scientificName +
+        //         ', Json SCIENTIFIC NAME: ' +
+        //         obj.SCIENTIFIC,
+        //     )
+        //   } else if (obj.GENUS == state.genus) {
+        //     genus_match = true
+        //     console.log('AI genus name: ' + state.genus + ', Json genus name: ' + obj.GENUS)
+        //   }
+        //   // matchObjUrl = obj.FULL_PIC_180x110
+        //   setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
+        // }
+
+        if (species_match && matchSpecieObj) {
           {
             /* Outcome 2: Prompt user to enter the Species name */
           }
@@ -803,23 +824,25 @@ export function AddTreeScreen(props) {
           Alert.alert(
             "It's a match!",
             "We've determined that this tree likely is a " +
-              state.commonNames +
-              '(' +
-              state.scientificName +
+              matchSpecieObj?.COMMON +
+              ' (' +
+              matchSpecieObj?.SCIENTIFIC +
               ').\n Do you agree?',
             [
               {
                 text: 'Try again',
-                onPress: () => {},
+                onPress: () => {
+                  setIsCameraVisible(true)
+                },
               },
               {
                 text: 'OK',
                 onPress: () => {
                   console.log('start setFieldValue')
                   formik.setFieldValue('needsValidation', true)
-                  formik.setFieldValue('speciesData', state.matchObj)
-                  formik.setFieldValue('treeType', state.matchObj.TYPE)
-                  refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
+                  formik.setFieldValue('speciesData', matchSpecieObj)
+                  formik.setFieldValue('treeType', matchSpecieObj.TYPE)
+                  refTreeTypeSelect.current.setTreeType(matchSpecieObj.TYPE)
                 },
               },
             ],
@@ -832,21 +855,23 @@ export function AddTreeScreen(props) {
           Alert.alert(
             "It's a match!",
             "We've determined that this tree likely belongs in the " +
-              state.genus +
+              matchGenusObj?.GENUS +
               '(' +
-              state.scientificName +
+              matchGenusObj?.SCIENTIFIC +
               ') Genus.\n Do you agree?',
             [
               {
                 text: 'Try again',
-                onPress: () => {},
+                onPress: () => {
+                  setIsCameraVisible(true)
+                },
               },
               {
                 text: 'OK',
                 onPress: () => {
-                  formik.setFieldValue('speciesData', state.matchObj)
-                  formik.setFieldValue('treeType', state.matchObj.TYPE)
-                  refTreeTypeSelect.current.setTreeType(state.matchObj.TYPE)
+                  formik.setFieldValue('speciesData', matchGenusObj)
+                  formik.setFieldValue('treeType', matchGenusObj.TYPE)
+                  refTreeTypeSelect.current.setTreeType(matchGenusObj.TYPE)
                 },
               },
             ],
@@ -862,7 +887,9 @@ export function AddTreeScreen(props) {
             [
               {
                 text: 'Try again',
-                onPress: () => {},
+                onPress: () => {
+                  setIsCameraVisible(true)
+                },
               },
               {
                 text: 'OK',
@@ -876,13 +903,8 @@ export function AddTreeScreen(props) {
           )
         }
       } else {
-        {
-          setTreeValidationLoading(false)
-          /* Is not a tree */
-        }
-        {
-          /* Outcome 4: Prompt user to take another picture */
-        }
+        setTreeValidationLoading(false)
+        /* Is not a tree */
         Alert.alert(
           'Hmmm...',
           "This doesn't look like a tree to us.\n Can you take another picture?",
@@ -893,7 +915,9 @@ export function AddTreeScreen(props) {
             },
             {
               text: 'OK',
-              onPress: () => {},
+              onPress: () => {
+                setIsCameraVisible(true)
+              },
             },
           ],
         )
@@ -1427,16 +1451,22 @@ export function AddTreeScreen(props) {
                 formik.handleSubmit()
                 const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } =
                   formik.values
-                const canCalculateBenefits = !!(
-                  speciesData &&
-                  crownLightExposureCategory !== null &&
-                  dbh &&
-                  parseInt(dbh) !== 0 &&
-                  treeConditionCategory
-                )
-                if (canCalculateBenefits) {
-                  setLoadBenefitsCall(true)
-                  submitTreeData(formik.values).then(handleAddTreeSuccess).catch(handleAddTreeError)
+                const { locationType } = formik.errors
+                console.log(locationType, 'locationType')
+                if (locationType != "Can't be blank") {
+                  const canCalculateBenefits = !!(
+                    speciesData &&
+                    crownLightExposureCategory !== null &&
+                    dbh &&
+                    parseInt(dbh) !== 0 &&
+                    treeConditionCategory
+                  )
+                  if (canCalculateBenefits) {
+                    setLoadBenefitsCall(true)
+                    submitTreeData(formik.values, isEnabled)
+                      .then(handleAddTreeSuccess)
+                      .catch(handleAddTreeError)
+                  }
                 }
               }}
               style={{ fontSize: 10, bottom: 23 }}
@@ -1660,23 +1690,8 @@ export function AddTreeScreen(props) {
             </RNModal>
           </View>
 
-          {loading && (
-            <View
-              style={{
-                justifyContent: 'center',
-                alignSelf: 'center',
-                alignContent: 'center',
-                zIndex: 0,
-                width: '100%',
-                position: 'absolute',
-                height: '100%',
-              }}
-            >
-              <ActivityIndicator color={'green'} />
-            </View>
-          )}
           <Dialog
-            visible={treeValidationLoading}
+            visible={loading}
             dismissable={false}
             style={{
               top: '15%',
@@ -1687,7 +1702,7 @@ export function AddTreeScreen(props) {
               backgroundColor: 'transparent',
             }}
           >
-            {treeValidationLoading && (
+            {loading && (
               <Dialog.Content style={{ backgroundColor: 'white', margin: 20, paddingBottom: 40 }}>
                 <View style={{ alignItems: 'center', padding: 10 }}>
                   <ActivityIndicator animating={true} size="large" color={colors.gray[700]} />
@@ -1735,12 +1750,12 @@ export function AddTreeScreen(props) {
                     setLoading(true)
                     try {
                       identifyTreePicture(photo.uri, coords).then((result) => {
-                        console.log('geting result: ' + result)
+                        console.log('identifyTreePicture result ===' + result)
                         // const aiResult: AIResult = {
                         //   tree_name: result[0],
                         //   probability: result[4]
                         // }
-                        aiResult = result[4]
+                        aiResult = 1
                         setTreeValidationLoading(true)
                         treeValidation(result)
                         setLoading(false)

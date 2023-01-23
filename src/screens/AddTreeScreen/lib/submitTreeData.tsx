@@ -23,7 +23,10 @@ async function getItem(item: string) {
   }
 }
 
-export async function submitTreeData(formValues: FormValues): Promise<FormValues> {
+export async function submitTreeData(
+  formValues: FormValues,
+  isEnabled: boolean,
+): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
 
   if (!authUser) {
@@ -179,7 +182,7 @@ export async function submitTreeData(formValues: FormValues): Promise<FormValues
     CarbonDioxideStorage,
     CarbonDioxideStorageValue,
     DryWeight,
-    AIResult: 1,
+    AIResult: isEnabled ? 1 : 0,
   }
   console.log('calling addTree')
   addTree(treeData)
