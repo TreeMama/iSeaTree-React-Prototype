@@ -52,7 +52,7 @@ export async function identifyTreePicture(picture, coords: Coords) {
       }),
     })
     const result = await response.json()
-    console.log(result)
+    console.log('identifyTreePicture ===', result)
     // return result['suggestions'][0]['plant_name'];
     // let ret: [boolean, string, string]
     let ret: any
@@ -65,7 +65,7 @@ export async function identifyTreePicture(picture, coords: Coords) {
     */
     ret = [
       result['is_plant'],
-      result['suggestions'][0]['plant_details']['common_names'][0],
+      result['suggestions'][0]['plant_details']['common_names'] ? result['suggestions'][0]['plant_details']['common_names'][0]: '',
       result['suggestions'][0]['plant_details']['scientific_name'],
       result['suggestions'][0]['plant_details']['structured_name'],
       result['is_plant_probability'],
