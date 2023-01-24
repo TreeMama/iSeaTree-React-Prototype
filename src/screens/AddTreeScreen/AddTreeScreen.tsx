@@ -775,7 +775,10 @@ export function AddTreeScreen(props) {
 
         /* We have to filter object that have schientif name has spp. */
         const genusFilter = local_species_data.filter((genus) => {
-          return genus.GENUS.toLowerCase() == structured_name.genus.toLowerCase()
+          return (
+            genus.GENUS.toLowerCase() == structured_name.genus.toLowerCase() &&
+            genus.SCIENTIFIC.includes('spp.')
+          )
         })
 
         if (Array.isArray(speciesFilter) && speciesFilter.length >= 1) {
