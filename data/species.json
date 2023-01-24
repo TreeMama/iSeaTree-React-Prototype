@@ -6868,7 +6868,7 @@
     "BARK_COLOR": "",
     "NEEDLE_COLOR": "",
     "NEEDLE_ARRANGEMENT": "",
-    "DESCRIPTION": "Monterey pine (Pinus radiata) and Bishop pine (P. muricata) are the tree species most commonly infected by Pitch Canker in California.",
+    "DESCRIPTION": "Pinus radiata, commonly known as Monterey pine, is a coniferous evergreen tree growing to between 15 - 30 m (49 - 98 ft) in height in the wild, but up to 60 m (200 ft) in cultivation in optimal conditions. It is native to the Central Coast of California and Mexico, and features upward pointing branches and a rounded top. The leaves ('needles') are bright green, in clusters of three (two in var. binata), slender, 8 - 15 cm (3.1 - in) long and with a blunt tip. The cones are 7 - 17 cm (2.8 - 6.7 in) long, brown, ovoid (egg-shaped). The bark is fissured and dark grey to brown. It is adapted to cope with stand-killing fire disturbance. Its cones are serotinous, i.e. they remain closed until opened by the heat of a forest fire; the abundant seeds are then discharged to regenerate on the burned forest floor. The cones may also burst open in hot weather. Monterey pine (Pinus radiata) and Bishop pine (P. muricata) are the tree species most commonly infected by Pitch Canker in California.",
     "FULL_PIC_180x110": "new_images/259/EOL-media-7-CalPhotos_8120 3181 4902 0090/full_180x110.png",
     "FULL_PIC_1024x768": "new_images/259/EOL-media-7-CalPhotos_8120 3181 4902 0090/full_1024x768.png",
     "THUMB_PIC_1024x768": "new_images/259/EOL-media-7-CalPhotos_0000 0000 1215 1133/full_1024x768.png,new_images/259/EOL-media-509-2751281/full_1024x768.png"
@@ -7554,7 +7554,7 @@
     "ITREECODE": "ABMA",
     "LEVEL": "medium",
     "ITREECODE_APPROX": "n",
-    "THUMB_PIC": "/missing_images/285/California%20red%20fir/California%20red%20firFullPic.jpeg",
+    "THUMB_PIC": "",
     "FULL_PIC": "/missing_images/285/California%20red%20fir/California%20red%20firFullPic.jpeg",
     "GENUS": "Abies",
     "BARK_TYPE": "",
@@ -7569,7 +7569,7 @@
     "DESCRIPTION": "California Red Fir's can reach up to 252 ft (77 m) tall and have a DBH up to 116 in (295 cm). They have narrowly conical crowns that become cylindrical and irregular with age. Their bark is at first smooth, thin, gray, with resin blisters; then with age the bark thickens, turning red-brown, and becoming deeply furrowed with broad ridges.",
     "FULL_PIC_180x110": "new_images/285/California red fir/California red firFullPic_180x110.png",
     "FULL_PIC_1024x768": "new_images/285/California red fir/California red firFullPic_1024x768.png",
-    "THUMB_PIC_1024x768": "new_images/285/California red fir/California red firFullPic_1024x768.png"
+    "THUMB_PIC_1024x768": ""
   },
   {
     "COMMON": "Bald cypress (Taxodium spp.)",
