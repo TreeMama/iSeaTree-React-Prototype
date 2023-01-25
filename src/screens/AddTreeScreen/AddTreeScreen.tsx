@@ -262,19 +262,21 @@ export function AddTreeScreen(props) {
     if (speciesData?.TYPE.toLowerCase() === 'unknown') {
       formik.resetForm()
     }
-    Alert.alert('Success', 'You have added new tree successfully', [
-      {
-        text: 'Great',
-        onPress: () => {
-          // formik.resetForm()
-          setLoadBenefitsCall(false)
-          setCalculatedFormValues(false)
-          if (speciesData?.TYPE.toLowerCase() === 'unknown') {
-            onModalCloseClick()
-          }
+    if (!loadBenefitsCall && !calculatedFormValues) {
+      Alert.alert('Success', 'You have added new tree successfully', [
+        {
+          text: 'Great',
+          onPress: () => {
+            // formik.resetForm()
+            setLoadBenefitsCall(false)
+            setCalculatedFormValues(false)
+            if (speciesData?.TYPE.toLowerCase() === 'unknown') {
+              onModalCloseClick()
+            }
+          },
         },
-      },
-    ])
+      ])
+    }
   }
 
   const onModalCloseClick = () => {
@@ -814,6 +816,11 @@ export function AddTreeScreen(props) {
         //   // matchObjUrl = obj.FULL_PIC_180x110
         //   setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
         // }
+
+        console.log('species_match ===', species_match)
+        console.log('matchSpecieObj ===', matchSpecieObj)
+        console.log('genus_match ===', genus_match)
+        console.log('state.commonNames ===', state.commonNames)
 
         if (species_match && matchSpecieObj) {
           {
