@@ -263,7 +263,7 @@ export function AddTreeScreen(props) {
       formik.resetForm()
     }
     if (!loadBenefitsCall && !calculatedFormValues) {
-      Alert.alert('Success', 'You have added new tree successfully', [
+      Alert.alert('Success', 'You have added a new tree successfully.', [
         {
           text: 'Great',
           onPress: () => {
@@ -1457,13 +1457,14 @@ export function AddTreeScreen(props) {
             <Button
               mode="contained"
               onPress={() => {
-                setLoadBenefitsCall(true)
+                // setLoadBenefitsCall(true)
                 formik.handleSubmit()
                 const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } =
                   formik.values
+                console.log('formik.values ===', formik.values)
                 const { locationType } = formik.errors
-                console.log(locationType, 'locationType')
-                if (locationType != "Can't be blank") {
+                console.log('locationType ===', formik.errors)
+                if (locationType != "Can't be blank" && formik.values.locationType) {
                   const canCalculateBenefits = !!(
                     speciesData &&
                     crownLightExposureCategory !== null &&

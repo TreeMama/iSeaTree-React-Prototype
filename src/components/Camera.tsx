@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import { View, Image, Alert, Platform, PermissionsAndroid } from 'react-native'
-import { RNCamera } from 'react-native-camera';
+import { View, Image, Alert, Platform, PermissionsAndroid, TouchableOpacity } from 'react-native'
+import { RNCamera } from 'react-native-camera'
 import { Text, Button } from 'react-native-paper'
 import * as ImageManipulator from 'expo-image-manipulator'
 
@@ -25,7 +25,7 @@ export function Camera(props: CameraProps) {
   const [hasCameraPermission, setHasCameraPermission] = React.useState<null | boolean>(null)
   const [selectedPhotoUri, setSelectedPhotoUri] = React.useState<null | string>(null)
 
-  const cameraRef = React.useRef<RNCamera>(null);
+  const cameraRef = React.useRef<RNCamera>(null)
 
   const checkPermission = async () => {
     if (Platform.OS === 'android') {
@@ -89,8 +89,7 @@ export function Camera(props: CameraProps) {
       )}
 
       {!selectedPhotoUri && hasCameraPermission && (
-        <RNCamera style={{ flex: 1 }} type={RNCamera.Constants.Type.back}
-          ref={cameraRef}>
+        <RNCamera style={{ flex: 1 }} type={RNCamera.Constants.Type.back} ref={cameraRef}>
           <View
             style={{
               flex: 1,
@@ -106,14 +105,13 @@ export function Camera(props: CameraProps) {
                 marginBottom: 20,
                 borderRadius: 20,
               }}
-              onPress={handleTakePicture}
+              onPress={() => handleTakePicture()}
             >
               <MaterialCommunityIcons name="camera-iris" size={80} color="white" />
             </Button>
           </View>
         </RNCamera>
       )}
-
     </View>
   )
 }
