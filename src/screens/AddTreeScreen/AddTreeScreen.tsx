@@ -1457,7 +1457,7 @@ export function AddTreeScreen(props) {
             <Button
               mode="contained"
               onPress={() => {
-                // setLoadBenefitsCall(true)
+                setLoadBenefitsCall(true)
                 formik.handleSubmit()
                 const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } =
                   formik.values
@@ -1473,9 +1473,12 @@ export function AddTreeScreen(props) {
                   )
                   if (canCalculateBenefits) {
                     setLoadBenefitsCall(true)
-                    submitTreeData(formik.values, isEnabled)
-                      .then(handleAddTreeSuccess)
-                      .catch(handleAddTreeError)
+
+                    setTimeout(() => {
+                      submitTreeData(formik.values, isEnabled)
+                        .then(handleAddTreeSuccess)
+                        .catch(handleAddTreeError)
+                    }, 3000)
                   }
                 }
               }}
