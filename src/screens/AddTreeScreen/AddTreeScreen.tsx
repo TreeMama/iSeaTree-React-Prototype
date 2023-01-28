@@ -857,7 +857,7 @@ export function AddTreeScreen(props) {
               },
             ],
           )
-        } else if (genus_match) {
+        } else if (genus_match && matchGenusObj) {
           {
             /* Outcome 1: Prompt user to enter the GENUS  */
           }
@@ -886,10 +886,8 @@ export function AddTreeScreen(props) {
               },
             ],
           )
-        } else if (state.commonNames == null) {
-          {
-            /* Outcome 3: Prompt user to enter Unknown */
-          }
+        } else {
+          /* Outcome 3: Prompt user to enter Unknown */
           setTreeValidationLoading(false)
           Alert.alert(
             'Sorry! No matches found',
