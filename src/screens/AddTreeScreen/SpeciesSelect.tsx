@@ -376,6 +376,13 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
       treeDetailImg = treeBroadleaf
       break
   }
+
+  const getUnknownFirst = () => {
+    const unknownObject = currentSpeciesNamesItems.filter((obj) => obj.ID === '0')
+    const newList = currentSpeciesNamesItems.filter((obj) => obj.ID !== '0')
+    return unknownObject.concat(newList)
+  }
+
   return (
     <View>
       <Subheading>Species</Subheading>
@@ -811,7 +818,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
             />
 
             <FlatList
-              data={currentSpeciesNamesItems}
+              data={getUnknownFirst()}
               keyExtractor={(item, index) => `${item.ID}-${index}`}
               renderItem={renderFlatListItem}
               initialNumToRender={20}
