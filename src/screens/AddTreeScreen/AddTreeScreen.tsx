@@ -167,7 +167,7 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   if (!values.photo) {
     errors.photo = 'You have to add photo'
   }
-  if (values.speciesType === TreeTypes.NULL) {
+  if (values.treeType === TreeTypes.NULL) {
     errors.treeType = "Can't be blank"
   }
   if (!values.speciesData) {
@@ -866,7 +866,7 @@ export function AddTreeScreen(props) {
             "It's a match!",
             "We've determined that this tree likely belongs in the " +
               matchGenusObj?.GENUS +
-              '(' +
+              ' (' +
               matchGenusObj?.SCIENTIFIC +
               ') Genus.\n Do you agree?',
             [
@@ -1016,7 +1016,15 @@ export function AddTreeScreen(props) {
     </View>
   )
 
-  const formHasErrors = !formik.isValid && Object.keys(formik.touched).length > 0
+  const formHasErrors =
+    (formik.errors.photo && formik.touched.photo) ||
+    (formik.errors.treeType && formik.touched.treeType) ||
+    (formik.errors.speciesData && formik.touched.speciesData) ||
+    (formik.errors.dbh && formik.touched.dbh) ||
+    (formik.errors.landUseCategory && formik.touched.landUseCategory) ||
+    (formik.errors.treeConditionCategory && formik.touched.treeConditionCategory) ||
+    (formik.errors.crownLightExposureCategory && formik.touched.crownLightExposureCategory) ||
+    (formik.errors.locationType && formik.touched.locationType)
   const toggleSwitch = () => {
     if (formik.values.speciesData?.TYPE != 'unknown' && !isEnabled) {
       formik.setFieldValue('needsValidation', true)
@@ -1133,7 +1141,7 @@ export function AddTreeScreen(props) {
             <View>
               <TreeTypeSelect
                 ref={refTreeTypeSelect}
-                onSelect={(treeType: string) => {
+                onSelect={(treeType: string) => {                  
                   if (formik.values.speciesData && treeType != null) {
                     console.log('first if' + treeType)
                     if (
