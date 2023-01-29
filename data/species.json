@@ -2322,9 +2322,9 @@
     "THUMB_PIC_1024x768": ""
   },
   {
-    "COMMON": "Gingko biloba",
+    "COMMON": "Ginkgo biloba",
     "TYPE": "broadleaf",
-    "SCIENTIFIC": "Gingko biloba",
+    "SCIENTIFIC": "Ginkgo biloba",
     "ID": "88",
     "ITREECODE": "GICLASS",
     "LEVEL": "expert",
@@ -3272,7 +3272,7 @@
   {
     "COMMON": "Antarctic Beech",
     "TYPE": "broadleaf",
-    "SCIENTIFIC": "Nothofagus antartica",
+    "SCIENTIFIC": "Nothofagus antarctica",
     "ID": "123",
     "ITREECODE": "NOAN",
     "LEVEL": "medium",
@@ -8683,7 +8683,7 @@
   {
     "COMMON": "Crape myrtle or Crepe myrtle (Lagerstroemia spp.)",
     "TYPE": "broadleaf",
-    "SCIENTIFIC": "Liquidambar spp.",
+    "SCIENTIFIC": "Lagerstroemia spp.",
     "ID": "327",
     "ITREECODE": "LA6",
     "LEVEL": "medium",
