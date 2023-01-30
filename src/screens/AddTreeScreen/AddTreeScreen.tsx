@@ -1139,7 +1139,7 @@ export function AddTreeScreen(props) {
             <View>
               <TreeTypeSelect
                 ref={refTreeTypeSelect}
-                onSelect={(treeType: string) => {
+                onSelect={(treeType: string) => {                  
                   if (formik.values.speciesData && treeType != null) {
                     console.log('first if' + treeType)
                     if (
