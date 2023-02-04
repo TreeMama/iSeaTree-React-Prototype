@@ -879,6 +879,7 @@ export function AddTreeScreen(props) {
               {
                 text: 'OK',
                 onPress: () => {
+                  formik.setFieldValue('needsValidation', true)
                   formik.setFieldValue('speciesData', matchGenusObj)
                   formik.setFieldValue('treeType', matchGenusObj.TYPE)
                   refTreeTypeSelect.current.setTreeType(matchGenusObj.TYPE)
@@ -902,9 +903,10 @@ export function AddTreeScreen(props) {
               {
                 text: 'OK',
                 onPress: () => {
+                  formik.setFieldValue('needsValidation', true)
                   formik.setFieldValue('speciesData', local_species_data[0])
-                  formik.setFieldValue('treeType', local_species_data[0].TYPE)
-                  refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
+                  formik.setFieldValue('treeType', TreeTypes.NULL)
+                  refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
                 },
               },
             ],
@@ -1205,6 +1207,7 @@ export function AddTreeScreen(props) {
             <SpeciesSelect
               speciesType={formik.values.speciesType}
               speciesData={formik.values.speciesData}
+              treeType={formik.values.treeType}
               isEnabled={isEnabled}
               onSelect={(speciesData) => {
                 formik.setFieldValue('speciesData', speciesData)
