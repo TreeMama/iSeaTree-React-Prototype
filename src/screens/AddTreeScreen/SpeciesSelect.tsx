@@ -24,6 +24,7 @@ import speciesDataList from '../../../data/species.json'
 import { CONFIG } from '../../../envVariables'
 import Carousel, { Pagination } from 'react-native-snap-carousel'
 import { ScrollView } from 'react-native-gesture-handler'
+import { TreeTypes } from '../../lib/treeData'
 
 const info_image = require('../../../assets/info.png')
 const arrow_up = require('../../../assets/arrow_up.png')
@@ -50,6 +51,7 @@ export interface SpeciesData {
 
 interface SpeciesSelectProps {
   speciesType: null | string
+  treeType: null | string
   speciesData: null | SpeciesData
   isEnabled: null | boolean
   onSelect: (speciesData: null | SpeciesData) => void
@@ -378,9 +380,26 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
   }
 
   const getUnknownFirst = () => {
-    const unknownObject = currentSpeciesNamesItems.filter((obj) => obj.ID === '0')
-    const newList = currentSpeciesNamesItems.filter((obj) => obj.ID !== '0')
-    return unknownObject.concat(newList)
+    if (props.treeType !== TreeTypes.NULL) {
+      switch (props.treeType) {
+        case TreeTypes.BROADLEAF:
+          const unknownBroadObject = currentSpeciesNamesItems.filter((obj) => obj.ID === '0')
+          const newBroadList = currentSpeciesNamesItems.filter(
+            (obj) => obj.ID !== '0' && obj.TYPE === TreeTypes.BROADLEAF,
+          )
+          return unknownBroadObject.concat(newBroadList)
+        case TreeTypes.CONIFER:
+          const unknownObject = currentSpeciesNamesItems.filter((obj) => obj.ID === '0')
+          const newList = currentSpeciesNamesItems.filter(
+            (obj) => obj.ID !== '0' && obj.TYPE === TreeTypes.CONIFER,
+          )
+          return unknownObject.concat(newList)
+      }
+    } else {
+      const unknownObject = currentSpeciesNamesItems.filter((obj) => obj.ID === '0')
+      const newList = currentSpeciesNamesItems.filter((obj) => obj.ID !== '0')
+      return unknownObject.concat(newList)
+    }
   }
 
   return (
