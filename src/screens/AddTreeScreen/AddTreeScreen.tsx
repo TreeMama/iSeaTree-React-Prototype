@@ -1468,7 +1468,7 @@ export function AddTreeScreen(props) {
               onPress={() => {
                 // setLoadBenefitsCall(true)
                 formik.handleSubmit()
-                const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } =
+                const { crownLightExposureCategory, treeType, dbh, speciesData, treeConditionCategory } =
                   formik.values
                 console.log('formik.values ===', formik.values)
                 const { locationType } = formik.errors
@@ -1479,7 +1479,8 @@ export function AddTreeScreen(props) {
                     crownLightExposureCategory !== null &&
                     dbh &&
                     parseInt(dbh) !== 0 &&
-                    treeConditionCategory
+                    treeConditionCategory &&
+                    treeType !== TreeTypes.NULL
                   )
                   if (canCalculateBenefits) {
                     setLoadBenefitsCall(true)
