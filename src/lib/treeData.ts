@@ -11,6 +11,6 @@ export enum TreeTypes {
 
 export enum TreeValidationTypes {
   SPAM = 'SPAM',
-  NEEDS_VALIDATION = 'NEEDS_VALIDATION',
+  NEEDS_VALIDATION = 'NEEDS VALIDATION',
   VALIDATED = 'VALIDATED',
 }
