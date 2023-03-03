@@ -50,7 +50,6 @@ describe("Validate Species JSON", () => {
             }
             if (str.length > 0 || speciesList[i].ID === undefined || speciesList[i].COMMON === undefined) {
                 str = "The ID and Common attribute of the tree are " + speciesList[i].COMMON + " and " + speciesList[i].ID + ". The unidentified/empty/unknown attributes of the tree are " + str;
-                console.log(str);
                 flag = false;
             }
         }

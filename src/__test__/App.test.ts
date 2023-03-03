@@ -14,11 +14,3 @@ describe('React Native Platoform', ()=> {
         expect(Platform.OS).toBe('android');
     });
 });
-
-// describe('<App />', () => {
-//     it('has 1 child', () => {
-//         const tree = renderer.create(<App/>).toJSON();
-//         console.log(tree.children.length)
-//         expect(tree.children.length).toBe(tree.children.length);
-//     });
-// });

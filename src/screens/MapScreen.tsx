@@ -124,8 +124,6 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }
 
   React.useEffect(() => {
-    //props.navigation.addListener('focus', getCurrentLocation);
-    // console.log('props', props);
     if (!isActiveown) return
     const authUser = getCurrentAuthUser()
     if (!authUser) {
@@ -144,8 +142,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               trees.push(appObj)
-            });
-          } catch (error) { }
+            })
+          } catch (error) {}
           // return trees;
           setTrees(trees)
           setDataLoaded(true)
@@ -158,8 +156,6 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   }, [isActiveown])
 
   React.useEffect(() => {
-    //props.navigation.addListener('focus', getCurrentLocation);
-    // console.log('props', props);
     if (isActiveown) return
     const authUser = getCurrentAuthUser()
     if (!authUser) {
@@ -181,8 +177,8 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const currentID = doc.id
               const appObj = { ...doc.data(), ['id']: currentID }
               alltrees.push(appObj)
-            });
-          } catch (error) { }
+            })
+          } catch (error) {}
 
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
           for (let i = 0; i < alltrees.length; i++) {
@@ -254,11 +250,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const currentRegion: undefined | Region = !currentCoords
     ? undefined
     : {
-      latitude: currentCoords.latitude,
-      longitude: currentCoords.longitude,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-    }
+        latitude: currentCoords.latitude,
+        longitude: currentCoords.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      }
 
   // validate the tree
   const onValidated = (selectedItem) => {
@@ -393,7 +389,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           Platform.OS === 'ios'
             ? console.log('checkbox click')
             : (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') &&
-            validateAlertHandler(item)
+              validateAlertHandler(item)
         }
         isChecked={item.isValidated === 'VALIDATED' ? true : false}
         rightText={rightText}
@@ -769,7 +765,6 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           {trees &&
             trees.length > 0 &&
             trees.map((item, index) => {
-              // console.log('item1', item.coords.U);
               const coords: Coords = {
                 latitude: item.coords._latitude || 0,
                 longitude: item.coords._longitude || 0,
@@ -783,8 +778,6 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
                 case 'broadleaf':
                   treeImg = treeDeciduous
               }
-              // { console.log('trees in treeImg', treeImg) }
-              // const calloutText = "Tree Name : " + item.speciesNameCommon + '\n' + "Tree Status : " + item.isValidated + '\n' + 'Date Entered : ' + timeConverter(item.created_at.seconds) + '\n' + 'User : ' + item.username;
               return (
                 <Marker
                   key={index}
