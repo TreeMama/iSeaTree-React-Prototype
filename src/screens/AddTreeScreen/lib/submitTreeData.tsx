@@ -12,7 +12,7 @@ async function getItem(item: string) {
   try {
     const value = await AsyncStorage.getItem(item)
     if (value !== null) {
-      console.log(item, value)
+      // console.log(item, value)
       return value
     } else {
       return 'NULL'
@@ -140,10 +140,10 @@ export async function submitTreeData(
       height: formValues.photo.height,
     },
     coords: treeCoords,
-    // isValidated: TreeValidationTypes.SPAM,
-    isValidated: formValues.needsValidation
-      ? TreeValidationTypes.NEEDS_VALIDATION
-      : TreeValidationTypes.SPAM,
+    isValidated: TreeValidationTypes.SPAM,
+    // isValidated: formValues.needsValidation
+    //   ? TreeValidationTypes.NEEDS_VALIDATION
+    //   : TreeValidationTypes.SPAM,
     level:
       typeof formValues.speciesData?.LEVEL === 'undefined' ? 'none' : formValues.speciesData?.LEVEL,
     brand: Device.brand,

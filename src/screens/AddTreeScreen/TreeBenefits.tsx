@@ -93,7 +93,7 @@ async function setItem(key: string, stringValue: string, unit: string) {
   } else if (unit === '') {
     display = `${decimal.toFixed(2)}`
   }
-  console.log(key, display)
+  // console.log(key, display)
   await AsyncStorage.setItem(key, display.toString())
 }
 
@@ -117,12 +117,10 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     )
     // speciesData.TYPE.toLowerCase() !== 'unknown' &&
   )
-  // console.log("loading treeBenefits ")
   //gets Location form Location useContext
   const value = useContext(LocationContext)
   const address = value.address
   const location = value.currentCoords
-  // console.log('value ==================', value)
 
   const calculateTreezBenefits = async (state: any) => {
     setIsCalculatorloader(true)
@@ -144,7 +142,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
       `TreeCrownHeightMeter=-1&`
 
     const response = await axios.get(url)
-    console.log('iSeaTreeApi response +++', response)
+    // console.log('iSeaTreeApi response +++', response)
     if (response.data) {
       const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
       const root: RootObject = xml2js(response.data, { compact: true }) as RootObject

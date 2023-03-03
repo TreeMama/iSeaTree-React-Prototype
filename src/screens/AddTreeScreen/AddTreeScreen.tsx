@@ -308,7 +308,6 @@ export function AddTreeScreen(props) {
     setX(x)
     setY(y)
     setZ(z)
-    // console.log('RN sensors ===', x, y, z, timestamp);
   })
 
   // setTimeout(() => {
@@ -424,7 +423,6 @@ export function AddTreeScreen(props) {
 
   const [test, setTest] = React.useState<boolean>(false)
 
-  //console.log("Loading AddTree screen")
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
       { text: 'Cancel' },
@@ -792,35 +790,6 @@ export function AddTreeScreen(props) {
           matchGenusObj = genusFilter[0]
           setState({ ...state, matchObj: genusFilter[0] })
         }
-        // let local_species_data = require('../../../../data/species.json');
-        // (1) Check if the AI has found a match to our json records for a Species
-        // (2) Check if the AI has found a match to our json records for a genus
-
-        // for (var i = 0; i < local_species_data.length; i++) {
-        //   var obj = local_species_data[i]
-        //   if (obj.SCIENTIFIC == state.scientificName) {
-        //     species_match = true
-        //     species_name_id = obj.ID
-        //     // matchObj = obj
-        //     setState({ ...state, matchObj: obj })
-        //     console.log(
-        //       'AI SCIENTIFIC NAME: ' +
-        //         state.scientificName +
-        //         ', Json SCIENTIFIC NAME: ' +
-        //         obj.SCIENTIFIC,
-        //     )
-        //   } else if (obj.GENUS == state.genus) {
-        //     genus_match = true
-        //     console.log('AI genus name: ' + state.genus + ', Json genus name: ' + obj.GENUS)
-        //   }
-        //   // matchObjUrl = obj.FULL_PIC_180x110
-        //   setState({ ...state, matchObjUrl: obj.FULL_PIC_180x110 })
-        // }
-
-        console.log('species_match ===', species_match)
-        console.log('matchSpecieObj ===', matchSpecieObj)
-        console.log('genus_match ===', genus_match)
-        console.log('state.commonNames ===', state.commonNames)
 
         if (species_match && matchSpecieObj) {
           {
@@ -1141,14 +1110,12 @@ export function AddTreeScreen(props) {
             <View>
               <TreeTypeSelect
                 ref={refTreeTypeSelect}
-                onSelect={(treeType: string) => {                  
+                onSelect={(treeType: string) => {
                   if (formik.values.speciesData && treeType != null) {
-                    console.log('first if' + treeType)
                     if (
                       formik.values.speciesData.TYPE != treeType &&
                       formik.values.speciesData.TYPE != 'unknown'
                     ) {
-                      console.log('second if' + treeType)
                       Alert.alert(
                         '',
                         'This species is actually a ' + formik.values.speciesData.TYPE,
@@ -1164,12 +1131,10 @@ export function AddTreeScreen(props) {
                       formik.setFieldValue('treeType', formik.values.speciesType)
                       refTreeTypeSelect.current.setTreeType(formik.values.speciesType)
                     } else {
-                      console.log('second else' + treeType)
                       formik.setFieldValue('speciesType', treeType)
                       formik.setFieldValue('treeType', treeType)
                     }
                   } else {
-                    console.log('first else' + treeType)
                     formik.setFieldValue('treeType', treeType)
                     formik.setFieldValue('speciesType', treeType)
                   }
@@ -1183,14 +1148,9 @@ export function AddTreeScreen(props) {
                 style={{ backgroundColor: 'white', height: 40, width: 120 }}
                 labelStyle={{ color: 'green' }}
                 onPress={() => {
-                  // todo fix clear
                   console.log('clear')
                   formik.resetForm()
-                  // formik.setFieldValue('speciesType', TreeTypes.NULL)
-                  // formik.setFieldValue('treeType', TreeTypes.NULL)
                   refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
-                  // formik.setFieldValue('speciesType', TreeTypes.NULL)
-                  // formik.setFieldValue('speciesData', null)
                 }}
               >
                 Clear
@@ -1298,11 +1258,9 @@ export function AddTreeScreen(props) {
                   style={{ flex: 1, padding: 10 }}
                   onClick={() => {
                     if (formik.values.estimate === true) {
-                      console.log('if call')
                       formik.setFieldValue('estimate', false)
                     } else {
                       formik.setFieldValue('estimate', true)
-                      console.log('else call')
                       Alert.alert(
                         '',
                         'The DBH data entered should be your best visual guess of what the total diameter is of all the main stem branches at an adult breast height (i.e. 4.5 Ft). ',
@@ -1466,13 +1424,15 @@ export function AddTreeScreen(props) {
             <Button
               mode="contained"
               onPress={() => {
-                // setLoadBenefitsCall(true)
                 formik.handleSubmit()
-                const { crownLightExposureCategory, treeType, dbh, speciesData, treeConditionCategory } =
-                  formik.values
-                console.log('formik.values ===', formik.values)
+                const {
+                  crownLightExposureCategory,
+                  treeType,
+                  dbh,
+                  speciesData,
+                  treeConditionCategory,
+                } = formik.values
                 const { locationType } = formik.errors
-                console.log('locationType ===', formik.errors)
                 if (locationType != "Can't be blank" && formik.values.locationType) {
                   const canCalculateBenefits = !!(
                     speciesData &&
