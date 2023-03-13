@@ -66,10 +66,15 @@ export function InfoScreen(props) {
     if (params && params.treeNameQuery !== undefined) {
       const completeList = speciesDataList
       const query = params.treeNameQuery?.toUpperCase()
-      const filteredList = completeList.filter(
-        (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
+      // const filteredList = completeList.filter(
+      //   (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
+      // )
+      const scientificList = completeList.filter(
+        (tree) => tree.SCIENTIFIC.toUpperCase().indexOf(query) > -1,
       )
-      setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
+
+      // setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
+      setSelectedTree(scientificList.length == 0 ? undefined : scientificList[0])
       setIsFromMapScreen(true)
     }
   }, [props.route])
