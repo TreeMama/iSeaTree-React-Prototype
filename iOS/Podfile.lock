@@ -607,8 +607,8 @@ PODS:
     - React-Core
   - react-native-maps (0.27.1):
     - React
-  - react-native-safe-area-context (3.3.2):
-    - React-Core
+  - react-native-safe-area-context (3.1.4):
+    - React
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
   - React-RCTAnimation (0.63.4):
@@ -690,15 +690,15 @@ PODS:
     - Firebase/Storage (= 7.11.0)
     - React-Core
     - RNFBApp
-  - RNFS (2.18.0):
-    - React
+  - RNFS (2.20.0):
+    - React-Core
   - RNGestureHandler (1.7.0):
     - React
   - RNReanimated (1.13.3):
     - React-Core
   - RNScreens (2.10.1):
     - React
-  - RNSensors (7.3.5):
+  - RNSensors (7.3.6):
     - React-Core
   - RNVectorIcons (8.1.0):
     - React-Core
@@ -1031,7 +1031,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-camera: 3eae183c1d111103963f3dd913b65d01aef8110f
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
-  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-safe-area-context: eb91fe1fb3f7b87d9c30a7f0808407d8569d539d
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -1049,11 +1049,11 @@ SPEC CHECKSUMS:
   RNFBAuth: 99fdbce04ff3d39e57a7a3956d632ee69145685b
   RNFBFirestore: bedb9727c0df9a1f1ec23b5e23988075a4cbea78
   RNFBStorage: 052a32c5af38b106e4d6b0a296df304d97be995e
-  RNFS: 3ab21fa6c56d65566d1fb26c2228e2b6132e5e32
+  RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
   RNGestureHandler: b6b359bb800ae399a9c8b27032bdbf7c18f08a08
   RNReanimated: 514a11da3a2bcc6c3dfd9de32b38e2b9bf101926
   RNScreens: b748efec66e095134c7166ca333b628cd7e6f3e2
-  RNSensors: e74c8bd9606400c1048ab67af7f41eb2091cb2fc
+  RNSensors: 117ba71c7eeeea0407ea0c0bb79e3495d602049b
   RNVectorIcons: 31cebfcf94e8cf8686eb5303ae0357da64d7a5a4
   UMAppLoader: 5db5dc03176c6238da9c8b3657a370137882a4ad
   UMBarCodeScannerInterface: 017672479f93de88d94c3a50dfb66b5348b65989
@@ -1072,4 +1072,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: fb1af4135a1eb146b32471b079157bf318d2afa2
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.12.0
