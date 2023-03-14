@@ -1,6 +1,6 @@
 {
   "name": "react-native-fs",
-  "version": "2.18.0",
+  "version": "2.20.0",
   "description": "Native filesystem access for react-native",
   "main": "FS.common.js",
   "typings": "index.d.ts",
@@ -37,5 +37,10 @@
   "peerDependencies": {
     "react-native": "*",
     "react-native-windows": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native-windows": {
+      "optional": true
+    }
   }
 }
