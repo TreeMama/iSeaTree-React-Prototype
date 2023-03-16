@@ -63,62 +63,52 @@ export function InfoScreen(props) {
   // auto-fill selectedTree state when navigated from MapScreen; show TreeInfo
   useEffect(() => {
     const { params } = props.route
-    if (params && params.treeNameQuery !== undefined) {
-      const completeList = speciesDataList
-      let query = params.treeNameQuery?.toUpperCase().toString();
-      console.log(`query: ${query}`);
-      // const filteredList = completeList.filter(
-      //   (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
-      // )
 
+    if (!params || params.treeNameQuery === undefined) {
+      return;
+    }
 
-      // Replace double-quotes with single-quotes to match pattern in datastore
-      if (query.includes('"')) {
-        query.replace(/"/g, "'");
-      }
+    
+      const completeList = speciesDataList;
+      const query = params.treeNameQuery?.toUpperCase().toString();
       
+      // Replace double-quotes with single-quotes to match pattern in datastore
+      const normalizedQuery = query.replace(/"/g, "'");
+
       // Create a Regular Expression based on the query
-      let reg = new RegExp(`^${query}$`)
+      let reg = new RegExp(`^${normalizedQuery}$`);
       console.log(reg);
 
-      let filteredList;
 
       // Filter tree list by scientific name using search(regex) to find a match
-      const filterByScientific= (list, regex) => {
-        return list.filter((tree) => tree.SCIENTIFIC.toUpperCase().search(regex) > -1)
-      }
+      const filterByScientific= (list, regex) => 
+         list.filter((tree) => tree.SCIENTIFIC.toUpperCase().search(regex) > -1);
+      
 
-      let scientificList = filterByScientific(completeList, reg)
+      let filteredList = filterByScientific(completeList, reg)
 
-
-      console.log(scientificList);
-
-      if (scientificList.length === 0){
+      if (filteredList.length === 0){
         console.log('No matches found in scientific list, first trimming query')
         let trim = query.match(/'.*'/g) || query.match(/‘.*?’/g, '');
         let trimmedQuery = query.replace(` ${trim}`, '');
         console.log(`trimmedQuery: ${trimmedQuery}, trim: ${trim}`);
-        scientificList = filterByScientific(completeList, new RegExp(`^${trimmedQuery}$`));
+        filteredList = filterByScientific(completeList, new RegExp(`^${trimmedQuery}$`));
       }
 
 
-      if (scientificList.length === 0) {
+      if (filteredList.length === 0) {
         console.log("Still no matches found in scientific list, checking common name")
         filteredList = completeList.filter(
           (tree) => tree.COMMON.toUpperCase().search(reg) > -1
-        )
-      } else {
-        filteredList = scientificList;
-      }
+        );
+      } 
+      
 
-
-
-      // setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
       setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
       
       setIsFromMapScreen(true)
-    }
-  }, [props.route])
+    
+  }, [props.route, speciesDataList]);
 
   // filters logic
   useEffect(() => {
