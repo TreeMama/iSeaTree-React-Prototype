@@ -65,16 +65,57 @@ export function InfoScreen(props) {
     const { params } = props.route
     if (params && params.treeNameQuery !== undefined) {
       const completeList = speciesDataList
-      const query = params.treeNameQuery?.toUpperCase()
+      let query = params.treeNameQuery?.toUpperCase().toString();
+      console.log(`query: ${query}`);
       // const filteredList = completeList.filter(
       //   (tree) => tree.COMMON.toUpperCase().indexOf(query) > -1,
       // )
-      const scientificList = completeList.filter(
-        (tree) => tree.SCIENTIFIC.toUpperCase().indexOf(query) > -1,
-      )
+
+
+      // Replace double-quotes with single-quotes to match pattern in datastore
+      if (query.includes('"')) {
+        query.replace(/"/g, "'");
+      }
+      
+      // Create a Regular Expression based on the query
+      let reg = new RegExp(`^${query}$`)
+      console.log(reg);
+
+      let filteredList;
+
+      // Filter tree list by scientific name using search(regex) to find a match
+      const filterByScientific= (list, regex) => {
+        return list.filter((tree) => tree.SCIENTIFIC.toUpperCase().search(regex) > -1)
+      }
+
+      let scientificList = filterByScientific(completeList, reg)
+
+
+      console.log(scientificList);
+
+      if (scientificList.length === 0){
+        console.log('No matches found in scientific list, first trimming query')
+        let trim = query.match(/'.*'/g) || query.match(/‘.*?’/g, '');
+        let trimmedQuery = query.replace(` ${trim}`, '');
+        console.log(`trimmedQuery: ${trimmedQuery}, trim: ${trim}`);
+        scientificList = filterByScientific(completeList, new RegExp(`^${trimmedQuery}$`));
+      }
+
+
+      if (scientificList.length === 0) {
+        console.log("Still no matches found in scientific list, checking common name")
+        filteredList = completeList.filter(
+          (tree) => tree.COMMON.toUpperCase().search(reg) > -1
+        )
+      } else {
+        filteredList = scientificList;
+      }
+
+
 
       // setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
-      setSelectedTree(scientificList.length == 0 ? undefined : scientificList[0])
+      setSelectedTree(filteredList.length == 0 ? undefined : filteredList[0])
+      
       setIsFromMapScreen(true)
     }
   }, [props.route])
