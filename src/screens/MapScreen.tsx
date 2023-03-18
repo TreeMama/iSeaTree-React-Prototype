@@ -427,16 +427,21 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     )
   }
 
+  // function extractTreeNameQuery(item) {
+  //   const treename = item.item.speciesNameCommon
+  //   console.log(
+  //     'Extracted Tree Common Name: ' +
+  //       treename +
+  //       '  from tooltip. Passing to InfoScreen to show more tree info',
+  //   )
+  //   return treename
+  // }
   function extractTreeNameQuery(item) {
-    const treename = item.item.speciesNameCommon
-    console.log(
-      'Extracted Tree Common Name: ' +
-        treename +
-        '  from tooltip. Passing to InfoScreen to show more tree info',
-    )
+    const treename = item.item.speciesNameScientific ? item.item.speciesNameScientific : item.item.speciesNameCommon;
+    console.log (` Extracted Tree Name:  ${treename}`);
     return treename
   }
-
+  
   // navigate to Tree Info screen to show MORE TREE INFO
   const onSuggestedTree = async (item) => {
     props.navigation.navigate('infoScreen', {

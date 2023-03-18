@@ -4723,7 +4723,7 @@
     "LEAF_ARRANGEMENT": "",
     "LEAF_UNDERSIDE_COLOR": "",
     "LEAF_TEXTURE": "",
-    "DESCRIPTION": "Styphnolobium japonicum (L.) Schott, the Japanese pagoda tree (Chinese scholar tree, pagoda tree; syn. Sophora japonica) is a species of tree in the subfamily Faboideae of the pea family Fabaceae. It was formerly included within a broader interpretation of the genus Sophora. ",
+    "DESCRIPTION": "The Japanese Pagoda Tree (Chinese scholar tree, pagoda tree; syn. Sophora japonica) is a species of tree in the subfamily Faboideae of the pea family Fabaceae. It has been included in the genus Sophora - however it has also been recently redefining itself into the genus Styphnolobium. The species in the Styphnolobium genus differ from Sophora in lacking the ability to form symbioses with rhizobia (nitrogen fixing bacteria) on their roots. The tree is of moderate size ranging from 32-65 feet tall (10-20 m). Its leaves are alternate, pinnate, with nine to 21 leaflets, and the flowers in long clusters similar to those of the black locust.",
     "FULL_PIC_180x110": "new_images/178/EOL-media-7-CalPhotos_0000 0000 0716 3554/full_180x110.png",
     "FULL_PIC_1024x768": "new_images/178/EOL-media-7-CalPhotos_0000 0000 0716 3554/full_1024x768.png",
     "THUMB_PIC_1024x768": ""
@@ -9152,7 +9152,7 @@
   {
     "COMMON": "Necklacepod (Sophora spp.)",
     "TYPE": "broadleaf",
-    "SCIENTIFIC": "Sophora",
+    "SCIENTIFIC": "Sophora spp.",
     "ID": "345",
     "ITREECODE": "SO3",
     "LEVEL": "medium",
@@ -9225,7 +9225,7 @@
     "LEAF_ARRANGEMENT": "",
     "LEAF_UNDERSIDE_COLOR": "",
     "LEAF_TEXTURE": "",
-    "DESCRIPTION": "Stewartia spp. is a genus of 8-20 species of flowering plants in the family Theaceae. Most of the species are native to eastern Asia and southeast North America. They shrubs and trees are mostly deciduous, though some species (e.g. S. pteropetiolata) are evergreen. The bark is very distinctive, smooth orange to yellow-brown, and peeling in fine flakes.",
+    "DESCRIPTION": "Stewartia spp. is a genus of 8-20 species of flowering plants in the family Theaceae. Most of the species are native to eastern Asia and southeast North America. The shrubs and trees are mostly deciduous, though some species (e.g. S. pteropetiolata) are evergreen. The bark is very distinctive, smooth orange to yellow-brown, and peeling in fine flakes.",
     "FULL_PIC_180x110": "new_images/347/1280pxStewartia_pseudocamellia_01_180x110.png",
     "FULL_PIC_1024x768": "new_images/347/1280pxStewartia_pseudocamellia_01_1024x768.png",
     "THUMB_PIC_1024x768": ""
