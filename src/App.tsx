@@ -25,8 +25,10 @@ import Constants from 'expo-constants'
 import DeviceInfo from 'react-native-device-info'
 import TipProvider from 'react-native-tip'
 import AppIntroScreen from './screens/AppIntroScreen/index'
+import { LogBox } from "react-native"
 
-console.disableYellowBox = true
+LogBox.ignoreAllLogs(true)
+
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 

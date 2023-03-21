@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="iSeaTree.expo-image-loader" target="11" />
+      <module name="iSeaTree.expo-json-utils" target="11" />
+      <module name="iSeaTree.expo-manifests" target="11" />
+      <module name="iSeaTree.expo-modules-core" target="11" />
+      <module name="iSeaTree.expo-structured-headers" target="11" />
+      <module name="iSeaTree.expo-updates-interface" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
