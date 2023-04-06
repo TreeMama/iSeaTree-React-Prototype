@@ -1,3 +1,24 @@
+/**
+ * This is a TypeScript module that contains functions for identifying a tree from a picture and
+ * retrieving data about a tree's benefits based on its characteristics.
+ * @param {string} key - The API key for accessing the i-Tree database.
+ * @param {string} stringValue - A string value that needs to be formatted and returned in a specific
+ * way.
+ * @param {string} unit - The unit of measurement for a numeric value, such as '$' for dollars or 'lb'
+ * for pounds.
+ * @returns The code contains several functions and interfaces, but it is not clear what is being
+ * returned without additional context. Each function appears to perform a specific task, such as
+ * identifying a tree from a picture or retrieving data about a tree's benefits based on its location
+ * and characteristics. The return values of each function will depend on the specific implementation
+ * and input parameters.
+ */
+
+// ####################################
+
+
+
+/* The code is defining a regular expression pattern for validating email addresses and importing
+several modules and interfaces that will be used in the code. */
 const EMAIL_REGEX =
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 import { CONFIG } from '../../envVariables'
@@ -6,11 +27,25 @@ import { OutputInformation, RootObject } from '../screens/AddTreeScreen/TreeBene
 import axios from 'axios'
 import fs from 'react-native-fs'
 
+/* The `interface Coords` is defining a type for an object that has two properties: `latitude` and
+`longitude`, both of which are of type `number`. This interface is likely used to ensure that
+functions that require latitude and longitude values as input parameters receive them in the correct
+format. */
 interface Coords {
   latitude: number
   longitude: number
 }
 
+/**
+ * This is an async function that takes in a key, a string value, and a unit, and returns a promise
+ * that resolves to a formatted display string.
+ * @param {string} key - The key is a string that represents the identifier for the item being set. It
+ * is used to retrieve the item later on.
+ * @param {string} stringValue - The value to be stored as a string in the key-value store.
+ * @param {string} unit - The `unit` parameter is a string that represents the unit of measurement or
+ * currency symbol to be used when displaying the value. It can be empty if no unit is needed.
+ * @returns A Promise object is being returned.
+ */
 async function setItem(key: string, stringValue: string, unit: string) {
   try {
     return new Promise(async (resolve, reject) => {
@@ -32,6 +67,21 @@ async function setItem(key: string, stringValue: string, unit: string) {
   }
 }
 
+/**
+ * This function takes a picture and coordinates as input, sends a request to the Plant.id API to
+ * identify the tree in the picture, and returns information about the identified tree.
+ * @param picture - The picture parameter is the file path or URL of the image of the tree that needs
+ * to be identified.
+ * @param {Coords} coords - The `coords` parameter is an object that contains the latitude and
+ * longitude coordinates of the location where the picture was taken. These coordinates are used by the
+ * API to provide more accurate identification results based on the location's flora and fauna.
+ * @returns an array with the following elements:
+ * - A boolean indicating whether the given picture contains a tree
+ * - The tree's common name (if available)
+ * - The tree's scientific name
+ * - The tree's structured name (contains the genus and species of a tree, may only contain genus)
+ * - The probability that the given picture contains a tree
+ */
 export async function identifyTreePicture(picture, coords: Coords) {
   let file = picture
   let base64files = await fs.readFile(file, 'base64')
@@ -65,7 +115,7 @@ export async function identifyTreePicture(picture, coords: Coords) {
     */
     ret = [
       result['is_plant'],
-      result['suggestions'][0]['plant_details']['common_names'] ? result['suggestions'][0]['plant_details']['common_names'][0]: '',
+      result['suggestions'][0]['plant_details']['common_names'] ? result['suggestions'][0]['plant_details']['common_names'][0] : '',
       result['suggestions'][0]['plant_details']['scientific_name'],
       result['suggestions'][0]['plant_details']['structured_name'],
       result['is_plant_probability'],
@@ -76,6 +126,15 @@ export async function identifyTreePicture(picture, coords: Coords) {
     return -1
   }
 }
+/**
+ * This function retrieves data from an API and formats the response into a specific data structure.
+ * @param params - The function `getItreeData` takes in an object `params` as its parameter. The
+ * `params` object has the following properties:
+ * @returns an object containing various data related to the benefits provided by a tree, based on the
+ * input parameters. The data includes information on hydro benefits, air quality benefits, CO2
+ * sequestration, carbon storage, and dry weight. If there is an error in the response, the function
+ * returns null.
+ */
 
 export async function getItreeData(params) {
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory, address, state } =

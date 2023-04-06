@@ -1,3 +1,8 @@
+/**
+ * The `Camera` function is a React component that allows the user to take pictures using the device's
+ * camera and returns the captured picture to the parent component.
+ * @returns The `Camera` component is being returned.
+ */
 import React from 'react'
 
 import { MaterialCommunityIcons } from '@expo/vector-icons'

@@ -1,3 +1,12 @@
+/**
+ * This is the main App component for a React Native app that handles authentication, navigation, and
+ * rendering different screens based on user login status.
+ * @returns The App component wrapped in a PaperProvider and other context providers, with a
+ * NavigationContainer and a StackNavigator. The StackNavigator conditionally renders screens based on
+ * whether the user is logged in or not. The component also uses various hooks to manage the splash
+ * screen, check if the user has seen the app intro, and manage the app version. Finally, the component
+ * returns a TipProvider component for displaying tips
+ */
 import 'react-native-gesture-handler'
 
 import React from 'react'
@@ -14,6 +23,12 @@ import { RegisterScreen } from './screens/RegisterScreen'
 import { LoginScreen } from './screens/LoginScreen'
 import { ShowImage } from './screens/ShowImage'
 import { IdentifySpecies } from './screens/IdentifySpecies'
+/* `import { ScreenNames } from './lib/navigation'` is importing an object `ScreenNames` from a file
+located at `./lib/navigation`. This object likely contains string constants that represent the names
+of different screens in the app, which are used as keys in the `Stack.Navigator` component to
+navigate between screens. By importing this object, the component can reference these screen names
+without having to hard-code them as strings, which can help prevent errors and make the code more
+maintainable. */
 import { ScreenNames } from './lib/navigation'
 import { theme } from './styles/theme'
 import { ResetPasswordScreen } from './screens/ResetPasswordScreen/ResetPasswordScreen'
@@ -26,7 +41,20 @@ import DeviceInfo from 'react-native-device-info'
 import TipProvider from 'react-native-tip'
 import AppIntroScreen from './screens/AppIntroScreen/index'
 
+/* `console.disableYellowBox = true` is disabling the yellow box warning messages that can appear in
+the console when running a React Native app. These warnings can be helpful for debugging, but can
+also be distracting or irrelevant in some cases. By setting this property to `true`, the yellow box
+warnings will be suppressed. */
 console.disableYellowBox = true
+
+/**
+ * This function uses React hooks to track changes in the authentication state of a user and returns a
+ * boolean value indicating whether the user is logged in or not.
+ * @returns an object with a single property `isUserLogged`, which is a boolean or null value. The
+ * value of `isUserLogged` is determined by the `onAuthStateChanged` event listener from the Firebase
+ * authentication library. If a user is logged in, `isUserLogged` will be set to `true`, if not, it
+ * will be set to `false`. If the
+ */
 function useAuthStateChange(): { isUserLogged: boolean | null } {
   const [isUserLogged, setIsUserLogged] = React.useState<null | boolean>(null)
 
@@ -43,6 +71,12 @@ function useAuthStateChange(): { isUserLogged: boolean | null } {
   return { isUserLogged }
 }
 
+/**
+ * This function manages the splash screen in a TypeScript React app based on the user's login status.
+ * @param {null | boolean} isUserLogged - A nullable boolean value that indicates whether the user is
+ * logged in or not. If it is null, it means that the user's authentication status is not yet
+ * determined.
+ */
 function useManageSplashScreen(isUserLogged: null | boolean) {
   React.useEffect(() => {
     // SplashScreen.preventAutoHide()
@@ -59,7 +93,23 @@ function useManageSplashScreen(isUserLogged: null | boolean) {
   }, [isUserLogged])
 }
 
+/* `const Stack = createStackNavigator()` is creating a new stack navigator object using the
+`createStackNavigator` function from the `@react-navigation/stack` library. This stack navigator
+will be used to manage the navigation between different screens in the app. The `Stack` constant is
+used to reference this navigator object throughout the component. */
 const Stack = createStackNavigator()
+
+/**
+ * This is the main component of a React Native app that handles authentication, navigation, and
+ * displaying different screens based on user login status.
+ * @param savedVersion - The saved version of the app, which is retrieved from AsyncStorage.
+ * @param currentVersion - The `currentVersion` parameter is a string representing the current version
+ * number of the app. It is used in the `versionChanged` function to compare with the saved version
+ * number and determine if the app version has changed.
+ * @returns The App component is being returned, which contains the navigation stack and screens for
+ * the app, as well as providers for the Paper theme and location. The component also checks for the
+ * user's authentication state and whether to show the app introduction screen.
+*/
 
 // eslint-disable-next-line import/no-default-export
 export default function App() {

@@ -1,3 +1,11 @@
+/**
+ * This TypeScript code defines navigation actions for different screens and tabs using React
+ * Navigation.
+ * @property [: undefined] - It seems like the code snippet is written in TypeScript and it defines two
+ * sets of enums and two custom hooks that return navigation actions for the specified screens and
+ * tabs. The `ScreenNames` enum lists the names of all the screens in the app, while the
+ * `TabScreenNames` enum lists the names
+ */
 import { useNavigation } from '@react-navigation/native'
 
 export enum ScreenNames {

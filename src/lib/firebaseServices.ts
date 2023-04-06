@@ -1,3 +1,7 @@
+/* This is a module written in TypeScript that provides functions for interacting with Firebase
+authentication, Firestore database, and storage. It exports functions for user authentication,
+getting and setting user data, uploading images, and deleting user accounts. It also defines
+interfaces for user data and a constant for Firebase storage path. */
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
