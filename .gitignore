@@ -67,10 +67,14 @@ android/.gradle/6.9/javaCompile/classAnalysis.bin
 android/.gradle/6.9/javaCompile/jarAnalysis.bin
 android/.gradle/6.9/javaCompile/javaCompile.lock
 android/.gradle/6.9/javaCompile/taskHistory.bin
+android/.gradle/6.9/fileChanges/last-build.bin
 android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
 android/.gradle/buildOutputCleanup/outputFiles.bin
 android/.gradle/checksums/checksums.lock
 android/.gradle/checksums/md5-checksums.bin
 android/.gradle/checksums/sha1-checksums.bin
+
+node_modules/@react-native-community/masked-view/android/.gradle/6.3/fileChanges/last-build.bin
+node_modules/react-native-maps/.gradle/4.10.3/fileChanges/last-build.bin
 
 iOS/Podfile.lock
