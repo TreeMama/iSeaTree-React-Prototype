@@ -1,19 +1,9 @@
-import React, { useRef, useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import axios from 'axios'
 import { xml2js, xml2json } from 'xml-js'
-import {
-  Modal,
-  View,
-  ScrollView,
-  StyleSheet,
-  AppState,
-  ActivityIndicator,
-  Alert,
-} from 'react-native'
+import { Modal, View, ScrollView, StyleSheet, ActivityIndicator, Alert } from 'react-native'
 import { LocationContext } from '../../LocationContext'
-import { useTheme } from 'react-native-paper'
-
-import { Text, Headline, Button, Divider } from 'react-native-paper'
+import { useTheme, Text, Headline, Button, Divider } from 'react-native-paper'
 import { StatusBar } from '../../components/StatusBar'
 import { CONFIG } from '../../../envVariables'
 import { FormValues } from './addTreeForm'
@@ -30,6 +20,7 @@ interface TreeBenefitsProps {
   loadBenefitsCall: boolean
   setCalculatedFormValues: Function
   onModalClose: Function
+  setModalClosed: Function
 }
 
 const styles = StyleSheet.create({
@@ -105,7 +96,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   const [benefits, setBenefits] = React.useState<OutputInformation>()
   const [benefitsError, setBenefitsError] = React.useState('')
   const [, setFormattedResponse] = React.useState('')
-  const { values, loadBenefitsCall, onModalClose } = props
+  const { values, loadBenefitsCall, onModalClose, setModalClosed } = props
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory } = values
   const canCalculateBenefits = !!(
     (
@@ -117,6 +108,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
     )
     // speciesData.TYPE.toLowerCase() !== 'unknown' &&
   )
+
   //gets Location form Location useContext
   const value = useContext(LocationContext)
   const address = value.address
@@ -283,6 +275,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                   console.log('ok')
                   // calculateTreezBenefits(state)
                   if (speciesData.TYPE.toLowerCase() === 'unknown') {
+                    console.log('unknown case ===')
                   } else {
                     calculateTreezBenefits(state)
                   }
@@ -414,7 +407,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
           animationType="slide"
           onDismiss={() => {
             setIsModalVisible(false)
-            onModalClose()
+            // onModalClose()
           }}
         >
           <StatusBar />
@@ -547,7 +540,17 @@ export function TreeBenefits(props: TreeBenefitsProps) {
                 setBenefits({})
                 setBenefitsError('')
                 setIsModalVisible(false)
-                onModalClose()
+                setTimeout(() => {
+                  Alert.alert('Success', 'You have added a new tree successfully.', [
+                    {
+                      text: 'Great',
+                      onPress: () => {
+                        onModalClose()
+                        setModalClosed(true)
+                      },
+                    },
+                  ])
+                }, 2000)
               }}
             >
               Done
