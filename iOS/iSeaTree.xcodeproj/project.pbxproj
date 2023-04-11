@@ -491,7 +491,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TW8SJXYFP5;
+				DEVELOPMENT_TEAM = 6N92Q42F47;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = iSeaTree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -505,6 +505,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "$(inherited)";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.treemama.iseatreea;
 				PRODUCT_NAME = iseatree;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "iSeaTree/iSeaTree-Bridging-Header.h";

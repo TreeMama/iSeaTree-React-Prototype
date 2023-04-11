@@ -8,6 +8,7 @@ import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
 import { TreeValidationTypes } from '../../../lib/treeData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
 async function getItem(item: string) {
   try {
     const value = await AsyncStorage.getItem(item)
@@ -23,9 +24,56 @@ async function getItem(item: string) {
   }
 }
 
+// todo clear benefits form asyncstorage
+export const removeBenefitVal = async () => {
+  console.log('remove storage val')
+  const keys = [
+    'NationFullName',
+    'StateAbbr',
+    'CountyName',
+    'CityName',
+    'CalculatedHeightMeter',
+    'CalculatedCrownHeightMeter',
+    'CalculatedCrownWidthMeter',
+    'RunoffAvoided',
+    'RunoffAvoidedValue',
+    'Interception',
+    'PotentialEvaporation',
+    'PotentialEvapotranspiration',
+    'Evaporation',
+    'Transpiration',
+    'CORemoved',
+    'CORemovedValue',
+    'NO2Removed',
+    'NO2RemovedValue',
+    'SO2Removed',
+    'SO2RemovedValue',
+    'O3Removed',
+    'O3RemovedValue',
+    'PM25Removed',
+    'PM25RemovedValue',
+    'CO2Sequestered',
+    'CO2SequesteredValue',
+    'CarbonStorage',
+    'CarbonDioxideStorage',
+    'CarbonDioxideStorageValue',
+    'DryWeight',
+  ]
+  try {
+    await AsyncStorage.multiRemove(keys).then(() => {
+      console.log('making sure that values are deleted')
+    })
+  } catch (e) {
+    // remove error
+    console.log(e)
+  }
+  console.log('Done remove values Async storage')
+}
+
 export async function submitTreeData(
   formValues: FormValues,
   isEnabled: boolean,
+  setDataSaved: Function,
 ): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
 
@@ -185,55 +233,9 @@ export async function submitTreeData(
     AIResult: isEnabled ? 1 : 0,
   }
   console.log('calling addTree')
-  addTree(treeData)
+  addTree(treeData, setDataSaved)
   console.log('trees are added')
   console.log('calling remove ')
   removeBenefitVal()
   return formValues
-}
-
-// todo clear benefits form asyncstorage
-export const removeBenefitVal = async () => {
-  console.log('remove storage val')
-  const keys = [
-    'NationFullName',
-    'StateAbbr',
-    'CountyName',
-    'CityName',
-    'CalculatedHeightMeter',
-    'CalculatedCrownHeightMeter',
-    'CalculatedCrownWidthMeter',
-    'RunoffAvoided',
-    'RunoffAvoidedValue',
-    'Interception',
-    'PotentialEvaporation',
-    'PotentialEvapotranspiration',
-    'Evaporation',
-    'Transpiration',
-    'CORemoved',
-    'CORemovedValue',
-    'NO2Removed',
-    'NO2RemovedValue',
-    'SO2Removed',
-    'SO2RemovedValue',
-    'O3Removed',
-    'O3RemovedValue',
-    'PM25Removed',
-    'PM25RemovedValue',
-    'CO2Sequestered',
-    'CO2SequesteredValue',
-    'CarbonStorage',
-    'CarbonDioxideStorage',
-    'CarbonDioxideStorageValue',
-    'DryWeight',
-  ]
-  try {
-    await AsyncStorage.multiRemove(keys).then(() => {
-      console.log('making sure that values are deleted')
-    })
-  } catch (e) {
-    // remove error
-    console.log(e)
-  }
-  console.log('Done remove values Async storage')
 }
