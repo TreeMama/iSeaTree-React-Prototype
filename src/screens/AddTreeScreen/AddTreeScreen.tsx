@@ -215,6 +215,7 @@ export function AddTreeScreen(props) {
   const [test, setTest] = React.useState<boolean>(false)
   const [modalClosed, setModalClosed] = React.useState<boolean>(false)
   const [dataSaved, setDataSaved] = React.useState<boolean>(false)
+  const [unknownTreeAdd, setUnknownTreeAdd] = React.useState<boolean>(false)
 
   const [state, setState] = useState({
     aiResult: 0,
@@ -258,7 +259,7 @@ export function AddTreeScreen(props) {
     formik.setSubmitting(false)
     if (speciesData?.TYPE.toLowerCase() === 'unknown') {
       console.log('unknown submit ===')
-      // formik.resetForm()
+      setUnknownTreeAdd(true)
     }
   }
 
@@ -365,6 +366,18 @@ export function AddTreeScreen(props) {
       setModalClosed(!modalClosed)
       setDataSaved(!dataSaved)
       formik.resetForm()
+    }
+    if (dataSaved && unknownTreeAdd) {
+      setTimeout(() => {
+        Alert.alert('Success', 'You have added a new unknown tree successfully.', [
+          {
+            text: 'Great',
+            onPress: () => {
+              formik.resetForm()
+            },
+          },
+        ])
+      }, 2000)
     }
   }, [dataSaved, modalClosed])
 
