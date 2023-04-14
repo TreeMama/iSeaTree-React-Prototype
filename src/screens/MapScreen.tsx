@@ -301,21 +301,16 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       treeConditionCategory
     )
 
-    const address = value.address
-    if (!address) return null
-    let state = address.region
-    //checks to see fit the state name needs to be abbrevated
-    if (state.length > 2) {
-      state = convertRegion(address.region, 2)
-    }
+    const location = value.currentCoords
+
+    if (!location) return null
     if (canCalculateBenefits) {
       const data = {
         crownLightExposureCategory,
         dbh,
         treeConditionCategory,
         speciesData,
-        address,
-        state,
+        location,
       }
       const resultData = await getItreeData(data)
 
@@ -437,11 +432,13 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   //   return treename
   // }
   function extractTreeNameQuery(item) {
-    const treename = item.item.speciesNameScientific ? item.item.speciesNameScientific : item.item.speciesNameCommon;
-    console.log (` Extracted Tree Name:  ${treename}`);
+    const treename = item.item.speciesNameScientific
+      ? item.item.speciesNameScientific
+      : item.item.speciesNameCommon
+    console.log(` Extracted Tree Name:  ${treename}`)
     return treename
   }
-  
+
   // navigate to Tree Info screen to show MORE TREE INFO
   const onSuggestedTree = async (item) => {
     props.navigation.navigate('infoScreen', {
