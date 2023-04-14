@@ -182,18 +182,28 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
 
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
           for (let i = 0; i < alltrees.length; i++) {
-            try {
-              alltrees[i]['distance'] = await calculateDistance(
-                currentCoords?.latitude,
-                currentCoords?.longitude,
-                alltrees[i]['coords']['_latitude'],
-                alltrees[i]['coords']['_longitude'],
-                'K',
-              )
-            } catch (e) {
+            treei = alltrees[i]
+            if (treei != null &&
+                (treei.treeType == "conifer" || treei.treeType == "broadleaf") &&
+                treei['coords'] != null) {
+              try {
+                treei['distance'] = await calculateDistance(
+                  currentCoords?.latitude,
+                  currentCoords?.longitude,
+                  treei['coords']['_latitude'],
+                  treei['coords']['_longitude'],
+                  'K',
+                )
+              } catch (e) {
+                // delete item that is the problem
+                console.log("invalid tree found", i,treei)
+                alltrees.splice(i, 1)
+              }
+            }
+            else {
               // delete item that is the problem
+              console.log("invalid tree found", i,treei)
               alltrees.splice(i, 1)
-              console.log(e)
             }
           }
           const sortarray = alltrees.sort((a: { distance: number }, b: { distance: number }) => {
