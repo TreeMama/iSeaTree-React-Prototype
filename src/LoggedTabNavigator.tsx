@@ -120,19 +120,21 @@ export function LoggedTabNavigator() {
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ focused }) => (
-            <Image
-              source={focused ? treeCameraActiveIcon : treeCameraIcon}
-              fadeDuration={0}
-              style={{
-                zIndex: 1,
-                width: 70,
-                height: 70,
-                borderRadius: 100,
-                borderWidth: 4,
-                backgroundColor: 'white',
-                borderColor: 'white',
-              }}
-            />
+            <View style={{ alignItems: 'center', justifyContent: 'center', top: 10, width: 150 }}>
+              <Image
+                source={focused ? treeCameraActiveIcon : treeCameraIcon}
+                fadeDuration={0}
+                style={{
+                  zIndex: 1,
+                  width: 70,
+                  height: 70,
+                  borderRadius: 100,
+                  borderWidth: 4,
+                  backgroundColor: 'white',
+                  borderColor: 'white',
+                }}
+              />
+            </View>
           ),
           tabBarButton: (props) => <CustomTabButton {...props} />,
         }}
