@@ -1,3 +1,13 @@
+/**
+ * This is a TypeScript function that identifies a tree from a picture and retrieves data about it
+ * using the iTrees API.
+ * @param {string} key - The API key for the i-Tree Eco API.
+ * @param {string} stringValue - A string value that needs to be formatted and returned.
+ * @param {string} unit - The unit of measurement for a numerical value, such as '$' for dollars or
+ * 'lb' for pounds.
+ * @returns The code does not have a return statement for the entire file. It contains multiple
+ * functions that may or may not have return statements.
+ */
 const EMAIL_REGEX =
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 import { CONFIG } from '../../envVariables'
@@ -63,12 +73,15 @@ export async function identifyTreePicture(picture, coords: Coords) {
     (3) scientific_name: the tree's common name scientific name
     (4) structured_name: contains the genus and species of a tree. May only contains genus
     */
+  
     ret = [
       result['is_plant'],
       result['suggestions'][0]['plant_details']['common_names'] ? result['suggestions'][0]['plant_details']['common_names'][0]: '',
       result['suggestions'][0]['plant_details']['scientific_name'],
       result['suggestions'][0]['plant_details']['structured_name'],
       result['is_plant_probability'],
+      // result['suggestions'], maybe suggestions needs to be sorted?
+      [...result['suggestions'].slice(1).map((r:any)=> ({other:r.plant_name, prob: r.probability}))]
     ]
     return ret
   } catch (error) {
