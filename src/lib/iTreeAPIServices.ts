@@ -81,7 +81,8 @@ export async function identifyTreePicture(picture, coords: Coords) {
       result['suggestions'][0]['plant_details']['structured_name'],
       result['is_plant_probability'],
       // result['suggestions'], maybe suggestions needs to be sorted?
-      [...result['suggestions'].slice(1).map((r:any)=> ({other:r.plant_name, prob: r.probability}))]
+      [...result['suggestions'].slice(1).map((r:any) => {
+        ({ [r["plant_name"]] : r["probability"]})})]
     ]
     return ret
   } catch (error) {
