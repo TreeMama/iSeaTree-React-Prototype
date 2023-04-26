@@ -2,6 +2,13 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, StatusBar, SafeAreaView } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
+/* `const data` is an array of objects that contains information about the slides to be displayed in
+the app intro slider. Each object in the array represents a slide and contains the following
+properties:
+- `title`: a string representing the title of the slide
+- `text`: a string representing the description of the slide
+- `image`: an image source representing the image to be displayed on the slide
+- `bg`: a string representing the background color of the slide. */
 const data = [
     {
         title: 'Title 1',
@@ -25,6 +32,14 @@ const data = [
 
 type Item = typeof data[0];
 
+/* `const styles` is an object that contains a set of styles defined using the `StyleSheet.create()`
+method. Each key in the object represents a style name, and its value is an object that contains the
+style properties and their values. These styles are used to define the appearance of the slides in
+the app intro slider. For example, the `slide` style defines the layout and background color of the
+slide, the `image` style defines the size and margin of the image displayed on the slide, and the
+`text` and `title` styles define the font size, color, and alignment of the text displayed on the
+slide. These styles are then used in the `_renderItem` method to apply the styles to the components
+that make up the slide. */
 const styles = StyleSheet.create({
     slide: {
         flex: 1,
@@ -47,6 +62,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
+/* The code is defining a React component called `Slider` that extends the `React.Component` class. The
+component takes a single prop called `dismissSlider`, which is a function that takes no arguments
+and returns nothing. */
 
 export default class Slider extends React.Component<{ dismissSlider: () => void }> {
     _renderItem = ({ item }: { item: Item }) => {

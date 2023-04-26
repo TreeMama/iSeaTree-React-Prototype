@@ -1,3 +1,14 @@
+/**
+ * The function converts US states and Canadian provinces between their full names and their
+ * abbreviations.
+ * @param {string} input - a string representing a US state or Canadian province
+ * @param {number} to - The "to" parameter is a number that determines whether the function should
+ * convert a region name to its abbreviation (TO_ABBREVIATED) or an abbreviation to its full name
+ * (TO_NAME).
+ * @returns There is no return statement in the code provided, so nothing is being returned. The code
+ * defines a function called `convertRegion` that takes two arguments (`input` and `to`) and performs
+ * some operations on them, but it does not have a return statement.
+ */
 
 // call convertRegion and with the belowe var
 // var stateName = convertRegion("TX", TO_NAME);

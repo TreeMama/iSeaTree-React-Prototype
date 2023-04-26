@@ -1,3 +1,11 @@
+/**
+ * The TtypeHelp function displays a help modal with an image and a close button when a help icon is
+ * pressed.
+ * @returns A React component called TtypeHelp that renders a button with a help icon. When the button
+ * is pressed, a modal is displayed with an image and a "Close" button. The modal can be closed by
+ * pressing the "Close" button.
+ */
+
 import React from 'react'
 
 import { Modal, View, ScrollView, Image, TouchableOpacity } from 'react-native'
@@ -8,6 +16,14 @@ import { StatusBar } from '../../components/StatusBar'
 
 const imageStep1 = require('../../../assets/tree-help/InfoPopUp.png')
 
+/**
+ * This is a TypeScript React component that displays a help modal with an image and a close button
+ * when a help icon is clicked.
+ * @returns A React component that renders a help icon button. When the button is pressed, a modal is
+ * displayed with an image and a "Close" button. The modal is controlled by the state variable
+ * `isModalVisible`. The component also uses the `useTheme` hook from the `react-native-paper` library
+ * to get the current theme.
+ */
 export function TtypeHelp() {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const theme = useTheme()

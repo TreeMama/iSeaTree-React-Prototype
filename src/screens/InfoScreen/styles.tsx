@@ -1,3 +1,11 @@
+/* This code is importing the `Dimensions` and `StyleSheet` modules from the `react-native` library and
+using them to define a stylesheet object called `styles`. The `styles` object contains several style
+rules for different components, such as `treeCard`, `treeCardBottomContainer`, `buttonTab`, and
+`challengeIcon`. These style rules define various properties such as width, height, margin, border,
+borderRadius, backgroundColor, justifyContent, alignItems, and position for each component. These
+styles can be applied to the corresponding components in a React Native application to control their
+appearance. */
+
 import { Dimensions, StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({

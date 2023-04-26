@@ -1,3 +1,9 @@
+/* This is a configuration file for ESLint, a popular JavaScript linter. It specifies the parser to use
+(in this case, the TypeScript ESLint parser), the rules to enforce (including some recommended rules
+from plugins for importing modules and working with React), and some settings (such as detecting the
+version of React being used). This configuration file can be used to ensure consistent code style
+and catch potential errors in a JavaScript or TypeScript project. */
+
 module.exports = {
   parser: '@typescript-eslint/parser', // Specifies the ESLint parser
   extends: [

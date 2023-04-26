@@ -79,6 +79,14 @@ const data = [
 
 type Item = typeof data[0]
 
+/* `const styles` is an object that contains a set of styles for various components in the
+`AppIntroScreen` component. The `StyleSheet.create()` method is used to create a stylesheet object
+that can be used to style React Native components. Each key in the `styles` object represents a
+component or a group of components, and the value is an object that contains the styles for that
+component or group of components. For example, the `slide` key contains styles for the slides in the
+tutorial, such as setting the background color to blue and centering the content. The `text` key
+contains styles for the text in the slides, such as setting the font size and color. These styles
+can be applied to components using the `style` prop. */
 const styles = StyleSheet.create({
   slide: {
     flex: 1,
@@ -126,6 +134,13 @@ const styles = StyleSheet.create({
     tintColor: '#fff',
   },
 })
+
+/* This is a React component called `AppIntroScreen` that renders a series of slides using the
+`AppIntroSlider` component from the `react-native-app-intro-slider` library. The slides contain
+information and images about the features of an app called "iSeaTree". The component also includes
+functions for handling user interactions with the slides, such as skipping the tutorial, restarting
+the tutorial, and dismissing the tutorial. It also uses `AsyncStorage` to store information about
+whether the user has completed the tutorial and the version of the app they are using. */
 
 export default class AppIntroScreen extends React.Component {
   introRef: any

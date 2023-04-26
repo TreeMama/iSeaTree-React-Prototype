@@ -57,6 +57,10 @@ const not_found_pic = require('../../../assets/not_found_pic.png')
 
 const win = Dimensions.get('window')
 
+/* The code is defining a StyleSheet object with various styles for a React Native application.
+The styles include container styles, modal styles, header styles, body styles, button styles, and
+image styles. These styles are used to define the appearance and layout of various components in the
+application. */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -162,6 +166,14 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * This function validates a form's input values and returns any errors as an object.
+ * @param {FormValues} values - an object containing the values of a form, with properties such as
+ * photo, treeType, speciesData, dbh, landUseCategory, treeConditionCategory,
+ * crownLightExposureCategory, and locationType.
+ * @returns an object of type `FormikErrors<FormValues>`, which contains any validation errors that
+ * were found in the `values` object passed as an argument.
+ */
 function validateForm(values: FormValues): FormikErrors<FormValues> {
   const errors: FormikErrors<FormValues> = {}
   if (!values.photo) {
@@ -196,6 +208,12 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
   return errors
 }
 
+/**
+ * This is a TypeScript React function that defines the AddTreeScreen component and its state
+ * variables, form values, and form submission behavior.
+ * @param props - props is an object containing the properties passed down to the AddTreeScreen
+ * component from its parent component.
+ */
 export function AddTreeScreen(props) {
   const theme = useTheme()
   const refTreeTypeSelect = React.useRef(null)
@@ -252,6 +270,12 @@ export function AddTreeScreen(props) {
     },
   })
 
+  /**
+   * This function handles the success of adding a new tree and resets the form if necessary.
+   * @param {FormValues} _formValues - The parameter `_formValues` is of type `FormValues`, which is
+   * likely an interface or type defined elsewhere in the codebase. It contains data related to the
+   * form values submitted by the user.
+   */
   const handleAddTreeSuccess = (_formValues: FormValues) => {
     const { speciesData } = _formValues
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
@@ -279,6 +303,9 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /**
+   * The function resets various form values and flags when a modal is closed.
+   */
   const onModalCloseClick = () => {
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
     formik.resetForm()
@@ -287,6 +314,10 @@ export function AddTreeScreen(props) {
     formik.setSubmitting(false)
   }
 
+  /* The two lines of code below are disabling console log warnings in a React Native application. The
+  `LogBox.ignoreLogs` method is used to ignore specific warning messages, while
+  `LogBox.ignoreAllLogs` is used to ignore all warning messages. This is useful for suppressing
+  warnings that may not be relevant or useful during development. */
   LogBox.ignoreLogs(['Warning: ...'])
   LogBox.ignoreAllLogs()
 
@@ -304,6 +335,9 @@ export function AddTreeScreen(props) {
 
   setUpdateIntervalForType(SensorTypes.accelerometer, 1000)
 
+  /* The code below is subscribing to an accelerometer and updating the state variables `x`, `y`, and
+  `z` with the corresponding values received from the accelerometer. The `setX`, `setY`, and `setZ`
+  functions are likely part of a React component's state management system. */
   const subscription = accelerometer.subscribe(({ x, y, z, timestamp }) => {
     setX(x)
     setY(y)
@@ -315,14 +349,35 @@ export function AddTreeScreen(props) {
   //   subscription.unsubscribe();
   // }, 100000);
 
+  /**
+   * The function converts an angle from degrees to radians.
+   * @param {any} angle - The parameter "angle" is a number representing an angle in degrees that needs
+   * to be converted to radians.
+   * @returns The function `toRadians` takes an angle in degrees as input and returns the equivalent
+   * angle in radians. The return statement in the function multiplies the input angle by the conversion
+   * factor of `Math.PI / 180` to convert it to radians. Therefore, the function returns the angle in
+   * radians.
+   */
   const toRadians = (angle: any) => {
     return angle * (Math.PI / 180)
   }
 
+  /**
+   * The function converts an angle from radians to degrees.
+   * @param {any} angle - The parameter "angle" is a number representing an angle in radians that we
+   * want to convert to degrees.
+   * @returns The function `toDegrees` takes an argument `angle` and returns the value of `angle`
+   * converted from radians to degrees. The formula used for the conversion is `angle * (180 /
+   * Math.PI)`. Therefore, the function returns the value of `angle` in degrees.
+   */
   const toDegrees = (angle: any) => {
     return angle * (180 / Math.PI)
   }
 
+  /**
+   * The function calculates the diameter at breast height (DBH) of a tree based on certain input
+   * parameters.
+   */
   const calculateDBH = () => {
     let number = 0
     const angle = (180 * zaxis) / 20
@@ -346,6 +401,10 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /**
+   * The function "done" sets a state variable, modifies a string, sets another state variable, and
+   * updates a form field value.
+   */
   const done = () => {
     setIsMeasureWithCamera(false)
     both = both.toString().substr(0, 4)
@@ -353,11 +412,17 @@ export function AddTreeScreen(props) {
     formik.setFieldValue('both', formik.values.both.toString().substr(0, 4))
   }
 
+  /**
+   * The function sets a boolean value to false and sets a form field value to 0 using Formik.
+   */
   const another = () => {
     setTest(false)
     formik.setFieldValue('number', 0)
   }
 
+  /**
+   * The function resets various values and fields.
+   */
   const reset = () => {
     both = 0
     setTest(false)
@@ -367,6 +432,9 @@ export function AddTreeScreen(props) {
     formik.setFieldValue('number', 0)
   }
 
+  /**
+   * The function displays an alert message with instructions for calculating multiple trunks.
+   */
   const showTip = () => {
     Alert.alert(
       'Multiple Trunks Calculate',
@@ -378,6 +446,12 @@ export function AddTreeScreen(props) {
       ],
     )
   }
+
+  /* The code below is a React useEffect hook that runs when the DBHFeetInput or DBHInchInput values
+  change. It sets the "number" and "both" fields of a Formik form to 0, and then calculates the
+  diameter at breast height (DBH) based on the selected option (isDBHSelected1 or isDBHSelected2) and
+  the input values for feet and inches (DBHFeetInput and DBHInchInput). The calculated DBH value is
+  then stored in the state variable "DBHCalculation". */
   React.useEffect(() => {
     formik.setFieldValue('number', 0)
     formik.setFieldValue('both', 0)
@@ -393,6 +467,10 @@ export function AddTreeScreen(props) {
     }
   }, [DBHFeetInput, DBHInchInput])
 
+  /* The code below is using the `useEffect` hook in a React component to trigger a form submission
+  when `calculatedFormValues` changes. It also checks if the `COMMON` value in the `speciesData`
+  object is 'Unknown' and the `speciesType` is `TreeTypes.NULL`, and if so, it displays an alert
+  message to prompt the user to select a tree type for the entry. */
   React.useEffect(() => {
     if (calculatedFormValues) {
       formik.handleSubmit()
@@ -409,6 +487,11 @@ export function AddTreeScreen(props) {
     }
   }, [calculatedFormValues])
 
+  /* The code below is using the `useEffect` hook in a React component to add and remove a listener for
+  the 'focus' event on the navigation object passed in as a prop. When the component mounts, the
+  `getSelectedSpecies` function is called when the 'focus' event is triggered. When the component
+  unmounts, the listener is removed to prevent memory leaks. The `useEffect` hook is also dependent
+  on the `props` object, so it will re-run the effect whenever the `props` object changes. */
   React.useEffect(() => {
     props.navigation.addListener('focus', getSelectedSpecies)
     return () => {
@@ -416,6 +499,11 @@ export function AddTreeScreen(props) {
     }
   }, [props])
 
+  /* The code below is defining a React component with four state variables: `isCameraVisible`,
+  `isMeasureWithCamera`, `isDone`, and `test`. Each state variable is initialized with a boolean
+  value. The component is not rendering anything yet, but it could be used to control the visibility
+  of a camera, enable/disable measuring with the camera, and track whether a task is done or not.
+  The `test` variable seems to be unused and may be for debugging purposes. */
   const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
   const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
 
@@ -423,6 +511,10 @@ export function AddTreeScreen(props) {
 
   const [test, setTest] = React.useState<boolean>(false)
 
+  /**
+   * The function handles a confirmation alert and clears various form values and states when the user
+   * selects to clear all.
+   */
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
       { text: 'Cancel' },
@@ -439,6 +531,11 @@ export function AddTreeScreen(props) {
     ])
   }
 
+
+  /**
+   * This function sets form field values based on selected species data.
+  */
+
   // Auto-fill species data when jumped from TreeInfo Screen
   function getSelectedSpecies() {
     let { params } = props.route
@@ -453,6 +550,10 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /**
+   * The function handles an error related to adding a tree and displays an alert message if the user
+   * is not logged in.
+   */
   function handleAddTreeError() {
     setLoadBenefitsCall(false)
     setCalculatedFormValues(false)
@@ -469,6 +570,12 @@ export function AddTreeScreen(props) {
     )
   }
 
+  /**
+   * The function handles the success message and resetting of a form after a user has added a new tree
+   * and potentially earned badges.
+   * @param {string[]} badgesAwarded - An array of strings representing the badges awarded to the user
+   * after successfully adding a new tree.
+   */
   function handleUpdateUserSuccess(badgesAwarded: string[]) {
     formik.resetForm()
     formik.setSubmitting(false)
@@ -498,6 +605,9 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /**
+   * The function handles an error when updating a user and displays an alert message.
+   */
   function handleUpdateUserError() {
     formik.setSubmitting(false)
 
@@ -508,6 +618,12 @@ export function AddTreeScreen(props) {
     ])
   }
 
+  /**
+   * The function sets a selected option based on the index provided.
+   * @param {any} index - The parameter "index" is a variable of type "any" that is used as an input to
+   * the function "onOptionButton". It is likely used to determine which option button was clicked or
+   * selected, and then perform some action based on that selection.
+   */
   const onOptionButton = (index: any) => {
     setDBHSelected(false)
     switch (index) {
@@ -523,6 +639,10 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /* The code below is defining two modal components, `DBHModal` and `DBHModal0`, which are used to
+  display options and input fields related to calculating or entering a tree's diameter at breast
+  height (DBH). The `onModalCancel` function is used to reset input values and close the modals when
+  the user cancels or completes an action. */
   const DBHModal = (
     <View style={styles.modalContainer}>
       <View style={styles.modalHeaderContainer}>
@@ -619,6 +739,9 @@ export function AddTreeScreen(props) {
     </View>
   )
 
+  /* The code below is defining a React component called DBHModal0 which renders a modal with a header,
+  a text input field for entering a DBH value in inches, and a button to submit the entered value.
+  The entered value is then set as a field value in a Formik form and the modal is closed. */
   const DBHModal0 = (
     <View style={styles.modalContainer}>
       <View style={styles.modalHeaderContainer}>
@@ -658,6 +781,12 @@ export function AddTreeScreen(props) {
     </View>
   )
 
+  /**
+   * The function resets input values and toggles off a selected state based on the index parameter.
+   * @param index - The index parameter is a number that is used to determine which modal is being
+   * cancelled. It is used to conditionally set the state of the DBHSelected1 or DBHSelected2 variables
+   * to false, depending on which modal is being cancelled.
+   */
   const onModalCancel = (index) => {
     setDBHFeetInput('')
     setDBHInchInput('')
@@ -670,6 +799,12 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /* The code below is defining a React component called DBHModal1, which renders a modal with a
+  header, two text input fields for feet and inches, and a calculation result field. The user can
+  input values for feet and inches, and the component calculates the diameter at breast height (DBH)
+  using the formula DBH = circumference / pi. The calculated DBH value is displayed in the result
+  field and can be submitted by pressing the "Enter" button. The component also includes a cancel
+  button in the header that closes the modal. */
   const DBHModal1 = (
     <View style={styles.modalContainer}>
       <View style={styles.modalHeaderContainer}>
@@ -741,6 +876,14 @@ export function AddTreeScreen(props) {
     </View>
   )
 
+
+  /**
+   * This function validates whether a given image is of a tree and prompts the user to enter the
+   * species name or genus if a match is found, or to enter the species as "Unknown" if no match is
+   * found.
+   * @param result - The parameter `result` is an array that contains information about a tree that has
+   * been identified through image recognition. The array contains the following elements:
+   */
   const treeValidation = (result) => {
     try {
       formik.setFieldValue('needsValidation', false)
@@ -769,11 +912,24 @@ export function AddTreeScreen(props) {
         // Filter Plant From JSON
 
         /* In Future we have to match API response result[2] 90% result with species.json data */
+
+        /* The code is filtering an array of objects called `local_species_data` based on a
+        condition. The condition is that the `SCIENTIFIC` property of each object in the array
+        should be equal to the third element of an array called `result`, after converting both to
+        lowercase. The filtered array is then stored in a variable called `speciesFilter`. */
         const speciesFilter = local_species_data.filter((species) => {
           return species.SCIENTIFIC.toLowerCase() == result[2].toLowerCase()
         })
 
         /* We have to filter object that have schientif name has spp. */
+
+        /* The code is filtering an array of objects called `local_species_data` based on two
+        conditions. The first condition is that the `GENUS` property of each object in the array
+        must match the `genus` property of another object called `structured_name`. The comparison
+        is case-insensitive as both values are converted to lowercase using the `toLowerCase()`
+        method. The second condition is that the `SCIENTIFIC` property of each object in the array
+        must include the string 'spp.'. The filtered result is stored in a new array called
+        `genusFilter`. */
         const genusFilter = local_species_data.filter((genus) => {
           return (
             genus.GENUS.toLowerCase() == structured_name.genus.toLowerCase() &&
@@ -781,6 +937,12 @@ export function AddTreeScreen(props) {
           )
         })
 
+        /* The code is checking if the `speciesFilter` array has at least one element and setting the
+        `matchSpecieObj` variable to the first element of the array and updating the state with the
+        `matchObj` property set to the same value. If `speciesFilter` is empty, it checks if the
+        `genusFilter` array has at least one element and sets the `matchGenusObj` variable to the
+        first element of the array and updates the state with the `matchObj` property set to the same
+        value. */
         if (Array.isArray(speciesFilter) && speciesFilter.length >= 1) {
           species_match = true
           matchSpecieObj = speciesFilter[0]
@@ -803,10 +965,10 @@ export function AddTreeScreen(props) {
           Alert.alert(
             "It's a match!",
             "We've determined that this tree likely is a " +
-              matchSpecieObj?.COMMON +
-              ' (' +
-              matchSpecieObj?.SCIENTIFIC +
-              ').\n Do you agree?',
+            matchSpecieObj?.COMMON +
+            ' (' +
+            matchSpecieObj?.SCIENTIFIC +
+            ').\n Do you agree?',
             [
               {
                 text: 'Try again',
@@ -834,10 +996,10 @@ export function AddTreeScreen(props) {
           Alert.alert(
             "It's a match!",
             "We've determined that this tree likely belongs in the " +
-              matchGenusObj?.GENUS +
-              ' (' +
-              matchGenusObj?.SCIENTIFIC +
-              ') Genus.\n Do you agree?',
+            matchGenusObj?.GENUS +
+            ' (' +
+            matchGenusObj?.SCIENTIFIC +
+            ') Genus.\n Do you agree?',
             [
               {
                 text: 'Try again',
@@ -890,7 +1052,7 @@ export function AddTreeScreen(props) {
           [
             {
               text: 'Cancel',
-              onPress: () => {},
+              onPress: () => { },
             },
             {
               text: 'OK',
@@ -907,6 +1069,11 @@ export function AddTreeScreen(props) {
     }
   }
 
+  /* The code is rendering a modal component in a React Native app that allows the user to
+  convert a measurement in feet and inches to inches. The modal contains input fields for feet and
+  inches, and a calculation is performed to convert the input to inches, which is displayed in
+  another input field. The user can then choose to enter the calculated value into a form field by
+  pressing the "Enter" button. */
   const DBHModal2 = (
     <View style={styles.modalContainer}>
       <View style={styles.modalHeaderContainer}>
@@ -985,6 +1152,9 @@ export function AddTreeScreen(props) {
     </View>
   )
 
+  /* The code is checking if a form has errors by checking if there are any errors for specific
+  form fields and if those fields have been touched (i.e. interacted with by the user). If any of
+  these conditions are true, the `formHasErrors` variable will be set to `true`. */
   const formHasErrors =
     (formik.errors.photo && formik.touched.photo) ||
     (formik.errors.treeType && formik.touched.treeType) ||
@@ -994,6 +1164,11 @@ export function AddTreeScreen(props) {
     (formik.errors.treeConditionCategory && formik.touched.treeConditionCategory) ||
     (formik.errors.crownLightExposureCategory && formik.touched.crownLightExposureCategory) ||
     (formik.errors.locationType && formik.touched.locationType)
+
+  /**
+   * The function toggles a switch and sets a form field value based on the current state of the switch
+   * and a condition.
+   */
   const toggleSwitch = () => {
     if (formik.values.speciesData?.TYPE != 'unknown' && !isEnabled) {
       formik.setFieldValue('needsValidation', true)
@@ -1190,8 +1365,8 @@ export function AddTreeScreen(props) {
                       Alert.alert(
                         '',
                         "Oops! Looks like you didn't say what type of tree this is. This species is a " +
-                          speciesData?.TYPE +
-                          '. I am going to correct this for you!',
+                        speciesData?.TYPE +
+                        '. I am going to correct this for you!',
                         [
                           {
                             text: 'Ok',
@@ -2058,7 +2233,7 @@ export function AddTreeScreen(props) {
                       borderColor: theme.colors.primary,
                     }}
                     onPress={() => {
-                      ;setDone(false) &
+                      ; setDone(false) &
                         setIsMeasureWithCamera(false) &
                         setDBHSelected(false) &
                         formik.setFieldValue('dbh', parseFloat(formik.values.both)) &

@@ -30,6 +30,12 @@ const treeBroadleaf = require('../../../assets/tree_Deciduous3X-01.png')
 
 type TreeInfoNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
+/* The code is defining an interface `ITreeInfoProps` with four properties: `selectedTree`,
+`setSelectedTree`, `navigation`, `isFromMapScreen`, and `setIsFromMapScreen`. These properties are
+used to pass data and functions as props to a React component that displays information about a
+selected tree. The `selectedTree` property is of type `SpeciesData`, which is not defined in the
+code snippet. The `setSelectedTree` property is a function that takes a `React.SetStateAction` of
+`SpeciesData` or `undefined`. The `navigation` */
 interface ITreeInfoProps {
   selectedTree: SpeciesData
   setSelectedTree: React.Dispatch<React.SetStateAction<SpeciesData | undefined>>
@@ -38,8 +44,17 @@ interface ITreeInfoProps {
   setIsFromMapScreen: React.Dispatch<React.SetStateAction<boolean | false>>
 }
 
+/* The code is written in TypeScript for a React application. It is importing the `Dimensions`
+module and using the `get` method to retrieve the width of the viewport from the `window` object.
+The retrieved value is then assigned to a constant variable named `viewportWidth` using object
+destructuring syntax. */
 const { width: viewportWidth } = Dimensions.get('window')
 
+/* The code is defining a StyleSheet object with various styles for a list item component in a
+React Native app. It includes styles for the list item container, the title and description text,
+and an image container. The styles are defined using various properties such as padding, border
+width, flexbox layout, font size, color, and dimensions. These styles can be applied to the
+corresponding components in the app to achieve a consistent and visually appealing design. */
 const styles = StyleSheet.create({
   listItem: {
     padding: 12,
@@ -92,6 +107,12 @@ export function TreeInfo(props: ITreeInfoProps) {
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
 
+  /* The code is defining a function that creates an array of image URLs based on the
+  `currentData` object. It checks if `currentData` has a property called `THUMB_PIC_1024x768` and if
+  it does, it splits the string value of that property by commas and adds each resulting URL to the
+  `pictures` array. It also checks if `currentData` has a property called `FULL_PIC_1024x768` and if
+  it does, it adds the URL of that property to the beginning of the `pictures` array using the
+  `unshift */
   const imageArray = (() => {
     const pictures: string[] = []
     if (currentData?.THUMB_PIC_1024x768) {
@@ -103,11 +124,27 @@ export function TreeInfo(props: ITreeInfoProps) {
     return pictures
   })()
 
+  /**
+   * This function sets the loading state of a component in a TypeScript React application.
+   * @param value - The value parameter is a variable that represents the loading state of a component
+   * or function. It can be a boolean value (true/false) or a numerical value (0-100) depending on the
+   * implementation.
+   * @param label - The `label` parameter is likely a string that represents the label or description
+   * of the loading process. It could be used to provide more context to the user about what is being
+   * loaded. However, without more context about the code and its implementation, it's difficult to say
+   * for sure.
+   */
   function onLoading(value, label) {
     setLoading(value)
   }
 
   let treeDetailImg = treeConifer
+
+  /* The code is a switch statement that checks the value of the `TYPE` property of an object
+  called `currentData`. If the value is `'conifer'`, it sets the `treeDetailImg` variable to a
+  specific image (`treeConifer`). If the value is `'broadleaf'`, it sets the `treeDetailImg`
+  variable to a different image (`treeBroadleaf`). The `?.` operator is used to check if
+  `currentData` is not null or undefined before accessing its `TYPE` property. */
   switch (currentData?.TYPE) {
     case 'conifer':
       treeDetailImg = treeConifer
@@ -117,6 +154,12 @@ export function TreeInfo(props: ITreeInfoProps) {
       break
   }
 
+  /* The code is defining a function called `renderItem` that takes an object with an `item`
+  property as an argument. It returns a `View` component that contains an `Image` component with a
+  source URL generated using a constant `imgURL` and some styling. The `Image` component also has
+  `onLoadStart` and `onLoadEnd` event handlers that call a function called `onLoading` with boolean
+  values and a string argument. If `loading` is true, it also renders an `ActivityIndicator`
+  component in the center of the `View`. */
   const renderItem = ({ item }) => {
     const imgURL = `${CONFIG.AWS_S3_URL}` + item
     return (
@@ -147,6 +190,12 @@ export function TreeInfo(props: ITreeInfoProps) {
     )
   }
 
+  /* The code is defining a functional component called `pagination` that returns a Pagination
+  component from a third-party library. The Pagination component is used to display dots that
+  represent the number of images in an array and the currently active image. The component takes in
+  several props such as `dotsLength`, `activeDotIndex`, `containerStyle`, `dotStyle`,
+  `inactiveDotStyle`, `inactiveDotOpacity`, and `inactiveDotScale` to customize the appearance of the
+  dots. */
   const pagination = () => {
     return (
       <Pagination
@@ -174,6 +223,10 @@ export function TreeInfo(props: ITreeInfoProps) {
     )
   }
 
+  /* The code is a React Native component that displays a modal with information about a selected
+  tree. It includes a carousel of images, information about the tree's common and scientific names,
+  type, description, and level, as well as buttons to add a record of the tree and view its type. It
+  also includes functionality to toggle an information panel and return to the map screen. */
   return (
     <View
       style={{
@@ -531,7 +584,7 @@ export function TreeInfo(props: ITreeInfoProps) {
                 <RNText style={{ fontWeight: 'normal', fontSize: 16 }}>{currentData?.LEVEL}</RNText>
               </ScrollView>
             ) : // </View>
-            null}
+              null}
             {props.isFromMapScreen ? (
               <Button
                 mode="contained"

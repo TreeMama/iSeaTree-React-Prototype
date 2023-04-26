@@ -1,3 +1,13 @@
+/**
+ * This function updates a user's badges and tree count based on the form values of a newly added tree.
+ * @param {FormValues} formValues - An object containing the values submitted in the addTreeForm.
+ * @param {UserData} user - The `user` parameter is an object of type `UserData` which contains
+ * information about a user, such as their name, email, badges, and the number of trees they have
+ * added.
+ * @param {string} uid - The `uid` parameter is a string representing the unique identifier of a user
+ * in the Firebase database.
+ * @returns An object with two properties: "badgesAwarded" and "promise".
+ */
 import { SpeciesData } from '../SpeciesSelect'
 import {
   getCurrentAuthUser,
@@ -56,5 +66,5 @@ export function updateBadgesAfterAddingTree(
 
   let promise = updateBadgesAndTreesCount(uid, user.badges, user.treesCount)
 
-  return {badgesAwarded, promise}
+  return { badgesAwarded, promise }
 }

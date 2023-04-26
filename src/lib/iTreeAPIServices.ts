@@ -137,6 +137,11 @@ export async function identifyTreePicture(picture, coords: Coords) {
  */
 
 export async function getItreeData(params) {
+  /* The code is creating a URL string with various parameters to make an API request to the i-Tree
+  database for calculating the benefits of a tree. The parameters include the tree's location
+  (country, state, county, and city), species, diameter at breast height (dbh), condition category,
+  crown light exposure category, and some default values for tree height, crown width, and crown
+  height. */
   const { crownLightExposureCategory, dbh, speciesData, treeConditionCategory, address, state } =
     params
   const url =
@@ -154,6 +159,10 @@ export async function getItreeData(params) {
     `TreeCrownWidthMeter=-1&` +
     `TreeCrownHeightMeter=-1&`
 
+  /* The code is making an HTTP GET request to a specified URL using the Axios library in
+  TypeScript. If the response data is not empty, it is converted from XML format to JSON format using
+  the xml2json library. The response data is also parsed into a JavaScript object using the xml2js
+  library. If the parsed object contains an error, the function returns null. */
   const response = await axios.get(url)
   if (response.data) {
     const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
@@ -163,6 +172,12 @@ export async function getItreeData(params) {
 
       if (Object.keys(err).length > 0) {
         return null
+
+        /* Otherwise, the code is extracting data from an object named `root` and assigning it to various
+     variables using the `setItem` function. The extracted data includes information about the
+     location and tree measurements, as well as various environmental benefits such as runoff
+     avoided, air quality benefits, and carbon sequestration. The extracted data is then stored in
+     variables with corresponding names. */
       } else {
         const inputInformation = root.Result.InputInformation
 
@@ -191,6 +206,9 @@ export async function getItreeData(params) {
           '',
         )
 
+        /* The code is accessing the `OutputInformation` property of an object named `Result` that
+        is located in the `root` namespace. The value of this property is then assigned to a constant
+        variable named `outputInformation`. The syntax ` */
         const outputInformation = root.Result.OutputInformation
 
         let RunoffAvoided = await setItem(
@@ -307,6 +325,11 @@ export async function getItreeData(params) {
           '$',
         )
         let DryWeight = await setItem('DryWeight', outputInformation.Carbon.DryWeight._text, 'lb')
+
+        /* The code is defining an object called `resultData` with various properties such as
+        `NationFullName`, `StateAbbr`, `CountyName`, `CalculatedHeightMeter`, `RunoffAvoided`,
+        `CO2Sequestered`, etc. These properties likely represent data related to environmental
+        impact calculations for a specific location. */
 
         const resultData = {
           NationFullName,

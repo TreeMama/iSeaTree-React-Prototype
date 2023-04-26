@@ -1,5 +1,15 @@
+/* The code below  defines an interface `SuggestedTreeData` and an array `suggestedTrees` of objects
+that implement this interface. Each object represents a suggested tree and contains information such
+as images, name, level of difficulty, identifiable attributes, and fun facts. The code also imports
+`ImageSourcePropType` from `react-native`. */
 import { ImageSourcePropType } from 'react-native'
 
+/* The code below is defining an interface named "SuggestedTreeData" in TypeScript. This interface has
+several properties including "images", "name", "level", "levelText", "identifiable_attributes",
+"known_public_locations", and "fun_facts". The "images" property is an optional array of image
+sources. The "name" property is a required string representing the name of the tree. The "level"
+property is a required string representing the level of the tree. The "levelText",
+"identifiable_attributes", "known_public_locations", and "fun_facts" properties are */
 export interface SuggestedTreeData {
   images?: ImageSourcePropType[]
   name: string
@@ -11,6 +21,10 @@ export interface SuggestedTreeData {
   fun_facts?: string[]
 }
 
+/* The above code is exporting an array of objects containing data about suggested trees. Each object
+contains information such as the tree's name, level of difficulty, identifiable attributes, fun
+facts, and images. The data is being used to provide suggestions for trees to plant or identify in a
+specific region. */
 export const suggestedTrees: SuggestedTreeData[] = [
   {
     images: [
@@ -71,7 +85,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       "Needles are flat, stiff, and are about 1/2 inch long with a sharp tip.",
       "Bark is thick, reddish brown, fibrous, and deeply furrowed.",
       "Cones are only about 1 inch long. They are elliptical shaped, with many flat, short-pointed scales."
-      ],
+    ],
     fun_facts: [
       "The Coast Redwoods are regarded as one of the tallest trees in the world. They also are long-lived - with reports of trees that have survived up to 4,000 years (and 2,000 years not being uncommon). ",
       "The Coast Redwood is the state tree of California."
@@ -95,7 +109,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       "Bark can range from brown to grayish color. Coloring is largely due to environmental conditions, with the gray coloring caused by lichen growth.",
       "Mature bark is very thick and coarse, with deep vertical fissures.",
       "The female cones are pendulous and scaled, with pitchfork-shaped bracts."
-      ],
+    ],
     fun_facts: [
       "The Douglas-Fir is not a true fir, the hyphen in its common name signifies that it is NOT a 'true' fir (i.e. a member of the Abies genus). In 1867, it was given its own genus: Pseudotsuga - which means false (pseudo) hemlock. ",
       "Old Douglas-Firs are remarkably fire-resistant, largely due to the thick resin bark that it develops with age. This rugged bark can reach a remarkable thickness up to 20 inches. These durable trees are also very long-lived, and may live as long as 1,500-2,000 years.",
@@ -124,7 +138,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
     fun_facts: [
       'Native American tribes have used red oak bark as a medicine for bronchial and heart ailments. It has also been used as an astringent, disinfectant, and cleanser.',
     ],
-  }, 
+  },
   {
     images: [
       require('../assets/suggested-trees/garry-oak-1.jpg'),
@@ -187,7 +201,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       "Seed cones have diamond-shaped scales. 1.5 to 2.5 inches long.",
       "Leaf fascicles: 2 needles per fascicle, usually twisted.",
       "A medium to large tree, it tends to grow in a very pyramidal shape when young and then becomes more open with age. Average height of 30–60 ft."
-      ],
+    ],
     fun_facts: [
       `This non-native pine is one of the first trees that was introduced to North America, approximately around 1600. It is a popular Christmas tree species, and a highly valued tree in the timber and millwork industries.`,
       "The ground-up inner bark is edible to humans, and porcupines (who have been known to cause extensive damage). Also known as 'Scots Pine' or 'Scottish Pine'."
@@ -238,7 +252,7 @@ export const suggestedTrees: SuggestedTreeData[] = [
       "Leaf color is light green, with leaves turning red to yellow in the fall.",
       "Fruits 1.5 inches long, wings horizontally spread, deep red at maturity.",
       "Bark is a pale silvery-gray to green color."
-      ],
+    ],
     fun_facts: [
       "Canadian trappers called the tree 'bois du diable' (wood of the devil) for its habit of tripping travelers who were trying to portage around them. ",
       " Native Americans used the bark from the roots to make a tea to treat common cold symptoms."
@@ -266,5 +280,5 @@ export const suggestedTrees: SuggestedTreeData[] = [
     fun_facts: [
       `The name plicata comes from a Greek word meaning "folded in plaits," in reference to the arrangement of the leaves. This tree is notably long lived, some individuals can live well over a thousand years, and its highly valuable wood is so rot resistant that you can easily find ancient stumps that still have not began to decay.`,
     ],
-  } 
+  }
 ]

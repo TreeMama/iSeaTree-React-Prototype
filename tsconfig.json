@@ -1,3 +1,8 @@
+// This is a JSON configuration file for TypeScript compiler options. It specifies various options such
+// as allowing synthetic default imports, using React Native JSX syntax, using the DOM and ESNext
+// libraries, resolving modules using Node.js style module resolution, not emitting any output files,
+// skipping library checks, resolving JSON modules, enabling strict null checks, and enforcing strict
+// mode. It also extends the base TypeScript configuration provided by Expo.
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,

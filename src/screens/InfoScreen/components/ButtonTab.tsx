@@ -1,3 +1,10 @@
+/* This is a TypeScript React component that renders a button tab with two options: "Genus" and
+"Species". The component takes in two props: `activeTab` and `setActiveTab`, which are used to
+determine which tab is currently active and to update the active tab respectively. The component
+uses `TouchableOpacity` and `Text` components from `react-native` and `react-native-paper` libraries
+respectively to render the tab options. The `styles` object is imported from a separate file and
+used to style the component. */
+
 import React from 'react'
 import { Dimensions, TouchableOpacity, View } from 'react-native'
 import { Text } from 'react-native-paper'

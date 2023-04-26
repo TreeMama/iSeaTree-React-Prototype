@@ -11,6 +11,16 @@
 import React from 'react'
 
 // https://reactjs.org/docs/hooks-faq.html#how-to-get-the-previous-props-or-state
+
+/**
+ * This function returns the previous value of a given variable using React's useRef and useEffect
+ * hooks.
+ * @param {T} value - The value parameter is a generic type parameter that can be any type of value. It
+ * represents the value that we want to keep track of and get the previous value of.
+ * @returns The previous value of the input `value` is being returned. This is achieved by storing the
+ * previous value in a `ref` using `useRef`, and updating the `ref` with the current value on every
+ * render using `useEffect`. The previous value can then be accessed and returned from the `ref`.
+ */
 export function usePrevious<T>(value: T) {
   const ref = React.useRef<T>()
 

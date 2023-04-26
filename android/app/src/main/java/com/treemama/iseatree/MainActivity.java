@@ -1,3 +1,7 @@
+/**
+ * This is the main activity class for the iSeeTree app, which extends ReactActivity and includes
+ * methods for handling configuration changes and creating the React root view.
+ */
 package com.treemama.iseatree;
 import android.content.res.Configuration;
 import android.content.Intent;
@@ -13,6 +17,10 @@ import expo.modules.splashscreen.singletons.SplashScreen;
 import expo.modules.splashscreen.SplashScreenImageResizeMode;
 
 
+/**
+ * This is the main activity class for a React Native app with added code for Expo configuration and
+ * splash screen display.
+ */
 public class MainActivity extends ReactActivity {
 
     // Added automatically by Expo Config

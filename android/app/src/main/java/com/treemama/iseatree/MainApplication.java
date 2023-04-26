@@ -1,3 +1,7 @@
+/**
+ * This is the main application class for an Android app built with React Native, which initializes
+ * various packages and modules.
+ */
 package com.treemama.iseatree;
 
 import android.app.Application;
@@ -28,6 +32,10 @@ import java.util.Arrays;
 import java.util.List;
 import javax.annotation.Nullable;
 
+/**
+ * This is a Java class that sets up a React Native application with a module registry provider and a
+ * React Native host, and initializes Flipper for debugging purposes.
+ */
 public class MainApplication extends Application implements ReactApplication {
   private final ReactModuleRegistryProvider mModuleRegistryProvider = new ReactModuleRegistryProvider(
     new BasePackageList().getPackageList()

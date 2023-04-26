@@ -1,3 +1,10 @@
+/* The above code is defining a bottom tab navigator for a mobile app using React Native and
+TypeScript. It includes five screens: ProfileScreen, MapScreen, AddTreeScreen, ChallengeScreen, and
+InfoScreen. Each screen is represented by a tab icon and can be accessed by tapping on the
+corresponding tab. The AddTreeScreen tab has a custom button with a camera icon that allows the user
+to add a new tree. The code also imports various components and styles from other files and
+libraries. */
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react'
 
@@ -29,6 +36,14 @@ const challengeAcitiveIcon = require('../assets/nav_callenge.png')
 const infoIcon = require('../assets/nav_tree_inactive.png')
 const infoActiveIcon = require('../assets/nav_tree.png')
 
+/* The code defines a function called `LoggedTabNavigator` that returns a bottom tab navigator for a
+mobile app using React Native and TypeScript. The navigator includes five screens: `ProfileScreen`,
+`MapScreen`, `AddTreeScreen`, `ChallengeScreen`, and `InfoScreen`. Each screen is represented by a
+tab icon and can be accessed by tapping on the corresponding tab. The `AddTreeScreen` tab has a
+custom button with a camera icon that allows the user to add a new tree. The code also imports
+various components and styles from other files and libraries. The function defines a custom tab
+button component and uses it to render the `AddTreeScreen` tab. */
+
 export function LoggedTabNavigator() {
   const styles = StyleSheet.create({
     cameraTab: {
@@ -39,13 +54,30 @@ export function LoggedTabNavigator() {
     cameraChildren: { width: 70, height: 70, borderRadius: 35 },
   })
 
+  /* `const theme = useTheme()` is a hook provided by the `react-native-paper` library that allows the
+  component to access the current theme object. The theme object contains various properties such as
+  colors, fonts, and spacing that can be used to style the component. By using the `useTheme()`
+  hook, the component can dynamically apply the appropriate styles based on the current theme. */
   const theme = useTheme()
 
+  /**
+   * This is a functional component that renders a custom tab button with a touchable opacity and a child
+   * view.
+   * @param {any} props - "props" is a parameter that represents an object containing all the properties
+   * passed to the "CustomTabButton" component. These properties can be accessed using dot notation, for
+   * example, "props.onPress" accesses the "onPress" property passed to the component.
+   */
   const CustomTabButton = (props: any) => (
     <TouchableOpacity style={styles.cameraTab} onPress={props.onPress}>
       <View style={styles.cameraChildren}>{props.children}</View>
     </TouchableOpacity>
   )
+
+  /* The code is defining a bottom tab navigator for a mobile app using React Native and
+  TypeScript. It has five screens: ProfileScreen, MapScreen, AddTreeScreen, ChallengeScreen, and
+  InfoScreen. Each screen has a corresponding icon and label in the bottom tab bar. The
+  AddTreeScreen has a custom button with a camera icon for adding a new tree. The code also sets
+  some styling options for the tab bar, such as its position, background color, and padding. */
   return (
     <Tab.Navigator
       activeColor={theme.colors.primary}

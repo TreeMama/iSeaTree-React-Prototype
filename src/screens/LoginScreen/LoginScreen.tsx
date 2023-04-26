@@ -1,5 +1,9 @@
-import React from 'react'
+/**
+ * The LoginScreen function is a React component that displays a login form and handles user
+ * authentication using Firebase.
+ */
 
+import React from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { Banner, Button } from 'react-native-paper'
 import auth from '@react-native-firebase/auth'
@@ -9,6 +13,11 @@ import { useNavigationActions } from '../../lib/navigation'
 import AppIntroScreen from '../AppIntroScreen'
 import { StatusBar } from '../../components/StatusBar'
 
+/* `const styles = StyleSheet.create({...})` is creating a JavaScript object that contains styles for
+the LoginScreen component. The `container` style sets the flexbox properties of the main container
+view, including its background color and padding. The `content` style sets the flexbox properties of
+the content view, including its padding and top margin. These styles are then used in the JSX code
+to apply the styles to the appropriate components. */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -29,10 +38,19 @@ export function LoginScreen(props) {
   const { isShowIntro } = props.route.params
   const [isSliderVisible, setIsSliderVisible] = React.useState<boolean>(isShowIntro)
 
+  /**
+   * The function sets the state of a slider visibility to false.
+   */
   function sliderDismissHanlder() {
     setIsSliderVisible(false)
   }
 
+  /**
+   * This function handles user login by authenticating their email and password using Firebase and
+   * sets loading and error messages accordingly.
+   * @param  - The function `handleLogin` takes an object as its parameter with two properties: `email`
+   * and `password`. Both properties are of type `string`. The object is destructured using ES6 syntax.
+   */
   function handleLogin({ email, password }: { email: string; password: string }) {
     setIsLoading(true)
     setErrorMessage(null)
@@ -52,6 +70,14 @@ export function LoginScreen(props) {
       })
   }
 
+  /* The `return` statement is returning the JSX code that defines the UI of the `LoginScreen`
+  component. It is using conditional rendering to display either the `AppIntroScreen` component or
+  the login form depending on the value of the `isSliderVisible` state variable. If
+  `isSliderVisible` is true, the `AppIntroScreen` component is displayed with the `dismissSlider`
+  function passed as a prop. If `isSliderVisible` is false, the login form is displayed with the
+  `LoginForm` component and a "Forgot your password?" button. At the bottom of the screen, there is
+  a "create new account" button that navigates to the registration screen when pressed. The `Banner`
+  component is used to display error messages if there are any. */
   return (
     <>
       {isSliderVisible ? (

@@ -1,3 +1,4 @@
+// This is the main function of an iOS application written in Objective-C.
 #import <UIKit/UIKit.h>
 
 #import "AppDelegate.h"

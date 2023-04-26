@@ -1,3 +1,11 @@
+/**
+ * The `DbhHelp` function displays a modal with instructions on how to measure the diameter at breast
+ * height (DBH) of a tree.
+ * @returns The `DbhHelp` component is being returned, which renders a button with a help icon. When
+ * the button is pressed, a modal is displayed with instructions on how to measure the diameter at
+ * breast height (DBH) of a tree. The modal contains images and text explaining the steps involved in
+ * measuring DBH, and a "Close" button to dismiss the modal.
+ */
 import React from 'react'
 
 import { Modal, View, ScrollView, Image, TouchableOpacity } from 'react-native'
@@ -12,6 +20,14 @@ const imageStep3 = require('../../../assets/dbh-help/step_3.png')
 const imageStep4 = require('../../../assets/dbh-help/step_4_new.png')
 const imageStep5 = require('../../../assets/dbh-help/step_5_new.png')
 
+/**
+ * This function displays a modal with instructions on how to measure the diameter at breast height
+ * (DBH) of a tree.
+ * @returns The `DbhHelp` function is returning a component that displays a help modal with
+ * instructions on how to measure the diameter at breast height (DBH) of a tree. The component includes
+ * a button with a help icon that opens the modal when clicked, and the modal includes step-by-step
+ * instructions with images on how to measure DBH using a measuring tape, string, and thumbtack or tape
+ */
 export function DbhHelp() {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const theme = useTheme()

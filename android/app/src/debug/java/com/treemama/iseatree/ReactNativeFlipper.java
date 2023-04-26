@@ -1,4 +1,8 @@
 /**
+ * This is a Java class that initializes and configures the Flipper debugging tool for use with React
+ * Native applications.
+ */
+/**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * <p>This source code is licensed under the MIT license found in the LICENSE file in the root
@@ -23,6 +27,11 @@ import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.network.NetworkingModule;
 import okhttp3.OkHttpClient;
+
+/**
+ * The ReactNativeFlipper class initializes the Flipper debugging tool with various plugins for Android
+ * applications.
+ */
 
 public class ReactNativeFlipper {
   public static void initializeFlipper(Context context, ReactInstanceManager reactInstanceManager) {

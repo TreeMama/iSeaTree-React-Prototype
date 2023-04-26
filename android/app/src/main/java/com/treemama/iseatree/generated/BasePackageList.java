@@ -1,3 +1,6 @@
+/**
+ * This class is a list of packages used in a Java application for Expo modules.
+ */
 package com.treemama.iseatree.generated;
 
 import java.util.Arrays;

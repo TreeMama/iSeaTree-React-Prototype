@@ -118,11 +118,33 @@ export default function App() {
 
   useManageSplashScreen(isUserLogged)
 
+  /* `const apps = firebase.apps` is creating a variable `apps` that holds an array of all the Firebase
+  app instances that have been initialized in the current environment. This can be useful for
+  accessing and managing multiple Firebase apps within a single project. In this specific code, the
+  `apps` variable is not being used for any further operations. */
   const apps = firebase.apps
+
+  /* The `apps.forEach` method is iterating over an array of Firebase app instances and logging the name
+  of each app to the console. This is likely being used for debugging or troubleshooting purposes to
+  ensure that all necessary Firebase apps are being initialized and accessed correctly in the app. */
   apps.forEach((app) => {
     console.log('app name +++', app)
   })
 
+  /**
+   * This function checks if the saved version is different from the current version and returns a
+   * boolean value accordingly.
+   * @param savedVersion - The saved version is a variable that holds the version number that was
+   * previously saved or stored somewhere, such as in a database or a file. It is used to compare with
+   * the current version to check if there has been any change.
+   * @param currentVersion - The current version refers to the version of something (e.g. software,
+   * database, document) that is currently in use or being worked on. It is a parameter in the
+   * `versionChanged` function, which compares it to a saved version to determine if there have been any
+   * changes.
+   * @returns The function `versionChanged` returns a boolean value. It returns `false` if the
+   * `savedVersion` parameter is equal to the `currentVersion` parameter, and `true` if they are not
+   * equal.
+   */
   async function versionChanged(savedVersion, currentVersion) {
     if (savedVersion === currentVersion) {
       return false
@@ -131,6 +153,10 @@ export default function App() {
     }
   }
 
+  /**
+   * This function checks if it's the user's first time opening the app or if the app version has
+   * changed, and sets a state variable accordingly.
+   */
   async function checkIntro() {
     const isShowIntro = await AsyncStorage.getItem('FIRST_TIME_OPEN_APP')
     const savedAppversion = await AsyncStorage.getItem('APP_VERSION')
@@ -140,6 +166,8 @@ export default function App() {
 
     const isVersionChanged = await versionChanged(parsesavedAppversion, currentVersionNum)
 
+    /* This code block is checking whether the user has seen the app introduction screen before or if
+    the app version has changed. */
     if (parseisShowIntro) {
       if (isVersionChanged) {
         setisShowIntro(true)
@@ -151,14 +179,30 @@ export default function App() {
     }
   }
 
+  /* This code block is using the `useEffect` hook to call the `checkIntro` function whenever the
+  `isUserLogged` state variable changes. The `checkIntro` function checks whether the user has seen
+  the app introduction screen before or if the app version has changed, and sets a state variable
+  accordingly. By calling `checkIntro` whenever `isUserLogged` changes, the component can ensure that
+  the correct state is set for showing the app introduction screen or not, based on the user's
+  authentication status. */
   React.useEffect(() => {
     checkIntro()
   }, [isUserLogged])
 
+  /* This code block is checking whether the `isUserLogged` and `isShowIntro` state variables are null.
+  If either of them is null, it means that their values have not yet been determined, and the
+  component should not render anything until they are. Therefore, the component returns `null` if
+  either of these variables is null, effectively preventing the component from rendering until the
+  necessary state variables are set. */
   if (isUserLogged == null || isShowIntro == null) {
     return null
   }
 
+  /* The code is a React Native application written in TypeScript. It sets up the main navigation
+  stack for the app, which includes screens for logging in, registering, resetting passwords, and
+  navigating through the app when the user is logged in. It also includes a provider for location
+  data and a provider for displaying tips to the user. The app uses the PaperProvider theme and sets
+  the status bar to have a dark content style. */
   return (
     <PaperProvider theme={theme}>
       <StatusBar barStyle="dark-content" />

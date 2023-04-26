@@ -1,3 +1,12 @@
+// This is a shell script that checks if the file `envVariables.ts` exists and is up to date by
+// comparing its checksum with the checksums stored in `checksum-dev.txt` and `checksum-prod.txt`. If
+// the file is not found or is out of date, the script displays an error message and exits with a
+// status code of 1. If the file is up to date, the script displays a message indicating whether it is
+// the development or production version and exits with a status code of 0. The script also includes
+// instructions for project administrators on how to update the checksum files after changing
+// `envVariables.ts`.
+
+
 # !/bin/sh
 
 CONFIG_FILE="envVariables.ts"

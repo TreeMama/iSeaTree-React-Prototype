@@ -1,4 +1,12 @@
+/* This code is written in TypeScript and it is validating the structure of a JSON file containing
+information about species. */
+
 const testJson = require('../data/species.json');
+
+/* The `interface Species` is defining the structure of an object that represents a species. It
+includes optional properties such as `COMMON`, `TYPE`, `SCIENTIFIC`, `ID`, `ITREECODE`, `FULL_PIC`,
+`GENUS`, and `DESCRIPTION`, each with a specific data type. This interface is used to ensure that
+the JSON file containing information about species has the correct structure and properties. */
 
 interface Species {
     "COMMON"?: string,
@@ -10,6 +18,11 @@ interface Species {
     "GENUS"?: string,
     "DESCRIPTION"?: string
 }
+
+/* This code is defining a test suite using the Jest testing framework to validate the structure of a
+JSON file containing information about species. The `describe` function is used to group together
+related tests, and the `test` function is used to define individual tests. */
+
 describe("Validate Species JSON", () => {
     test('Existence of required attribute', () => {
 

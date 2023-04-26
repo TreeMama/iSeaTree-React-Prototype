@@ -1,3 +1,6 @@
+// This is a shell script that sets up the environment variables required for running an Android
+// emulator and then runs a React Native application on it.
+
 reset
 export ANDROID_HOME=/Users/macmini/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator

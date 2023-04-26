@@ -1,4 +1,8 @@
+// This is a configuration object for a code editor, likely Visual Studio Code.
 {
   "editor.formatOnSave": true,
-  "eslint.validate": ["typescript", "typescriptreact"]
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ]
 }

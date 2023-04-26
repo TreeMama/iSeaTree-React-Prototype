@@ -1,3 +1,11 @@
+/**
+ * This is a React component that renders a dropdown menu for selecting a tree condition category,
+ * using data from a JSON file.
+ * @param {TreeConditionCategorySelectProps} props - The `props` parameter in this code refers to the
+ * props passed down to the `TreeConditionSelect` component. These props include
+ * `treeConditionCategoryName` and `onValueChange`.
+ */
+
 import React from 'react'
 
 import RNPickerSelect, { Item } from 'react-native-picker-select'
@@ -14,11 +22,24 @@ const selectItems: Item[] = treeConditionCategories.map((categoryName) => ({
 
 type TreeConditionCategoryName = string | null
 
+/* The `interface TreeConditionCategorySelectProps` is defining the props that can be passed down to
+the `TreeConditionSelect` component. It has two properties: `treeConditionCategoryName` which is a
+string or null representing the currently selected tree condition category, and `onValueChange`
+which is a function that takes a string or null value and returns nothing. This function is called
+when the user selects a new tree condition category from the dropdown menu. */
 interface TreeConditionCategorySelectProps {
   treeConditionCategoryName: TreeConditionCategoryName
   onValueChange: (value: TreeConditionCategoryName) => void
 }
 
+/**
+ * This is a TypeScript React component that renders a dropdown menu for selecting a tree condition
+ * category.
+ * @param {TreeConditionCategorySelectProps} props - The function `TreeConditionSelect` takes in a
+ * single parameter `props`, which is of type `TreeConditionCategorySelectProps`. This parameter is an
+ * object that contains various properties and methods that are used within the function to render a
+ * dropdown select component.
+ */
 export function TreeConditionSelect(props: TreeConditionCategorySelectProps) {
   const theme = useTheme()
 

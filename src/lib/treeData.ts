@@ -1,3 +1,4 @@
+/* This code is defining three different enums in TypeScript. */
 export enum Species {
   COMMON = 'COMMON',
   SCIENTIFIC = 'SCIENTIFIC',
@@ -6,7 +7,7 @@ export enum Species {
 export enum TreeTypes {
   CONIFER = 'conifer',
   BROADLEAF = 'broadleaf',
-  NULL='null'
+  NULL = 'null'
 }
 
 export enum TreeValidationTypes {

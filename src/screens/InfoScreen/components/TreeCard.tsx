@@ -1,3 +1,8 @@
+/* The code is importing necessary modules and components from React and React Native, as well as
+defining some constants and types. It also disables some eslint rules for the file. The `TreeCard`
+function is defined as a React component that takes in some props and returns a view with an image,
+text, and an icon. The function also defines an `onPress` event handler for the view. */
+
 /* eslint-disable import/namespace */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react'

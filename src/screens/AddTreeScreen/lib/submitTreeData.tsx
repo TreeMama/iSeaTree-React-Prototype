@@ -1,3 +1,10 @@
+/**
+ * The function `submitTreeData` submits tree data to Firebase and removes benefit values from
+ * AsyncStorage.
+ * @param {string} item - The key of the item to retrieve from AsyncStorage.
+ * @returns The function `submitTreeData` returns a Promise that resolves to a `FormValues` object.
+ */
+
 /* eslint-disable @typescript-eslint/camelcase */
 import firestore from '@react-native-firebase/firestore'
 import * as Device from 'expo-device'
@@ -8,6 +15,19 @@ import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
 import { TreeValidationTypes } from '../../../lib/treeData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+
+/**
+ * This is an asynchronous function that retrieves an item from AsyncStorage and returns its value or
+ * 'NULL' if it doesn't exist or there was an error.
+ * @param {string} item - The `item` parameter is a string that represents the key of the item to be
+ * retrieved from AsyncStorage. AsyncStorage is a simple, asynchronous, persistent, key-value storage
+ * system that is global to the app. It is commonly used in React Native apps to store small amounts of
+ * data such as user preferences,
+ * @returns either the value of the item retrieved from AsyncStorage or the string 'NULL' if there was
+ * an error or if the item was not found.
+ */
+
 async function getItem(item: string) {
   try {
     const value = await AsyncStorage.getItem(item)
@@ -23,6 +43,14 @@ async function getItem(item: string) {
   }
 }
 
+/**
+ * This function submits tree data to a database and returns the submitted form values.
+ * @param {FormValues} formValues - an object containing the values submitted in a form for a tree data
+ * entry
+ * @param {boolean} isEnabled - The `isEnabled` parameter is a boolean value that indicates whether or
+ * not the AI feature is enabled for the submission of tree data.
+ * @returns a Promise that resolves to a FormValues object.
+ */
 export async function submitTreeData(
   formValues: FormValues,
   isEnabled: boolean,
@@ -191,6 +219,10 @@ export async function submitTreeData(
   removeBenefitVal()
   return formValues
 }
+
+/**
+ * This function removes multiple keys from AsyncStorage.
+ */
 
 // todo clear benefits form asyncstorage
 export const removeBenefitVal = async () => {

@@ -1,3 +1,4 @@
+
 /**
  * This is a React component that displays a badge image based on the variant prop passed to it.
  * @param {BadgeProps} props - The `props` parameter in the `Badge` function is an object that contains
@@ -20,10 +21,17 @@ an `ImageSourcePropType` (a type that represents the source of an image in React
 `BadgeVariant` is a key in the object, and its value is the corresponding image source required
 using the `require` function. This allows the `Badge` component to easily access the correct image
 based on the `variant` prop passed to it. */
+
 interface BadgeProps {
   key: string
   variant: BadgeVariant
 }
+
+/* This code is defining an object `badgeImages` that maps each `BadgeVariant` (a string literal type)
+to an `ImageSourcePropType` (a type that represents the source of an image in React Native). Each
+`BadgeVariant` is a key in the object, and its value is the corresponding image source required
+using the `require` function. This allows the `Badge` component to easily access the correct image
+based on the `variant` prop passed to it. */
 
 const badgeImages: { [key in BadgeVariant]: ImageSourcePropType } = {
   seedling: require('../../assets/badges/seedling.png'),

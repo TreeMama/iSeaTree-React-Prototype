@@ -1,3 +1,12 @@
+/**
+ * This is a React component that renders a dropdown menu for selecting a location type, using the
+ * RNPickerSelect library.
+ * @param {LocationTypeSelectProps} props - The `props` parameter in this code refers to the props
+ * passed to the `LocationTypeSelect` component. These props include `locationType` and
+ * `onValueChange`, which are used to set the initial value of the picker and handle changes to the
+ * selected value, respectively.
+ */
+
 import React from 'react'
 
 import RNPickerSelect, { Item } from 'react-native-picker-select'

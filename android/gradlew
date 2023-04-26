@@ -1,3 +1,4 @@
+This is a shell script used to start up the Gradle build tool on Unix-based systems. It sets up the environment variables, determines the Java command to use, sets the classpath, and collects all arguments for the Java command. It also includes OS-specific support for Cygwin, MSYS, Darwin, and NonStop systems. The script is licensed under the Apache License, Version 2.0.
 #!/usr/bin/env sh
 
 #

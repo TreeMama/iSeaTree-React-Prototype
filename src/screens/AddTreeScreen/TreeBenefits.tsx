@@ -25,6 +25,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 // https://www.asknumbers.com/cubic-meters-to-gallons.aspx
 const CUBIC_GALLONS_FACTOR = 264.172052
 
+/* The code below is defining an interface called `TreeBenefitsProps` which has four properties:
+- `values` of type `FormValues`
+- `loadBenefitsCall` of type `boolean`
+- `setCalculatedFormValues` of type `Function`
+- `onModalClose` of type `Function` */
 interface TreeBenefitsProps {
   values: FormValues
   loadBenefitsCall: boolean
@@ -32,6 +37,9 @@ interface TreeBenefitsProps {
   onModalClose: Function
 }
 
+/* The code below is defining a StyleSheet object with various styles for a table and other UI elements
+in a React Native app. It includes styles for table rows, table cells, headers, section headers, and
+a loading modal. */
 const styles = StyleSheet.create({
   tableRow: {
     flexDirection: 'row',
@@ -82,6 +90,16 @@ const styles = StyleSheet.create({
   },
 })
 
+/**
+ * This is an async function that sets an item in AsyncStorage with a formatted display value based on
+ * the input string value and unit.
+ * @param {string} key - a string representing the key under which the value will be stored in
+ * AsyncStorage
+ * @param {string} stringValue - A string representing a numerical value that needs to be stored.
+ * @param {string} unit - The unit parameter is a string that represents the unit of measurement or
+ * currency symbol associated with the value being stored. Examples of units could be "kg", "m", "$",
+ * etc.
+ */
 async function setItem(key: string, stringValue: string, unit: string) {
   const decimal = parseFloat(stringValue)
   const isUnitPrefix = unit === '$'
@@ -97,6 +115,11 @@ async function setItem(key: string, stringValue: string, unit: string) {
   await AsyncStorage.setItem(key, display.toString())
 }
 
+/* The code below is a React component called `TreeBenefits` that calculates and displays the benefits
+of a tree based on its species, diameter at breast height (dbh), crown light exposure category, and
+tree condition category. It uses the iTree API to make the calculations and displays the results in
+a modal. The component also checks if all the necessary data is available before making the API call
+and displays a loading indicator while the calculation is being made. */
 export function TreeBenefits(props: TreeBenefitsProps) {
   const [isModalVisible, setIsModalVisible] = React.useState<boolean>(false)
   const [isCalculatorloader, setIsCalculatorloader] = React.useState<boolean>(false)
@@ -301,7 +324,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
   }
 
   useEffect(() => {
-    ;(async function () {
+    ; (async function () {
       if (loadBenefitsCall) {
         await loadBenefits()
       }

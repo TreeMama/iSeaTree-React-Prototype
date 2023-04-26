@@ -262,10 +262,26 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
     )
   }
 
+  /**
+   * This function sets the loading state to a given value and label.
+   * @param value - The value parameter is a boolean value that indicates whether the loading state
+   * should be turned on or off. If the value is true, the loading state is turned on, and if the value
+   * is false, the loading state is turned off.
+   * @param label - The label parameter is likely a string that represents the label or description of
+   * the loading process. It could be used to provide more context to the user about what is being
+   * loaded.
+   */
   function onLoading(value, label) {
     setLoading(value)
   }
 
+  /* The code below is a function component that renders an image with a loading indicator and a
+  button. The image source is a URL generated using a configuration variable. When the image is
+  loading, the loading indicator is displayed. When the button is pressed, a third modal is
+  displayed. The image and button are styled using the `styles` object. The `renderItem` function
+  takes an object with an `item` property as an argument and returns the JSX code to render the
+  image and button. The `switch` statement sets the `treeDetailImg` variable based on the value of
+  the `currentData */
   const renderItem = ({ item }) => {
     const imgURL = `${CONFIG.AWS_S3_URL}` + item
     let treeDetailImg = ''
@@ -335,6 +351,12 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
     )
   }
 
+  /* The code below is defining a functional component called `pagination` that returns a Pagination
+  component from a third-party library. The Pagination component is used to display dots that
+  represent the number of images in an array and the currently active image. The component takes in
+  several props such as `dotsLength`, `activeDotIndex`, `containerStyle`, `dotStyle`,
+  `inactiveDotStyle`, `inactiveDotOpacity`, and `inactiveDotScale` to customize the appearance of
+  the dots. */
   const pagination = () => {
     return (
       <Pagination
@@ -361,11 +383,15 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
       />
     )
   }
+
+  /* The code is defining three variables `imageUrl1`, `imageUrl2`, and `imageArray`. */
   const imageUrl1 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_1024x768 : ''
   const imageUrl2 = currentData ? `${CONFIG.AWS_S3_URL}` + currentData?.FULL_PIC_180x110 : ''
   const imageArray = currentData?.THUMB_PIC_1024x768
     ? currentData?.THUMB_PIC_1024x768.split(',')
     : []
+
+
   if (currentData?.FULL_PIC_1024x768) {
     imageArray.unshift(currentData?.FULL_PIC_1024x768)
   }
@@ -379,6 +405,14 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
       break
   }
 
+  /**
+   * The function returns a list of tree species names, with an unknown option at the beginning, based on
+   * the tree type selected.
+   * @returns The function `getUnknownFirst` returns an array of objects that includes an object with ID
+   * '0' (representing an unknown species) followed by an array of objects representing known species.
+   * The specific objects included in the array depend on the value of `props.treeType` and the contents
+   * of `currentSpeciesNamesItems`.
+   */
   const getUnknownFirst = () => {
     if (props.treeType !== TreeTypes.NULL) {
       switch (props.treeType) {
@@ -401,6 +435,12 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
       return unknownObject.concat(newList)
     }
   }
+
+  /* The code below is a React component that renders a view with a badge, a text input, and a modal. The
+  modal contains a carousel of images and information about different tree species. The user can
+  search for a specific species using the text input and select a species from the list to view its
+  details in the modal. The component also displays a badge indicating the level of the selected tree
+  species. */
 
   return (
     <View>
@@ -791,7 +831,7 @@ export function SpeciesSelect(props: SpeciesSelectProps) {
                     </RNText>
                   </ScrollView>
                 ) : // </View>
-                null}
+                  null}
                 <Button
                   mode="contained"
                   style={{

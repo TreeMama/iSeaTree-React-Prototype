@@ -1,3 +1,6 @@
+/**
+ * This function initializes a Firebase app with the provided environment variables.
+ */
 import firebase from '@react-native-firebase/app'
 import '@react-native-firebase/firestore'
 

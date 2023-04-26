@@ -1,3 +1,10 @@
+/* The above code is a React Native component that renders a modal containing filters for a tree
+identification app. The modal contains several sections for filtering by name type, tree type, level
+of difficulty, leaf type, and leaf shape. Each section contains filter buttons that can be toggled
+on or off to filter the results. The component receives props for showing or hiding the modal, as
+well as for setting and updating the filter values. The code also includes helper components for
+rendering the filter buttons and disabled filter buttons. */
+
 import React, { useState } from 'react'
 import { Modal, View, ScrollView, Image, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
