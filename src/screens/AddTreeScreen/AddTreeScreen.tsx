@@ -223,6 +223,8 @@ export function AddTreeScreen(props) {
     matchObj: '',
     matchObjUrl: '',
     genus: '',
+    confidence: '',
+    other_ai : [] as any[],
   })
   var aiResult = 0
 
@@ -742,6 +744,20 @@ export function AddTreeScreen(props) {
   )
 
   const treeValidation = (result) => {
+
+    // **** This is the array returned from the Plant API call
+    // NOTE: Perhaps should be restructued as an object for readability/handling
+    //  ret = [
+    //   result['is_plant'],
+    //   result['suggestions'][0]['plant_details']['common_names'] ? result['suggestions'][0]['plant_details']['common_names'][0]: '',
+    //   result['suggestions'][0]['plant_details']['scientific_name'],
+    //   result['suggestions'][0]['plant_details']['structured_name'],
+    //   result['is_plant_probability'],
+    //   // result['suggestions'], maybe suggestions needs to be sorted?
+    //   [...result['suggestions'].slice(1).map((r:any)=> ({other:r.plant_name, prob: r.probability}))]
+    // ]
+    // **** end arr
+
     try {
       formik.setFieldValue('needsValidation', false)
       console.log('tree check ===', result)
@@ -749,6 +765,8 @@ export function AddTreeScreen(props) {
       let species_match = false
       let genus_match = false
       let structured_name = result[3]
+      let confidence = result[4]
+      let other_ai_suggestions = [...result[5]]
       // genus = structured_name[0]
       // commonNames = result[1]
       setState({
@@ -756,6 +774,9 @@ export function AddTreeScreen(props) {
         commonNames: result[1],
         scientificName: result[2],
         genus: structured_name[0],
+        confidence: confidence,
+        other_ai: [...other_ai_suggestions],
+        
       })
       // scientificName = result[2]
 
@@ -769,12 +790,12 @@ export function AddTreeScreen(props) {
         // Filter Plant From JSON
 
         /* In Future we have to match API response result[2] 90% result with species.json data */
-        const speciesFilter = local_species_data.filter((species) => {
+        const speciesFilter = local_species_data.filter((species:any) => {
           return species.SCIENTIFIC.toLowerCase() == result[2].toLowerCase()
         })
 
         /* We have to filter object that have schientif name has spp. */
-        const genusFilter = local_species_data.filter((genus) => {
+        const genusFilter = local_species_data.filter((genus:any) => {
           return (
             genus.GENUS.toLowerCase() == structured_name.genus.toLowerCase() &&
             genus.SCIENTIFIC.includes('spp.')
@@ -806,7 +827,8 @@ export function AddTreeScreen(props) {
               matchSpecieObj?.COMMON +
               ' (' +
               matchSpecieObj?.SCIENTIFIC +
-              ').\n Do you agree?',
+              ').\n Do you agree?' +
+              'With ' + confidence + 'certainty',
             [
               {
                 text: 'Try again',
@@ -1421,6 +1443,14 @@ export function AddTreeScreen(props) {
               />
             </View>
 
+            /* The above code is rendering a button component in a TypeScript React application. When
+            the button is pressed, it triggers a function that handles form submission and
+            calculates tree benefits based on the values entered in the form. The function checks if
+            all required fields are filled out and if so, it sets a state variable to indicate that
+            a benefits calculation is in progress and then calls a function to submit the tree data
+            to the server. If the submission is successful, it calls a success handler function,
+            otherwise it calls an error handler function. The button is disabled if there are any
+            errors in the form. */
             <Button
               mode="contained"
               onPress={() => {
@@ -1739,7 +1769,7 @@ export function AddTreeScreen(props) {
                         //   tree_name: result[0],
                         //   probability: result[4]
                         // }
-                        aiResult = 1
+                        aiResult = result[4];
                         setTreeValidationLoading(true)
                         treeValidation(result)
                         setLoading(false)
