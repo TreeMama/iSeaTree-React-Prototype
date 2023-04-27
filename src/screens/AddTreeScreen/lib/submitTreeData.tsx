@@ -35,7 +35,7 @@ export async function submitTreeData(
   }
 
   const userData = await getUser(authUser.uid)
-
+  //#region 
   let NationFullName = 'NULL'
   let StateAbbr = 'NULL'
   let CountyName = 'NULL'
@@ -66,7 +66,8 @@ export async function submitTreeData(
   let CarbonDioxideStorage = 'NULL'
   let CarbonDioxideStorageValue = 'NULL'
   let DryWeight = 'NULL'
-
+  let other_ai_results = other_ai
+  //#endregion
   if (formValues.speciesData.COMMON !== 'Unknown') {
     NationFullName = await getItem('NationFullName')
     StateAbbr = await getItem('StateAbbr')
@@ -184,7 +185,7 @@ export async function submitTreeData(
     CarbonDioxideStorageValue,
     DryWeight,
     AIResult: isEnabled ? 1 : 0,
-    other_ai,
+    other_ai: other_ai_results,
   }
   console.log('calling addTree')
   addTree(treeData)
