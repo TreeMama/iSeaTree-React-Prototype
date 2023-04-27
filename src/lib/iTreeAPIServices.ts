@@ -8,6 +8,8 @@
  * @returns The code does not have a return statement for the entire file. It contains multiple
  * functions that may or may not have return statements.
  */
+
+import { AIResult } from './firebaseServices/addTree'
 const EMAIL_REGEX =
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
 import { CONFIG } from '../../envVariables'
@@ -20,6 +22,18 @@ interface Coords {
   latitude: number
   longitude: number
 }
+
+class AI implements AIResult{
+  constructor(
+    public tree_name: string,
+    public probability: number
+  ) {
+    this.tree_name = tree_name;
+    this.probability = probability;
+  }
+}
+
+
 
 async function setItem(key: string, stringValue: string, unit: string) {
   try {
@@ -82,7 +96,8 @@ export async function identifyTreePicture(picture, coords: Coords) {
       result['is_plant_probability'],
       // result['suggestions'], maybe suggestions needs to be sorted?
       [...result['suggestions'].slice(1).map((r:any) => {
-        ({ [r["plant_name"]] : r["probability"]})})]
+        new AI(r.plant_name,r.probability)
+      })]
     ]
     return ret
   } catch (error) {
