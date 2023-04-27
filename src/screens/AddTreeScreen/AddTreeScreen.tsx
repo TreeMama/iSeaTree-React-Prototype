@@ -244,7 +244,6 @@ export function AddTreeScreen(props) {
       estimate: false,
       CameraMeasured: false,
       needsValidation: false,
-      probability: aiResult,
     },
     validate: validateForm,
     onSubmit: (values) => {
@@ -766,7 +765,7 @@ export function AddTreeScreen(props) {
       let genus_match = false
       let structured_name = result[3]
       let confidence = result[4]
-      let other_ai_suggestions = [...result[5]]
+      let other_ai_results = [...result[5]]
       // genus = structured_name[0]
       // commonNames = result[1]
       setState({
@@ -775,7 +774,7 @@ export function AddTreeScreen(props) {
         scientificName: result[2],
         genus: structured_name[0],
         confidence: confidence,
-        other_ai: [...other_ai_suggestions],
+        other_ai: [...other_ai_results],
         
       })
       // scientificName = result[2]
@@ -1476,7 +1475,7 @@ export function AddTreeScreen(props) {
                     setLoadBenefitsCall(true)
 
                     setTimeout(() => {
-                      submitTreeData(formik.values, isEnabled)
+                      submitTreeData(formik.values, isEnabled, state.other_ai )
                         .then(handleAddTreeSuccess)
                         .catch(handleAddTreeError)
                     }, 3000)
