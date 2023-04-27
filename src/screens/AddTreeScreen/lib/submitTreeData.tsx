@@ -4,7 +4,7 @@ import * as Device from 'expo-device'
 import * as Application from 'expo-application'
 import { uploadTreeImage } from './uploadTreeImage'
 import { FormValues } from '../addTreeForm'
-import { addTree, TreeData } from '../../../lib/firebaseServices/addTree'
+import { addTree, AIResult, TreeData } from '../../../lib/firebaseServices/addTree'
 import { getCurrentAuthUser, getUser } from '../../../lib/firebaseServices'
 import { TreeValidationTypes } from '../../../lib/treeData'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -26,6 +26,7 @@ async function getItem(item: string) {
 export async function submitTreeData(
   formValues: FormValues,
   isEnabled: boolean,
+  other_ai : [AIResult],
 ): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
 
@@ -183,6 +184,7 @@ export async function submitTreeData(
     CarbonDioxideStorageValue,
     DryWeight,
     AIResult: isEnabled ? 1 : 0,
+    other_ai,
   }
   console.log('calling addTree')
   addTree(treeData)
