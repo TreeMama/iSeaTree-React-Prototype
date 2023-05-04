@@ -13,6 +13,7 @@ import AppIntroSlider from 'react-native-app-intro-slider'
 import Constants from 'expo-constants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DeviceInfo from 'react-native-device-info'
+import { Dimensions } from 'react-native'
 
 const data = [
   {
@@ -138,6 +139,11 @@ export default class AppIntroScreen extends React.Component {
   }
 
   _renderItem = ({ item }: { item: Item }) => {
+    const windowHeight = Dimensions.get('window').height;
+    const ImageHeight = (windowHeight) < 550 ? 240 : 320;
+    const ImageWidth = ImageHeight;
+    // console.log(windowHeight);
+    // console.log(ImageHeight);
     return (
       <View
         style={[
@@ -148,7 +154,7 @@ export default class AppIntroScreen extends React.Component {
         ]}
       >
         <View style={styles.itemContainer}>
-          <Image source={item.image} style={styles.image} resizeMode="contain" />
+          <Image source={item.image} style={{ marginVertical: 32, height: ImageHeight, width: ImageWidth }} resizeMode="contain" />
           <Text style={styles.text}>{item.text}</Text>
         </View>
       </View>
