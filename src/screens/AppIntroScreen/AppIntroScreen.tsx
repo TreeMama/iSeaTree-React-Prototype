@@ -13,6 +13,7 @@ import AppIntroSlider from 'react-native-app-intro-slider'
 import Constants from 'expo-constants'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DeviceInfo from 'react-native-device-info'
+import { Dimensions } from 'react-native'
 
 const data = [
   {
@@ -35,7 +36,7 @@ const data = [
   },
   {
     key: 4,
-    text: `Change to the multiperson view to show trees that other people have entered.`,
+    text: `The 'Explore' map page shows trees that you have entered, as well as trees that others have entered. Change to the multiperson view to show trees that other people have entered.`,
     image: require('../../../assets/TutorialPics/4.png'),
     backgroundColor: '#064420',
   },
@@ -47,13 +48,13 @@ const data = [
   },
   {
     key: 6,
-    text: `The 'Add Tree' page is where you load new tree data. Our AI-assist feature is available to help you correctly identify what species (or genus) of tree you are identifying.`,
+    text: `The 'Add new' page is where you load new tree data. Our AI-assist feature is available to help you correctly identify what species (or genus) of tree you are identifying.`,
     image: require('../../../assets/TutorialPics/6.png'),
     backgroundColor: '#993520',
   },
   {
     key: 7,
-    text: `For help identifying tree species, click on the 'Info' menu to review tree details and images.`,
+    text: `For help identifying tree species, click on the 'Info' menu to review tree characteristics and more detailed images.`,
     image: require('../../../assets/TutorialPics/7.png'),
     backgroundColor: '#488520',
   },
@@ -65,7 +66,7 @@ const data = [
   },
   {
     key: 9,
-    text: `After you add new tree data you will be able to calculate and save the 'Tree Benefits' of your tree for others to learn about!`,
+    text: `After you add new tree data to the 'Add new' page you will be able to calculate the 'Tree Benefits' of your data entry for others to learn about!`,
     image: require('../../../assets/TutorialPics/9.png'),
     backgroundColor: '#28666E',
   },
@@ -138,6 +139,11 @@ export default class AppIntroScreen extends React.Component {
   }
 
   _renderItem = ({ item }: { item: Item }) => {
+    const windowHeight = Dimensions.get('window').height;
+    const ImageHeight = (windowHeight) < 550 ? 240 : 320;
+    const ImageWidth = ImageHeight;
+    // console.log(windowHeight);
+    // console.log(ImageHeight);
     return (
       <View
         style={[
@@ -147,8 +153,8 @@ export default class AppIntroScreen extends React.Component {
           },
         ]}
       >
-        <View style={styles.itemContainer}>
-          <Image source={item.image} style={styles.image} resizeMode="contain" />
+        <View style={styles.itemContainer} >
+          <Image source={item.image} style={{ marginVertical: 32, height: ImageHeight, width: ImageWidth }} resizeMode="contain" />
           <Text style={styles.text}>{item.text}</Text>
         </View>
       </View>
