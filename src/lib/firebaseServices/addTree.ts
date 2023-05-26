@@ -63,12 +63,12 @@ export interface TreeData {
   CarbonDioxideStorageValue: string | null
   DryWeight: string | null
   AIResult: number
-  other_ai: [AIResult]
+  other_ai: Array<AIResult>
 }
 
 export interface AIResult {
   tree_name: string
-  probability: number
+  probability: string
 }
 
 const TREES_COLLECTION = 'trees'

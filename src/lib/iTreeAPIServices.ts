@@ -23,15 +23,15 @@ interface Coords {
   longitude: number
 }
 
-class AI implements AIResult{
-  constructor(
-    public tree_name: string,
-    public probability: number
-  ) {
-    this.tree_name = tree_name;
-    this.probability = probability;
-  }
-}
+// class AI implements AIResult{
+//   constructor(
+//     public tree_name: string,
+//     public probability: number
+//   ) {
+//     this.tree_name = tree_name;
+//     this.probability = probability;
+//   }
+// }
 
 
 
@@ -96,9 +96,18 @@ export async function identifyTreePicture(picture, coords: Coords) {
       result['is_plant_probability'],
       // result['suggestions'], maybe suggestions needs to be sorted?
       [...result['suggestions'].slice(1).map((r:any) => {
-        new AI(r.plant_name,r.probability)
+        return {tree_name: r.plant_name, probability: r.probability} as AIResult
+      
       })]
     ]
+
+    // Return
+    // [0] boolean is a plant pictured?
+    // [1] String Common name of the plant the API 'thinks' is pictured
+    // [2] String Scientific Name
+    // [3] String Structured name
+    // [4] String API's 'confidence' (between 0.00 and 1.00)
+    // [5] Array of AI adjacent 'thoughts' with {name, probability}
     return ret
   } catch (error) {
     console.error(error)

@@ -26,7 +26,8 @@ async function getItem(item: string) {
 export async function submitTreeData(
   formValues: FormValues,
   isEnabled: boolean,
-  other_ai : [AIResult],
+  setDataSaved: Function,
+  other_ai : Array<AIResult>,
 ): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
 
@@ -66,7 +67,7 @@ export async function submitTreeData(
   let CarbonDioxideStorage = 'NULL'
   let CarbonDioxideStorageValue = 'NULL'
   let DryWeight = 'NULL'
-  let other_ai_results = other_ai
+  let other_ai_results = [...other_ai]
   //#endregion
   if (formValues.speciesData.COMMON !== 'Unknown') {
     NationFullName = await getItem('NationFullName')
@@ -185,7 +186,7 @@ export async function submitTreeData(
     CarbonDioxideStorageValue,
     DryWeight,
     AIResult: isEnabled ? 1 : 0,
-    other_ai: other_ai_results,
+    other_ai: [...other_ai_results],
   }
   console.log('calling addTree')
   addTree(treeData)

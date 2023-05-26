@@ -12,19 +12,15 @@ import {
   TouchableOpacity,
   TextInput as RNTextInput,
   ScrollView,
-  useColorScheme,
   LogBox,
   Platform,
-  requireNativeComponent,
   ActivityIndicator,
 } from 'react-native'
 import RNModal from 'react-native-modal'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 // import RNModal from 'react-native-modal'
 import { Button, TextInput, Text, Subheading, useTheme, Switch, Dialog } from 'react-native-paper'
 import { useFormik, FormikErrors } from 'formik'
 import CheckBox from 'react-native-check-box'
-import { StatusBar } from '../../components/StatusBar'
 import { CameraWithLocation } from '../../components/CameraWithLocation'
 import { colors } from '../../styles/theme'
 import { TreeTypes } from '../../lib/treeData'
@@ -34,12 +30,8 @@ import { LandUseCategoriesSelect } from './LandUseCategoriesSelect'
 import { LocationTypeSelect } from './LocationTypeSelect'
 import { TreeBenefits } from './TreeBenefits'
 import { DbhHelp } from './DbhHelp'
-import { TreeBotHelp } from './TreeBotHelp'
 import { submitTreeData, removeBenefitVal } from './lib/submitTreeData'
 import { FormValues } from './addTreeForm'
-import { updateBadgesAfterAddingTree } from './lib/updateBadgesAfterAddingTree'
-import { getUser, getCurrentAuthUser } from '../../lib/firebaseServices'
-import { addTreeAIResult } from '../../lib/firebaseServices/addTree'
 import { TreeConditionSelect } from './TreeConditionSelect'
 import { CrownLightExposureSelect } from './CrownLightExposureSelect'
 
@@ -51,9 +43,11 @@ import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
 import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 import { CONFIG } from '../../../envVariables'
-const maple_tree = require('../../../assets/maple_tree.jpeg')
-const invalid_pic = require('../../../assets/invalid_pic.png')
-const not_found_pic = require('../../../assets/not_found_pic.png')
+import { AIResult } from '../../lib/firebaseServices/addTree'
+
+// const mapleTree = require('../../../assets/maple_tree.jpeg')
+const invalidPic = require('../../../assets/invalid_pic.png')
+const notFoundPic = require('../../../assets/not_found_pic.png')
 
 const win = Dimensions.get('window')
 
@@ -216,6 +210,16 @@ export function AddTreeScreen(props) {
   const [invalidModal, setInvalidModal] = useState(false)
   const [loading, setLoading] = React.useState<boolean>(false)
   const [treeValidationLoading, setTreeValidationLoading] = React.useState<boolean>(false)
+  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
+  const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
+  const [isDone, setDone] = React.useState<boolean>(false)
+  const [test, setTest] = React.useState<boolean>(false)
+  const [modalClosed, setModalClosed] = React.useState<boolean>(false)
+  const [dataSaved, setDataSaved] = React.useState<boolean>(false)
+  const [unknownTreeAdd, setUnknownTreeAdd] = React.useState<boolean>(false)
+  const [otherAI, setOtherAI] = useState<Array<AIResult>>([])
+  const [confidence, setConfidence] = useState<any>('')
+
   const [state, setState] = useState({
     aiResult: 0,
     commonNames: '',
@@ -223,10 +227,8 @@ export function AddTreeScreen(props) {
     matchObj: '',
     matchObjUrl: '',
     genus: '',
-    confidence: '',
-    other_ai : [] as any[],
   })
-  var aiResult = 0
+  let aiResult = 0
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -244,11 +246,12 @@ export function AddTreeScreen(props) {
       estimate: false,
       CameraMeasured: false,
       needsValidation: false,
+      probability: aiResult,
+      both: 0,
     },
     validate: validateForm,
     onSubmit: (values) => {
-      // alert(JSON.stringify(values, null, 2));
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      console.log('onSubmit ===')
       // submitTreeData(values).then(handleAddTreeSuccess).catch(handleAddTreeError)
     },
   })
@@ -256,33 +259,16 @@ export function AddTreeScreen(props) {
   const handleAddTreeSuccess = (_formValues: FormValues) => {
     const { speciesData } = _formValues
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
-    // formik.resetForm()
-    setLoadBenefitsCall(false)
-    setCalculatedFormValues(false)
     formik.setSubmitting(false)
     if (speciesData?.TYPE.toLowerCase() === 'unknown') {
-      formik.resetForm()
-    }
-    if (!loadBenefitsCall && !calculatedFormValues) {
-      Alert.alert('Success', 'You have added a new tree successfully.', [
-        {
-          text: 'Great',
-          onPress: () => {
-            // formik.resetForm()
-            setLoadBenefitsCall(false)
-            setCalculatedFormValues(false)
-            if (speciesData?.TYPE.toLowerCase() === 'unknown') {
-              onModalCloseClick()
-            }
-          },
-        },
-      ])
+      console.log('unknown submit ===')
+      setUnknownTreeAdd(true)
     }
   }
 
   const onModalCloseClick = () => {
     refTreeTypeSelect?.current?.setTreeType(TreeTypes.NULL)
-    formik.resetForm()
+    // formik.resetForm()
     setLoadBenefitsCall(false)
     setCalculatedFormValues(false)
     formik.setSubmitting(false)
@@ -291,15 +277,13 @@ export function AddTreeScreen(props) {
   LogBox.ignoreLogs(['Warning: ...'])
   LogBox.ignoreAllLogs()
 
-  //---------------------------- measure with camera
-  let both = 0
+  // measure with camera
+  let both = '0'
   const [{ cameraRef }, { takePicture }] = useCamera()
-  // const [checked, setChecked] = useState(false);
 
   const [xaxis, setX] = useState(0)
   const [yaxis, setY] = useState(0)
   const [zaxis, setZ] = useState(0)
-  //const [angle2, setangle2] = useState();
 
   const [fianl, setfinal] = useState('N/A')
 
@@ -337,11 +321,11 @@ export function AddTreeScreen(props) {
       formik.setFieldValue('both', formik.values.both + toIn * -1)
     }
     number = parseFloat(toIn.toString().substr(0, 4))
-    setfinal(parseFloat(toIn.toString().substr(0, 4)))
+    setfinal(parseFloat(toIn.toString().substring(0, 4)).toString())
+
     if (number <= 0) {
       number = parseFloat((toIn * -1).toString().substr(0, 4))
       formik.setFieldValue('number', number)
-      // Alert.alert('', 'Calibration error! Please try again.');
     } else {
       formik.setFieldValue('number', number)
     }
@@ -349,7 +333,7 @@ export function AddTreeScreen(props) {
 
   const done = () => {
     setIsMeasureWithCamera(false)
-    both = both.toString().substr(0, 4)
+    both = both.toString().substring(0, 4)
     setDone(true)
     formik.setFieldValue('both', formik.values.both.toString().substr(0, 4))
   }
@@ -360,7 +344,7 @@ export function AddTreeScreen(props) {
   }
 
   const reset = () => {
-    both = 0
+    both = '0'
     setTest(false)
     setDone(false)
     setTimeout(() => setIsMeasureWithCamera(true), Platform.OS === 'ios' ? 200 : 0)
@@ -379,6 +363,27 @@ export function AddTreeScreen(props) {
       ],
     )
   }
+
+  React.useEffect(() => {
+    if (dataSaved && modalClosed) {
+      setModalClosed(!modalClosed)
+      setDataSaved(!dataSaved)
+      formik.resetForm()
+    }
+    if (dataSaved && unknownTreeAdd) {
+      setTimeout(() => {
+        Alert.alert('Success', 'You have added a new unknown tree successfully.', [
+          {
+            text: 'Great',
+            onPress: () => {
+              formik.resetForm()
+            },
+          },
+        ])
+      }, 2000)
+    }
+  }, [dataSaved, modalClosed])
+
   React.useEffect(() => {
     formik.setFieldValue('number', 0)
     formik.setFieldValue('both', 0)
@@ -417,13 +422,6 @@ export function AddTreeScreen(props) {
     }
   }, [props])
 
-  const [isCameraVisible, setIsCameraVisible] = React.useState<boolean>(false)
-  const [isMeasureWithCamera, setIsMeasureWithCamera] = React.useState<boolean>(false)
-
-  const [isDone, setDone] = React.useState<boolean>(false)
-
-  const [test, setTest] = React.useState<boolean>(false)
-
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
       { text: 'Cancel' },
@@ -440,10 +438,20 @@ export function AddTreeScreen(props) {
     ])
   }
 
+  function handleOther(...other : [any] ){
+   setOtherAI(
+     other[0].map((a: any) => {
+      return {
+        tree_name: a["tree_name"],
+        probability:a["probability"],
+        } as AIResult
+    }))
+  }
   // Auto-fill species data when jumped from TreeInfo Screen
   function getSelectedSpecies() {
-    let { params } = props.route
-    let speciesData = params?.selectedSpeciesData
+    const { params } = props.route
+    const speciesData = params?.selectedSpeciesData
+
     if (params && speciesData) {
       formik.setFieldValue('speciesData', speciesData)
       if (speciesData?.TYPE != 'unknown') {
@@ -468,45 +476,6 @@ export function AddTreeScreen(props) {
         },
       ],
     )
-  }
-
-  function handleUpdateUserSuccess(badgesAwarded: string[]) {
-    formik.resetForm()
-    formik.setSubmitting(false)
-
-    if (typeof badgesAwarded !== 'undefined' && badgesAwarded.length > 0) {
-      Alert.alert(
-        'Success',
-        'You have added new tree successfully. Also, you have been awarded badges! Check them out in your profile!',
-        [
-          {
-            text: 'Great',
-            onPress: () => {
-              formik.resetForm()
-            },
-          },
-        ],
-      )
-    } else {
-      Alert.alert('Success', 'You have added new tree successfully', [
-        {
-          text: 'Great',
-          onPress: () => {
-            formik.resetForm()
-          },
-        },
-      ])
-    }
-  }
-
-  function handleUpdateUserError() {
-    formik.setSubmitting(false)
-
-    Alert.alert('Error', 'Tree was added but there was an error awarding you badges. Sorry :(', [
-      {
-        text: 'Ok',
-      },
-    ])
   }
 
   const onOptionButton = (index: any) => {
@@ -659,7 +628,7 @@ export function AddTreeScreen(props) {
     </View>
   )
 
-  const onModalCancel = (index) => {
+  const onModalCancel = (index: number) => {
     setDBHFeetInput('')
     setDBHInchInput('')
     setDBHCalculation('')
@@ -742,83 +711,62 @@ export function AddTreeScreen(props) {
     </View>
   )
 
-  const treeValidation = (result) => {
-
-    // **** This is the array returned from the Plant API call
-    // NOTE: Perhaps should be restructued as an object for readability/handling
-    //  ret = [
-    //   result['is_plant'],
-    //   result['suggestions'][0]['plant_details']['common_names'] ? result['suggestions'][0]['plant_details']['common_names'][0]: '',
-    //   result['suggestions'][0]['plant_details']['scientific_name'],
-    //   result['suggestions'][0]['plant_details']['structured_name'],
-    //   result['is_plant_probability'],
-    //   // result['suggestions'], maybe suggestions needs to be sorted?
-    //   [...result['suggestions'].slice(1).map((r:any)=> ({other:r.plant_name, prob: r.probability}))]
-    // ]
-    // **** end arr
-
+  const treeValidation = (result: any[]) => {
     try {
       formik.setFieldValue('needsValidation', false)
       console.log('tree check ===', result)
-      let is_plant = result[0]
-      let species_match = false
-      let genus_match = false
-      let structured_name = result[3]
-      let confidence = result[4]
-      let other_ai_results = [...result[5]]
-      // genus = structured_name[0]
-      // commonNames = result[1]
+
+      const isPlant = result[0]
+      let speciesMatch = false
+      let genusMatch = false
+      const structuredName = result[3]
+      setConfidence(result[4]);
+      const other_ai_results = [...result[5]]
+
+      handleOther(other_ai_results);
+
+    
+
       setState({
         ...state,
         commonNames: result[1],
         scientificName: result[2],
-        genus: structured_name[0],
-        confidence: confidence,
-        other_ai: [...other_ai_results],
-        
+        genus: structuredName[0],
       })
-      // scientificName = result[2]
 
-      console.log('is_plant ===', is_plant)
-      if (is_plant) {
-        /*Is a tree*/
-        // let local_species_data = require('/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/data/species.json');
-        let local_species_data = require('./../../../data/species.json')
+      console.log('isPlant ===', isPlant)
+      if (isPlant) {
+        // Is a tree
+        const localSpeciesData = require('./../../../data/species.json')
         let matchSpecieObj = ''
         let matchGenusObj = ''
-        // Filter Plant From JSON
 
-        /* In Future we have to match API response result[2] 90% result with species.json data */
-        const speciesFilter = local_species_data.filter((species:any) => {
+        // filter plant from JSON
+        // In Future we have to match API response result[2] 90% result with species.json data
+        const speciesFilter = localSpeciesData.filter((species: { SCIENTIFIC: string }) => {
           return species.SCIENTIFIC.toLowerCase() == result[2].toLowerCase()
         })
 
         /* We have to filter object that have schientif name has spp. */
-        const genusFilter = local_species_data.filter((genus:any) => {
+        const genusFilter = localSpeciesData.filter((genus: any) => {
           return (
-            genus.GENUS.toLowerCase() == structured_name.genus.toLowerCase() &&
+            genus.GENUS.toLowerCase() == structuredName.genus.toLowerCase() &&
             genus.SCIENTIFIC.includes('spp.')
           )
         })
 
         if (Array.isArray(speciesFilter) && speciesFilter.length >= 1) {
-          species_match = true
+          speciesMatch = true
           matchSpecieObj = speciesFilter[0]
           setState({ ...state, matchObj: speciesFilter[0] })
         } else if (Array.isArray(genusFilter) && genusFilter.length >= 1) {
-          genus_match = true
+          genusMatch = true
           matchGenusObj = genusFilter[0]
           setState({ ...state, matchObj: genusFilter[0] })
         }
 
-        if (species_match && matchSpecieObj) {
-          {
-            /* Outcome 2: Prompt user to enter the Species name */
-          }
-          // <Image
-          //   style={{ width: 50, height: 50 }}
-          //   source={{ uri: '/Users/gaigai/Desktop/INI/Practicum/iSeaTree-React-Prototype/src/screens/AddTreeScreen/img/maple_tree.jpeg' }}
-          // />
+        if (speciesMatch && matchSpecieObj) {
+          // Outcome 2: Prompt user to enter the Species name
           setTreeValidationLoading(false)
           Alert.alert(
             "It's a match!",
@@ -826,8 +774,7 @@ export function AddTreeScreen(props) {
               matchSpecieObj?.COMMON +
               ' (' +
               matchSpecieObj?.SCIENTIFIC +
-              ').\n Do you agree?' +
-              'With ' + confidence + 'certainty',
+              ').' + `With ${confidence.toFixed(2)} % certainty!`+'\n Do you agree?',
             [
               {
                 text: 'Try again',
@@ -847,10 +794,8 @@ export function AddTreeScreen(props) {
               },
             ],
           )
-        } else if (genus_match && matchGenusObj) {
-          {
-            /* Outcome 1: Prompt user to enter the GENUS  */
-          }
+        } else if (genusMatch && matchGenusObj) {
+          // Outcome 1: Prompt user to enter the GENUS
           setTreeValidationLoading(false)
           Alert.alert(
             "It's a match!",
@@ -878,7 +823,7 @@ export function AddTreeScreen(props) {
             ],
           )
         } else {
-          /* Outcome 3: Prompt user to enter Unknown */
+          // Outcome 3: Prompt user to enter Unknown
           setTreeValidationLoading(false)
           Alert.alert(
             'Sorry! No matches found',
@@ -894,7 +839,7 @@ export function AddTreeScreen(props) {
                 text: 'OK',
                 onPress: () => {
                   formik.setFieldValue('needsValidation', true)
-                  formik.setFieldValue('speciesData', local_species_data[0])
+                  formik.setFieldValue('speciesData', localSpeciesData[0])
                   formik.setFieldValue('treeType', TreeTypes.NULL)
                   refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
                 },
@@ -904,14 +849,16 @@ export function AddTreeScreen(props) {
         }
       } else {
         setTreeValidationLoading(false)
-        /* Is not a tree */
+        // Is not a tree
         Alert.alert(
           'Hmmm...',
           "This doesn't look like a tree to us.\n Can you take another picture?",
           [
             {
               text: 'Cancel',
-              onPress: () => {},
+              onPress: () => {
+                console.log('cancel pressed ===')
+              },
             },
             {
               text: 'OK',
@@ -1015,6 +962,7 @@ export function AddTreeScreen(props) {
     (formik.errors.treeConditionCategory && formik.touched.treeConditionCategory) ||
     (formik.errors.crownLightExposureCategory && formik.touched.crownLightExposureCategory) ||
     (formik.errors.locationType && formik.touched.locationType)
+
   const toggleSwitch = () => {
     if (formik.values.speciesData?.TYPE != 'unknown' && !isEnabled) {
       formik.setFieldValue('needsValidation', true)
@@ -1169,7 +1117,9 @@ export function AddTreeScreen(props) {
                 style={{ backgroundColor: 'white', height: 40, width: 120 }}
                 labelStyle={{ color: 'green' }}
                 onPress={() => {
-                  console.log('clear')
+                  console.log('clear ===')
+                  setModalClosed(false)
+                  setDataSaved(false)
                   formik.resetForm()
                   refTreeTypeSelect.current.setTreeType(TreeTypes.NULL)
                 }}
@@ -1313,6 +1263,7 @@ export function AddTreeScreen(props) {
               }}
               returnKeyType="next"
             /> */}
+
             <TouchableOpacity
               style={{
                 height: 58,
@@ -1439,17 +1390,10 @@ export function AddTreeScreen(props) {
                 loadBenefitsCall={loadBenefitsCall}
                 setCalculatedFormValues={setCalculatedFormValues}
                 onModalClose={onModalCloseClick}
+                setModalClosed={setModalClosed}
               />
             </View>
 
-            /* The above code is rendering a button component in a TypeScript React application. When
-            the button is pressed, it triggers a function that handles form submission and
-            calculates tree benefits based on the values entered in the form. The function checks if
-            all required fields are filled out and if so, it sets a state variable to indicate that
-            a benefits calculation is in progress and then calls a function to submit the tree data
-            to the server. If the submission is successful, it calls a success handler function,
-            otherwise it calls an error handler function. The button is disabled if there are any
-            errors in the form. */
             <Button
               mode="contained"
               onPress={() => {
@@ -1473,9 +1417,8 @@ export function AddTreeScreen(props) {
                   )
                   if (canCalculateBenefits) {
                     setLoadBenefitsCall(true)
-
                     setTimeout(() => {
-                      submitTreeData(formik.values, isEnabled, state.other_ai )
+                      submitTreeData(formik.values, isEnabled, setDataSaved, otherAI)
                         .then(handleAddTreeSuccess)
                         .catch(handleAddTreeError)
                     }, 3000)
@@ -1612,7 +1555,7 @@ export function AddTreeScreen(props) {
                 <TouchableOpacity style={styles.closeIcon} onPress={() => setSubmittedModal(false)}>
                   <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
                 </TouchableOpacity>
-                <Image source={not_found_pic} style={styles.modalImage} />
+                <Image source={notFoundPic} style={styles.modalImage} />
                 <Text
                   style={{
                     color: theme.colors.text,
@@ -1641,9 +1584,9 @@ export function AddTreeScreen(props) {
                     mode="contained"
                     onPress={() => {
                       setLoadBenefitsCall(true)
-                      formik.setFieldValue('speciesData', local_species_data[0])
-                      formik.setFieldValue('treeType', local_species_data[0].TYPE)
-                      refTreeTypeSelect.current.setTreeType(local_species_data[0].TYPE)
+                      formik.setFieldValue('speciesData', localSpeciesData[0])
+                      formik.setFieldValue('treeType', localSpeciesData[0].TYPE)
+                      refTreeTypeSelect.current.setTreeType(localSpeciesData[0].TYPE)
                       setNotFoundModal(false)
                     }}
                     style={styles.modalButton}
@@ -1662,7 +1605,7 @@ export function AddTreeScreen(props) {
                 <TouchableOpacity style={styles.closeIcon} onPress={() => setSubmittedModal(false)}>
                   <MaterialCommunityIcons name="close-circle-outline" size={16} color="#62717A" />
                 </TouchableOpacity>
-                <Image source={invalid_pic} style={styles.modalImage} />
+                <Image source={invalidPic} style={styles.modalImage} />
                 <Text
                   style={{
                     color: theme.colors.text,
@@ -1724,7 +1667,6 @@ export function AddTreeScreen(props) {
                   </Text>
                 </View>
               </Dialog.Content>
-
               // <View
               //   style={{
               //     justifyContent: 'center',
@@ -1768,7 +1710,7 @@ export function AddTreeScreen(props) {
                         //   tree_name: result[0],
                         //   probability: result[4]
                         // }
-                        aiResult = result[4];
+                        setConfidence(result[4]) // certainty of result
                         setTreeValidationLoading(true)
                         treeValidation(result)
                         setLoading(false)

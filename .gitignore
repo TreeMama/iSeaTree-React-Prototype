@@ -85,3 +85,5 @@ iOS/Podfile.lock
 
 node_modules
 node_modules/*
+*.java
+*.project
