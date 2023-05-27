@@ -63,17 +63,18 @@ export interface TreeData {
   CarbonDioxideStorageValue: string | null
   DryWeight: string | null
   AIResult: number
+  other_ai: Array<AIResult>
 }
 
 export interface AIResult {
   tree_name: string
-  probability: number
+  probability: string
 }
 
 const TREES_COLLECTION = 'trees'
 const TREES_AI_RESULT = 'AI_results'
 
-export function addTree(treeData: TreeData, setDataSaved: Function) {
+export function addTree(treeData: TreeData) {
   console.log("Addtree cakked")
   firestore()
     .collection(TREES_COLLECTION)
@@ -82,7 +83,6 @@ export function addTree(treeData: TreeData, setDataSaved: Function) {
       created_at: firestore.FieldValue.serverTimestamp(),
     }).then((docRef) => {
       console.log('add tree doc id ===', docRef.id)
-      setDataSaved(true)
       if (treeData.AIResult) {
         firestore().collection(TREES_COLLECTION).doc(docRef.id).update({
           isValidated: TreeValidationTypes.NEEDS_VALIDATION,
