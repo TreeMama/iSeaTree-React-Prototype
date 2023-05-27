@@ -78,3 +78,12 @@ node_modules/@react-native-community/masked-view/android/.gradle/6.3/fileChanges
 node_modules/react-native-maps/.gradle/4.10.3/fileChanges/last-build.bin
 
 iOS/Podfile.lock
+
+*.log
+*.lock
+*.bin
+
+node_modules
+node_modules/*
+*.java
+*.project

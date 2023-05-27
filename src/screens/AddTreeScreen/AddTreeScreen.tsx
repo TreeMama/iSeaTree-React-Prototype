@@ -43,6 +43,7 @@ import Tooltip from 'rn-tooltip'
 import { Tip } from 'react-native-tip'
 import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 import { CONFIG } from '../../../envVariables'
+import { AIResult } from '../../lib/firebaseServices/addTree'
 
 // const mapleTree = require('../../../assets/maple_tree.jpeg')
 const invalidPic = require('../../../assets/invalid_pic.png')
@@ -216,6 +217,8 @@ export function AddTreeScreen(props) {
   const [modalClosed, setModalClosed] = React.useState<boolean>(false)
   const [dataSaved, setDataSaved] = React.useState<boolean>(false)
   const [unknownTreeAdd, setUnknownTreeAdd] = React.useState<boolean>(false)
+  const [otherAI, setOtherAI] = useState<Array<AIResult>>([])
+  const [confidence, setConfidence] = useState<any>('')
 
   const [state, setState] = useState({
     aiResult: 0,
@@ -275,7 +278,7 @@ export function AddTreeScreen(props) {
   LogBox.ignoreAllLogs()
 
   // measure with camera
-  let both = 0
+  let both = '0'
   const [{ cameraRef }, { takePicture }] = useCamera()
 
   const [xaxis, setX] = useState(0)
@@ -318,7 +321,7 @@ export function AddTreeScreen(props) {
       formik.setFieldValue('both', formik.values.both + toIn * -1)
     }
     number = parseFloat(toIn.toString().substr(0, 4))
-    setfinal(parseFloat(toIn.toString().sub(0, 4)))
+    setfinal(parseFloat(toIn.toString().substring(0, 4)).toString())
 
     if (number <= 0) {
       number = parseFloat((toIn * -1).toString().substr(0, 4))
@@ -330,7 +333,7 @@ export function AddTreeScreen(props) {
 
   const done = () => {
     setIsMeasureWithCamera(false)
-    both = both.toString().substr(0, 4)
+    both = both.toString().substring(0, 4)
     setDone(true)
     formik.setFieldValue('both', formik.values.both.toString().substr(0, 4))
   }
@@ -341,7 +344,7 @@ export function AddTreeScreen(props) {
   }
 
   const reset = () => {
-    both = 0
+    both = '0'
     setTest(false)
     setDone(false)
     setTimeout(() => setIsMeasureWithCamera(true), Platform.OS === 'ios' ? 200 : 0)
@@ -435,6 +438,15 @@ export function AddTreeScreen(props) {
     ])
   }
 
+  function handleOther(...other : [any] ){
+   setOtherAI(
+     other[0].map((a: any) => {
+      return {
+        tree_name: a["tree_name"],
+        probability:a["probability"],
+        } as AIResult
+    }))
+  }
   // Auto-fill species data when jumped from TreeInfo Screen
   function getSelectedSpecies() {
     const { params } = props.route
@@ -699,7 +711,7 @@ export function AddTreeScreen(props) {
     </View>
   )
 
-  const treeValidation = (result: string[]) => {
+  const treeValidation = (result: any[]) => {
     try {
       formik.setFieldValue('needsValidation', false)
       console.log('tree check ===', result)
@@ -708,6 +720,12 @@ export function AddTreeScreen(props) {
       let speciesMatch = false
       let genusMatch = false
       const structuredName = result[3]
+      setConfidence(result[4]);
+      const other_ai_results = [...result[5]]
+
+      handleOther(other_ai_results);
+
+    
 
       setState({
         ...state,
@@ -756,7 +774,7 @@ export function AddTreeScreen(props) {
               matchSpecieObj?.COMMON +
               ' (' +
               matchSpecieObj?.SCIENTIFIC +
-              ').\n Do you agree?',
+              ').' + `With ${confidence.toFixed(2)} % certainty!`+'\n Do you agree?',
             [
               {
                 text: 'Try again',
@@ -1400,7 +1418,7 @@ export function AddTreeScreen(props) {
                   if (canCalculateBenefits) {
                     setLoadBenefitsCall(true)
                     setTimeout(() => {
-                      submitTreeData(formik.values, isEnabled, setDataSaved)
+                      submitTreeData(formik.values, isEnabled, setDataSaved, otherAI)
                         .then(handleAddTreeSuccess)
                         .catch(handleAddTreeError)
                     }, 3000)
@@ -1692,7 +1710,7 @@ export function AddTreeScreen(props) {
                         //   tree_name: result[0],
                         //   probability: result[4]
                         // }
-                        aiResult = 1
+                        setConfidence(result[4]) // certainty of result
                         setTreeValidationLoading(true)
                         treeValidation(result)
                         setLoading(false)
