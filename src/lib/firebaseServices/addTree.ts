@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { TreeTypes, TreeValidationTypes } from './../treeData'
-import firestore from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore'
 
 interface TreePhoto {
   width: number
@@ -74,27 +74,33 @@ export interface AIResult {
 const TREES_COLLECTION = 'trees'
 const TREES_AI_RESULT = 'AI_results'
 
-export function addTree(treeData: TreeData) {
-  console.log("Addtree cakked")
+export function addTree(treeData: TreeData, setDataSaved: Function) {
+  console.log('Addtree cakked')
   firestore()
     .collection(TREES_COLLECTION)
     .add({
       ...treeData,
       created_at: firestore.FieldValue.serverTimestamp(),
-    }).then((docRef) => {
+    })
+    .then((docRef) => {
       console.log('add tree doc id ===', docRef.id)
+      setDataSaved(true)
       if (treeData.AIResult) {
-        firestore().collection(TREES_COLLECTION).doc(docRef.id).update({
-          isValidated: TreeValidationTypes.NEEDS_VALIDATION,
-        }).then(() => {
-          console.log('AI Result updated successfully ===')
-        })
+        firestore()
+          .collection(TREES_COLLECTION)
+          .doc(docRef.id)
+          .update({
+            isValidated: TreeValidationTypes.NEEDS_VALIDATION,
+          })
+          .then(() => {
+            console.log('AI Result updated successfully ===')
+          })
       }
     })
 }
 
 export function addTreeAIResult(aiResult: AIResult) {
-  console.log("Add tree ai data")
+  console.log('Add tree ai data')
   firestore()
     .collection(TREES_AI_RESULT)
     .add({

@@ -27,7 +27,7 @@ export async function submitTreeData(
   formValues: FormValues,
   isEnabled: boolean,
   setDataSaved: Function,
-  other_ai : Array<AIResult>,
+  other_ai: Array<AIResult>,
 ): Promise<FormValues> {
   const authUser = getCurrentAuthUser()
 
@@ -36,7 +36,7 @@ export async function submitTreeData(
   }
 
   const userData = await getUser(authUser.uid)
-  //#region 
+  //#region
   let NationFullName = 'NULL'
   let StateAbbr = 'NULL'
   let CountyName = 'NULL'
@@ -189,7 +189,7 @@ export async function submitTreeData(
     other_ai: [...other_ai_results],
   }
   console.log('calling addTree')
-  addTree(treeData)
+  addTree(treeData, setDataSaved)
   console.log('trees are added')
   console.log('calling remove ')
   removeBenefitVal()
