@@ -281,7 +281,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           setSpeciesName('Please identify this species')
         })
     } catch (error) {
-      console.log('update trees status error ', error)
+      console.log('onValidated update trees status error ', error)
     }
   }
 
@@ -302,7 +302,6 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     )
 
     const location = value.currentCoords
-
     if (!location) return null
     if (canCalculateBenefits) {
       const data = {
@@ -313,7 +312,6 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
         location,
       }
       const resultData = await getItreeData(data)
-
       return resultData
     } else {
       return null
@@ -361,7 +359,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           })
       }
     } catch (error) {
-      console.log('update trees status error ', error)
+      console.log('Validatewithspecies update trees status error ', error)
     }
   }
 
