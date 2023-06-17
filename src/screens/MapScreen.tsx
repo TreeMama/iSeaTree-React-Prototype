@@ -290,7 +290,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
     speciesName: string | undefined,
     speciesData: any[],
   ) => {
-    const { crownLightExposureCategory, dbh, treeConditionCategory } = selectedItem
+    const { crownLightExposureCategory, dbh, treeConditionCategory, coords } = selectedItem
 
     const canCalculateBenefits = !!(
       speciesData &&
@@ -301,7 +301,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       treeConditionCategory
     )
 
-    const location = value.currentCoords
+    const location = coords
     if (!location) return null
     if (canCalculateBenefits) {
       const data = {
