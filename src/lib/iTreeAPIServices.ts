@@ -123,8 +123,8 @@ export async function getItreeData(params: any) {
   const url =
     `${CONFIG.API_TREE_BENEFIT}?` +
     `key=${CONFIG.ITREE_KEY}&` +
-    `Longitude=${location.longitude}&` +
-    `Latitude=${location.latitude}&` +
+    `Longitude=${location._longitude}&` +
+    `Latitude=${location._latitude}&` +
     // `NationFullName=${address.country}&` +
     // `StateAbbr=${state}&` +
     // `CountyName=${address.subregion}&` +
