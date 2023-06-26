@@ -379,10 +379,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
       <CheckBox
         style={{ flex: 1, padding: 8 }}
         onClick={() =>
-          Platform.OS === 'ios'
-            ? console.log('checkbox click')
-            : (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') &&
-              validateAlertHandler(item)
+          // Platform.OS === 'ios'
+          //   ? console.log('checkbox click')
+          //   : (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') &&
+          //     validateAlertHandler(item)
+          (item.isValidated === 'NOT VALIDATED' || item.isValidated === 'NEEDS VALIDATION') &&
+          validateAlertHandler(item)
         }
         isChecked={item.isValidated === 'VALIDATED' ? true : false}
         rightText={rightText}
