@@ -141,7 +141,8 @@ typedef NS_ENUM(NSInteger, GPBWellKnownTypesErrorCode) {
  *
  * @return A newly configured GPBAny with the given message, or nil on failure.
  */
-+ (nullable instancetype)anyWithMessage:(nonnull GPBMessage *)message error:(NSError **)errorPtr;
++ (nullable instancetype)anyWithMessage:(nonnull GPBMessage *)message
+                                  error:(NSError **)errorPtr;
 
 /**
  * Convenience method to create a GPBAny containing the serialized message.
@@ -167,7 +168,8 @@ typedef NS_ENUM(NSInteger, GPBWellKnownTypesErrorCode) {
  *
  * @return A newly configured GPBAny with the given message, or nil on failure.
  */
-- (nullable instancetype)initWithMessage:(nonnull GPBMessage *)message error:(NSError **)errorPtr;
+- (nullable instancetype)initWithMessage:(nonnull GPBMessage *)message
+                                   error:(NSError **)errorPtr;
 
 /**
  * Initializes a GPBAny to contain the serialized message.
@@ -193,7 +195,8 @@ typedef NS_ENUM(NSInteger, GPBWellKnownTypesErrorCode) {
  *
  * @return Whether the packing was successful or not.
  */
-- (BOOL)packWithMessage:(nonnull GPBMessage *)message error:(NSError **)errorPtr;
+- (BOOL)packWithMessage:(nonnull GPBMessage *)message
+                  error:(NSError **)errorPtr;
 
 /**
  * Packs the serialized message into this GPBAny.
@@ -222,7 +225,8 @@ typedef NS_ENUM(NSInteger, GPBWellKnownTypesErrorCode) {
  * @return An instance of the given class populated with the contained data, or
  *         nil on failure.
  */
-- (nullable GPBMessage *)unpackMessageClass:(Class)messageClass error:(NSError **)errorPtr;
+- (nullable GPBMessage *)unpackMessageClass:(Class)messageClass
+                                      error:(NSError **)errorPtr;
 
 @end
 

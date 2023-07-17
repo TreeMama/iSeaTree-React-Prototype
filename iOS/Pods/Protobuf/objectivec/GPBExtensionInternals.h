@@ -32,9 +32,19 @@
 
 #import "GPBDescriptor.h"
 
+@class GPBCodedInputStream;
 @class GPBCodedOutputStream;
+@class GPBExtensionRegistry;
 
-size_t GPBComputeExtensionSerializedSizeIncludingTag(GPBExtensionDescriptor *extension, id value);
+void GPBExtensionMergeFromInputStream(GPBExtensionDescriptor *extension,
+                                      BOOL isPackedOnStream,
+                                      GPBCodedInputStream *input,
+                                      GPBExtensionRegistry *extensionRegistry,
+                                      GPBMessage *message);
 
-void GPBWriteExtensionValueToOutputStream(GPBExtensionDescriptor *extension, id value,
+size_t GPBComputeExtensionSerializedSizeIncludingTag(
+    GPBExtensionDescriptor *extension, id value);
+
+void GPBWriteExtensionValueToOutputStream(GPBExtensionDescriptor *extension,
+                                          id value,
                                           GPBCodedOutputStream *output);

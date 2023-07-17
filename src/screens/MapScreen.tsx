@@ -876,10 +876,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   )
 }
 
-const mapHeight =
-  Platform.OS === 'ios'
-    ? Dimensions.get('window').height - Constants.statusBarHeight
-    : Dimensions.get('window').height
+// const mapHeight =
+//   Platform.OS === 'ios'
+//     ? Dimensions.get('window').height - Constants.statusBarHeight
+//     : Dimensions.get('window').height
+const mapHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   container: {

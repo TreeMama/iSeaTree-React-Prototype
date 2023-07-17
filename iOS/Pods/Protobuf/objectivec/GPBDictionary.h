@@ -43,11 +43,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Disable clang-format for the macros.
-// clang-format off
-
 //%PDDM-EXPAND DECLARE_DICTIONARIES()
 // This block of code is generated, do not edit it directly.
+// clang-format off
 
 #pragma mark - UInt32 -> UInt32
 
@@ -57,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32UInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -153,7 +150,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32Int32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -249,7 +245,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32UInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -345,7 +340,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32Int64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -441,7 +435,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32BoolDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -537,7 +530,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32FloatDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -633,7 +625,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32DoubleDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -729,7 +720,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32EnumDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -892,7 +882,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt32ObjectDictionary<__covariant ObjectType> : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -987,7 +976,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32UInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1083,7 +1071,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32Int32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1179,7 +1166,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32UInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1275,7 +1261,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32Int64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1371,7 +1356,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32BoolDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1467,7 +1451,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32FloatDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1563,7 +1546,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32DoubleDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1659,7 +1641,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32EnumDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1822,7 +1803,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt32ObjectDictionary<__covariant ObjectType> : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -1917,7 +1897,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64UInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2013,7 +1992,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64Int32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2109,7 +2087,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64UInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2205,7 +2182,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64Int64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2301,7 +2277,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64BoolDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2397,7 +2372,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64FloatDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2493,7 +2467,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64DoubleDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2589,7 +2562,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64EnumDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2752,7 +2724,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUInt64ObjectDictionary<__covariant ObjectType> : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2847,7 +2818,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64UInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -2943,7 +2913,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64Int32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3039,7 +3008,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64UInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3135,7 +3103,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64Int64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3231,7 +3198,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64BoolDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3327,7 +3293,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64FloatDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3423,7 +3388,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64DoubleDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3519,7 +3483,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64EnumDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3682,7 +3645,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBInt64ObjectDictionary<__covariant ObjectType> : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3777,7 +3739,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolUInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3873,7 +3834,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -3969,7 +3929,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolUInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4065,7 +4024,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4161,7 +4119,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolBoolDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4257,7 +4214,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolFloatDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4353,7 +4309,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolDoubleDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4449,7 +4404,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolEnumDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4612,7 +4566,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBBoolObjectDictionary<__covariant ObjectType> : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4707,7 +4660,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringUInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4803,7 +4755,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringInt32Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4899,7 +4850,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringUInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -4995,7 +4945,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringInt64Dictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -5091,7 +5040,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringBoolDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -5187,7 +5135,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringFloatDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -5283,7 +5230,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringDoubleDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -5379,7 +5325,6 @@ __attribute__((objc_subclassing_restricted))
  *
  * @note This class is not meant to be subclassed.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBStringEnumDictionary : NSObject <NSCopying>
 
 /** Number of entries stored in this dictionary. */
@@ -5534,6 +5479,7 @@ __attribute__((objc_subclassing_restricted))
 
 @end
 
+// clang-format on
 //%PDDM-EXPAND-END DECLARE_DICTIONARIES()
 
 NS_ASSUME_NONNULL_END
@@ -5603,7 +5549,6 @@ NS_ASSUME_NONNULL_END
 //% *
 //% * @note This class is not meant to be subclassed.
 //% **/
-//%__attribute__((objc_subclassing_restricted))
 //%@interface DICTIONARY_CLASS_DECL##VHELPER(KEY_NAME, VALUE_NAME, VALUE_TYPE) : NSObject <NSCopying>
 //%
 //%/** Number of entries stored in this dictionary. */
@@ -5666,7 +5611,6 @@ NS_ASSUME_NONNULL_END
 //% *
 //% * @note This class is not meant to be subclassed.
 //% **/
-//%__attribute__((objc_subclassing_restricted))
 //%@interface GPB##KEY_NAME##VALUE_NAME##Dictionary : NSObject <NSCopying>
 //%
 //%/** Number of entries stored in this dictionary. */
@@ -5826,5 +5770,3 @@ NS_ASSUME_NONNULL_END
 //% **/
 //%- (void)setRawValue:(VALUE_TYPE)rawValue forKey:(KEY_TYPE##KisP$S##KisP)key;
 //%
-
-// clang-format on

@@ -157,8 +157,9 @@ void GULLogBasic(GULLoggerLevel level,
 #ifdef DEBUG
   NSCAssert(messageCode.length == 11, @"Incorrect message code length.");
   NSRange messageCodeRange = NSMakeRange(0, messageCode.length);
-  NSUInteger __unused numberOfMatches =
-      [sMessageCodeRegex numberOfMatchesInString:messageCode options:0 range:messageCodeRange];
+  NSUInteger numberOfMatches = [sMessageCodeRegex numberOfMatchesInString:messageCode
+                                                                  options:0
+                                                                    range:messageCodeRange];
   NSCAssert(numberOfMatches == 1, @"Incorrect message code format.");
 #endif
   NSString *logMsg;

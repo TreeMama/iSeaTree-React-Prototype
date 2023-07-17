@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
  * Store an unknown field. These are used in conjunction with
  * GPBUnknownFieldSet.
  **/
-__attribute__((objc_subclassing_restricted))
 @interface GPBUnknownField : NSObject<NSCopying>
 
 /** Initialize a field with the given number. */
@@ -59,10 +58,10 @@ __attribute__((objc_subclassing_restricted))
 @property(nonatomic, readonly, strong) GPBUInt64Array *fixed64List;
 
 /** An array of data values for this field. */
-@property(nonatomic, readonly, strong) NSArray<NSData *> *lengthDelimitedList;
+@property(nonatomic, readonly, strong) NSArray<NSData*> *lengthDelimitedList;
 
 /** An array of groups of values for this field. */
-@property(nonatomic, readonly, strong) NSArray<GPBUnknownFieldSet *> *groupList;
+@property(nonatomic, readonly, strong) NSArray<GPBUnknownFieldSet*> *groupList;
 
 /**
  * Add a value to the varintList.

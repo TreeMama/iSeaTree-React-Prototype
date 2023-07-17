@@ -50,7 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return An NSString with the TextFormat of the message.
  **/
-NSString *GPBTextFormatForMessage(GPBMessage *message, NSString *__nullable lineIndent);
+NSString *GPBTextFormatForMessage(GPBMessage *message,
+                                  NSString * __nullable lineIndent);
 
 /**
  * Generates a string that should be a valid "TextFormat" for the C++ version
@@ -62,8 +63,8 @@ NSString *GPBTextFormatForMessage(GPBMessage *message, NSString *__nullable line
  *
  * @return An NSString with the TextFormat of the unknown field set.
  **/
-NSString *GPBTextFormatForUnknownFieldSet(GPBUnknownFieldSet *__nullable unknownSet,
-                                          NSString *__nullable lineIndent);
+NSString *GPBTextFormatForUnknownFieldSet(GPBUnknownFieldSet * __nullable unknownSet,
+                                          NSString * __nullable lineIndent);
 
 /**
  * Checks if the given field number is set on a message.
@@ -101,11 +102,9 @@ void GPBClearMessageField(GPBMessage *self, GPBFieldDescriptor *field);
  **/
 void GPBClearOneof(GPBMessage *self, GPBOneofDescriptor *oneof);
 
-// Disable clang-format for the macros.
-// clang-format off
-
 //%PDDM-EXPAND GPB_ACCESSORS()
 // This block of code is generated, do not edit it directly.
+// clang-format off
 
 
 //
@@ -396,9 +395,8 @@ void GPBSetMessageMapField(GPBMessage *self,
                            GPBFieldDescriptor *field,
                            id dictionary);
 
-//%PDDM-EXPAND-END GPB_ACCESSORS()
-
 // clang-format on
+//%PDDM-EXPAND-END GPB_ACCESSORS()
 
 /**
  * Returns an empty NSData to assign to byte fields when you wish to assign them
@@ -415,8 +413,6 @@ NS_ASSUME_NONNULL_END
 
 CF_EXTERN_C_END
 
-// Disable clang-format for the macros.
-// clang-format off
 
 //%PDDM-DEFINE GPB_ACCESSORS()
 //%
@@ -553,5 +549,3 @@ CF_EXTERN_C_END
 //% **/
 //%void GPBSetMessage##NAME##Field(GPBMessage *self, GPBFieldDescriptor *field, TYPE TisP##value);
 //%
-
-// clang-format on
