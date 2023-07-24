@@ -190,9 +190,10 @@ export async function submitTreeData(
   }
   console.log('calling addTree')
   addTree(treeData, setDataSaved)
-  console.log('trees are added')
+
   console.log('calling remove ')
   removeBenefitVal()
+
   return formValues
 }
 

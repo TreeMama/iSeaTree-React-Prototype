@@ -7,7 +7,7 @@ export enum ScreenNames {
   loggedTabNavigator = 'loggedTabNavigator',
   showImage = 'showImage',
   identifySpecies = 'identifySpecies',
-  tutorial = 'tutorial'
+  tutorial = 'tutorial',
 }
 
 export enum TabScreenNames {
@@ -62,7 +62,7 @@ export function useTabNavigationActions(): TabNavigationActions {
       navigation.navigate(TabScreenNames.addTree)
     },
     suggestedTrees: () => {
-      navigation.navigate(TabScreenNames.infoScreen)   // legacy tree info page
+      navigation.navigate(TabScreenNames.infoScreen) // legacy tree info page
     },
     infoScreen: () => {
       navigation.navigate(TabScreenNames.infoScreen)
@@ -72,6 +72,6 @@ export function useTabNavigationActions(): TabNavigationActions {
     },
     challengeScreen: () => {
       navigation.navigate(TabScreenNames.challengeScreen)
-    }
+    },
   }
 }

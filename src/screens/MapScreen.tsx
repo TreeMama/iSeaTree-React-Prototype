@@ -183,7 +183,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
           for (let i = 0; i < alltrees.length; i++) {
             try {
-              alltrees[i]['distance'] = await calculateDistance(
+              alltrees[i]['distance'] = calculateDistance(
                 currentCoords?.latitude,
                 currentCoords?.longitude,
                 alltrees[i]['coords']['_latitude'],

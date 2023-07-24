@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { recordParticipation } from '../SciStarter'
+import { getCurrentAuthUser } from '../firebaseServices'
 import { TreeTypes, TreeValidationTypes } from './../treeData'
 import firestore from '@react-native-firebase/firestore'
 
@@ -95,6 +97,11 @@ export function addTree(treeData: TreeData, setDataSaved: Function) {
           .then(() => {
             console.log('AI Result updated successfully ===')
           })
+      }
+      const auth = getCurrentAuthUser()
+      if (auth && auth?.email) {
+        console.log('recordParticipation called')
+        recordParticipation(auth?.email)
       }
     })
 }
