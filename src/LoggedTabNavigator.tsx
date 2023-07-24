@@ -14,7 +14,7 @@ import { MapScreen } from './screens/MapScreen'
 import { InfoScreen } from './screens/InfoScreen/InfoScreen'
 import { colors } from './styles/theme'
 import { ChallengeScreen } from './screens/ChallengeScreen'
-import { styles } from './screens/InfoScreen/styles'
+// import { styles } from './screens/InfoScreen/styles'
 
 const Tab = createBottomTabNavigator()
 

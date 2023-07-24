@@ -3,7 +3,6 @@ import 'react-native-gesture-handler'
 import React from 'react'
 
 import { StatusBar } from 'react-native'
-import { registerRootComponent } from 'expo'
 import * as SplashScreen from 'expo-splash-screen'
 import { Provider as PaperProvider } from 'react-native-paper'
 import auth, { firebase } from '@react-native-firebase/auth'
@@ -21,7 +20,6 @@ import { LoggedTabNavigator } from './LoggedTabNavigator'
 import { usePrevious } from './hooks/usePrevious'
 import { LocationProvider } from './LocationContext'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import Constants from 'expo-constants'
 import DeviceInfo from 'react-native-device-info'
 import TipProvider from 'react-native-tip'
 import AppIntroScreen from './screens/AppIntroScreen/index'
@@ -70,7 +68,7 @@ export default function App() {
 
   const apps = firebase.apps
   apps.forEach((app) => {
-    console.log('app name +++', app)
+    console.log('app name ===', app)
   })
 
   async function versionChanged(savedVersion, currentVersion) {
@@ -114,7 +112,9 @@ export default function App() {
       <StatusBar barStyle="dark-content" />
       <LocationProvider>
         <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerTintColor: '#000' }}>
+          <Stack.Navigator
+            screenOptions={{ headerTintColor: '#000', headerBackTitleVisible: false }}
+          >
             {isUserLogged ? (
               <>
                 <Stack.Screen
@@ -149,7 +149,9 @@ export default function App() {
                 <Stack.Screen
                   name={ScreenNames.register}
                   component={RegisterScreen}
-                  options={{ headerShown: false }}
+                  options={{
+                    title: 'Create Account',
+                  }}
                 />
                 <Stack.Screen
                   name={ScreenNames.resetPassword}

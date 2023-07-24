@@ -1,5 +1,5 @@
 export const envVariables = {
-    FIREBASE: {
+  FIREBASE: {
     APP_ID: '',
     API_KEY: '',
     AUTH_DOMAIN: '',
@@ -9,11 +9,14 @@ export const envVariables = {
   },
 }
 export const CONFIG = {
-    ITREE_KEY: '',
-    API_TREE_BENEFIT: '',
-    NATION: '',
-    STATE: '',
-    COUNTYNAME: '',
-    CITYNAME: '',
-    AWS_S3_URL: '',
+  ITREE_KEY: '',
+  API_TREE_BENEFIT: '',
+  NATION: '',
+  STATE: '',
+  COUNTYNAME: '',
+  CITYNAME: '',
+  AWS_S3_URL: '',
+  PLANTID_KEY: '',
+  SCISTARTER_API_KEY: '',
+  PROJECT_SLUG: '',
 }

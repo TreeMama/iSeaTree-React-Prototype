@@ -191,13 +191,13 @@ export function ProfileScreen() {
         {
           text: 'OK',
           onPress: () => {
-            console.log('ok pressed +++', authUser?.uid)
+            console.log('ok pressed ===', authUser?.uid)
             updateTreeAndDeleteAccount(authUser?.uid)
           },
         },
         {
           text: 'Cancel',
-          onPress: () => console.log('cancel button pressed +++'),
+          onPress: () => console.log('cancel button pressed ==='),
           style: 'cancel',
         },
       ],
@@ -277,13 +277,13 @@ export function ProfileScreen() {
         {
           text: 'OK',
           onPress: () => {
-            console.log('ok pressed +++', authUser?.uid)
+            console.log('ok pressed ===', authUser?.uid)
             handleSignout()
           },
         },
         {
           text: 'Cancel',
-          onPress: () => console.log('cancel button pressed +++'),
+          onPress: () => console.log('cancel button pressed ==='),
           style: 'cancel',
         },
       ],

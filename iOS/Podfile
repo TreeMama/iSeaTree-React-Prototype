@@ -13,6 +13,7 @@ pod 'Firebase/RemoteConfig'
 pod 'Firebase/Messaging'
 pod 'Firebase/Functions'
 pod 'Firebase/Storage'
+pod 'RNSha256', :path => '../node_modules/react-native-sha256'
 
 target 'iSeaTree' do
   use_unimodules!

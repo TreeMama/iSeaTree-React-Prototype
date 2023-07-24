@@ -134,7 +134,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
       `TreeCrownHeightMeter=-1&`
 
     const response = await axios.get(url)
-    // console.log('iSeaTreeApi response +++', response)
+    // console.log('iSeaTreeApi response ===', response)
     if (response.data) {
       const formattedResponse: string = xml2json(response.data, { compact: true, spaces: 2 })
       const root: RootObject = xml2js(response.data, { compact: true }) as RootObject
@@ -254,7 +254,7 @@ export function TreeBenefits(props: TreeBenefitsProps) {
 
   const loadBenefits = async () => {
     if (canCalculateBenefits) {
-      console.log('iSeaTreeApi called +++')
+      console.log('iSeaTreeApi called ===')
       // checks to see if the address has been calculated
       if (!address) return
       let state = address.region
