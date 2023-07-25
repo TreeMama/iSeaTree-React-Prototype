@@ -33,12 +33,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     padding: 10,
-    marginTop: 25,
-    marginBottom: 25,
+    margin: 10,
+    // backgroundColor: '#F5F5F5',
   },
   logo: {
-    width: 150,
-    height: 70,
+    width: 110,
+    height: 50,
+    margin: 5,
   },
   successImage: {
     width: 450,
@@ -178,7 +179,7 @@ export function RegisterScreen() {
           if (!!result.user) {
             setUser({ uid: result.user.uid, email, username, selectedId })
             if (selectedId === '2') {
-              createSciStarterAccount(email, password)
+              createSciStarterAccount(username, email, password)
                 .then((result) => {
                   console.log('sciStarter account crease result ===', result)
                   if (result?.profile_id && result?.success) {
@@ -291,17 +292,17 @@ export function RegisterScreen() {
               <Image
                 source={require('../../../assets/iTree.png')}
                 style={styles.logo}
-                resizeMode="center"
+                resizeMode="stretch"
               />
               <Image
                 source={require('../../../assets/flowerchecker.jpeg')}
                 style={styles.logo}
-                resizeMode="center"
+                resizeMode="stretch"
               />
               <Image
                 source={require('../../../assets/scistarter.png')}
                 style={styles.logo}
-                resizeMode="center"
+                resizeMode="stretch"
               />
             </View>
           </>

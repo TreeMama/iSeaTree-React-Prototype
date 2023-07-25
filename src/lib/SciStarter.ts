@@ -1,11 +1,16 @@
 import { CONFIG } from '../../envVariables'
 import { sha256 } from 'react-native-sha256'
 
-export const createSciStarterAccount = async (email: string, password: string) => {
+export const createSciStarterAccount = async (
+  username: string,
+  email: string,
+  password: string,
+) => {
   const myHeaders = new Headers()
   myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
 
   const urlencoded = new URLSearchParams()
+  urlencoded.append('handle', username)
   urlencoded.append('email', email)
   urlencoded.append('password_cyphertext', password)
   urlencoded.append('project_id', CONFIG.PROJECT_SLUG)

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 const treemamaUrl = 'https://treemama.org'
 const iTreeUrl = 'https://api.itreetools.org'
 const PlantidUrl = 'https://web.plant.id'
-const SciStarterUrl = 'https://scistarter.org'
+const SciStarterUrl = 'https://scistarter.org/iseatree'
 
 const questionTitles = ['What is SciStarter?', 'What is iSeaTree?']
 
