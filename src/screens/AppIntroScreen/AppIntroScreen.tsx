@@ -8,6 +8,7 @@ import {
   StatusBar,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Constants from 'expo-constants'
@@ -77,6 +78,9 @@ const data = [
   },
 ]
 
+const screenWidth = Dimensions.get('screen').width
+const screenHeight = Dimensions.get('screen').height
+
 type Item = typeof data[0]
 
 const styles = StyleSheet.create({
@@ -85,6 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'blue',
+    paddingBottom: screenHeight <= 550 ? '15%' : 0,
   },
   itemContainer: {
     alignItems: 'center',
@@ -93,7 +98,8 @@ const styles = StyleSheet.create({
   image: {
     width: 320,
     height: 320,
-    marginVertical: 32,
+    // marginVertical: 32,
+    marginVertical: screenHeight <= 550 ? 16 : 32,
   },
   text: {
     marginHorizontal: '10%',
