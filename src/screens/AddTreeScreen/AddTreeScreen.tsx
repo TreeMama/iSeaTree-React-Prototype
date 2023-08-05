@@ -721,11 +721,16 @@ export function AddTreeScreen(props) {
       let genusMatch = false
       const structuredName = result[3]
       setConfidence(result[4]);
-      const other_ai_results = [...result[5]]
+
+      let other_ai_results = [...result[5]]
+
+      let other_ai_self = [{'tree_name': result[1], 'probability' : result[4]}]
+
+      other_ai_results =  other_ai_self.concat(other_ai_results)
+
+      console.log("concatenated other_ai_results", other_ai_results)
 
       handleOther(other_ai_results);
-
-    
 
       setState({
         ...state,
