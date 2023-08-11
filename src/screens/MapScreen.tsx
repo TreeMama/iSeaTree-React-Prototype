@@ -46,6 +46,19 @@ const win = Dimensions.get('window')
 
 type MapScreenNavigation = MaterialBottomTabNavigationProp<any, 'Profile'>
 
+// check if it is iPhone 8
+export function isIphone8() {
+  const screenSize = Dimensions.get("screen")
+
+  return (
+    // This has to be iOS
+    Platform.OS === 'ios' &&
+
+    // Check iPhone 8 screen size
+    (screenSize.height == 667 && screenSize.width == 375)
+  );
+}
+
 export function MapScreen(props: { navigation: MapScreenNavigation }) {
   //const [currentCoords, setCurrentCoords] = React.useState<null | Coords>(null)
   const [errorMessage, setErrorMessage] = React.useState<null | string>(null)
@@ -143,7 +156,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const appObj = { ...doc.data(), ['id']: currentID }
               trees.push(appObj)
             })
-          } catch (error) {}
+          } catch (error) { }
           // return trees;
           setTrees(trees)
           setDataLoaded(true)
@@ -178,7 +191,7 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
               const appObj = { ...doc.data(), ['id']: currentID }
               alltrees.push(appObj)
             })
-          } catch (error) {}
+          } catch (error) { }
 
           alltrees = alltrees.filter((obj: { isValidated: string }) => obj.isValidated !== 'SPAM')
           for (let i = 0; i < alltrees.length; i++) {
@@ -250,11 +263,11 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   const currentRegion: undefined | Region = !currentCoords
     ? undefined
     : {
-        latitude: currentCoords.latitude,
-        longitude: currentCoords.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }
+      latitude: currentCoords.latitude,
+      longitude: currentCoords.longitude,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    }
 
   // validate the tree
   const onValidated = (selectedItem) => {
@@ -876,10 +889,12 @@ export function MapScreen(props: { navigation: MapScreenNavigation }) {
   )
 }
 
-const mapHeight =
-  Platform.OS === 'ios'
-    ? Dimensions.get('window').height - Constants.statusBarHeight
-    : Dimensions.get('window').height
+// const mapHeight =
+//   Platform.OS === 'ios'
+//     ? Dimensions.get('window').height - Constants.statusBarHeight
+//     : Dimensions.get('window').height
+
+const mapHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   container: {
@@ -888,7 +903,7 @@ const styles = StyleSheet.create({
   },
   mapStyle: {
     width: Dimensions.get('window').width,
-    height: mapHeight - 60,
+    height: Platform.OS === 'ios' ? isIphone8() ? mapHeight - 60 : mapHeight - 75 : mapHeight - 60,
   },
   // CalloutComponent styale
 

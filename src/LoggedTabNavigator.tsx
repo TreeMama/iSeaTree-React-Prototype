@@ -5,7 +5,7 @@ import React from 'react'
 // import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { useTheme } from 'react-native-paper'
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, Dimensions } from 'react-native'
 
 import { TabScreenNames } from './lib/navigation'
 import { ProfileScreen } from './screens/ProfileScreen'
@@ -28,6 +28,19 @@ const challengeIcon = require('../assets/nav_callenge_inactive.png')
 const challengeAcitiveIcon = require('../assets/nav_callenge.png')
 const infoIcon = require('../assets/nav_tree_inactive.png')
 const infoActiveIcon = require('../assets/nav_tree.png')
+
+// check if the phone is iPhone 8
+export function isIphone8() {
+  const screenSize = Dimensions.get("screen")
+
+  return (
+    // This has to be iOS
+    Platform.OS === 'ios' &&
+
+    // Check iPhone 8 screen size
+    (screenSize.height == 667 && screenSize.width == 375)
+  );
+}
 
 export function LoggedTabNavigator() {
   const styles = StyleSheet.create({
@@ -53,9 +66,8 @@ export function LoggedTabNavigator() {
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: Platform.OS === 'ios' ? 11 : 10,
-          // paddingBottom: Platform.OS === 'ios' ? 10 : 10,
-          paddingBottom: 10,
+          height: Platform.OS === 'ios' ? isIphone8() ? 60 : 75 : 60,
+          paddingBottom: Platform.OS === 'ios' ? isIphone8() ? 20 : 30 : 20,
           elevation: 0,
           backgroundColor: 'white',
           // height: 90,
