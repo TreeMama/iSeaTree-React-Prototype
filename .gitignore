@@ -85,3 +85,4 @@ iOS/Podfile.lock
 
 node_modules
 
+android/local.properties
