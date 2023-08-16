@@ -721,11 +721,13 @@ export function AddTreeScreen(props) {
       let genusMatch = false
       const structuredName = result[3]
       setConfidence(result[4]);
-      const other_ai_results = [...result[5]]
+
+      let other_ai_results = [...result[5]]
+      let other_ai_self = [{'tree_name': result[1], 'probability' : result[4]}]
+      other_ai_results = other_ai_self.concat(other_ai_results)
+      console.log("concatenated other_ai_results", other_ai_results)
 
       handleOther(other_ai_results);
-
-    
 
       setState({
         ...state,
@@ -768,13 +770,14 @@ export function AddTreeScreen(props) {
         if (speciesMatch && matchSpecieObj) {
           // Outcome 2: Prompt user to enter the Species name
           setTreeValidationLoading(false)
+          const percent = confidence * 100.0
           Alert.alert(
             "It's a match!",
             "We've determined that this tree likely is a " +
               matchSpecieObj?.COMMON +
               ' (' +
               matchSpecieObj?.SCIENTIFIC +
-              ').' + `With ${confidence.toFixed(2)} % certainty!`+'\n Do you agree?',
+              ')' + ` with ${Math.round(percent)}% certainty!`+'\n Do you agree?',
             [
               {
                 text: 'Try again',
