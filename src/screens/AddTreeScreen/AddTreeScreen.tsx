@@ -228,7 +228,7 @@ export function AddTreeScreen(props) {
     matchObjUrl: '',
     genus: '',
   })
-  let aiResult = 0
+  const aiResult = 0
 
   const formik = useFormik<FormValues>({
     initialValues: {
@@ -438,14 +438,15 @@ export function AddTreeScreen(props) {
     ])
   }
 
-  function handleOther(...other : [any] ){
-   setOtherAI(
-     other[0].map((a: any) => {
-      return {
-        tree_name: a["tree_name"],
-        probability:a["probability"],
+  function handleOther(...other: [any]) {
+    setOtherAI(
+      other[0].map((a: any) => {
+        return {
+          tree_name: a['tree_name'],
+          probability: a['probability'],
         } as AIResult
-    }))
+      }),
+    )
   }
   // Auto-fill species data when jumped from TreeInfo Screen
   function getSelectedSpecies() {
@@ -720,14 +721,17 @@ export function AddTreeScreen(props) {
       let speciesMatch = false
       let genusMatch = false
       const structuredName = result[3]
-      setConfidence(result[4]);
+      setConfidence(result[4])
 
-      let other_ai_results = [...result[5]]
-      let other_ai_self = [{'tree_name': result[1], 'probability' : result[4]}]
-      other_ai_results = other_ai_self.concat(other_ai_results)
-      console.log("concatenated other_ai_results", other_ai_results)
+      let otherAiResults = [...result[5]]
+      const otherAiSelf = [
+        { tree_name: result[2], probability: result[4] },
+        { tree_name: result[1], probability: result[4] },
+      ]
+      otherAiResults = otherAiSelf.concat(otherAiResults)
+      console.log('concatenated otherAiResults', otherAiResults)
 
-      handleOther(other_ai_results);
+      handleOther(otherAiResults)
 
       setState({
         ...state,
@@ -777,7 +781,9 @@ export function AddTreeScreen(props) {
               matchSpecieObj?.COMMON +
               ' (' +
               matchSpecieObj?.SCIENTIFIC +
-              ')' + ` with ${Math.round(percent)}% certainty!`+'\n Do you agree?',
+              ')' +
+              ` with ${Math.round(percent)}% certainty!` +
+              '\n Do you agree?',
             [
               {
                 text: 'Try again',
