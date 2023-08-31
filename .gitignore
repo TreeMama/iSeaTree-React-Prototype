@@ -87,3 +87,4 @@ node_modules
 
 android/local.properties
 android/.idea/deploymentTargetDropDown.xml
+android/app/release/output-metadata.json
