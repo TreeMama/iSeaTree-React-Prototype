@@ -112,7 +112,7 @@ export function RegisterScreen() {
     () => [
       {
         id: '1',
-        label: 'Link my Scistarter account to the iSeaTree app',
+        label: 'Link existing SciStarter account with existing iSeaTree account.',
         value: '1',
         color: '#8FB8A3',
       },
