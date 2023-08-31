@@ -86,3 +86,4 @@ iOS/Podfile.lock
 node_modules
 
 android/local.properties
+android/.idea/deploymentTargetDropDown.xml
