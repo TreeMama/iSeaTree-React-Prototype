@@ -218,7 +218,6 @@ export function AddTreeScreen(props) {
   const [dataSaved, setDataSaved] = React.useState<boolean>(false)
   const [unknownTreeAdd, setUnknownTreeAdd] = React.useState<boolean>(false)
   const [otherAI, setOtherAI] = useState<Array<AIResult>>([])
-  const [confidence, setConfidence] = useState<any>('')
 
   const [state, setState] = useState({
     aiResult: 0,
@@ -715,19 +714,15 @@ export function AddTreeScreen(props) {
   const treeValidation = (result: any[]) => {
     try {
       formik.setFieldValue('needsValidation', false)
-      console.log('tree check ===', result)
+      console.log('tree confidence ===', result[4])
 
       const isPlant = result[0]
       let speciesMatch = false
       let genusMatch = false
       const structuredName = result[3]
-      setConfidence(result[4])
 
       let otherAiResults = [...result[5]]
-      const otherAiSelf = [
-        { tree_name: result[2], probability: result[4] },
-        { tree_name: result[1], probability: result[4] },
-      ]
+      const otherAiSelf = [{ tree_name: result[2], probability: result[4] }]
       otherAiResults = otherAiSelf.concat(otherAiResults)
       console.log('concatenated otherAiResults', otherAiResults)
 
@@ -774,7 +769,7 @@ export function AddTreeScreen(props) {
         if (speciesMatch && matchSpecieObj) {
           // Outcome 2: Prompt user to enter the Species name
           setTreeValidationLoading(false)
-          const percent = confidence * 100.0
+          const percent = result[4] * 100
           Alert.alert(
             "It's a match!",
             "We've determined that this tree likely is a " +
@@ -782,7 +777,7 @@ export function AddTreeScreen(props) {
               ' (' +
               matchSpecieObj?.SCIENTIFIC +
               ')' +
-              ` with ${Math.round(percent)}% certainty!` +
+              ` with ${percent.toFixed(2)}% certainty!` +
               '\n Do you agree?',
             [
               {
@@ -1713,13 +1708,12 @@ export function AddTreeScreen(props) {
                   if (isEnabled) {
                     setLoading(true)
                     try {
-                      identifyTreePicture(photo.uri, coords).then((result) => {
-                        console.log('identifyTreePicture result ===' + result)
+                      identifyTreePicture(photo.uri, coords).then((result: any) => {
+                        console.log('identifyTreePicture result ===', result)
                         // const aiResult: AIResult = {
                         //   tree_name: result[0],
                         //   probability: result[4]
                         // }
-                        setConfidence(result[4]) // certainty of result
                         setTreeValidationLoading(true)
                         treeValidation(result)
                         setLoading(false)
