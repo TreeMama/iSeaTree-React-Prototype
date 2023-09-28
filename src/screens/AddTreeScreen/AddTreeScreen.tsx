@@ -44,6 +44,7 @@ import { Tip } from 'react-native-tip'
 import { identifyTreePicture } from '../../lib/iTreeAPIServices'
 import { CONFIG } from '../../../envVariables'
 import { AIResult } from '../../lib/firebaseServices/addTree'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 // const mapleTree = require('../../../assets/maple_tree.jpeg')
 const invalidPic = require('../../../assets/invalid_pic.png')
@@ -193,6 +194,8 @@ function validateForm(values: FormValues): FormikErrors<FormValues> {
 export function AddTreeScreen(props) {
   const theme = useTheme()
   const refTreeTypeSelect = React.useRef(null)
+  const toolTipRef = React.useRef<Tooltip>(null)
+
   const [isDBHSelected, setDBHSelected] = React.useState<null | boolean>(false)
   const [isDBHSelected0, setDBHSelected0] = React.useState<null | boolean>(false)
   const [isDBHSelected1, setDBHSelected1] = React.useState<null | boolean>(false)
@@ -420,6 +423,25 @@ export function AddTreeScreen(props) {
       props.navigation.removeListener('focus', getSelectedSpecies)
     }
   }, [props])
+
+  React.useEffect(() => {
+    const checkVisited = async () => {
+      try {
+        const hasVisitedBefore = await AsyncStorage.getItem('hasVisitedBefore')
+
+        if (!hasVisitedBefore) {
+          if (toolTipRef?.current) {
+            toolTipRef.current.toggleTooltip()
+            await AsyncStorage.setItem('hasVisitedBefore', 'true')
+          }
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    checkVisited()
+  }, [])
 
   function handleClear() {
     Alert.alert('', 'Are you sure?', [
@@ -993,6 +1015,7 @@ export function AddTreeScreen(props) {
             {/* <DbhHelp /> */}
             <View>
               <Tooltip
+                ref={toolTipRef}
                 height={180}
                 width={300}
                 containerStyle={{
