@@ -35,6 +35,8 @@ import AppIntroScreen from './AppIntroScreen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import DeviceInfo from 'react-native-device-info'
 import { useNavigationActions } from '../lib/navigation'
+import axios from 'axios'
+import { SvgXml } from 'react-native-svg'
 
 const win = Dimensions.get('window')
 const imagePlaceholder = require('../../assets/profile/image_placeholder.png')
@@ -84,8 +86,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.8)',
   },
   profileImage: {
-    height: win.width / 4,
-    width: win.width / 4,
+    height: win.width / 5,
+    width: win.width / 5,
     alignSelf: 'center',
     justifyContent: 'center',
   },
@@ -224,6 +226,13 @@ export function ProfileScreen() {
     }
   }
 
+  function getAvatarUrl(seed: string): Promise<string> {
+    // return `https://avatars.dicebear.com/api/bottts/${seed}.png`
+    return axios.get(`https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${seed}`).then((res) => {
+      return res.data
+    })
+  }
+
   React.useEffect(() => {
     checkIntro()
   }, [])
@@ -233,7 +242,7 @@ export function ProfileScreen() {
       return
     }
 
-    const unsubscribe = userDataListener(authUser.uid, (userData) => {
+    const unsubscribe = userDataListener(authUser.uid, async (userData) => {
       if (!userData) {
         return
       }
@@ -255,7 +264,8 @@ export function ProfileScreen() {
             : item,
         ),
       )
-      setAvatarUrl(getAvatarUrl(userData.avatarSeed ?? 'default_seed'))
+      const seedAvatar = await getAvatarUrl(userData.avatarSeed ?? 'default_seed')
+      seedAvatar && setAvatarUrl(seedAvatar)
       setUserData(userData)
     })
 
@@ -349,10 +359,6 @@ export function ProfileScreen() {
     setIsSliderVisible(false)
   }
 
-  function getAvatarUrl(seed: string) {
-    return `https://avatars.dicebear.com/api/bottts/${seed}.png`
-  }
-
   function randomizeAvatarUrl() {
     Alert.alert(
       'Confirmation',
@@ -360,9 +366,11 @@ export function ProfileScreen() {
       [
         {
           text: 'OK',
-          onPress: () => {
+          onPress: async () => {
             const seed = Math.random().toString(36).slice(2)
-            setAvatarUrl(getAvatarUrl(seed))
+            const seedAvatar = await getAvatarUrl(seed)
+            seedAvatar && setAvatarUrl(seedAvatar)
+
             if (authUser?.uid) {
               setUserAvatarSeed(authUser.uid, seed)
             }
@@ -408,10 +416,11 @@ export function ProfileScreen() {
                   </View>
                   <View>
                     <View style={styles.profileImageContainer}>
-                      <Image
-                        source={avatarUrl ? { uri: avatarUrl } : imagePlaceholder}
-                        style={styles.profileImage}
-                      />
+                      {avatarUrl ? (
+                        <SvgXml xml={avatarUrl} style={styles.profileImage} />
+                      ) : (
+                        <Image source={imagePlaceholder} style={styles.profileImage} />
+                      )}
                     </View>
                     <TouchableOpacity
                       onPress={() => randomizeAvatarUrl()}
