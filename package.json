@@ -69,7 +69,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-status-bar-height": "^2.6.0",
     "react-native-step-indicator": "^1.0.3",
-    "react-native-svg": "^13.14.0",
+    "react-native-svg": "12.3.0",
     "react-native-tip": "^0.0.18",
     "react-native-unimodules": "~0.11.0",
     "react-native-vector-icons": "^8.1.0",
