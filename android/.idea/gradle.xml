@@ -46,6 +46,7 @@
             <option value="$PROJECT_DIR$/../node_modules/react-native-screens/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-sensors/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-sha256/android" />
+            <option value="$PROJECT_DIR$/../node_modules/react-native-svg/android" />
             <option value="$PROJECT_DIR$/../node_modules/react-native-vector-icons/android" />
             <option value="$PROJECT_DIR$/../node_modules/unimodules-app-loader/android" />
             <option value="$PROJECT_DIR$/../node_modules/unimodules-barcode-scanner-interface/android" />
