@@ -97,18 +97,18 @@ export const Accordion = (props: AccordionProps) => {
           <Text style={styles.boldUnderlineText} onPress={() => openWebSite(treemamaUrl)}>
             treemama.org{' '}
           </Text>
-          and Copyrighted ©2020-2023 by the project contributors. Please ALWAYS exercise caution and
-          awareness of your surroundings when surveying trees. The iSeaTree project takes no
-          responsibility for improper harm made when surveying a tree. We also request that tree
-          surveys take place on public property OR at sites where the landowner has given full
-          permission to the surveyor.
+          and Copyrighted ©2020-{new Date().getFullYear()} by the project contributors. Please
+          ALWAYS exercise caution and awareness of your surroundings when surveying trees. The
+          iSeaTree project takes no responsibility for improper harm made when surveying a tree. We
+          also request that tree surveys take place on public property OR at sites where the
+          landowner has given full permission to the surveyor.
         </Paragraph>
         <Paragraph style={styles.textFont}>
           <Text>{'\n'}The iSeaTree project thanks USFS </Text>
           <Text style={styles.boldUnderlineText} onPress={() => openWebSite(iTreeUrl)}>
             iTreeAPI
           </Text>
-          <Text> team and FlowerChecker's </Text>
+          <Text> team and </Text>
           <Text style={styles.boldUnderlineText} onPress={() => openWebSite(PlantidUrl)}>
             Plant.id
           </Text>

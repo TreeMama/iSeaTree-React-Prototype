@@ -293,7 +293,7 @@ export function RegisterScreen() {
                 resizeMode="stretch"
               />
               <Image
-                source={require('../../../assets/flowerchecker.jpeg')}
+                source={require('../../../assets/plantid.jpeg')}
                 style={styles.logo}
                 resizeMode="stretch"
               />
