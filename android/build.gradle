@@ -8,8 +8,8 @@ buildscript {
         targetSdkVersion = 33
         // Read these values from a pair of files that is also read by iOS.
         // Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
-        versionCode = 91
-        versionName = '4.1.8'
+        versionCode = 93
+        versionName = '4.2.0'
         kotlinVersion = "1.6.0"
     }
     repositories {

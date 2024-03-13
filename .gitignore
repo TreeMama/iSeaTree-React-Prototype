@@ -74,6 +74,9 @@ android/.gradle/checksums/checksums.lock
 android/.gradle/checksums/md5-checksums.bin
 android/.gradle/checksums/sha1-checksums.bin
 
+android/.idea
+android/.gradle/config.properties
+
 node_modules/@react-native-community/masked-view/android/.gradle/6.3/fileChanges/last-build.bin
 node_modules/react-native-maps/.gradle/4.10.3/fileChanges/last-build.bin
 
@@ -86,5 +89,8 @@ iOS/Podfile.lock
 node_modules
 
 android/local.properties
-android/.idea/deploymentTargetDropDown.xml
 android/app/release/output-metadata.json
+android/secrets.properties
+android/local.properties
+android/local.defaults.properties
+android/app/release
