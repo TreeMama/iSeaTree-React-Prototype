@@ -10,8 +10,6 @@ import { Accordion } from '../../components/Accordion'
 import { Banner, Button, Text } from 'react-native-paper'
 import { RegisterForm } from './RegisterForm'
 import { useNavigationActions } from '../../lib/navigation'
-import { set } from 'react-native-reanimated'
-import { create } from 'react-test-renderer'
 import { createSciStarterAccount } from '../../lib/SciStarter'
 
 const styles = StyleSheet.create({
