@@ -141,77 +141,92 @@ export function RegisterScreen() {
   }) {
     setIsLoading(true)
     setErrorMessage(null)
-
-    // selectedId values:
-    // '1' - create iSeaTree account and set SciStarter account email
-    // '2' - create SciStarter and iSeaTree account
-    // '3' - create iSeaTree account
-
     setFormData({ username, email, password })
-
-    if (selectedId === '1') {
-      findUserByNameAndSetSciStarter(email, username)
-        .then((result) => {
-          setIsLoading(false)
-          console.log('findUserByNameAndSetSciStarter result ===', result)
-          if (!result) {
-            setErrorMessage(
-              'There was an unexpected error (RegisterOption::findUserByNameAndSetSciStarter). Please try again later.',
-            )
-          } else {
-            setCurrentPosition(3)
-          }
-        })
-        .catch((err) => {
-          setIsLoading(false)
-          console.log('err ===', err)
-        })
-    }
-
-    if (selectedId === '2' || selectedId === '3') {
-      auth()
-        .createUserWithEmailAndPassword(email, password)
-        .then((result) => {
-          setIsLoading(false)
-
-          if (!!result.user) {
-            setUser({ uid: result.user.uid, email, username, selectedId })
-            if (selectedId === '2') {
-              createSciStarterAccount(username, email, password)
-                .then((result) => {
-                  console.log('sciStarter account crease result ===', result)
-                  if (result?.profile_id && result?.success) {
-                    if (!errorMessage) {
-                      setCurrentPosition(3)
-                    }
-                  } else {
-                    setErrorMessage(
-                      'There was an unexpected error (RegisterOption::createSciStarterAccount). Please try again later.',
-                    )
-                  }
-                })
-                .catch((err) => {
-                  console.log('sciStarter account crease err ===', err)
-                  setErrorMessage(err?.error)
-                })
-            }
-            if (selectedId === '3') {
+    try {
+      if (selectedId === '1') {
+        findUserByNameAndSetSciStarter(email, username)
+          .then((result) => {
+            setIsLoading(false)
+            console.log('findUserByNameAndSetSciStarter result ===', result)
+            if (!result) {
+              setErrorMessage(
+                'There was an unexpected error (RegisterOption::findUserByNameAndSetSciStarter). Please try again later.',
+              )
+            } else {
               setCurrentPosition(3)
             }
-          } else {
+          })
+          .catch((err) => {
+            setIsLoading(false)
             setErrorMessage(
-              'There was an unexpected error (RegisterOption::setUser). Please try again later.',
+              'Error: ' +
+                (err && typeof err === 'object' && 'message' in err
+                  ? String((err as { message?: string }).message)
+                  : String(err)),
             )
-          }
-        })
-        .catch((error) => {
-          setIsLoading(false)
-          const errorMEssage = !!error.message
-            ? error.message
-            : 'There was an unexpected error (RegisterOption::setIsLoading). Please try again later.'
-
-          setErrorMessage(errorMEssage)
-        })
+            console.error('RegisterScreen error (selectedId 1):', err)
+          })
+      }
+      if (selectedId === '2' || selectedId === '3') {
+        auth()
+          .createUserWithEmailAndPassword(email, password)
+          .then((result) => {
+            setIsLoading(false)
+            if (!!result.user) {
+              setUser({ uid: result.user.uid, email, username, selectedId })
+              if (selectedId === '2') {
+                createSciStarterAccount(username, email, password)
+                  .then((result) => {
+                    console.log('sciStarter account crease result ===', result)
+                    if (result?.profile_id && result?.success) {
+                      if (!errorMessage) {
+                        setCurrentPosition(3)
+                      }
+                    } else {
+                      setErrorMessage(
+                        'There was an unexpected error (RegisterOption::createSciStarterAccount). Please try again later.',
+                      )
+                    }
+                  })
+                  .catch((err) => {
+                    setErrorMessage(
+                      'Error: ' +
+                        (err && typeof err === 'object' && 'message' in err
+                          ? String((err as { message?: string }).message)
+                          : String(err)),
+                    )
+                    console.error('RegisterScreen error (SciStarter):', err)
+                  })
+              }
+              if (selectedId === '3') {
+                setCurrentPosition(3)
+              }
+            } else {
+              setErrorMessage(
+                'There was an unexpected error (RegisterOption::setUser). Please try again later.',
+              )
+            }
+          })
+          .catch((error) => {
+            setIsLoading(false)
+            setErrorMessage(
+              'Error: ' +
+                (error && typeof error === 'object' && 'message' in error
+                  ? String((error as { message?: string }).message)
+                  : String(error)),
+            )
+            console.error('RegisterScreen error (createUserWithEmailAndPassword):', error)
+          })
+      }
+    } catch (err) {
+      setIsLoading(false)
+      setErrorMessage(
+        'Unexpected JS error: ' +
+          (err && typeof err === 'object' && 'message' in err
+            ? String((err as { message?: string }).message)
+            : String(err)),
+      )
+      console.error('RegisterScreen unexpected error:', err)
     }
   }
 
@@ -265,6 +280,9 @@ export function RegisterScreen() {
         <Banner
           visible={!!errorMessage}
           actions={[{ label: 'OK', onPress: () => setErrorMessage(null) }]}
+          accessibilityStates={[]}
+          accessibilityComponentType="none"
+          accessibilityTraits={[]}
         >
           {errorMessage ? errorMessage : ''}
         </Banner>
@@ -319,7 +337,14 @@ export function RegisterScreen() {
                 style={styles.successImage}
                 resizeMode="center"
               />
-              <Text style={styles.successText}>Your account is created successfully</Text>
+              <Text
+                style={styles.successText}
+                accessibilityStates={[]}
+                accessibilityComponentType="none"
+                accessibilityTraits={[]}
+              >
+                Your account is created successfully
+              </Text>
             </View>
           </>
         ) : null}
@@ -331,6 +356,9 @@ export function RegisterScreen() {
           color="white"
           disabled={nextButtonDisabled}
           onPress={() => handleNextButton()}
+          accessibilityStates={[]}
+          accessibilityComponentType="none"
+          accessibilityTraits={[]}
         >
           {currentPosition === 1 ? 'Next' : currentPosition == 2 ? 'Back' : 'Let’s get started'}
         </Button>

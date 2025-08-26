@@ -67,9 +67,9 @@ export async function submitTreeData(
   let CarbonDioxideStorage = 'NULL'
   let CarbonDioxideStorageValue = 'NULL'
   let DryWeight = 'NULL'
-  let other_ai_results = [...other_ai]
+  const other_ai_results = [...other_ai]
   //#endregion
-  if (formValues.speciesData.COMMON !== 'Unknown') {
+  if (formValues.speciesData && formValues.speciesData.COMMON !== 'Unknown') {
     NationFullName = await getItem('NationFullName')
     StateAbbr = await getItem('StateAbbr')
     CountyName = await getItem('CountyName')
@@ -113,6 +113,43 @@ export async function submitTreeData(
     !userData
   ) {
     throw Error('Invalid form values')
+  }
+  try {
+    if (formValues.speciesData.COMMON !== 'Unknown') {
+      NationFullName = await getItem('NationFullName')
+      StateAbbr = await getItem('StateAbbr')
+      CountyName = await getItem('CountyName')
+      CityName = await getItem('CityName')
+      CalculatedHeightMeter = await getItem('CalculatedHeightMeter')
+      CalculatedCrownHeightMeter = await getItem('CalculatedCrownHeightMeter')
+      CalculatedCrownWidthMeter = await getItem('CalculatedCrownWidthMeter')
+      RunoffAvoided = await getItem('RunoffAvoided')
+      RunoffAvoidedValue = await getItem('RunoffAvoidedValue')
+      Interception = await getItem('Interception')
+      PotentialEvaporation = await getItem('PotentialEvaporation')
+      PotentialEvapotranspiration = await getItem('PotentialEvapotranspiration')
+      Evaporation = await getItem('Evaporation')
+      Transpiration = await getItem('Transpiration')
+      CORemoved = await getItem('CORemoved')
+      CORemovedValue = await getItem('CORemovedValue')
+      NO2Removed = await getItem('NO2Removed')
+      NO2RemovedValue = await getItem('NO2RemovedValue')
+      SO2Removed = await getItem('SO2Removed')
+      SO2RemovedValue = await getItem('SO2RemovedValue')
+      O3Removed = await getItem('O3Removed')
+      O3RemovedValue = await getItem('O3RemovedValue')
+      PM25Removed = await getItem('PM25Removed')
+      PM25RemovedValue = await getItem('PM25RemovedValue')
+      CO2Sequestered = await getItem('CO2Sequestered')
+      CO2SequesteredValue = await getItem('CO2SequesteredValue')
+      CarbonStorage = await getItem('CarbonStorage')
+      CarbonDioxideStorage = await getItem('CarbonDioxideStorage')
+      CarbonDioxideStorageValue = await getItem('CarbonDioxideStorageValue')
+      DryWeight = await getItem('DryWeight')
+    }
+  } catch (err) {
+    console.error('Error retrieving data:', err)
+    throw err
   }
 
   const imageDownloadUrl = await uploadTreeImage(formValues.photo.uri)
@@ -192,13 +229,13 @@ export async function submitTreeData(
   addTree(treeData, setDataSaved)
 
   console.log('calling remove ')
-  removeBenefitVal()
+  await removeBenefitVal()
 
   return formValues
 }
 
 // todo clear benefits form asyncstorage
-export const removeBenefitVal = async () => {
+async function removeBenefitVal() {
   console.log('remove storage val')
   const keys = [
     'NationFullName',
