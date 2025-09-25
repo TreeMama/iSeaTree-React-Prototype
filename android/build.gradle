@@ -2,19 +2,20 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "29.0.2"
+        buildToolsVersion = "30.0.3"
         minSdkVersion = 21
         compileSdkVersion = 33
-        targetSdkVersion = 33
+        targetSdkVersion = 34
         // Read these values from a pair of files that is also read by iOS.
         // Edit VersionString.txt/BuildNumber.txt to update versioning. Do not embed version numbers in this Gradle file.
-        versionCode = 93
-        versionName = '4.2.0'
+        versionCode = 95
+        versionName = '4.2.2'
         kotlinVersion = "1.6.0"
     }
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        // Remove jcenter() as it's deprecated
     }
     dependencies {
         classpath('com.android.tools.build:gradle:4.0.1')
@@ -54,7 +55,7 @@ allprojects {
         }
 
         google()
-        jcenter()
+        mavenCentral()
         maven { url 'https://www.jitpack.io' }
     }
 }

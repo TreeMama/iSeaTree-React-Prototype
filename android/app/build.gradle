@@ -125,6 +125,7 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
+    ndkVersion "23.1.7779620"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -155,6 +156,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
@@ -163,7 +172,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -190,18 +199,22 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    implementation 'com.android.support:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
-    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.fbjni'
-    }
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
-    }
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-    }
+    // Explicit SoLoader dependency for 64-bit compliance
+    implementation 'com.facebook.soloader:soloader:0.10.4'
+
+    // Disable Flipper dependencies to avoid version conflicts
+    // debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
+    //     exclude group:'com.facebook.fbjni'
+    // }
+    // debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+    //     exclude group:'com.facebook.flipper'
+    //     exclude group:'com.squareup.okhttp3', module:'okhttp'
+    // }
+    // debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
+    //     exclude group:'com.facebook.flipper'
+    // }
     addUnimodulesDependencies()
 
     if (enableHermes) {
