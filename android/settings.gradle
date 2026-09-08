@@ -1,3 +1,13 @@
+pluginManagement {
+    repositories {
+        maven { url uri('./local-plugin-repo') }
+        google()
+        maven { url 'https://repo1.maven.org/maven2/' }
+        maven { url 'https://plugins.gradle.org/m2' }
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = 'iSeaTree'
 
 apply from: '../node_modules/react-native-unimodules/gradle.groovy'
