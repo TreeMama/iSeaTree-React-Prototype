@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
+import org.apache.tools.ant.taskdefs.condition.Os
 
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -78,7 +79,9 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-        enableHermes: false
+        enableHermes: false,
+        // Node 17+ OpenSSL compatibility for Metro (RN 0.63 / Expo 39)
+        nodeExecutableAndArgs: ["node", "--openssl-legacy-provider"]
 ]
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
@@ -123,6 +126,12 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  */
 def enableHermes = project.ext.react.get("enableHermes", false);
 
+def keystorePropertiesFile = rootProject.file("secrets.properties")
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
@@ -155,15 +164,25 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['MYAPP_UPLOAD_STORE_FILE'])
+                storePassword keystoreProperties['MYAPP_UPLOAD_STORE_PASSWORD']
+                keyAlias keystoreProperties['MYAPP_UPLOAD_KEY_ALIAS']
+                keyPassword keystoreProperties['MYAPP_UPLOAD_KEY_PASSWORD']
+            }
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            } else {
+                signingConfig signingConfigs.debug
+            }
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -185,23 +204,95 @@ android {
     }
 }
 
+// Google Play 16 KB page size (AGP 4.x): patch ELF alignment + BundleConfig.pb
+def patch16KbScriptDir = "${rootProject.projectDir}/../scripts"
+def patch16KbPython = Os.isFamily(Os.FAMILY_WINDOWS) ? "python" : "python3"
+
+def findMergedNativeLibDirs = { String variant, String taskName ->
+    def candidates = [
+        new File(buildDir, "intermediates/merged_native_libs/${variant}/${taskName}/out/lib"),
+        new File(buildDir, "intermediates/merged_native_libs/${variant}/out/lib"),
+        new File(buildDir, "intermediates/stripped_native_libs/${variant}/out/lib"),
+    ]
+    return candidates.findAll { it.exists() }
+}
+
+tasks.whenTaskAdded { task ->
+    if ((task.name.startsWith("merge") && task.name.endsWith("NativeLibs"))
+            || (task.name.startsWith("strip") && task.name.endsWith("DebugSymbols"))) {
+        task.doLast {
+            def raw = task.name.substring("merge".length(), task.name.length() - "NativeLibs".length())
+            def variant = raw.substring(0, 1).toLowerCase() + raw.substring(1)
+            def libDirs = findMergedNativeLibDirs(variant, task.name)
+            if (libDirs.isEmpty()) {
+                println "16KB ELF patch: no merged native lib dir found for ${task.name}"
+                return
+            }
+            libDirs.each { mergedDir ->
+                println "16KB ELF patch: scanning ${mergedDir}"
+                exec {
+                    commandLine patch16KbPython,
+                        "${patch16KbScriptDir}/patch_elf_16kb.py",
+                        mergedDir.absolutePath
+                }
+            }
+        }
+    }
+
+    if (task.name == "bundleRelease") {
+        task.doLast {
+            def aabFile = new File(buildDir, "outputs/bundle/release/app-release.aab")
+            if (!aabFile.exists()) {
+                println "16KB AAB patch: app-release.aab not found"
+                return
+            }
+            def patchedTmp = new File(aabFile.parent, "_patched_16kb.aab")
+            println "16KB AAB: patching BundleConfig.pb..."
+            exec {
+                commandLine patch16KbPython,
+                    "${patch16KbScriptDir}/patch_bundleconfig_16kb.py",
+                    aabFile.absolutePath,
+                    patchedTmp.absolutePath
+            }
+            aabFile.delete()
+            patchedTmp.renameTo(aabFile)
+
+            if (keystorePropertiesFile.exists()) {
+                println "16KB AAB: re-signing..."
+                exec {
+                    commandLine "jarsigner",
+                        "-sigalg", "SHA256withRSA",
+                        "-digestalg", "SHA-256",
+                        "-keystore", file(keystoreProperties["MYAPP_UPLOAD_STORE_FILE"]).absolutePath,
+                        "-storepass", keystoreProperties["MYAPP_UPLOAD_STORE_PASSWORD"],
+                        "-keypass", keystoreProperties["MYAPP_UPLOAD_KEY_PASSWORD"],
+                        aabFile.absolutePath,
+                        keystoreProperties["MYAPP_UPLOAD_KEY_ALIAS"]
+                }
+            }
+            println "16KB AAB: done"
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-    implementation 'com.android.support:multidex:2.0.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
 
-    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.fbjni'
-    }
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-        exclude group:'com.squareup.okhttp3', module:'okhttp'
-    }
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
-    }
+    // Flipper disabled: flipper-fresco-plugin pulls Fresco 2.2.x, incompatible with RN 0.63 (Fresco 2.0.x)
+    // debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
+    //     exclude group:'com.facebook.fbjni'
+    // }
+    // debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+    //     exclude group:'com.facebook.flipper'
+    //     exclude group:'com.squareup.okhttp3', module:'okhttp'
+    // }
+    // debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}") {
+    //     exclude group:'com.facebook.flipper'
+    // }
     addUnimodulesDependencies()
 
     if (enableHermes) {
